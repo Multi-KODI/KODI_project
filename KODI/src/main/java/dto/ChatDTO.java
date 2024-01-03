@@ -11,4 +11,6 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ChatDTO {
 	private int chatIdx;
+	private int member1Idx;
+	private int member2Idx;
 }

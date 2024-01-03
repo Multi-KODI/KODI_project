@@ -10,10 +10,11 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PostDTO {
-	private int postIdx;
-	private String title;
-	private String content;
-	private String regdate;
-	private String address;
-	private int memberIdx;
+   private int postIdx;
+   private String title;
+   private String content;
+   private String regdate;
+   private String address;
+   private String category;
+   private int memberIdx;
 }

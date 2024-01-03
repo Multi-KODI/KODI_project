@@ -1,1 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+   <typeAliases>
+      <typeAlias type="dto.ChatDTO" alias="chatdto" />
+      <typeAlias type="dto.ChatMsgDTO" alias="chatmsgdto" />
+      <typeAlias type="dto.CheckListDTO" alias="checklistdto" />
+      <typeAlias type="dto.CommentDTO" alias="commentdto" />
+      <typeAlias type="dto.DiningCostDTO" alias="diningcostdto" />
+      <typeAlias type="dto.FlagDTO" alias="flagdto" />
+      <typeAlias type="dto.FriendDTO" alias="frienddto" />
+      <typeAlias type="dto.MarkingInfoDTO" alias="markinginfodto" />
+      <typeAlias type="dto.MemberDTO" alias="memberdto" />
+      <typeAlias type="dto.PlanDTO" alias="plandto" />
+      <typeAlias type="dto.PostDTO" alias="postdto" />
+      <typeAlias type="dto.PostImageDTO" alias="postimagedto" />
+      <typeAlias type="dto.PostLikeDTO" alias="postlikedto" />
+      <typeAlias type="dto.PostTagDTO" alias="posttagdto" />
+   </typeAliases>
+</configuration>

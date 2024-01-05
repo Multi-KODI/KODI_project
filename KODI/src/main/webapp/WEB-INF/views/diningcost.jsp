@@ -17,12 +17,13 @@
 </script>
 
 <body>
-	<%
+<%-- 	<%
 		List<DiningCostDTO> list = (List<DiningCostDTO>)request.getAttribute("list");
 		
 		for(DiningCostDTO dto : list){
 			out.print(dto.getItem() + ", ");
 		}
-	%>
+	%> 
+--%>
 </body>
 </html>

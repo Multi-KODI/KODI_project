@@ -54,8 +54,10 @@ $(document).ready(function () {
 	</header>
 
 	<div class="menu-content">
-		<a href="/readpostall">모든 게시글</a> <a href="/map">지도 서비스</a> <a
-			href="/planner">여행 플래너</a> <a href="/diningcost">지역별 외식비</a>
+		<a href="/readpostall">모든 게시글</a> 
+		<a href="/map">지도 서비스</a> 
+		<a href="/planner">여행 플래너</a> 
+		<a href="/diningcost">지역별 외식비</a>
 	</div>
 
 

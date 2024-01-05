@@ -1,0 +1,67 @@
+@charset "UTF-8";
+
+.content {
+	max-height: 7* 20px; /* 7줄까지 표시 */
+	overflow: hidden;
+}
+
+body {
+	font-family: 'NanumSquareNeo';
+	margin: 0;
+	padding: 0;
+}
+
+.main {
+	max-width: 1200px;
+	margin: 20px auto;
+	justify-content: center;
+	margin-bottom: 20px;
+	padding-bottom: 20px;
+}
+
+.logo-container {
+	border-bottom: 2px solid #000000;
+}
+
+.board-box {
+	margin-top: 20px;
+}
+
+.title {
+	align-items: center;
+	border-bottom: 2px solid #000000; /* border 속성 추가 */
+}
+
+input,select{
+	font-family: 'NanumSquareNeo';
+	border-style: 2px soild #B6BBC4;
+	border-radius: 6px;
+	padding: 4px;
+}
+
+#board {
+	margin-top: 20px;
+}
+
+#title {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 20px
+}
+
+#board table {
+	text-align: left;
+	width: 100%;
+}
+
+#board th:nth-child(1) {
+	width: 25%;
+}
+
+#board th:nth-child(2) {
+	width: 25%;
+}
+
+#board th:nth-child(3) {
+	width: 40%;
+}

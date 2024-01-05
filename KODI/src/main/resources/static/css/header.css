@@ -16,7 +16,7 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  max-width: 1400px;
+  max-width: 1920px;
   margin: 0 auto;
 }
 
@@ -31,6 +31,7 @@ header {
 .menu {
   justify-content: flex-start;
   cursor: pointer;
+  margin-left: 50px;
 }
 .end-btn {
   display: flex;
@@ -60,6 +61,7 @@ header {
   font-family: 'NanumSquareNeo';
   padding: 4px;
   border-radius: 8px;
+  margin-right: 50px;
 }
 
 .menu-content {

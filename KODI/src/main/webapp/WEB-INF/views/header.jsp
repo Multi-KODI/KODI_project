@@ -35,12 +35,12 @@ $(document).ready(function () {
 	<header>
 		<div class="header-container">
 			<div class="menu">
-				<img src="/image/menu.png" class="icon" id="menubtn">
+				<img src="/image/icon/menu.png" class="icon" id="menubtn">
 			</div>
 
 			<div class="end-btn">
-				<img class="icon" id="notify" src="/image/notify.png"> <img
-					class="icon" id="chat" src="/image/chat.png">
+				<img class="icon" id="notify" src="/image/icon/notify.png"> <img
+					class="icon" id="chat" src="/image/icon/chat.png">
 				<button class="btn" id="mypagenbtn">마이페이지</button>
 				<button class="btn" id="logoutbtn">로그아웃</button>
 				<div class="language-selection">

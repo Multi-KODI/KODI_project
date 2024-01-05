@@ -11,7 +11,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class DiningCostDTO {
 	private String item;
-	private int seaolCost;
+	private int seoulCost;
 	private int busanCost;
 	private int daeguCost;
 	private int incheonCost;

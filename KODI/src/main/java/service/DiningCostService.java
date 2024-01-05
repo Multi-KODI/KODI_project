@@ -15,8 +15,20 @@ public class DiningCostService {
 	@Qualifier("diningcostdao")
 	DiningCostDAO dao;
 	
-	public List<DiningCostDTO> selectCost(){
-		System.out.println("service");
-		return dao.selectCost();
+	/**
+	 * 전체 품목 외식비 정보
+	 * @return 품목별 외식비 리스트
+	 */
+	public List<DiningCostDTO> selectAllCost(){
+		return dao.selectAllCost();
+	}
+	
+	/**
+	 * 특정 품목 외식비 정보
+	 * @param item
+	 * @return 특정 품목 외식비
+	 */
+	public DiningCostDTO selectOneCost(String item) {
+		return dao.selectOneCost(item);
 	}
 }

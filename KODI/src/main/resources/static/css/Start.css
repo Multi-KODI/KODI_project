@@ -32,7 +32,7 @@ header {
 }
 
 .language-selection select {
-	padding: 4px;
+	padding: 2.5px ;
 	border-radius: 8px;
 	margin-right: 50px;
 }
@@ -75,9 +75,11 @@ main, .page3 {
 	border: 1px solid #898989;
 	border-radius: 4px;
 	outline: none;
+	font-family: 'NanumSquareNeo';
 }
 
 button {
+	font-family: 'NanumSquareNeo';
 	padding: 8px 17px;
 	border: none;
 	cursor: pointer;
@@ -112,9 +114,11 @@ button {
 	padding: 20px;
 	flex-direction: column; 
 	justify-content: center;
+}
 
-
-
+select{
+	font-family: 'NanumSquareNeo';
+	
 }
 
 .imgbox>img {

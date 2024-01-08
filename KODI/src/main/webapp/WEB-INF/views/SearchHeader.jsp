@@ -18,7 +18,7 @@
 	<div class="headerbox">
 
 		<div class="logo-box">
-			<img id="logoicon" src="/image/icon/logo.png">
+			<a href="/home"><img id="logoicon" src="/image/icon/logo.png" ></a>
 		</div>
 
 		<div class="input-box">

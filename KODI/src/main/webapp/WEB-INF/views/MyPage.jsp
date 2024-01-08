@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="/css/MyPage.css">
 <link
 	href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css"
@@ -15,6 +16,10 @@
 <body>
 <%@ include file="/WEB-INF/views/Header.jsp" %>
 <%@ include file="/WEB-INF/views/SearchHeader.jsp" %>
+
+
+<main>
+</main>
 
 </body>
 </html>

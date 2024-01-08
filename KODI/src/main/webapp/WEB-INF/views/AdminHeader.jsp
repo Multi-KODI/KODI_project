@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="/css/Adminheader.css">
+<link rel="stylesheet" href="/css/AdminHeader.css">
 <link
 	href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css"
 	rel="stylesheet">
@@ -47,8 +47,8 @@ $(document).ready(function () {
 	</header>
 
 	<div class="menu-content">
-		<a href="/readpostall">회원 목록</a> 
-		<a href="/map">전체글</a> 
+		<a href="#">회원 목록</a> 
+		<a href="#">전체글</a> 
 	</div>
 
 

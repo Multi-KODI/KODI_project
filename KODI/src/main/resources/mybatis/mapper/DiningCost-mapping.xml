@@ -5,18 +5,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="dao.DiningCostDAO">
 	<!-- select  -->
-	<!-- DiningCost -->
 	<select id="selectAllCost" resultType="diningcostdto">
 		select * from dining_cost
 	</select>
 	<select id="selectOneCost" resultType="diningcostdto" parameterType="String">
 		select * from dining_cost where item = #{item}
 	</select>
-	
-	<!-- ReadPostOne -->
-	
-	
-	<!-- insert  -->
-	<!-- update  -->
-	<!-- delete  -->
 </mapper>
+

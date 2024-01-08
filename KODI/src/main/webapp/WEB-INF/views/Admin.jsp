@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="/css/admin.css">
+<link rel="stylesheet" href="/css/Admin.css">
 <link
 	href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css"
 	rel="stylesheet">
@@ -14,13 +14,13 @@
 </head>
 
 <body>
-	<%@ include file="/WEB-INF/views/adminheader.jsp"%>
+	<%@ include file="/WEB-INF/views/AdminHeader.jsp"%>
 
 
 	<div class="main">
 
 		<div class="logo-container">
-			<img src="/image/icon/logo.png" alt="KoDi">
+			<img src="/image/icon/logo.png" alt="KoDi" style="width:170px; height:150px;">
 		</div>
 
 
@@ -36,7 +36,7 @@
 							<option>작성자</option>
 							<option>모두</option>
 						</select>
-							<input name="word" >
+							<input id="search" name="word" >
 						<button type="submit"
 							style="border: none; background: none; cursor: pointer;">
 							<img src="/image/icon/search.png" style="margin-right: 10px; height: 20px; width: 20px;">

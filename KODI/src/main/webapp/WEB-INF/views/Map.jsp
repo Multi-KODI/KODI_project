@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="/css/map.css">
+<link rel="stylesheet" href="/css/Map.css">
 <link
 	href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css"
 	rel="stylesheet">
@@ -12,6 +12,9 @@
 <title>map</title>
 </head>
 <body>
-<%@ include file="/WEB-INF/views/header.jsp" %>
+<%@ include file="/WEB-INF/views/Header.jsp" %>
+<%@ include file="/WEB-INF/views/SearchHeader.jsp" %>
+
+
 </body>
 </html>

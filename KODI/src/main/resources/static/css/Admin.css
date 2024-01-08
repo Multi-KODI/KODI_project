@@ -29,12 +29,13 @@ body {
 
 .title {
 	align-items: center;
-	border-bottom: 2px solid #000000; /* border 속성 추가 */
+	border-bottom: 2px solid #000000;
+	
 }
 
-input,select{
+#search, input,select{
 	font-family: 'NanumSquareNeo';
-	border-style: 2px soild #B6BBC4;
+	border-style: 2px solid #B6BBC4;
 	border-radius: 6px;
 	padding: 4px;
 }

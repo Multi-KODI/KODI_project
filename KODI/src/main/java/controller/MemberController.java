@@ -28,7 +28,11 @@ public class MemberController {
 	@Qualifier("emailService")
 	private EmailService emailService;
 	
-	@PostMapping("/email") // 이메일 전송
+	/**
+	 * 이메일 전송
+	 * @return 
+	 */
+	@PostMapping("/email") 
 	@ResponseBody
 	public boolean sendEmail(@RequestBody MemberDTO memberDTO, HttpSession session){
 		MemberDTO existingMember = memberService.findMemberByEmail(memberDTO.getEmail()); 
@@ -51,7 +55,11 @@ public class MemberController {
 		return true;
 	}
 	
-	@PostMapping("/verify") //이메일 검증
+	/**
+	 * 이메일 검증
+	 * @return
+	 */
+	@PostMapping("/verify") 
 	@ResponseBody
 	public boolean verifyEmail(String otp, HttpSession session){
 		
@@ -124,5 +132,23 @@ public class MemberController {
 			return true;
 		}
 		return false;
+	}
+
+	/**
+	 * 로그아웃 처리
+	 * @return
+	 */
+	@PostMapping("/logout") 
+	public boolean logoutMember(@RequestBody MemberDTO memberDTO, 
+			HttpSession session) {
+				
+		//로그인이 아닐 시
+		if(session.getAttribute("memberId") == null){
+			return false;
+		//로그인한 상태일 때
+		}else{
+			session.removeAttribute("memberId");
+			return true;
+		}
 	}
 }

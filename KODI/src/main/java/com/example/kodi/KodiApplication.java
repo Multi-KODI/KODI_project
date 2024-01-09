@@ -10,6 +10,7 @@ import org.springframework.context.annotation.ComponentScan;
 @ComponentScan(basePackages = "service")
 @ComponentScan(basePackages = "controller")
 @MapperScan(basePackages = "dao")
+@MapperScan(basePackages = "config")
 @SpringBootApplication
 public class KodiApplication {
 

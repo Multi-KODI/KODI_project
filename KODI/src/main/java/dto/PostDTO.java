@@ -16,5 +16,6 @@ public class PostDTO {
    private String regdate;
    private String address;
    private String category;
+   private double grade;
    private int memberIdx;
 }

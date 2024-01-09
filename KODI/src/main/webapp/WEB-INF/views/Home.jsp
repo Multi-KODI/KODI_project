@@ -13,6 +13,32 @@
 <title>home</title>
 </head>
 <body>
+
+<script>
+$(document).ready(function () {    
+    $("#menubar1").on("click", function () {
+        window.location.href = "/api/post";
+      });
+    
+    $("#menubar2").on("click", function () {
+        window.location.href = "#";
+      });
+    
+    $("#menubar3").on("click", function () {
+        window.location.href = "#";
+      });
+    
+    $("#menubar4").on("click", function () {
+        window.location.href = "/api/diningcost";
+      });
+    
+  }); //ready
+
+</script>
+
+
+
+
 <%@ include file="/WEB-INF/views/Header.jsp" %>
 <%@ include file="/WEB-INF/views/SearchHeader.jsp" %>
 

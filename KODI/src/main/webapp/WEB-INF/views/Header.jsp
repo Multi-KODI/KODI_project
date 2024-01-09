@@ -23,8 +23,16 @@ $(document).ready(function () {
         window.location.href = "/mypage";
       });
     
+    $("#logoutbtn").on("click", function () {
+    	if (confirm("로그아웃 하시겠습니까?")){
+    		window.location.href = "/start";
+    	}
+    	else{}
+      });
+    
+    
     $("#chat").on("click", function () {
-        window.location.href = "/chat";
+        window.location.href = "/api/chat";
       });
     
     
@@ -54,10 +62,10 @@ $(document).ready(function () {
 	</header>
 
 	<div class="menu-content">
-		<a href="/readpostall">모든 게시글</a> 
-		<a href="/map">지도 서비스</a> 
-		<a href="/planner">여행 플래너</a> 
-		<a href="/diningcost">지역별 외식비</a>
+		<a href="/api/post">모든 게시글</a> 
+		<a href="#">지도 서비스</a> 
+		<a href="#">여행 플래너</a> 
+		<a href="/api/diningcost">지역별 외식비</a>
 	</div>
 
 

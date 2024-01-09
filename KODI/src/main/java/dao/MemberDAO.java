@@ -29,6 +29,6 @@ public interface MemberDAO {
 	int withdrawMember(int memberIdx);
 
 	//회원정보 업데이트 SQL문
-	@Update("UPDATE members SET email = #{email}, pw = #{pw}, member_name = #{memberName} , flag_idx = #{flagIdx} WHERE memberIdx = 123; ")
+	@Update("UPDATE members SET email = #{email}, pw = #{pw}, member_name = #{memberName} , flag_idx = #{flagIdx} WHERE memberIdx = {memberIdx}; ")
 	int updateMemberInfo(MemberDTO memberDTO);
 }

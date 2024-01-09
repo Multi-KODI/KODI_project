@@ -67,7 +67,7 @@
 			<version>3.0.3</version>
 			<scope>test</scope>
 		</dependency>
-		
+
 		<!-- servlet/jstl/el-->
 		<!-- jsp  servlet jstl -->
 		<dependency>
@@ -89,7 +89,6 @@
 			<version>2.0.0</version>
 		</dependency>
 
-		
 		<!-- WebSocket -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -100,7 +99,7 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-mail</artifactId>
-    </dependency>
+		</dependency>
 	</dependencies>
 
 	<build>

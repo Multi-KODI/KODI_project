@@ -65,6 +65,7 @@ public class MemberController {
 		
 		//사용자가 입력한 OTP와 세션의 OTP 비교
 		if(session.getAttribute(otp).equals(otp)) {
+			session.removeAttribute("otp");
 			return true;
 		}
 		return false;
@@ -92,9 +93,6 @@ public class MemberController {
 		//기존에 멤버가 없을 때 회원등록
 		if(findedMember == null) {
 			memberService.registerMember(memberDTO);
-
-			//멤버 아이디를 세션에 바운딩
-			session.setAttribute("memberIdx", memberDTO.getMemberIdx());
 			return true;
 		}
 		return false;

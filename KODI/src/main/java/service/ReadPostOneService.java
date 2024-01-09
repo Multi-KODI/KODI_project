@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import dao.ReadPostOneDAO;
 import dto.CommentDTO;
+import dto.CommentMemberDTO;
 import dto.PostDTO;
 import dto.ReadPostOneDTO;
 
@@ -17,30 +18,41 @@ public class ReadPostOneService {
 	@Autowired
 	@Qualifier("readpostonedao")
 	ReadPostOneDAO dao;
-
+	
 	/**
 	 * 게시글 상세 정보 조회
+	 * 
 	 * @param postIdx
 	 * @return 게시글 상세 정보
 	 */
 	public ReadPostOneDTO getReadPostOne(int postIdx) {
 		PostDTO postInfo = dao.selectPostInfo(postIdx);
-		
+
 		int flagIdx = dao.selectFlagIdx(postInfo.getMemberIdx());
 		String flag = dao.selectFlag(flagIdx);
-		
+
 		String memberName = dao.selectMemberName(postInfo.getMemberIdx());
 		List<String> postImages = dao.selectPostImages(postIdx);
-		
+
 		int likeCnt = dao.selectLikeCnt(postIdx);
 		List<String> postTags = dao.selectPostTags(postIdx);
 		List<CommentDTO> comments = dao.selectComment(postIdx);
-		
+
 		return new ReadPostOneDTO(postInfo, flag, memberName, postImages, likeCnt, postTags, comments);
+	}
+	
+	/**
+	 * 댓글 작성자 조회
+	 * @param memberIdx
+	 * @return 댓글 작성자 DTO
+	 */
+	public CommentMemberDTO selectCommentMemberName(int memberIdx) {
+		return new CommentMemberDTO(memberIdx, dao.selectMemberName(memberIdx));
 	}
 
 	/**
 	 * 게시글에 대한 현재 사용자의 좋아요 수 조회
+	 * 
 	 * @param postIdx
 	 * @param memberIdx
 	 * @return 게시글에 대한 현재 사용자의 좋아요 수
@@ -50,12 +62,13 @@ public class ReadPostOneService {
 
 		map.put("postIdx", postIdx);
 		map.put("memberIdx", memberIdx);
-		
+
 		return dao.isClickLike(map);
 	}
 
 	/**
 	 * 좋아요 삭제
+	 * 
 	 * @param postIdx
 	 * @param memberIdx
 	 */
@@ -70,6 +83,7 @@ public class ReadPostOneService {
 
 	/**
 	 * 좋아요 저장
+	 * 
 	 * @param postIdx
 	 * @param memberIdx
 	 */
@@ -84,6 +98,7 @@ public class ReadPostOneService {
 
 	/**
 	 * 좋아요 수 조회
+	 * 
 	 * @param postIdx
 	 * @return 좋아요 수
 	 */
@@ -93,6 +108,7 @@ public class ReadPostOneService {
 
 	/**
 	 * 과거 마킹 여부 조회
+	 * 
 	 * @param postIdx
 	 * @param memberIdx
 	 * @return 마킹 여부(1|0)
@@ -102,15 +118,16 @@ public class ReadPostOneService {
 
 		map.put("postIdx", postIdx);
 		map.put("memberIdx", memberIdx);
-		
+
 		return dao.isClickMarking(map);
 	}
 
 	/**
 	 * 기존 마킹 삭제
+	 * 
 	 * @param postIdx
 	 * @param memberIdx
-	 * @return 
+	 * @return
 	 */
 	public int deleteMarking(int postIdx, int memberIdx) {
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
@@ -123,6 +140,7 @@ public class ReadPostOneService {
 
 	/**
 	 * 마킹 등록
+	 * 
 	 * @param postIdx
 	 * @param memberIdx
 	 */
@@ -137,6 +155,7 @@ public class ReadPostOneService {
 
 	/**
 	 * 댓글 저장
+	 * 
 	 * @param content
 	 * @param postIdx
 	 * @param memberIdx
@@ -148,12 +167,13 @@ public class ReadPostOneService {
 		map.put("content", content);
 		map.put("postIdx", postIdx);
 		map.put("memberIdx", memberIdx);
-		
+
 		return dao.insertComment(map);
 	}
 
 	/**
 	 * 댓글 삭제
+	 * 
 	 * @param commentIdx
 	 * @return 댓글 삭제 성공 여부(1|0)
 	 */
@@ -163,13 +183,12 @@ public class ReadPostOneService {
 
 	/**
 	 * 게시글 삭제
+	 * 
 	 * @param postIdx
 	 * @return
 	 */
 	public int deletePost(int postIdx) {
 		return dao.deletePost(postIdx);
 	}
-	
-	
 
 }

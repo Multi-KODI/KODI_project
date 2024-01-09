@@ -15,7 +15,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select src from flag where flag_idx = #{flagIdx}
 	</select>
 	<select id="selectMemberName" resultType="String" parameterType="int">
-		select member_name from members where member_idx = #{memberIdx}
+		select member_name as memberName from members where member_idx = #{memberIdx}
 	</select>
 	<select id="selectPostImages" resultType="String" parameterType="int">
 		select src from post_image where post_idx = #{postIdx}

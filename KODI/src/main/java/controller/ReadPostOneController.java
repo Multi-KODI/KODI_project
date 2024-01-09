@@ -1,18 +1,10 @@
 package controller;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Base64;
-import java.util.Locale.Category;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.core.io.InputStreamResource;
-import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,12 +15,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import dto.CommentDTO;
+import dto.CommentMemberDTO;
 import dto.CommentRq;
 import dto.DeletePostRq;
 import dto.MarkingInfoDTO;
 import dto.PostLikeDTO;
 import dto.ReadPostOneDTO;
-import net.sf.jsqlparser.statement.delete.Delete;
 import service.ReadPostOneService;
 
 @Controller
@@ -45,21 +37,24 @@ public class ReadPostOneController {
 	 */
 	@GetMapping("/post/{postIdx}")
 	public ModelAndView readPostOne(@PathVariable int postIdx) {
-		
 		ReadPostOneDTO readPostOne = service.getReadPostOne(postIdx);
 		
-		//String src = "C:/image/" + readPostOne.getPostImages().get(0);
+		List<CommentMemberDTO> commentMemberInfo = new ArrayList<>();
 		
+		for (CommentDTO dto : readPostOne.getComments()) {
+			commentMemberInfo.add(service.selectCommentMemberName(dto.getMemberIdx()));
+		}
+
 		ModelAndView mv = new ModelAndView();
 		
 		mv.addObject("readPostOne", readPostOne);
-		//mv.addObject("src", src);
+		mv.addObject("commentMemberInfo", commentMemberInfo);
 				
 		mv.setViewName("ReadPostOne");
 		
 		return mv;
 	}
-	
+
 	/**
 	 * 게시글 좋아요 클릭 API
 	 * @param like
@@ -119,7 +114,6 @@ public class ReadPostOneController {
 	@PostMapping("/post/comment")
 	@ResponseBody
 	public int insertComment(@RequestBody CommentRq comment) {
-		System.out.println("controller");
 		return service.insertComment(comment.getContent(), comment.getPostIdx(), comment.getMemberIdx());
 	}
 	

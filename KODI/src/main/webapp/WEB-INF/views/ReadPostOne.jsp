@@ -18,7 +18,7 @@
 
 <script>
 	// memberIdx 추후 session 값 받아오기
-<%-- 	let sessionId = <%=session.getAttribute("user")%>; --%>	
+<%-- 	let sessionId = <%=session.getAttribute("memberIdx")%>; --%>	
  
 	$(document).ready(function(){
 		showPostData();
@@ -30,7 +30,7 @@
 		updateDelMenu();
 	});
 	
-	function showPostData() {
+	function showPostData() {		
 		$("#postTitle").html("${readPostOne.postInfo.title}");
 		$("#grade").html("평점 " + "${readPostOne.postInfo.grade}" + "/5.0");
 		$("#flag").attr("src", "${readPostOne.flag}");
@@ -169,28 +169,50 @@
 		let commentText;
 		let deleteBtn;
 		
+		
 		// 기존 데이터베이스에 있는 댓글 먼저 정렬
 		if(${readPostOne.comments.size() > 0}){
 			<c:forEach items="${readPostOne.comments}" var="one">            
 				comment = document.createElement("span");
 				comment.setAttribute("id", `${one.memberIdx}`);
+				
+				commentMemberName = document.createElement("p");
+				commentMemberName.setAttribute("id", "commentMemberName");
+				commentMemberName.setAttribute("style", "display: inline;");
+
 				commentText = document.createElement("p");
 				commentText.setAttribute("id", "commentText");
+				commentText.setAttribute("style", "display: inline;");
+
+				commentRegdate = document.createElement("p");
+				commentRegdate.setAttribute("id", "commentRegdate");
+				commentRegdate.setAttribute("style", "color:grey;");
 				
 				deleteBtn = document.createElement("input");
 				deleteBtn.setAttribute("type", "button");
 				deleteBtn.setAttribute("id", "deleteBtn");
 				deleteBtn.setAttribute("value", "삭제");
-				deleteBtn.setAttribute("style", "border:none; background-color:#EDF2F6; color:grey; float:right;");
+				deleteBtn.setAttribute("style", "display: inline; border:none; background-color:#EDF2F6; color:grey; float:right;");
 				deleteBtn.setAttribute("onclick", `deleteCommentBtn(${one.commentIdx})`);
-				
+								
+				comment.appendChild(commentMemberName);
 				comment.appendChild(commentText);
 				comment.appendChild(deleteBtn);
+				comment.appendChild(commentRegdate);
+				
+				<c:forEach items="${commentMemberInfo}" var="memberInfo">  					
+					if("${memberInfo.memberIdx}" == "${one.memberIdx}"){
+						commentMemberName.innerHTML = "<img src=\"/image/icon/user.png\" width=16px height=16px>&nbsp;&nbsp;" + "${memberInfo.memberName}&nbsp;&nbsp;|&nbsp;&nbsp;";
+					}
+				</c:forEach>
 				
 				commentText.innerHTML += "${one.content}";
-				comment.innerHTML += "<br><hr>";
+				commentRegdate.innerHTML += "${one.regdate}"
+				comment.innerHTML += "<hr>";
+				
 				comments.appendChild(comment);
 				showComment.appendChild(comments);
+				
 				inputComment.value = "";
 				num++;
 			</c:forEach>
@@ -212,7 +234,7 @@
 					dataType: "json",
 					success: function(response){
 						if(response == 1){
-							alert("댓글 작성완료");
+							//alert("댓글 작성완료");
 							location.reload();
 						}else{
 							alert("댓글 작성실패");
@@ -286,7 +308,7 @@
 						dataType: "json",
 						contentType: "application/json",
 						success: function(response){
-							alert("게시물 삭제성공");
+							alert("게시물을 삭제하였습니다.");
 							location.href = "/api/post";
 						},
 						error: function(request, e){
@@ -305,7 +327,8 @@
 
 <body>
 	<!-- 헤더 -->
-
+	<%@ include file="/WEB-INF/views/Header.jsp" %>
+	<%@ include file="/WEB-INF/views/SearchHeader.jsp" %>
 
 	<div id="allElement">
 		<!-- 게시물 정보 -->

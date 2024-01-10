@@ -53,7 +53,7 @@ public class MyPageController {
 
       // 비밀번호가 일치하는 경우
       if (typedPassword.equals(password)) {
-        return new ResponseEntity<>("로그인 성공", HttpStatus.OK);
+        return new ResponseEntity<>("회원정보 확인 완료", HttpStatus.OK);
 
         // 비밀번호가 불일치하는 경우
       } else {

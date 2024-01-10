@@ -4,6 +4,9 @@ import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +28,8 @@ public class MemberController {
 	 * POST 로그인 처리(/api/login) DATA: 유저 이메일, 패스워드
 	 * POST 로그아웃 처리(/api/logout) DATA: X
 	 * 
+	 * GET 회원가입 페이지 요청(/api/register)
+	 * GET 로그인 페이지 요청(/api/login)
 	 */
 	@Autowired
 	@Qualifier("memberService")
@@ -35,6 +40,26 @@ public class MemberController {
 	private EmailService emailService;
 
 	/**
+	 * 회원가입 페이지 요청
+	 * 
+	 * @return
+	 */
+	@GetMapping("/register")
+	public String registerMember() {
+		return "Register";
+	}
+
+	/**
+	 * 로그인 페이지 요청
+	 * 
+	 * @return
+	 */
+	@GetMapping("/login")
+	public String loginMember() {
+		return "Login";
+	}
+
+	/**
 	 * 이메일 전송
 	 * DATA: 회원가입할 이메일
 	 * 
@@ -42,11 +67,11 @@ public class MemberController {
 	 */
 	@PostMapping("/email")
 	@ResponseBody
-	public boolean sendEmail(@RequestBody MemberDTO memberDTO, HttpSession session) {
+	public ResponseEntity<String> sendEmail(@RequestBody MemberDTO memberDTO, HttpSession session) {
 		MemberDTO existingMember = memberService.findMemberByEmail(memberDTO.getEmail());
 		// 중복 유저 확인
 		if (existingMember != null) {
-			return false;
+			return new ResponseEntity<>("중복된 유저가 있습니다", HttpStatus.BAD_REQUEST);
 		}
 
 		// OTP 생성
@@ -60,7 +85,7 @@ public class MemberController {
 		String subject = "Email Verfication";
 		String body = "Your verification OPT is " + otp;
 		emailService.sendEmail(memberDTO.getEmail(), subject, body);
-		return true;
+		return new ResponseEntity<>("인증코드를 발송했습니다, 이메일을 확인해 주세요", HttpStatus.OK);
 	}
 
 	/**
@@ -71,32 +96,33 @@ public class MemberController {
 	 */
 	@PostMapping("/verify")
 	@ResponseBody
-	public boolean verifyEmail(String otp, HttpSession session) {
+	public ResponseEntity<String> verifyEmail(String otp, HttpSession session) {
 
 		// 사용자가 입력한 OTP와 세션의 OTP 비교
 		if (session.getAttribute(otp).equals(otp)) {
 			session.removeAttribute("otp");
-			return true;
+			return new ResponseEntity<>("이메일이 인증되었습니다", HttpStatus.OK);
 		}
-		return false;
+		return new ResponseEntity<>("OTP 번호가 일치하지 않습니다.", HttpStatus.BAD_REQUEST);
 	}
 
 	/**
 	 * 회원가입 처리
+	 * 
 	 * @param memberDTO
 	 * @param session
 	 * @return
 	 */
 	@PostMapping("/register")
-	public boolean registerMember(@RequestBody MemberDTO memberDTO, HttpSession session) {
+	public ResponseEntity<String> registerMember(@RequestBody MemberDTO memberDTO, HttpSession session) {
 		MemberDTO findedMember = memberService.findMemberByEmail(memberDTO.getEmail());
 
 		// 기존에 멤버가 없을 때 회원등록
 		if (findedMember == null) {
 			memberService.registerMember(memberDTO);
-			return true;
+			return new ResponseEntity<>("회원등록이 완료되었습니다", HttpStatus.OK);
 		}
-		return false;
+		return new ResponseEntity<>("회원등록을 실패하였습니다", HttpStatus.BAD_REQUEST);
 	}
 
 	/**
@@ -107,22 +133,22 @@ public class MemberController {
 	 * @return
 	 */
 	@PostMapping("/login")
-	public boolean loginMember(@RequestBody MemberDTO memberDTO,
+	public ResponseEntity<String> loginMember(@RequestBody MemberDTO memberDTO,
 			HttpSession session) {
 
 		// 이메일로 회원여부 확인
 		MemberDTO findedMember = memberService.findMemberByEmail(memberDTO.getEmail());
 		if (findedMember == null) {
 			// 회원이 없는 경우
-			return false;
+			return new ResponseEntity<>("회원이 존재하지 않습니다", HttpStatus.BAD_REQUEST);
 		}
 		// 아이디가 존재하고, 비밀번호가 일치하는 경우
 		if (memberDTO.getPw().equals(findedMember.getPw())) {
 			// 멤버 아이디를 세션에 바운딩
 			session.setAttribute("memberIdx", findedMember.getMemberIdx());
-			return true;
+			return new ResponseEntity<>("로그인에 성공하였습니다", HttpStatus.OK);
 		}
-		return false;
+		return new ResponseEntity<>("비밀번호를 확인해 주세요", HttpStatus.BAD_REQUEST);
 	}
 
 	/**
@@ -131,15 +157,15 @@ public class MemberController {
 	 * @return
 	 */
 	@PostMapping("/logout")
-	public boolean logoutMember(HttpSession session) {
+	public ResponseEntity<String> logoutMember(HttpSession session) {
 
 		// 로그인이 아닐 시
 		if (session.getAttribute("memberId") == null) {
-			return false;
+			return new ResponseEntity<>("로그인된 정보가 없습니다", HttpStatus.BAD_REQUEST);
 			// 로그인한 상태일 때
 		} else {
 			session.removeAttribute("memberId");
-			return true;
+			return new ResponseEntity<>("로그아웃 되었습니다", HttpStatus.OK);
 		}
 	}
 }

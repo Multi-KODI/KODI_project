@@ -13,7 +13,6 @@
 <link href="/css/ReadPostOne.css" rel="stylesheet">
 
 <script src="/js/jquery-3.7.1.min.js"></script>
-<script src="/js/ReadPostOne.js"></script>
 </head>
 
 <script>
@@ -202,7 +201,7 @@
 				
 				<c:forEach items="${commentMemberInfo}" var="memberInfo">  					
 					if("${memberInfo.memberIdx}" == "${one.memberIdx}"){
-						commentMemberName.innerHTML = "<img src=\"/image/icon/user.png\" width=16px height=16px>&nbsp;&nbsp;" + "${memberInfo.memberName}&nbsp;&nbsp;|&nbsp;&nbsp;";
+						commentMemberName.innerHTML = "<img src=\"/image/icon/user.png\" width=16px height=16px align= \"center\">&nbsp;&nbsp;" + "${memberInfo.memberName}&nbsp;&nbsp;|&nbsp;&nbsp;";
 					}
 				</c:forEach>
 				
@@ -352,7 +351,7 @@
 
 			<div id="postInfo">
 				<p id="grade" style="display: inline;">평점 3.5/5</p>
-				<img id="flag" src="/image/love.png" width=15px; height=15px;>
+				<img id="flag" src="/image/love.png" width=15px height=15px align= "center">
 				<p id="memberName" style="display: inline;">작성자</p>
 				<p id="date" style="display: inline;">2023.11.08. 15:48</p>
 			</div>
@@ -377,15 +376,15 @@
 		<!-- 좋아요, 마킹, 공유 -->
 		<div id="btns">
 			<button id="like" type="button">
-				<span> <img src="/image/icon/love.png">
+				<span> <img src="/image/icon/love.png" align= "center">
 					<p id="likeBtnText" style="display: inline;">0</p>
 				</span>
 			</button>
 			<button id="marker" type="button">
-				<img src="/image/icon/marker.png">
+				<img src="/image/icon/marker.png" align= "center">
 			</button>
 			<button id="share" type="button">
-				<img src="/image/icon/export.png">
+				<img src="/image/icon/export.png" align= "center">
 			</button>
 		</div>
 

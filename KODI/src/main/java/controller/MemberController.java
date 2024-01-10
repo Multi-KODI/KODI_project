@@ -21,11 +21,11 @@ import service.MemberService;
 public class MemberController {
 
 	@Autowired
-	@Qualifier("memberService")
+	@Qualifier("memberservice")
 	private MemberService memberService;
 	
 	@Autowired
-	@Qualifier("emailService")
+	@Qualifier("emailservice")
 	private EmailService emailService;
 	
 	/**

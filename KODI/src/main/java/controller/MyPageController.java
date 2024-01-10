@@ -3,6 +3,8 @@ package controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,12 +35,12 @@ public class MyPageController {
    * @return
    */
   @PostMapping("/verifyPw")
-  public boolean verifyPw(HttpSession session, @RequestParam String typedPassword) {
+  public ResponseEntity<String> verifyPw(HttpSession session, @RequestParam String typedPassword) {
 
     // 세션에 로그인이 되어있는지 확인
     // 로그인이 안되어 있을 때
     if (session.getAttribute("memberIdx") == null) {
-      return false;
+      return new ResponseEntity<>("로그인 정보가 없습니다", HttpStatus.BAD_REQUEST);
 
       // 로그인이 되어 있을 때
     } else {
@@ -51,11 +53,11 @@ public class MyPageController {
 
       // 비밀번호가 일치하는 경우
       if (typedPassword.equals(password)) {
-        return true;
+        return new ResponseEntity<>("로그인 성공", HttpStatus.OK);
 
         // 비밀번호가 불일치하는 경우
       } else {
-        return false;
+        return new ResponseEntity<>("비밀번호가 일치하지 않습니다", HttpStatus.BAD_REQUEST);
       }
     }
   }
@@ -67,7 +69,7 @@ public class MyPageController {
    * @return
    */
   @PostMapping("/withdrawMember")
-  public boolean withdrawMember(HttpSession session) {
+  public ResponseEntity<String> withdrawMember(HttpSession session) {
 
     // 세션에 바운딩된 유저아이디를 받아옴
     Integer memberIdx = Integer.parseInt((String) session.getAttribute("memberIdx"));
@@ -75,10 +77,10 @@ public class MyPageController {
     // 세션에 유저아이디가 있고, 실제로 DB에 존재하는 경우
     if (memberIdx != null && memberService.findMemberByIdx(memberIdx) != null) {
       memberService.withdrawMember(memberIdx);
-      return true;
+      return new ResponseEntity<>("회원탈퇴가 완료되었습니다", HttpStatus.OK);
       // 세션에 유저아이디가 없거나 DB에 존재하지 않는 경우
     } else {
-      return false;
+      return new ResponseEntity<>("회원이 존재하지 않습니다", HttpStatus.BAD_REQUEST);
     }
   }
 
@@ -90,7 +92,7 @@ public class MyPageController {
    * @return
    */
   @PostMapping("/updateMemberInfo")
-  public boolean updateMemberInfo(@RequestBody MemberDTO memberDTO, HttpSession session) {
+  public ResponseEntity<String> updateMemberInfo(@RequestBody MemberDTO memberDTO, HttpSession session) {
 
     // 세션에 바운딩된 유저아이디를 받아옴
     Integer memberIdx = Integer.parseInt((String) session.getAttribute("memberIdx"));
@@ -98,11 +100,11 @@ public class MyPageController {
     // 세션에 유저아이디가 있고, 실제로 DB에 존재하는 경우
     if (memberIdx != null && memberService.findMemberByIdx(memberIdx) != null) {
       memberService.updateMemberInfo(memberDTO);
-      return true;
+      return new ResponseEntity<>("회원정보가 업데이트 되었습니다", HttpStatus.OK);
 
       // 세션에 유저아이디가 없거나 DB에 존재하지 않는 경우
     } else {
-      return false;
+      return new ResponseEntity<>("회원이 존재하지 않습니다", HttpStatus.BAD_REQUEST);
     }
   }
 

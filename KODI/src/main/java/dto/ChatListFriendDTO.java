@@ -10,6 +10,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ChatListFriendDTO {
-	private Integer friendMemberIdx;
+	private int friendMemberIdx;
 	private String friendMemberName;
 }

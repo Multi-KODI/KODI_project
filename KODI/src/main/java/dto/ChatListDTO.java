@@ -12,6 +12,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ChatListDTO {
-	private ChatListFriendDTO friendInfo;
+	private List<ChatListFriendDTO> friendInfo;
 	private List<ChatListRoomDTO> chatingRoomInfo;
 }

@@ -26,7 +26,7 @@ public class ChatListController {
 	@GetMapping("/chat/{memberIdx}")
 	public ModelAndView chatList(@PathVariable int memberIdx) {
 		ChatListDTO chatListInfo = service.getChatListInfo(memberIdx);
-
+		
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("chatListInfo", chatListInfo);
 		mv.setViewName("ChatList");

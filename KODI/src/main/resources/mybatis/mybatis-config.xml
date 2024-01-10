@@ -5,6 +5,7 @@
 <configuration>
 	<typeAliases>
 		<typeAlias type="dto.ChatDTO" alias="chatdto" />
+		<typeAlias type="dto.ChatListFriendDTO" alias="chatlistfrienddto" />
 		<typeAlias type="dto.ChatMsgDTO" alias="chatmsgdto" />
 		<typeAlias type="dto.CheckListDTO" alias="checklistdto" />
 		<typeAlias type="dto.CommentDTO" alias="commentdto" />

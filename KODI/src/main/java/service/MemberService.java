@@ -1,12 +1,14 @@
 package service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import dao.MemberDAO;
 import dto.MemberDTO;
 
-@Service
+@Service("memberservice")
 public class MemberService {
 	
 	@Autowired
@@ -20,6 +22,11 @@ public class MemberService {
 	//회원 탈퇴
 	public void withdrawMember(int memberIdx){
 		memberDAO.withdrawMember(memberIdx);
+	}
+
+	public List<MemberDTO> findAllMembers(){
+		List<MemberDTO> members = memberDAO.findAllMembers();
+		return members;
 	}
 	
 	//이메일로 회원찾기

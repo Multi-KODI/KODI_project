@@ -32,11 +32,11 @@ public class MemberController {
 	 * GET 로그인 페이지 요청(/api/login)
 	 */
 	@Autowired
-	@Qualifier("memberService")
+	@Qualifier("memberservice")
 	private MemberService memberService;
 
 	@Autowired
-	@Qualifier("emailService")
+	@Qualifier("emailservice")
 	private EmailService emailService;
 
 	/**

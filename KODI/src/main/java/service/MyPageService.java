@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import dao.MyPageDAO;
 import dto.PostDTO;
 
-@Service
+@Service("mypageservice")
 public class MyPageService {
   @Autowired
   private MyPageDAO myPageDAO;

@@ -23,127 +23,126 @@ import service.MyPageService;
 @RequestMapping("/api")
 public class MyPageController {
 
-  /**
-   * POST 비밀번호 인증 (/api/verifyPw) DATA: 유저 입력 비밀번호
-   * POST 회원탈퇴 (/api/withdrawMember)DATA: X
-   * POST 회원정보 수정 (/api/updateMemberInfo) DATA: 변경할 비밀번호, 닉네임, 국적
-   * GET 마이페이지 요청 (/api/myPage) DATA: X
-   */
+	/**
+	 * POST 비밀번호 인증 (/api/verifyPw) DATA: 유저 입력 비밀번호 POST 회원탈퇴
+	 * (/api/withdrawMember)DATA: X POST 회원정보 수정 (/api/updateMemberInfo) DATA: 변경할
+	 * 비밀번호, 닉네임, 국적 GET 마이페이지 요청 (/api/myPage) DATA: X
+	 */
 
-  @Autowired
-  private MemberService memberService;
+	@Autowired
+	private MemberService memberService;
 
-  @Autowired
-  private MyPageService myPageService;
+	@Autowired
+	private MyPageService myPageService;
 
-  /**
-   * 회원탈퇴 시 비밀번호 인증
-   * 
-   * @param session
-   * @return
-   */
-  @PostMapping("/verifyPw")
-  public ResponseEntity<String> verifyPw(HttpSession session, @RequestBody MemberDTO memberDTO) {
-    String memberSessionIdx = (String) session.getAttribute("memberIdx");
+	/**
+	 * 회원탈퇴 시 비밀번호 인증
+	 * 
+	 * @param session
+	 * @return
+	 */
+	@PostMapping("/verifyPw")
+	public ResponseEntity<String> verifyPw(HttpSession session, @RequestBody MemberDTO memberDTO) {
+		String memberSessionIdx = (String) session.getAttribute("memberIdx");
 
-    // 세션에 로그인이 되어있는지 확인
-    // 로그인이 안되어 있을 때
-    if (memberSessionIdx == null) {
-      return new ResponseEntity<>("로그인 정보가 없습니다", HttpStatus.BAD_REQUEST);
+		// 세션에 로그인이 되어있는지 확인
+		// 로그인이 안되어 있을 때
+		if (memberSessionIdx == null) {
+			return new ResponseEntity<>("로그인 정보가 없습니다", HttpStatus.BAD_REQUEST);
 
-      // 로그인이 되어 있을 때
-    } else {
+			// 로그인이 되어 있을 때
+		} else {
 
-      // 비밀번호를 받아옴
-      Integer memberIdx = Integer.parseInt(memberSessionIdx);
-      String password = memberService.findMemberByIdx(memberIdx).getPw();
+			// 비밀번호를 받아옴
+			Integer memberIdx = Integer.parseInt(memberSessionIdx);
+			String password = memberService.findMemberByIdx(memberIdx).getPw();
 
-      // 비밀번호가 일치하는 경우
-      if (memberDTO.getPw().equals(password)) {
-        return new ResponseEntity<>("회원정보 확인 완료", HttpStatus.OK);
+			// 비밀번호가 일치하는 경우
+			if (memberDTO.getPw().equals(password)) {
+				return new ResponseEntity<>("회원정보 확인 완료", HttpStatus.OK);
 
-        // 비밀번호가 불일치하는 경우
-      } else {
-        return new ResponseEntity<>("비밀번호가 일치하지 않습니다", HttpStatus.BAD_REQUEST);
-      }
-    }
-  }
+				// 비밀번호가 불일치하는 경우
+			} else {
+				return new ResponseEntity<>("비밀번호가 일치하지 않습니다", HttpStatus.BAD_REQUEST);
+			}
+		}
+	}
 
-  /**
-   * 회원탈퇴 처리
-   * 
-   * @param session
-   * @return
-   */
-  @PostMapping("/withdrawMember")
-  public ResponseEntity<String> withdrawMember(HttpSession session) {
+	/**
+	 * 회원탈퇴 처리
+	 * 
+	 * @param session
+	 * @return
+	 */
+	@PostMapping("/withdrawMember")
+	public ResponseEntity<String> withdrawMember(HttpSession session) {
 
-    // 세션에 바운딩된 유저아이디를 받아옴
-    Integer memberIdx = Integer.parseInt((String) session.getAttribute("memberIdx"));
+		// 세션에 바운딩된 유저아이디를 받아옴
+		Integer memberIdx = Integer.parseInt((String) session.getAttribute("memberIdx"));
 
-    // 세션에 유저아이디가 있고, 실제로 DB에 존재하는 경우
-    if (memberIdx != null && memberService.findMemberByIdx(memberIdx) != null) {
-      memberService.withdrawMember(memberIdx);
-      return new ResponseEntity<>("회원탈퇴가 완료되었습니다", HttpStatus.OK);
-      // 세션에 유저아이디가 없거나 DB에 존재하지 않는 경우
-    } else {
-      return new ResponseEntity<>("회원이 존재하지 않습니다", HttpStatus.BAD_REQUEST);
-    }
-  }
+		// 세션에 유저아이디가 있고, 실제로 DB에 존재하는 경우
+		if (memberIdx != null && memberService.findMemberByIdx(memberIdx) != null) {
+			memberService.withdrawMember(memberIdx);
+			return new ResponseEntity<>("회원탈퇴가 완료되었습니다", HttpStatus.OK);
+			// 세션에 유저아이디가 없거나 DB에 존재하지 않는 경우
+		} else {
+			return new ResponseEntity<>("회원이 존재하지 않습니다", HttpStatus.BAD_REQUEST);
+		}
+	}
 
-  /**
-   * 회원정보 수정
-   * 
-   * @param memberDTO
-   * @param session
-   * @return
-   */
-  @PostMapping("/updateMemberInfo")
-  public ResponseEntity<String> updateMemberInfo(@RequestBody MemberDTO memberDTO, HttpSession session) {
+	/**
+	 * 회원정보 수정
+	 * 
+	 * @param memberDTO
+	 * @param session
+	 * @return
+	 */
+	@PostMapping("/updateMemberInfo")
+	public ResponseEntity<String> updateMemberInfo(@RequestBody MemberDTO memberDTO, HttpSession session) {
 
-    // 세션에 바운딩된 유저아이디를 받아옴
-    Integer memberIdx = Integer.parseInt((String) session.getAttribute("memberIdx"));
+		// 세션에 바운딩된 유저아이디를 받아옴
+		Integer memberIdx = Integer.parseInt((String) session.getAttribute("memberIdx"));
 
-    // 세션에 유저아이디가 있고, 실제로 DB에 존재하는 경우
-    if (memberIdx != null && memberService.findMemberByIdx(memberIdx) != null) {
-      memberDTO.setMemberIdx(memberIdx);
-      memberService.updateMemberInfo(memberDTO);
-      return new ResponseEntity<>("회원정보가 업데이트 되었습니다", HttpStatus.OK);
+		// 세션에 유저아이디가 있고, 실제로 DB에 존재하는 경우
+		if (memberIdx != null && memberService.findMemberByIdx(memberIdx) != null) {
+			memberDTO.setMemberIdx(memberIdx);
+			memberService.updateMemberInfo(memberDTO);
+			return new ResponseEntity<>("회원정보가 업데이트 되었습니다", HttpStatus.OK);
 
-      // 세션에 유저아이디가 없거나 DB에 존재하지 않는 경우
-    } else {
-      return new ResponseEntity<>("회원이 존재하지 않습니다", HttpStatus.BAD_REQUEST);
-    }
-  }
+			// 세션에 유저아이디가 없거나 DB에 존재하지 않는 경우
+		} else {
+			return new ResponseEntity<>("회원이 존재하지 않습니다", HttpStatus.BAD_REQUEST);
+		}
+	}
 
-  /**
-   * 마이페이지 요청
-   * 
-   * @param session
-   * @return
-   */
-  @GetMapping("/myPage")
-  public ModelAndView readMyPosts(HttpSession session) {
-    ModelAndView mv = new ModelAndView();
-    // 세션에 바운딩된 유저아이디를 받아옴
-    Integer memberIdx = Integer.parseInt((String) session.getAttribute("memberIdx"));
+	/**
+	 * 마이페이지 요청
+	 * 
+	 * @param session
+	 * @return
+	 */
+	@GetMapping("/myPage")
+	public ModelAndView readMyPosts(HttpSession session) {
+		ModelAndView mv = new ModelAndView();
+		// 세션에 바운딩된 유저아이디를 받아옴
+		Integer memberIdx = Integer.parseInt((String) session.getAttribute("memberIdx"));
 
-    // 세션에 유저아이디가 있고, 실제로 DB에 존재하는 경우
-    if (memberIdx != null && memberService.findMemberByIdx(memberIdx) != null) {
-      // 나의 전체글 가져오기
-      try {
-        List<PostDTO> myPosts = myPageService.readMyPosts(memberIdx);
-        mv.addObject("myPosts", myPosts);
-        mv.setViewName("MyPage");
-        return mv;
-      } catch (Exception e) {
-        mv.setViewName("MyPage");
-        return mv;
-      }
+		// 세션에 유저아이디가 있고, 실제로 DB에 존재하는 경우
+		if (memberIdx != null && memberService.findMemberByIdx(memberIdx) != null) {
+			// 나의 전체글 가져오기
+			try {
+				List<PostDTO> myPosts = myPageService.readMyPosts(memberIdx);
+				mv.addObject("myPosts", myPosts);
+				mv.setViewName("MyPage");
+				return mv;
+			} catch (Exception e) {
+				mv.setViewName("MyPage");
+				return mv;
+			}
 
-      // 로그인이 안돼어 있거나 회원이 존재하지 않는 경우
-    } else {
-      return null;
-    }
-  }
+			// 로그인이 안돼어 있거나 회원이 존재하지 않는 경우
+		} else {
+			return null;
+		}
+	}
 }

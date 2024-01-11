@@ -19,6 +19,43 @@
 <script>
 	//memberIdx 추후 session 값 받아오기
 	<%-- 	let sessionId = <%=session.getAttribute("memberIdx")%>; --%>	
+	$(document).ready(function(){
+		showData();
+	});
+	
+	function showData(){
+		let friendList = document.getElementById("friendList");
+
+		let oneFriend;
+		let chatBtn;
+		
+		<c:forEach items="${chatListInfo.friendInfo}" var="one">
+			/* $("#friendList").append("<div id=\"${one.friendMemberIdx}\">" + "${one.friendMemberName}" + "</div><hr>"); */
+			oneFriend = document.createElement("div");
+			oneFriend.setAttribute("id", "${one.friendMemberIdx}");
+			oneFriend.setAttribute("style", "padding-top: 5px; padding-left: 5px; padding-right: 5px;");
+			oneFriend.innerHTML += "${one.friendMemberName}";
+			
+			chatBtn = document.createElement("input");
+			chatBtn.setAttribute("type", "button");
+			chatBtn.setAttribute("id", "chatBtn");
+			chatBtn.setAttribute("value", "채팅");
+			chatBtn.setAttribute("style", "display: inline-block; border:none; border-radius: 5px; background-color:#EDF2F6; color:gray; width: 50px; float:right;");
+			chatBtn.setAttribute("onclick", `clickChatBtn(${one.friendMemberIdx})`);
+			
+			oneFriend.appendChild(chatBtn);
+			
+			oneFriend.innerHTML += "<hr>";
+			
+			friendList.appendChild(oneFriend);
+		</c:forEach>
+	};
+	
+	function clickChatBtn(friendMemberIdx){
+		
+		
+		location.href="/api/chating/" + `${'${friendMemberIdx}'}`;
+	};
 	
 </script>
 
@@ -40,7 +77,7 @@
 			</div>
 
 			<div id="friendList">
-				<div id="friend">친구1</div> <!-- 추후 수정 -->
+				<!-- <div id="friend">친구1</div> 추후 수정 -->
 			</div>
 		</div>
 

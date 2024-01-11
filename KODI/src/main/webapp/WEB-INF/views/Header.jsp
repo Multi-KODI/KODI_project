@@ -15,13 +15,30 @@
 <body>
 <script>
 $(document).ready(function () {
-    $("#menubtn").on("click", function () {
-      $(".menu-content").slideToggle();
-    });
-    
-    $("#mypagenbtn").on("click", function () {
-        window.location.href = "/mypage";
-      });
+	function updateMenuContentPosition() {
+	    var menuOffset = $(".menu").offset(); 
+	    $(".menu-content").css({'left': menuOffset.left }); 
+	}
+	
+	
+	$("#menubtn").on("click", function () {
+		updateMenuContentPosition();
+	    $(".menu-content").slideToggle(); // 
+	});
+	
+	$(window).on('resize', function(){
+	    if($(".menu-content").is(":visible")) {
+	        updateMenuContentPosition();
+	    }
+	});
+	
+	$("#mypagenbtn").on("click", function (event) {
+	    event.preventDefault(); // 기본 클릭 동작x
+	    $.post("/readMyPosts", function(data) {
+	        //추후 데이터 추가
+	    });
+	});
+
     
     $("#logoutbtn").on("click", function () {
     	if (confirm("로그아웃 하시겠습니까?")){

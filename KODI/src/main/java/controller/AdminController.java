@@ -59,7 +59,7 @@ public class AdminController {
 	 * @return
 	 */
 	@GetMapping("/allposts")
-	public ModelAndView selectAllCost(HttpSession session) {
+	public ModelAndView findAllPosts(HttpSession session) {
 		ModelAndView mv = new ModelAndView();
 		// 유저가 관리자일 때
 		if (validateAdmin(session)) {

@@ -49,12 +49,63 @@
 			
 			friendList.appendChild(oneFriend);
 		</c:forEach>
+		
+		
 	};
 	
 	function clickChatBtn(friendMemberIdx){
+		// 추후 memberIdx 세션 값으로 변경
+		var data = {memberIdx: 1, friendMemberIdx: `${'${friendMemberIdx}'}`}
 		
+		// 채팅방 여부 조회
+		$.ajax({
+			url: "/api/chatlist/clickchat",
+			data: JSON.stringify(data),
+			type: "post",
+			contentType: "application/json",
+			dataType: "json",
+			success: function(response){
+				if(response == true){ // 이미 채팅방 존재
+					// 채팅방 번호 조회
+					$.ajax({
+						url: "/api/chatlist/chatidx",
+						data: JSON.stringify(data),
+						type: "post",
+						contentType: "application/json",
+						dataType: "json",
+						success: function(response){
+							alert(response);
+							location.href="/api/chatroom/" + response;
+						},
+						error: function(request, e){
+							alert("코드: " + request.status + "메시지: " + request.responseText + "오류: " + e);
+						}
+					});
+				} else { // 채팅방 존재 X
+					// 새로운 채팅방 생성 및 채팅방 번호 조회
+					$.ajax({
+						url: "/api/chatlist/createchatroom",
+						data: JSON.stringify(data),
+						type: "post",
+						contentType: "application/json",
+						dataType: "json",
+						success: function(response){
+							alert(response);
+							location.href="/api/chatroom/" + response;
+						},
+						error: function(request, e){
+							alert("코드: " + request.status + "메시지: " + request.responseText + "오류: " + e);
+						}
+					});
+				}
+			},
+			error: function(request, e){
+				alert("코드: " + request.status + "메시지: " + request.responseText + "오류: " + e);
+			}
+		});
 		
-		location.href="/api/chating/" + `${'${friendMemberIdx}'}`;
+		// friendMemberIdx를 chatIdx로 바꾸기
+		//location.href="/api/chatroom/" + `${'${friendMemberIdx}'}`;
 	};
 	
 </script>

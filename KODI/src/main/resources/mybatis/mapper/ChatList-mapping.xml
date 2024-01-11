@@ -17,7 +17,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectIsFriendByOther" resultType="int" parameterType="hashmap">
 		select is_friend as isFriend from friend where member_idx = #{friendIdx} and friend_member_idx = #{memberIdx};
 	</select>
-	<select id="selectChatIdx" resultType="int" parameterType="int">
+	<select id="selectChatList" resultType="int" parameterType="int">
 		select chat_idx as chatIdx from chat where member1_idx = #{memberIdx}
 	</select>
 	<select id="selectChatFriendIdx" resultType="int" parameterType="int">
@@ -26,8 +26,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectContent" resultType="String" parameterType="int">
 		select content from chat_msg where chat_idx = #{chatIdx} order by chat_msg_idx desc limit 1
 	</select>
+	<select id="selectChatRoom" resultType="int" parameterType="hashmap">
+		select count(*) from chat where member1_idx = #{memberIdx} and member2_idx = #{friendMemberIdx};
+	</select>
+	<select id="selectChatIdx" resultType="int" parameterType="hashmap">
+		select chat_idx as chatIdx from chat where member1_idx = #{memberIdx} and member2_idx = #{friendMemberIdx};
+	</select>
 	
 	<!-- insert -->
+	<insert id="insertChat" parameterType="hashmap">
+		insert into chat(member1_idx, member2_idx) values(#{memberIdx}, #{friendMemberIdx})
+	</insert>
 	<!-- update  -->
 	<!-- delete  -->
 	

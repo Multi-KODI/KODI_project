@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import dao.AdminDAO;
-import dto.MemberDTO;
 import dto.PostDTO;
 
 @Service("adminservice")

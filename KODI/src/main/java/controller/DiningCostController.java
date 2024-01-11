@@ -14,9 +14,8 @@ import org.springframework.web.servlet.ModelAndView;
 import dto.DiningCostDTO;
 import service.DiningCostService;
 
-
-@RestController
-//@Controller
+//@RestController
+@Controller
 @RequestMapping("/api")
 public class DiningCostController {
 	@Autowired

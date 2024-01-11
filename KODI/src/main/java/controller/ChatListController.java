@@ -23,7 +23,7 @@ public class ChatListController {
 	 * @param memberIdx
 	 * @return 전체 친구 리스트, 채팅방 리스트
 	 */
-	@GetMapping("/chat/{memberIdx}")
+	@GetMapping("/chatlist/{memberIdx}")
 	public ModelAndView chatList(@PathVariable int memberIdx) {
 		ChatListDTO chatListInfo = service.getChatListInfo(memberIdx);
 		

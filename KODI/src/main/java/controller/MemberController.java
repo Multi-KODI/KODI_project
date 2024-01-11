@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import dto.MemberDTO;
+import dto.OtpDTO;
 import jakarta.servlet.http.HttpSession;
 import service.EmailService;
 import service.MemberService;
@@ -21,7 +22,7 @@ import service.MemberService;
 @RestController
 @RequestMapping("/api")
 public class MemberController {
-	
+
 	/**
 	 * POST 이메일 발송(/api/email) DATA: 회원가입할 이메일
 	 * POST 이메일 검증(/api/verify) DATA: 회원가입자가 입력한 OTP
@@ -97,10 +98,13 @@ public class MemberController {
 	 */
 	@PostMapping("/verify")
 	@ResponseBody
-	public ResponseEntity<String> verifyEmail(String otp, HttpSession session) {
+	public ResponseEntity<String> verifyEmail(@RequestBody OtpDTO otpDTO, HttpSession session) {
+
+		//세션에서 OTP 받아오기
+		String sessionOtp = (String)session.getAttribute("otp");
 
 		// 사용자가 입력한 OTP와 세션의 OTP 비교
-		if (session.getAttribute(otp).equals(otp)) {
+		if (sessionOtp.equals(otpDTO.getOtp())) {
 			session.removeAttribute("otp");
 			return new ResponseEntity<>("이메일이 인증되었습니다", HttpStatus.OK);
 		}
@@ -161,11 +165,11 @@ public class MemberController {
 	public ResponseEntity<String> logoutMember(HttpSession session) {
 
 		// 로그인이 아닐 시
-		if (session.getAttribute("memberId") == null) {
+		if (session.getAttribute("memberIdx") == null) {
 			return new ResponseEntity<>("로그인된 정보가 없습니다", HttpStatus.BAD_REQUEST);
 			// 로그인한 상태일 때
 		} else {
-			session.removeAttribute("memberId");
+			session.removeAttribute("memberIdx");
 			return new ResponseEntity<>("로그아웃 되었습니다", HttpStatus.OK);
 		}
 	}

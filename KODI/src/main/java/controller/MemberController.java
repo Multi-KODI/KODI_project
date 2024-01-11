@@ -6,12 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import dto.MemberDTO;
@@ -20,7 +20,7 @@ import jakarta.servlet.http.HttpSession;
 import service.EmailService;
 import service.MemberService;
 
-@RestController
+@Controller
 @RequestMapping("/api")
 public class MemberController {
 
@@ -51,7 +51,7 @@ public class MemberController {
 	public ModelAndView registerMember() {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("Register");
-    return mv;
+		return mv;
 	}
 
 	/**
@@ -63,7 +63,7 @@ public class MemberController {
 	public ModelAndView loginMember() {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("Register");
-    return mv;
+		return mv;
 	}
 
 	/**
@@ -105,8 +105,8 @@ public class MemberController {
 	@ResponseBody
 	public ResponseEntity<String> verifyEmail(@RequestBody OtpDTO otpDTO, HttpSession session) {
 
-		//세션에서 OTP 받아오기
-		String sessionOtp = (String)session.getAttribute("otp");
+		// 세션에서 OTP 받아오기
+		String sessionOtp = (String) session.getAttribute("otp");
 
 		// 사용자가 입력한 OTP와 세션의 OTP 비교
 		if (sessionOtp.equals(otpDTO.getOtp())) {

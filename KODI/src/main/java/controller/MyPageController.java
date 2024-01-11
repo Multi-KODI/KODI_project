@@ -23,18 +23,18 @@ import service.MyPageService;
 @RequestMapping("/api")
 public class MyPageController {
 
-  @Autowired
-  private MemberService memberService;
-
-  @Autowired
-  private MyPageService myPageService;
-
   /**
    * POST 비밀번호 인증 (/api/verifyPw) DATA: 유저 입력 비밀번호
    * POST 회원탈퇴 (/api/withdrawMember)DATA: X
    * POST 회원정보 수정 (/api/updateMemberInfo) DATA: 변경할 비밀번호, 닉네임, 국적
    * GET 마이페이지 요청 (/api/myPage) DATA: X
    */
+
+  @Autowired
+  private MemberService memberService;
+
+  @Autowired
+  private MyPageService myPageService;
 
   /**
    * 회원탈퇴 시 비밀번호 인증
@@ -118,6 +118,7 @@ public class MyPageController {
 
   /**
    * 마이페이지 요청
+   * 
    * @param session
    * @return
    */

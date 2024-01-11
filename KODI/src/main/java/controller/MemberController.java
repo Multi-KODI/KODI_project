@@ -21,6 +21,7 @@ import service.MemberService;
 @RestController
 @RequestMapping("/api")
 public class MemberController {
+	
 	/**
 	 * POST 이메일 발송(/api/email) DATA: 회원가입할 이메일
 	 * POST 이메일 검증(/api/verify) DATA: 회원가입자가 입력한 OTP

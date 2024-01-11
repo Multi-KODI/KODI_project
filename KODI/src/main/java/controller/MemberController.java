@@ -62,7 +62,7 @@ public class MemberController {
 	@GetMapping("/login")
 	public ModelAndView loginMember() {
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("Register");
+		mv.setViewName("Login");
 		return mv;
 	}
 

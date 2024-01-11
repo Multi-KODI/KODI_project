@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +28,13 @@ public class MyPageController {
 
   @Autowired
   private MyPageService myPageService;
+
+  /**
+   * POST 비밀번호 인증 (/api/verifyPw) DATA: 세션저장 유저아이디, 유저 입력 비밀번호
+   * POST 회원탈퇴 (/api/withdrawMember)DATA: 세션저장 유저아이디
+   * POST 회원정보 수정 (/api/updateMemberInfo) DATA: 세션저장 유저 아이디, 변경할 비밀번호, 닉네임, 국적
+   * GET 마이페이지 요청 (/api/myPage) DATA: 세션저장 유저아이디
+   */
 
   /**
    * 회원탈퇴 시 비밀번호 인증
@@ -99,7 +107,7 @@ public class MyPageController {
 
     // 세션에 유저아이디가 있고, 실제로 DB에 존재하는 경우
     if (memberIdx != null && memberService.findMemberByIdx(memberIdx) != null) {
-      memberService.updateMemberInfo(memberDTO);
+      memberService.updateMemberInfo(memberDTO, memberIdx);
       return new ResponseEntity<>("회원정보가 업데이트 되었습니다", HttpStatus.OK);
 
       // 세션에 유저아이디가 없거나 DB에 존재하지 않는 경우
@@ -109,12 +117,11 @@ public class MyPageController {
   }
 
   /**
-   * 나의 글 가져오기
-   * 
+   * 마이페이지 요청
    * @param session
    * @return
    */
-  @PostMapping("/readMyPosts")
+  @GetMapping("/myPage")
   public ModelAndView readMyPosts(HttpSession session) {
     ModelAndView mv = new ModelAndView();
     // 세션에 바운딩된 유저아이디를 받아옴

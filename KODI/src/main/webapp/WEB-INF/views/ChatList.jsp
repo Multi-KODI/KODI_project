@@ -35,13 +35,44 @@
 			<div id="searchInputDiv">
 				<input id="searchInput" type="search" placeholder="친구 검색">
 				<button id="searchBtn" type="button">
-					<img id="searchIcon" src="/image/icon/search.png">
+					<img id="searchIcon" src="/image/icon/search.png" align="center">
 				</button>
+			</div>
+
+			<div id="friendList">
+				<div id="friend">친구1</div> <!-- 추후 수정 -->
+			</div>
+		</div>
+
+		<div id="chatListDiv">
+			<img id="chatListIcon" src="/image/icon/live-chat.png" align="center">
+			<p id="title">채팅방</p>
+
+			<div id="chatList">
+				<div id="oneChat">
+					<div id="chatInfo">
+						<p id="friendName">친구 1</p>
+						<p id="chatContent">안녕</p>
+					</div>
+					<button id="deleteChat">삭제</button>
+				</div>
+				<div id="oneChat">
+					<div id="chatInfo">
+						<p id="friendName">친구 2</p>
+						<p id="chatContent">안녕</p>
+					</div>
+					<button id="deleteChat">삭제</button>
+				</div>
+				<div id="oneChat">
+					<div id="chatInfo">
+						<p id="friendName">친구 2</p>
+						<p id="chatContent">안녕</p>
+					</div>
+					<button id="deleteChat">삭제</button>
+				</div>
 			</div>
 		</div>
 	</div>
 
-	<div id="chatListDiv"></div>
-	</div>
 </body>
 </html>

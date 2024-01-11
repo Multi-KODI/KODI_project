@@ -27,6 +27,13 @@ public class AdminController {
 	private AdminService adminService;
 
 	/**
+	 * GET 전체 유저 조회 (/api/allmembers) DATA: X
+	 * GET 전체 게시물 조회 (/api/allposts) DATA: X
+	 * POST 유저 삭제 (/api/deletemember) DATA: 삭제할 멤버 아이디
+	 * POST 포스트 삭제 (/api/deletepost) DATA: 삭제할 포스트 아이디
+	 */
+
+	/**
 	 * 전체 유저 조회
 	 * 
 	 * @return
@@ -69,7 +76,6 @@ public class AdminController {
 
 	/**
 	 * 회원 삭제
-	 * 
 	 * @return
 	 */
 	@PostMapping("/deletemember")

@@ -30,10 +30,10 @@ public class MyPageController {
   private MyPageService myPageService;
 
   /**
-   * POST 비밀번호 인증 (/api/verifyPw) DATA: 세션저장 유저아이디, 유저 입력 비밀번호
-   * POST 회원탈퇴 (/api/withdrawMember)DATA: 세션저장 유저아이디
-   * POST 회원정보 수정 (/api/updateMemberInfo) DATA: 세션저장 유저 아이디, 변경할 비밀번호, 닉네임, 국적
-   * GET 마이페이지 요청 (/api/myPage) DATA: 세션저장 유저아이디
+   * POST 비밀번호 인증 (/api/verifyPw) DATA: 유저 입력 비밀번호
+   * POST 회원탈퇴 (/api/withdrawMember)DATA: X
+   * POST 회원정보 수정 (/api/updateMemberInfo) DATA: 변경할 비밀번호, 닉네임, 국적
+   * GET 마이페이지 요청 (/api/myPage) DATA: X
    */
 
   /**

@@ -6,6 +6,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+import dto.ChatListFriendDTO;
+
 @Repository("chatlistdao")
 @Mapper
 public interface ChatListDAO {
@@ -79,5 +81,12 @@ public interface ChatListDAO {
 	 * @param map
 	 */
 	void insertChat(HashMap<String, Integer> map);
+
+	/**
+	 * 친구 검색
+	 * @param map
+	 * @return 친구 정보
+	 */
+	List<ChatListFriendDTO> selectFriendInfo(HashMap<String, Object> map);
 
 }

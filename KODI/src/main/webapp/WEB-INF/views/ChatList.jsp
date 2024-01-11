@@ -21,6 +21,7 @@
 	<%-- 	let sessionId = <%=session.getAttribute("memberIdx")%>; --%>	
 	$(document).ready(function(){
 		showData();
+		searchFriend();
 	});
 	
 	function showData(){
@@ -49,8 +50,6 @@
 			
 			friendList.appendChild(oneFriend);
 		</c:forEach>
-		
-		
 	};
 	
 	function clickChatBtn(friendMemberIdx){
@@ -103,9 +102,32 @@
 				alert("코드: " + request.status + "메시지: " + request.responseText + "오류: " + e);
 			}
 		});
-		
-		// friendMemberIdx를 chatIdx로 바꾸기
-		//location.href="/api/chatroom/" + `${'${friendMemberIdx}'}`;
+	};
+	
+	function searchFriend() {
+		let searchInput = document.getElementById("searchInput");
+
+		$("#searchBtn").on("click", function(){
+			if(searchInput.value == ""){
+				alert("검색할 친구를 입력해주세요");
+			} else {
+				var data = {memberIdx: 1, friendName: searchInput.value};
+				
+				$.ajax({
+					url: "/api/chatlist/search",
+					data: JSON.stringify(data),
+					type: "post",
+					contentType: "application/json",
+					dataType: "json",
+					success: function(response){
+						
+					},
+					error: function(request, e){
+						alert("코드: " + request.status + "메시지: " + request.responseText + "오류: " + e);
+					}
+				});
+			}
+		});
 	};
 	
 </script>

@@ -2,6 +2,7 @@ package service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,10 +40,7 @@ public class ChatListService {
 			// 서로이웃 여부 확인
 			int isFriendByMe = dao.selectIsFriendByMe(map);
 			int isFriendByOther = dao.selectIsFriendByOther(map);
-			
-			System.out.println("isFriendByMe: " + isFriendByMe);
-			System.out.println("isFriendByOther: " + isFriendByOther);
-			
+
 			if(isFriendByMe == 1 && isFriendByOther == 1) {
 				String friendMemberName = dao.selectFriendMemberName(friendIdx);
 				
@@ -51,13 +49,6 @@ public class ChatListService {
 			}
 		}
 		
-		System.out.println(chatListFriendDTO);
-
-		for (ChatListFriendDTO one : chatListFriendDTO) {
-			System.out.println(one.getFriendMemberIdx());
-			System.out.println(one.getFriendMemberName());
-		}
-
 		// 채팅방 리스트
 		List<Integer> allChatIdx = dao.selectChatList(memberIdx);
 		List<ChatListRoomDTO> chatListRoomDTO = new ArrayList<>();
@@ -69,14 +60,6 @@ public class ChatListService {
 			
 			ChatListRoomDTO chatInfo = new ChatListRoomDTO(chatIdx, chatFriendIdx, friendMemberName, content);
 			chatListRoomDTO.add(chatInfo);
-		}
-		
-		System.out.println("====chatListRoomDTO====");
-		for (ChatListRoomDTO dto : chatListRoomDTO) {
-			System.out.println(dto.getChatIdx());
-			System.out.println(dto.getFriendMemberIdx());
-			System.out.println(dto.getMemberName());
-			System.out.println(dto.getContent());
 		}
 		
 		return new ChatListDTO(chatListFriendDTO, chatListRoomDTO);
@@ -129,6 +112,21 @@ public class ChatListService {
 		map.put("friendMemberIdx", friendMemberIdx);
 		
 		dao.insertChat(map);
+	}
+
+	/**
+	 * 친구 검색
+	 * @param memberIdx
+	 * @param friendName
+	 * @return 친구 정보
+	 */
+	public List<ChatListFriendDTO> searchFriend(int memberIdx, String friendName) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+
+		map.put("friendName", friendName);
+		map.put("memberIdx", memberIdx);
+		
+		return dao.selectFriendInfo(map);
 	}
 
 }

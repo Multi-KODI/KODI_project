@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -12,7 +14,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import dto.ChatListDTO;
+import dto.ChatListFriendDTO;
 import dto.ChatRq;
+import dto.FriendRq;
 import service.ChatListService;
 
 @Controller
@@ -70,6 +74,17 @@ public class ChatListController {
 	public int createChatRoom(@RequestBody ChatRq chatInfo) {		
 		service.createChatRoom(chatInfo.getMemberIdx(), chatInfo.getFriendMemberIdx());
 		return service.selectChatIdx(chatInfo.getMemberIdx(), chatInfo.getFriendMemberIdx());
+	}
+	
+	/**
+	 * 친구 검색 API
+	 * @param friendRq
+	 * @return
+	 */
+	@PostMapping("/chatlist/search")
+	@ResponseBody
+	public List<ChatListFriendDTO> searchFriend(@RequestBody FriendRq friendRq) {		
+		return service.searchFriend(friendRq.getMemberIdx(), friendRq.getFriendName());
 	}
 	
 }

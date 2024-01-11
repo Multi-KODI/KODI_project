@@ -27,12 +27,12 @@ public interface MemberDAO {
 	MemberDTO findMemberByIdx(int memberIdx);
 
 	//회원탈퇴 SQL문
-	@Delete("DELETE * FROM members WHERE member_idx=#{memberIdx}")
+	@Delete("DELETE FROM members WHERE member_idx = #{memberIdx};")
 	int withdrawMember(int memberIdx);
 
 	//회원정보 업데이트 SQL문
-	@Update("UPDATE members SET pw = #{pw}, member_name = #{memberName} , flag_idx = #{flagIdx} WHERE memberIdx = {memberIdx}; ")
-	int updateMemberInfo(MemberDTO memberDTO, Integer memberIdx);
+	@Update("UPDATE members SET pw = #{pw}, member_name = #{memberName} , flag_idx = #{flagIdx} WHERE member_idx = #{memberIdx}; ")
+	int updateMemberInfo(MemberDTO memberDTO);
 
 	//전체 회원 조회
 	@Select("SELECT * from members")

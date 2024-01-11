@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import dto.MemberDTO;
 import dto.OtpDTO;
@@ -47,8 +48,10 @@ public class MemberController {
 	 * @return
 	 */
 	@GetMapping("/register")
-	public String registerMember() {
-		return "Register";
+	public ModelAndView registerMember() {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("Register");
+    return mv;
 	}
 
 	/**
@@ -57,8 +60,10 @@ public class MemberController {
 	 * @return
 	 */
 	@GetMapping("/login")
-	public String loginMember() {
-		return "Login";
+	public ModelAndView loginMember() {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("Register");
+    return mv;
 	}
 
 	/**
@@ -150,7 +155,9 @@ public class MemberController {
 		// 아이디가 존재하고, 비밀번호가 일치하는 경우
 		if (memberDTO.getPw().equals(findedMember.getPw())) {
 			// 멤버 아이디를 세션에 바운딩
-			session.setAttribute("memberIdx", findedMember.getMemberIdx());
+			Integer memberIdxInteger = findedMember.getMemberIdx();
+			String memberIdx = String.valueOf(memberIdxInteger);
+			session.setAttribute("memberIdx", memberIdx);
 			return new ResponseEntity<>("로그인에 성공하였습니다", HttpStatus.OK);
 		}
 		return new ResponseEntity<>("비밀번호를 확인해 주세요", HttpStatus.BAD_REQUEST);

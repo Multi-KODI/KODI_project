@@ -42,7 +42,7 @@ public class MemberService {
 	}
 
 	//회원정보 업데이트 하기
-	public void updateMemberInfo(MemberDTO memberDTO, Integer memberIdx) {
-		memberDAO.updateMemberInfo(memberDTO, memberIdx);
+	public void updateMemberInfo(MemberDTO memberDTO) {
+		memberDAO.updateMemberInfo(memberDTO);
 	}
 }

@@ -48,8 +48,6 @@
 			oneFriend.innerHTML += "<hr>";
 			
 			friendList.appendChild(oneFriend);
-			
-			
 		</c:forEach>
 	};
 	

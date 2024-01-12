@@ -27,11 +27,11 @@
 	margin-top: 7%;
 	border-bottom: 1px solid #D9D9D9;
 	padding-bottom: 10px;
-	display:flex;
+	display: flex;
 }
 
-.form-group label{
-	width : 60%;
+.form-group label {
+	width: 60%;
 }
 
 .form-control {
@@ -83,7 +83,6 @@
 	border: none;
 	cursor: pointer;
 	border-radius: 8px;
-
 }
 </style>
 </head>
@@ -99,32 +98,27 @@
 			</dlv>
 
 			<div class="form-group">
-				<label for="email">이메일</label> 
-				<input type="email"
+				<label for="email">이메일</label> <input type="email"
 					class="form-control" id="email" value="user@example.com" readonly>
 			</div>
 
 			<div class="form-group">
-				<label for="newPassword">변경 비밀번호</label> 
-				<input type="password"
+				<label for="newPassword">변경 비밀번호</label> <input type="password"
 					class="form-control" id="newPassword" placeholder="변경할 비밀번호 입력">
 			</div>
 
 			<div class="form-group">
-				<label for="confirmPassword">비밀번호 확인</label> 
-				<input type="password"
+				<label for="confirmPassword">비밀번호 확인</label> <input type="password"
 					class="form-control" id="confirmPassword" placeholder="비밀번호 확인">
 			</div>
 
 			<div class="form-group">
-				<label for="nickname">닉네임</label> 
-				<input type="text"
+				<label for="nickname">닉네임</label> <input type="text"
 					class="form-control" id="nickname" value="사용자닉네임">
 			</div>
 
 			<div class="form-group">
-				<label for="nationality">국적</label> 
-				<select class="form-control"
+				<label for="nationality">국적</label> <select class="form-control"
 					id="nationality">
 					<option value="korea">대한민국</option>
 					<option value="usa">미국</option>
@@ -136,35 +130,87 @@
 		</form>
 	</div>
 
-	<script>
-		$(document).ready(function() {
-			$("#drawbtn").on("click", function() {
-				var confirmWithdraw = confirm("회원 탈퇴를 하시겠습니까?");
+<script>
+$(document).ready(function() {
+	
+	//옵션에 보여줄 국가 목록
+	$(document).ready(function() {
+	    $.ajax({
+	        url: '/api/????', //국가 데이터 받기
+	        type: 'GET',
+	        success: function(flags) {
+	            var select = $('#nationality');
+	            flags.forEach(function(flag) {
+	                select.append('<option value="' + flag.flagIdx + '">' + flag.country + '</option>');
+	            });
+	        },
+	        error: function(error) {
+	            console.error("error : 국가 데이터를 가져오는 데 실패했습니다.", error);
+	        }
+	    });
+	});
+	
+	//탈퇴버튼
+	$("#drawbtn").on("click", function() {
+		var confirmWithdraw = confirm("회원 탈퇴를 하시겠습니까?");
 
-				if (confirmWithdraw) {
-					alert("회원 탈퇴가 완료되었습니다.");
-					// 회원 탈퇴 로직 추가
-					window.location.href = "/start";
-				}
-			});
-
-			$("#modibtn").on("click", function() {
-				//정보 수정 로직 추가
-				var newPassword = $("#newPassword").val();
-				var confirmPassword = $("#confirmPassword").val();
-				if (newPassword !== confirmPassword) {
-					alert("변경 비밀번호와 비밀번호 확인이 일치하지 않습니다.");
-					return;
-				}
-				alert("수정 되었습니다.");
-				$(".modal_background").fadeOut();
-			});
-
-			$("#cancelbtn").on("click", function() {
-				$(".modal_background").fadeOut();
-			});
+	    if (confirmWithdraw) {
+	        $.ajax({
+	            url: '/api/withdrawMember',
+	            type: 'POST',
+	            success: function(response) {
+	                alert("회원 탈퇴가 완료되었습니다.");
+	                window.location.href = "/start";
+	            },
+	            error: function(error) {
+	                alert("error : 회원 탈퇴에 실패했습니다.");
+	            }
+	        });
+	    }
+	});
+	
+	//수정버튼
+	$("#modibtn").on("click", function() {
+		var newPassword = $("#newPassword").val();
+		var confirmPassword = $("#confirmPassword").val();
+		var nickname = $("#nickname").val();
+	    var nationality = $("#nationality").val();
+		
+		
+		if (newPassword !== confirmPassword) {
+			alert("변경 비밀번호와 비밀번호 확인이 일치하지 않습니다.");
+			return;
+		}
+		
+		 var memberDTO = {
+	        pw: newPassword,
+	        memberName: nickname,
+	        flagIdx: nationality
+			    };
+		
+		 //데이터요청
+		 $.ajax({
+		        url: '/api/updateMemberInfo',
+		        type: 'POST',
+		        contentType: 'application/json',
+		        data: JSON.stringify(memberDTO),
+		        success: function(response) {
+		            alert("수정 되었습니다.");
+		            $(".modal_background").fadeOut();
+		        },
+		        error: function(error) {
+		            alert("error : 회원 정보 수정에 실패했습니다.");
+		        }
+		    });
 		});
-	</script>
+
+	//수정 취소버튼
+	$("#cancelbtn").on("click", function() {
+		$(".modal_background").fadeOut();
+	});
+	
+}); //ready
+</script>
 
 </body>
 </html>

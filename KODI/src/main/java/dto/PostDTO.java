@@ -19,3 +19,4 @@ public class PostDTO {
    private double grade;
    private int memberIdx;
 }
+

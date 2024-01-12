@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import dto.MemberDTO;
@@ -17,8 +17,15 @@ import service.AdminService;
 import service.MemberService;
 
 @Controller
-@RequestMapping("/api")
+@RequestMapping("/api/admin")
 public class AdminController {
+
+	/**
+	 * GET 전체 유저 조회 (/api/admin/allmembers) DATA: X
+	 * GET 전체 게시물 조회 (/api/admin/allposts) DATA: X
+	 * POST 유저 삭제 (/api/admin/deletemember) DATA: 삭제할 멤버 아이디
+	 * POST 포스트 삭제 (/api/admin/deletepost) DATA: 삭제할 포스트 아이디
+	 */
 
 	@Autowired
 	private MemberService memberService;
@@ -33,6 +40,7 @@ public class AdminController {
 	 */
 	@GetMapping("/allmembers")
 	public ModelAndView findAllMemebers(HttpSession session) {
+		System.out.println(session.getAttribute("memberIdx")); 
 		if (validateAdmin(session)) {
 			// 전체 멤버 가져오기
 			List<MemberDTO> members = memberService.findAllMembers();
@@ -52,15 +60,20 @@ public class AdminController {
 	 * @return
 	 */
 	@GetMapping("/allposts")
-	public ModelAndView selectAllCost(HttpSession session) {
+	public ModelAndView findAllPosts(HttpSession session) {
+		ModelAndView mv = new ModelAndView();
 		// 유저가 관리자일 때
 		if (validateAdmin(session)) {
 			// 전체 게시물 가져오기
-			List<PostDTO> posts = adminService.findAllPosts();
-			ModelAndView mv = new ModelAndView();
-			mv.addObject("posts", posts);
-			mv.setViewName("Admin");
-			return mv;
+			try{
+				List<PostDTO> posts = adminService.findAllPosts();
+				mv.addObject("posts", posts);
+				mv.setViewName("Admin");
+				return mv;
+			}catch(Exception e){
+				mv.setViewName("Admin");
+				return mv;
+			}
 			// 유저가 관리자가 아니거나 유저정보가 없을 때
 		} else {
 			return null;
@@ -69,15 +82,14 @@ public class AdminController {
 
 	/**
 	 * 회원 삭제
-	 * 
 	 * @return
 	 */
 	@PostMapping("/deletemember")
-	public ModelAndView deleteMember(@RequestParam int memberIdx, HttpSession session) {
+	public ModelAndView deleteMember(@RequestBody MemberDTO memberDTO, HttpSession session) {
 		// 유저가 관리자일 때
 		if (validateAdmin(session)) {
 			// 회원삭제
-			memberService.withdrawMember(memberIdx);
+			memberService.withdrawMember(memberDTO.getMemberIdx());
 			// 삭제 후 유저리스트를 보여줌
 			List<MemberDTO> members = memberService.findAllMembers();
 			ModelAndView mv = new ModelAndView();
@@ -97,13 +109,13 @@ public class AdminController {
 	 * @return
 	 */
 	@PostMapping("/deletepost")
-	public ModelAndView deletePost(@RequestParam int postIdx, HttpSession session) {
+	public ModelAndView deletePost(@RequestBody PostDTO postDTO, HttpSession session) {
 		// 유저가 관리자일 때
 		if (validateAdmin(session)) {
 			// 게시물이 존재할 때
-			if (adminService.findPostByIdx(postIdx) != null) {
+			if (adminService.findPostByIdx(postDTO.getPostIdx()) != null) {
 				// 게시물 삭제 진행
-				adminService.deletePost(postIdx);
+				adminService.deletePost(postDTO.getPostIdx());
 			}
 			// 삭제 후 유저리스트를 보여줌
 			List<PostDTO> posts = adminService.findAllPosts();

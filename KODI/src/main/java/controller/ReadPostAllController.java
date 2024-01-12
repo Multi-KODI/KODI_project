@@ -26,7 +26,7 @@ public class ReadPostAllController {
 	 * return 게시글 데이터
 	 * 게시글 idx, 제목, 이미지, 유저닉네임, 추천수, 위치(주소), 태그, 국기
 	 */
-	@GetMapping("/ReadPostAll")
+	@GetMapping("/post")
 	public ModelAndView readPostAll(/*@RequestParam("category") String category*/) {
 		String category = "";
 		// 처음 들어오는 경우

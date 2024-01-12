@@ -63,19 +63,20 @@
 			oneChat = document.createElement("div");
 			oneChat.setAttribute("id", "${one.chatIdx}");
 			oneChat.setAttribute("style", "margin-bottom: 10px;");
-
-			chatInfo = document.createElement("div");
+	
+			chatInfo = document.createElement("button");
 			chatInfo.setAttribute("id", "chatInfo");
-			chatInfo.setAttribute("style", "display: inline-block; border: 2px solid #B6BBC4; border-radius: 10px; padding: 0px 5px; width: 60%;");
-			
+			chatInfo.setAttribute("style", "display: inline-block; border: 2px solid #B6BBC4; border-radius: 10px; width: 64%; background-color: white;");
+			chatInfo.setAttribute("onclick", `clickChatInfo(${one.chatIdx})`);
+
 			friendName = document.createElement("p");
 			friendName.setAttribute("id", "friendName");
-			friendName.setAttribute("style", "display: inline-block; margin: 0px 10px; font-weight: bold; font-size: small;");
+			friendName.setAttribute("style", "display: inline-block; margin: 15px; font-weight: bold; font-size: small; float: left;");
 			friendName.innerHTML += "${one.memberName}";
-
+	
 			chatContent = document.createElement("p");
 			chatContent.setAttribute("id", "chatContent");
-			chatContent.setAttribute("style", "display: inline-block; font-size: small;");
+			chatContent.setAttribute("style", "display: flex; font-size: small;");
 			
 			if("${one.content}" == ""){
 				chatContent.innerHTML += "...";				
@@ -152,52 +153,68 @@
 	};
 	
 	function clickChatBtn(friendMemberIdx){
-		// 추후 memberIdx 세션 값으로 변경
-		var data = {memberIdx: 1, friendMemberIdx: `${'${friendMemberIdx}'}`}
-		// 채팅방 여부 조회
-		$.ajax({
-			url: "/api/chatlist/clickchat",
-			data: JSON.stringify(data),
-			type: "post",
-			contentType: "application/json",
-			dataType: "json",
-			success: function(response){
-				if(response == true){ // 이미 채팅방 존재
-					// 채팅방 번호 조회
-					$.ajax({
-						url: "/api/chatlist/chatidx",
-						data: JSON.stringify(data),
-						type: "post",
-						contentType: "application/json",
-						dataType: "json",
-						success: function(response){
-							location.href="/api/chatroom/" + response;
-						},
-						error: function(request, e){
-							alert("코드: " + request.status + "메시지: " + request.responseText + "오류: " + e);
-						}
-					});
-				} else { // 채팅방 존재 X
-					// 새로운 채팅방 생성 및 채팅방 번호 조회
-					$.ajax({
-						url: "/api/chatlist/createchatroom",
-						data: JSON.stringify(data),
-						type: "post",
-						contentType: "application/json",
-						dataType: "json",
-						success: function(response){
-							location.href="/api/chatroom/" + response;
-						},
-						error: function(request, e){
-							alert("코드: " + request.status + "메시지: " + request.responseText + "오류: " + e);
-						}
-					});
+		// 추후 세션 비교 추가
+		//if(sessionId == ${chatListInfo.memberIdx}){
+		if(1 == ${chatListInfo.memberIdx}){
+			// 추후 memberIdx 세션 값으로 변경
+			var data = {memberIdx: 1, friendMemberIdx: `${'${friendMemberIdx}'}`}
+			// 채팅방 여부 조회
+			$.ajax({
+				url: "/api/chatlist/clickchat",
+				data: JSON.stringify(data),
+				type: "post",
+				contentType: "application/json",
+				dataType: "json",
+				success: function(response){
+					if(response == true){ // 이미 채팅방 존재
+						// 채팅방 번호 조회
+						$.ajax({
+							url: "/api/chatlist/chatidx",
+							data: JSON.stringify(data),
+							type: "post",
+							contentType: "application/json",
+							dataType: "json",
+							success: function(response){
+								location.href="/api/chatroom/" + response;
+							},
+							error: function(request, e){
+								alert("코드: " + request.status + "메시지: " + request.responseText + "오류: " + e);
+							}
+						});
+					} else { // 채팅방 존재 X
+						// 새로운 채팅방 생성 및 채팅방 번호 조회
+						$.ajax({
+							url: "/api/chatlist/createchatroom",
+							data: JSON.stringify(data),
+							type: "post",
+							contentType: "application/json",
+							dataType: "json",
+							success: function(response){
+								location.href="/api/chatroom/" + response;
+							},
+							error: function(request, e){
+								alert("코드: " + request.status + "메시지: " + request.responseText + "오류: " + e);
+							}
+						});
+					}
+				},
+				error: function(request, e){
+					alert("코드: " + request.status + "메시지: " + request.responseText + "오류: " + e);
 				}
-			},
-			error: function(request, e){
-				alert("코드: " + request.status + "메시지: " + request.responseText + "오류: " + e);
-			}
-		});
+			});
+		} else {
+			alert("채팅방에 들어갈 수 없습니다.");
+		}
+	};
+	
+	function clickChatInfo(chatIdx){
+		// 추후 세션 비교 추가
+		//if(sessionId == ${chatListInfo.memberIdx}){
+		if(1 == ${chatListInfo.memberIdx}){
+			location.href="/api/chatroom/" + `${'${chatIdx}'}`;
+		} else {
+			alert("채팅방에 들어갈 수 없습니다.");
+		}
 	};
 	
 	function deleteChatBtn(chatIdx){

@@ -39,10 +39,7 @@ public class ChatListService {
 			// 서로이웃 여부 확인
 			int isFriendByMe = dao.selectIsFriendByMe(map);
 			int isFriendByOther = dao.selectIsFriendByOther(map);
-			
-			System.out.println("isFriendByMe: " + isFriendByMe);
-			System.out.println("isFriendByOther: " + isFriendByOther);
-			
+
 			if(isFriendByMe == 1 && isFriendByOther == 1) {
 				String friendMemberName = dao.selectFriendMemberName(friendIdx);
 				
@@ -51,15 +48,8 @@ public class ChatListService {
 			}
 		}
 		
-		System.out.println(chatListFriendDTO);
-
-		for (ChatListFriendDTO one : chatListFriendDTO) {
-			System.out.println(one.getFriendMemberIdx());
-			System.out.println(one.getFriendMemberName());
-		}
-
 		// 채팅방 리스트
-		List<Integer> allChatIdx = dao.selectChatIdx(memberIdx);
+		List<Integer> allChatIdx = dao.selectChatList(memberIdx);
 		List<ChatListRoomDTO> chatListRoomDTO = new ArrayList<>();
 		
 		for (Integer chatIdx : allChatIdx) {
@@ -71,15 +61,80 @@ public class ChatListService {
 			chatListRoomDTO.add(chatInfo);
 		}
 		
-		System.out.println("====chatListRoomDTO====");
-		for (ChatListRoomDTO dto : chatListRoomDTO) {
-			System.out.println(dto.getChatIdx());
-			System.out.println(dto.getFriendMemberIdx());
-			System.out.println(dto.getMemberName());
-			System.out.println(dto.getContent());
-		}
+		return new ChatListDTO(memberIdx, chatListFriendDTO, chatListRoomDTO);
+	}
+
+	/**
+	 * 채팅방 여부 조회
+	 * @param memberIdx
+	 * @param friendMemberIdx
+	 * @return 채팅방 여부
+	 */
+	public boolean selectChatRoom(int memberIdx, int friendMemberIdx) {
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+
+		map.put("memberIdx", memberIdx);
+		map.put("friendMemberIdx", friendMemberIdx);
 		
-		return new ChatListDTO(chatListFriendDTO, chatListRoomDTO);
+		int result = dao.selectChatRoom(map);
+		if(result == 1) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	/**
+	 * 채팅방 번호 조회
+	 * @param memberIdx
+	 * @param friendMemberIdx
+	 * @return 채팅방 번호
+	 */
+	public int selectChatIdx(int memberIdx, int friendMemberIdx) {
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+
+		map.put("memberIdx", memberIdx);
+		map.put("friendMemberIdx", friendMemberIdx);
+		
+		return dao.selectChatIdx(map);
+	}
+
+	/**
+	 * 새로운 채팅방 생성
+	 * @param memberIdx
+	 * @param friendMemberIdx
+	 */
+	public void createChatRoom(int memberIdx, int friendMemberIdx) {
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+
+		map.put("memberIdx", memberIdx);
+		map.put("friendMemberIdx", friendMemberIdx);
+		
+		dao.insertChat(map);
+	}
+
+	/**
+	 * 친구 검색
+	 * @param memberIdx
+	 * @param friendName
+	 * @return 친구 정보
+	 */
+	public List<ChatListFriendDTO> searchFriend(int memberIdx, String friendName) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+
+		map.put("friendName", friendName);
+		map.put("memberIdx", memberIdx);
+		
+		return dao.selectFriendInfo(map);
+	}
+
+	/**
+	 * 채팅방 삭제
+	 * @param chatIdx
+	 * @return 삭제 여부(1|0)
+	 */
+	public int deleteChat(int chatIdx) {
+		return dao.deleteChat(chatIdx);
 	}
 
 }

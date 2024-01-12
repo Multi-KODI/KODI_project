@@ -6,6 +6,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+import dto.ChatListFriendDTO;
+
 @Repository("chatlistdao")
 @Mapper
 public interface ChatListDAO {
@@ -43,7 +45,7 @@ public interface ChatListDAO {
 	 * @param memberIdx
 	 * @return 채팅방 고유값 리스트
 	 */
-	List<Integer> selectChatIdx(int memberIdx);
+	List<Integer> selectChatList(int memberIdx);
 
 	/**
 	 * 채팅방 친구 고유값 조회
@@ -58,5 +60,40 @@ public interface ChatListDAO {
 	 * @return 최근 메시지 내용
 	 */
 	String selectContent(Integer chatIdx);
+
+	/**
+	 * 채팅방 여부 조회
+	 * @param memberIdx
+	 * @param friendMemberIdx
+	 * @return 채팅방 여부 (1|0)
+	 */
+	int selectChatRoom(HashMap<String, Integer> map);
+
+	/**
+	 * 채팅방 번호 조회
+	 * @param map
+	 * @return 채팅방 번호
+	 */
+	int selectChatIdx(HashMap<String, Integer> map);
+
+	/**
+	 * 새로운 채팅방 생성
+	 * @param map
+	 */
+	void insertChat(HashMap<String, Integer> map);
+
+	/**
+	 * 친구 검색
+	 * @param map
+	 * @return 친구 정보
+	 */
+	List<ChatListFriendDTO> selectFriendInfo(HashMap<String, Object> map);
+
+	/**
+	 * 채팅방 삭제
+	 * @param chatIdx
+	 * @return 삭제 여부(1|0)
+	 */
+	int deleteChat(int chatIdx);
 
 }

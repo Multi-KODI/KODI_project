@@ -168,7 +168,6 @@
 		let commentText;
 		let deleteBtn;
 		
-		
 		// 기존 데이터베이스에 있는 댓글 먼저 정렬
 		if(${readPostOne.comments.size() > 0}){
 			<c:forEach items="${readPostOne.comments}" var="one">            

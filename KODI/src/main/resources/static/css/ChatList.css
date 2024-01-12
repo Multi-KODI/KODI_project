@@ -94,44 +94,6 @@
 
 #chatList {
 	display: inline-block;
-	/*border: 2px solid #B6BBC4;
-	border-radius: 10px;*/
 	width: 100%;
 	padding: 0px 10px
-}
-
-#oneChat{
-	margin-bottom: 10px;
-}
-
-#chatInfo {
-	display: inline-block;
-	border: 2px solid #B6BBC4;
-/*	border: 2px solid #6A7EFC;	*/
-	border-radius: 10px;
-	padding: 0px 5px;
-	width: 60%;
-}
-
-#friendName {
-	display: inline-block;
-	margin: 0px 10px;
-	font-weight: bold;
-	font-size: small;
-}
-
-#chatContent {
-	display: inline-block;
-	font-size: small;
-}
-
-#deleteChat {
-	display: inline-block;
-	margin-left: 10px;
-	background-color: #EDF2F6;
-	border: 2px solid #EDF2F6;
-	border-radius: 5px;
-	width: 60px;
-	height: 30px;
-	color: gray;
 }

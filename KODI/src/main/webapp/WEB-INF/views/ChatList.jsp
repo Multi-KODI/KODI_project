@@ -76,7 +76,12 @@
 			chatContent = document.createElement("p");
 			chatContent.setAttribute("id", "chatContent");
 			chatContent.setAttribute("style", "display: inline-block; font-size: small;");
-			chatContent.innerHTML += "${one.content}";
+			
+			if("${one.content}" == ""){
+				chatContent.innerHTML += "...";				
+			} else {
+				chatContent.innerHTML += "${one.content}";
+			}
 			
 			deleteChat = document.createElement("input");
 			deleteChat.setAttribute("type", "button");

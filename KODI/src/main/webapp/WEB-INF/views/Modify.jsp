@@ -120,8 +120,6 @@
 			<div class="form-group">
 				<label for="nationality">국적</label> <select class="form-control"
 					id="nationality">
-					<option value="korea">대한민국</option>
-					<option value="usa">미국</option>
 				</select>
 			</div>
 

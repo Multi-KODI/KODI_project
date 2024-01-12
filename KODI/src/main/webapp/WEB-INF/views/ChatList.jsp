@@ -105,49 +105,55 @@
 		let searchInput = document.getElementById("searchInput");
 
 		$("#searchBtn").on("click", function(){
-			if(searchInput.value == ""){
-				alert("검색할 친구를 입력해주세요");
-			} else {
-				var data = {memberIdx: 1, friendName: searchInput.value};
-				
-				$.ajax({
-					url: "/api/chatlist/search",
-					data: JSON.stringify(data),
-					type: "post",
-					contentType: "application/json",
-					dataType: "json",
-					success: function(response){
-						let friendList = document.getElementById("friendList");
-						
-						friendList.innerHTML = "";
-						
-						let oneFriend;
-						let chatBtn;
-						
-						for (var i = 0; i < response.length; i++) {
-							oneFriend = document.createElement("div");
-							oneFriend.setAttribute("id", response[i].friendMemberIdx);
-							oneFriend.setAttribute("style", "padding-top: 5px; padding-left: 5px; padding-right: 5px;");
-							oneFriend.innerHTML += response[i].friendMemberName;
+			// 추후 세션 비교 추가
+			//if(sessionId == ${chatListInfo.memberIdx}){
+			if(1 == ${chatListInfo.memberIdx}){
+				if(searchInput.value == ""){
+					alert("검색할 친구를 입력해주세요");
+				} else {
+					var data = {memberIdx: 1, friendName: searchInput.value};
+					
+					$.ajax({
+						url: "/api/chatlist/search",
+						data: JSON.stringify(data),
+						type: "post",
+						contentType: "application/json",
+						dataType: "json",
+						success: function(response){
+							let friendList = document.getElementById("friendList");
 							
-							chatBtn = document.createElement("input");
-							chatBtn.setAttribute("type", "button");
-							chatBtn.setAttribute("id", "chatBtn");
-							chatBtn.setAttribute("value", "채팅");
-							chatBtn.setAttribute("style", "display: inline-block; border:none; border-radius: 5px; background-color:#EDF2F6; color:gray; width: 50px; float:right;");
-							chatBtn.setAttribute("onclick", `clickChatBtn(${"${response[i].friendMemberIdx}"})`);
+							friendList.innerHTML = "";
 							
-							oneFriend.appendChild(chatBtn);
+							let oneFriend;
+							let chatBtn;
 							
-							oneFriend.innerHTML += "<hr>";
-							
-							friendList.appendChild(oneFriend);
+							for (var i = 0; i < response.length; i++) {
+								oneFriend = document.createElement("div");
+								oneFriend.setAttribute("id", response[i].friendMemberIdx);
+								oneFriend.setAttribute("style", "padding-top: 5px; padding-left: 5px; padding-right: 5px;");
+								oneFriend.innerHTML += response[i].friendMemberName;
+								
+								chatBtn = document.createElement("input");
+								chatBtn.setAttribute("type", "button");
+								chatBtn.setAttribute("id", "chatBtn");
+								chatBtn.setAttribute("value", "채팅");
+								chatBtn.setAttribute("style", "display: inline-block; border:none; border-radius: 5px; background-color:#EDF2F6; color:gray; width: 50px; float:right;");
+								chatBtn.setAttribute("onclick", `clickChatBtn(${"${response[i].friendMemberIdx}"})`);
+								
+								oneFriend.appendChild(chatBtn);
+								
+								oneFriend.innerHTML += "<hr>";
+								
+								friendList.appendChild(oneFriend);
+							}
+						},
+						error: function(request, e){
+							alert("코드: " + request.status + "메시지: " + request.responseText + "오류: " + e);
 						}
-					},
-					error: function(request, e){
-						alert("코드: " + request.status + "메시지: " + request.responseText + "오류: " + e);
-					}
-				});
+					});
+				}
+			} else {
+				alert("친구 검색할 수 없습니다.");
 			}
 		});
 	};

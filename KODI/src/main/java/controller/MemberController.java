@@ -158,7 +158,6 @@ public class MemberController {
 			Integer memberIdxInteger = findedMember.getMemberIdx();
 			String memberIdx = String.valueOf(memberIdxInteger);
 			session.setAttribute("memberIdx", memberIdx);
-			System.out.println(session.getAttribute("memberIdx"));
 			return new ResponseEntity<>("로그인에 성공하였습니다", HttpStatus.OK);
 		}
 		return new ResponseEntity<>("비밀번호를 확인해 주세요", HttpStatus.BAD_REQUEST);

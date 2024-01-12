@@ -40,7 +40,6 @@ public class AdminController {
 	 */
 	@GetMapping("/allmembers")
 	public ModelAndView findAllMemebers(HttpSession session) {
-		System.out.println(session.getAttribute("memberIdx")); 
 		if (validateAdmin(session)) {
 			// 전체 멤버 가져오기
 			List<MemberDTO> members = memberService.findAllMembers();

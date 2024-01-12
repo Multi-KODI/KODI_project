@@ -87,4 +87,14 @@ public class ChatListController {
 		return service.searchFriend(friendRq.getMemberIdx(), friendRq.getFriendName());
 	}
 	
+	/**
+	 * 채팅방 삭제 API
+	 * @param chatIdx
+	 * @return 삭제 여부(1|0)
+	 */
+	@PostMapping("/chatlist/deletechat")
+	@ResponseBody
+	public int deleteChat(int chatIdx) {
+		return service.deleteChat(chatIdx);
+	}
 }

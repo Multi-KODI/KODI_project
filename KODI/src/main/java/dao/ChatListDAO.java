@@ -89,4 +89,11 @@ public interface ChatListDAO {
 	 */
 	List<ChatListFriendDTO> selectFriendInfo(HashMap<String, Object> map);
 
+	/**
+	 * 채팅방 삭제
+	 * @param chatIdx
+	 * @return 삭제 여부(1|0)
+	 */
+	int deleteChat(int chatIdx);
+
 }

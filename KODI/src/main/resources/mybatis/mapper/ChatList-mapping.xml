@@ -41,13 +41,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where f.member_idx = #{memberIdx} and f.is_friend IS TRUE and m.member_name like concat('%', #{friendName}, '%')
 	</select>
 	
-	
 	<!-- insert -->
 	<insert id="insertChat" parameterType="hashmap">
 		insert into chat(member1_idx, member2_idx) values(#{memberIdx}, #{friendMemberIdx})
 	</insert>
 	<!-- update  -->
+	
 	<!-- delete  -->
+	<delete id="deleteChat" parameterType="int">
+		delete from chat where chat_idx = #{chatIdx}
+	</delete>
 	
 </mapper>
 

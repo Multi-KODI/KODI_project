@@ -62,7 +62,7 @@ public class ChatListService {
 			chatListRoomDTO.add(chatInfo);
 		}
 		
-		return new ChatListDTO(chatListFriendDTO, chatListRoomDTO);
+		return new ChatListDTO(memberIdx, chatListFriendDTO, chatListRoomDTO);
 	}
 
 	/**
@@ -127,6 +127,15 @@ public class ChatListService {
 		map.put("memberIdx", memberIdx);
 		
 		return dao.selectFriendInfo(map);
+	}
+
+	/**
+	 * 채팅방 삭제
+	 * @param chatIdx
+	 * @return 삭제 여부(1|0)
+	 */
+	public int deleteChat(int chatIdx) {
+		return dao.deleteChat(chatIdx);
 	}
 
 }

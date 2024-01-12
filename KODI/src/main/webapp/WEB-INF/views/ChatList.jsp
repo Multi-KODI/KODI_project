@@ -25,13 +25,13 @@
 	});
 	
 	function showData(){
+		// 전체 친구 리스트
 		let friendList = document.getElementById("friendList");
 
 		let oneFriend;
 		let chatBtn;
-		
+	
 		<c:forEach items="${chatListInfo.friendInfo}" var="one">
-			/* $("#friendList").append("<div id=\"${one.friendMemberIdx}\">" + "${one.friendMemberName}" + "</div><hr>"); */
 			oneFriend = document.createElement("div");
 			oneFriend.setAttribute("id", "${one.friendMemberIdx}");
 			oneFriend.setAttribute("style", "padding-top: 5px; padding-left: 5px; padding-right: 5px;");
@@ -49,6 +49,49 @@
 			oneFriend.innerHTML += "<hr>";
 			
 			friendList.appendChild(oneFriend);
+		</c:forEach>
+		
+		// 전체 채팅방 리스트
+		let chatList = document.getElementById("chatList");
+
+		let oneChat;
+		let friendName;
+		let chatContent;
+		let deleteChat;
+		
+		<c:forEach items="${chatListInfo.chatingRoomInfo}" var="one">
+			oneChat = document.createElement("div");
+			oneChat.setAttribute("id", "${one.chatIdx}");
+			oneChat.setAttribute("style", "margin-bottom: 10px;");
+
+			chatInfo = document.createElement("div");
+			chatInfo.setAttribute("id", "chatInfo");
+			chatInfo.setAttribute("style", "display: inline-block; border: 2px solid #B6BBC4; border-radius: 10px; padding: 0px 5px; width: 60%;");
+			
+			friendName = document.createElement("p");
+			friendName.setAttribute("id", "friendName");
+			friendName.setAttribute("style", "display: inline-block; margin: 0px 10px; font-weight: bold; font-size: small;");
+			friendName.innerHTML += "${one.memberName}";
+
+			chatContent = document.createElement("p");
+			chatContent.setAttribute("id", "chatContent");
+			chatContent.setAttribute("style", "display: inline-block; font-size: small;");
+			chatContent.innerHTML += "${one.content}";
+			
+			deleteChat = document.createElement("input");
+			deleteChat.setAttribute("type", "button");
+			deleteChat.setAttribute("id", "deleteChat");
+			deleteChat.setAttribute("value", "삭제");
+			deleteChat.setAttribute("style", "display: inline-block; margin-left: 10px; background-color: #EDF2F6; border: 2px solid #EDF2F6; border-radius: 5px; width: 60px; height: 30px; color: gray;");
+			deleteChat.setAttribute("onclick", `deleteChatBtn(${one.chatIdx})`);
+			
+			chatInfo.appendChild(friendName);
+			chatInfo.appendChild(chatContent);
+			
+			oneChat.appendChild(chatInfo);
+			oneChat.appendChild(deleteChat);
+						
+			chatList.appendChild(oneChat);
 		</c:forEach>
 	};
 	
@@ -152,6 +195,32 @@
 		});
 	};
 	
+	function deleteChatBtn(chatIdx){
+		// 추후 세션 비교 추가
+		//if(sessionId == ${chatListInfo.memberIdx}){
+		if(1 == ${chatListInfo.memberIdx}){
+			let isDelete = confirm("해당 채팅방을 삭제하시겠습니까?");
+			
+			if(isDelete){
+				$(`#${'${chatIdx}'}`).remove();
+				$.ajax({
+					url: "/api/chatlist/deletechat",
+					data: {"chatIdx": `${'${chatIdx}'}`},
+					type: "post",
+					dataType: "json",
+					success: function(response){
+						location.reload();
+					},
+					error: function(request, e){
+						alert("코드: " + request.status + "메시지: " + request.responseText + "오류: " + e);
+					}
+				});
+			};
+		} else {
+			alert("해당 채팅방을 삭제할 수 있는 권한이 없습니다.");
+		}	
+	};
+	
 </script>
 
 <body>
@@ -171,38 +240,14 @@
 				</button>
 			</div>
 
-			<div id="friendList">
-				<!-- <div id="friend">친구1</div> 추후 수정 -->
-			</div>
+			<div id="friendList"></div>
 		</div>
 
 		<div id="chatListDiv">
 			<img id="chatListIcon" src="/image/icon/live-chat.png" align="center">
 			<p id="title">채팅방</p>
 
-			<div id="chatList">
-				<div id="oneChat">
-					<div id="chatInfo">
-						<p id="friendName">친구 1</p>
-						<p id="chatContent">안녕</p>
-					</div>
-					<button id="deleteChat">삭제</button>
-				</div>
-				<div id="oneChat">
-					<div id="chatInfo">
-						<p id="friendName">친구 2</p>
-						<p id="chatContent">안녕</p>
-					</div>
-					<button id="deleteChat">삭제</button>
-				</div>
-				<div id="oneChat">
-					<div id="chatInfo">
-						<p id="friendName">친구 2</p>
-						<p id="chatContent">안녕</p>
-					</div>
-					<button id="deleteChat">삭제</button>
-				</div>
-			</div>
+			<div id="chatList"></div>
 		</div>
 	</div>
 

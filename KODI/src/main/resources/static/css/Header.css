@@ -86,3 +86,22 @@ header {
 .menu:hover .menu-content {
   display: block;
 }
+
+#topBtn {
+  display: none;
+  position: fixed; 
+  bottom: 50px; 
+  right:20px;
+  z-index: 99; 
+  background-color:transparent;
+  border: none; 
+  outline: none; 
+  cursor: pointer;
+  padding: 10px; 
+  border-radius: 100px; 
+}
+
+#topBtn img {
+  width: 60px; 
+  height: 60px;
+}

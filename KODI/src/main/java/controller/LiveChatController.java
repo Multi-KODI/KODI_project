@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import dto.AllChatDTO;
-import dto.ChatMsgDTO;
 import service.LiveChatService;
 
 @Controller
@@ -37,4 +36,5 @@ public class LiveChatController {
 		
 		return mv;
 	}
+	
 }

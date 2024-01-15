@@ -13,6 +13,7 @@
 <link href="/css/LiveChat.css" rel="stylesheet">
 
 <script src="/js/jquery-3.7.1.min.js"></script>
+
 </head>
 
 <script>
@@ -20,6 +21,7 @@
 	<%-- 	let sessionId = <%=session.getAttribute("memberIdx")%>; --%>	
 	$(document).ready(function(){
 		showData();
+		webSocket();
 	});
 	
 	function showData() {
@@ -56,6 +58,34 @@
 		</c:forEach>
 	};
 	
+	function webSocket(){
+		websocket = null;
+		
+		if(websocket == null){
+			websocket = new WebSocket("ws://localhost:7777/ws");
+			
+			websocket.onopen = function(){console.log("웹소켓 연결성공");};
+			websocket.onclose = function(){console.log("웹소켓 해제성공");};
+			websocket.onmessage = function(event){ // 서버로부터 데이터 받는 부분
+				console.log("웹소켓 서버로부터 수신성공");
+				let data = event.data;
+				$("#allMsgList").append(data + "<br>");
+			};
+		};
+		
+		$("#sendMsgBtn").on("click", function(){
+			// 웹소켓 서버로 데이터 보내는 부분
+			let msg = $("#sendMsgInput").val();
+			websocket.send(msg);
+			console.log("웹소켓 서버에게 송신성공");
+		});
+		
+		$("#exitChat").on("click", function(){
+			websocket.close();
+		});
+		
+	};
+	
 	
 	
 </script>
@@ -76,6 +106,5 @@
 		<input id="sendMsgInput" type="text" placeholder="메시지를 입력하시오">
 		<button id="sendMsgBtn" type="button">전송</button>
 	</div>
-
 </body>
 </html>

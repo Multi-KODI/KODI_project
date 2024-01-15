@@ -53,12 +53,20 @@ public class ChatListService {
 		List<ChatListRoomDTO> chatListRoomDTO = new ArrayList<>();
 		
 		for (Integer chatIdx : allChatIdx) {
-			int chatFriendIdx = dao.selectChatFriendIdx(chatIdx);
-			String friendMemberName = dao.selectFriendMemberName(chatFriendIdx);
-			String content = dao.selectContent(chatIdx);
+			int chatMemberIdx1 = dao.selectChatMemberOneIdx(chatIdx);
+			int chatMemberIdx2 = dao.selectChatMemberTwoIdx(chatIdx);
 			
-			ChatListRoomDTO chatInfo = new ChatListRoomDTO(chatIdx, chatFriendIdx, friendMemberName, content);
-			chatListRoomDTO.add(chatInfo);
+			if(chatMemberIdx1 == memberIdx) {
+				String friendMemberName = dao.selectFriendMemberName(chatMemberIdx2);
+				String content = dao.selectContent(chatIdx);
+				ChatListRoomDTO chatInfo = new ChatListRoomDTO(chatIdx, chatMemberIdx2, friendMemberName, content);
+				chatListRoomDTO.add(chatInfo);
+			} else {
+				String friendMemberName = dao.selectFriendMemberName(chatMemberIdx1);
+				String content = dao.selectContent(chatIdx);
+				ChatListRoomDTO chatInfo = new ChatListRoomDTO(chatIdx, chatMemberIdx1, friendMemberName, content);
+				chatListRoomDTO.add(chatInfo);
+			}
 		}
 		
 		return new ChatListDTO(memberIdx, chatListFriendDTO, chatListRoomDTO);

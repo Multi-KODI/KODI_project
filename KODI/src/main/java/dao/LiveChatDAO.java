@@ -1,5 +1,6 @@
 package dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -24,5 +25,12 @@ public interface LiveChatDAO {
 	 * @return 채팅 작성자명
 	 */
 	String selectMemberName(int memberIdx);
+
+	/**
+	 * WebSocket 메시지 DB 저장
+	 * @param map
+	 * @return DB 저장 성공 여부(1|0)
+	 */
+	int insertChatMsg(HashMap<String, Object> map);
 
 }

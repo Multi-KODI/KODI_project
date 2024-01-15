@@ -1,6 +1,7 @@
 package service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,32 @@ public class LiveChatService {
 		}
 
 		return allChatDTO;
+	}
+
+	/**
+	 * WebSocket 메시지 DB 저장
+	 * @param memberIdx
+	 * @param chatIdx
+	 * @param content
+	 * @return DB 저장 성공 여부(1|0)
+	 */
+	public int saveChatMsg(int memberIdx, int chatIdx, String content) {
+		HashMap<String, Object> map = new HashMap<>();
+		
+		map.put("memberIdx", memberIdx);
+		map.put("chatIdx", chatIdx);
+		map.put("content", content);
+		
+		return dao.insertChatMsg(map);
+	}
+
+	/**
+	 * 메시지 작성자명 조회
+	 * @param memberIdx
+	 * @return 메시지 작성자명
+	 */
+	public String showMemberName(int memberIdx) {
+		return dao.selectMemberName(memberIdx);
 	}
 	
 }

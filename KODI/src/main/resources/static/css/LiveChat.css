@@ -124,6 +124,7 @@
 
 #sendMsgDiv {
 	display: flex;
+	margin-bottom: 70px;
 }
 
 #sendMsgInput {

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import dto.AllChatDTO;
 import dto.ChatMsgDTO;
 import service.LiveChatService;
 
@@ -27,7 +28,7 @@ public class LiveChatController {
 	 */
 	@GetMapping("/chatroom/{chatIdx}")
 	public ModelAndView liveChat(@PathVariable int chatIdx) {
-		List<ChatMsgDTO> allChatMsg = service.selectAllChatMsg(chatIdx);
+		List<AllChatDTO> allChatMsg = service.selectAllChatMsg(chatIdx);
 		
 		ModelAndView mv = new ModelAndView();
 		

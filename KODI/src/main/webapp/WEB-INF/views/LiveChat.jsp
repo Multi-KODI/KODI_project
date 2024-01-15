@@ -16,7 +16,48 @@
 </head>
 
 <script>
+	//memberIdx 추후 session 값 받아오기
+	<%-- 	let sessionId = <%=session.getAttribute("memberIdx")%>; --%>	
+	$(document).ready(function(){
+		showData();
+	});
+	
+	function showData() {
+		let allMsgList = document.getElementById("allMsgList");
+		
+		let oneMsg;
+		let friendName;
+		let content;
+		let regdate;
+		
+		<c:forEach items="${allChatMsg}" var="one">
+			oneMsg = document.createElement("div");
+			oneMsg.setAttribute("id", "${one.chatMsgDTO.chatMsgIdx}");
+			
+			friendName = document.createElement("p");
+			friendName.setAttribute("id", "friendName");
+			friendName.innerHTML = "${one.memberName}";
+			
+			content = document.createElement("p");
+			content.setAttribute("id", "content");
+			content.innerHTML = "${one.chatMsgDTO.content}";
 
+			regdate = document.createElement("p");
+			regdate.setAttribute("id", "regdate");
+			regdate.innerHTML = "${one.chatMsgDTO.regdate}";
+			
+			oneMsg.appendChild(friendName);
+			oneMsg.appendChild(content);
+			oneMsg.appendChild(regdate);
+
+			oneMsg.innerHTML += "<hr>";
+			
+			allMsgList.appendChild(oneMsg);
+		</c:forEach>
+	};
+	
+	
+	
 </script>
 
 <body>
@@ -29,23 +70,12 @@
 		<p id="exitMsg">채팅방 나가기</p>
 	</button>
 
-	<div id="allMsgList">
-		<div id="oneMsg">
-			<p id="friendName">친구 1</p>
-			<p id="content">안녕</p>
-		</div>
-		<hr>
-		<div id="oneMsg">
-			<p id="friendName">나</p>
-			<p id="content">잘지내?</p>
-		</div>
-		<hr>
-	</div>
-	
+	<div id="allMsgList"></div>
+
 	<div id="sendMsgDiv">
 		<input id="sendMsgInput" type="text" placeholder="메시지를 입력하시오">
 		<button id="sendMsgBtn" type="button">전송</button>
 	</div>
-	
+
 </body>
 </html>

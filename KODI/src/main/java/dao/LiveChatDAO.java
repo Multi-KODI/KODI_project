@@ -18,4 +18,11 @@ public interface LiveChatDAO {
 	 */
 	List<ChatMsgDTO> selectAllChatMsg(int chatIdx);
 
+	/**
+	 * 채팅 작성자 조회
+	 * @param memberIdx
+	 * @return 채팅 작성자명
+	 */
+	String selectMemberName(int memberIdx);
+
 }

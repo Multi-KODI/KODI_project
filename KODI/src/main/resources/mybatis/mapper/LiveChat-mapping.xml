@@ -6,7 +6,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="dao.LiveChatDAO">
 	<!-- select  -->
 	<select id="selectAllChatMsg" resultType="chatmsgdto" parameterType="int">
-		select * from chat_msg where chat_idx = #{chatIdx}
+		select chat_msg_idx as chatMsgIdx, content, regdate, member_idx as memberIdx, chat_idx as chatIdx from chat_msg where chat_idx = #{chatIdx}
+	</select>
+	<select id="selectMemberName" resultType="String" parameterType="int">
+		select member_name as memberName from members where member_idx = #{memberIdx}
 	</select>
 	
 	<!-- insert -->

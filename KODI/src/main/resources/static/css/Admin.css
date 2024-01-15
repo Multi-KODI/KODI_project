@@ -27,27 +27,28 @@ body {
 	margin-top: 20px;
 }
 
-.title {
-	align-items: center;
-	border-bottom: 2px solid #000000;
-	
-}
 
-#search, input,select{
+#searchinput, #searchselect{
 	font-family: 'NanumSquareNeo';
-	border-style: 2px solid #B6BBC4;
+	border: 1px solid #B6BBC4;
 	border-radius: 6px;
-	padding: 4px;
+	padding: 5px;
+	outline: none;
 }
 
 #board {
-	margin-top: 20px;
+	max-height: 1200px;
+	font-size: 18px;
 }
 
 #title {
 	display: flex;
 	justify-content: space-between;
-	margin-bottom: 20px
+	margin-bottom: 20px;
+	align-items: center;
+	border-bottom: 2px solid #000000;
+	padding-bottom:20px;
+	vertical-align: middle;
 }
 
 #board table {
@@ -65,4 +66,71 @@ body {
 
 #board th:nth-child(3) {
 	width: 40%;
+}
+
+
+
+td > button{
+	font-family: 'NanumSquareNeo';
+	padding: 4px 8px;
+	margin-right: 5px;
+	color: #000000;
+	border: none;
+	cursor: pointer;
+	border-radius: 8px;
+	width: 70px;
+	box-sizing: border-box;
+	margin-right: 10px;
+}
+
+
+.tdDiv{
+	margin-top: 20px;
+	padding-bottom:20px;
+	
+	
+}
+
+table {
+    border-collapse: collapse;
+}
+
+tr {
+    border-bottom: 2px solid #D9D9D9;
+    
+ 
+}
+
+
+
+.viewBtn:hover{
+	background-color: #6A7EFC;
+	color: #ffffff;
+	
+}
+
+.deleteBtn:hover, withdrawBtn:hover{
+	background-color: #FF5656;
+	color: #ffffff;
+}
+
+
+#pagination{
+	text-align: center;
+	margin-top: 20px;
+	
+}
+
+.pageBtn{
+	font-family: 'NanumSquareNeo';
+	cursor: pointer;
+	border-radius: 8px;
+	border: none;
+	padding: 4px 8px;
+	margin: 3px;
+}
+
+.pageBtn.selected{
+	background-color: #494953;
+    color: white;
 }

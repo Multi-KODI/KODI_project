@@ -12,10 +12,13 @@ import org.springframework.context.annotation.ComponentScan;
 @MapperScan(basePackages = "dao")
 @MapperScan(basePackages = "config")
 @SpringBootApplication
+//@MapperScan
 public class KodiApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(KodiApplication.class, args);
 		System.out.println("=======부트 시작=======");
+
 	}
+
 }

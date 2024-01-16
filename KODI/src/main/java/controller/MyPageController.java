@@ -1,7 +1,7 @@
 package controller;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import dto.FlagDTO;
+import dto.FriendDTO;
 import dto.MemberDTO;
 import dto.PostDTO;
 import jakarta.servlet.http.HttpSession;
@@ -91,6 +93,21 @@ public class MyPageController {
 	}
 
 	/**
+	 * 회원 수정창 요청
+	 * @param memberDTO
+	 * @param session
+	 * @return
+	 */
+	@GetMapping("/update")
+	public ModelAndView updateModal(HttpSession session) {
+		ModelAndView mv = new ModelAndView();
+		List<FlagDTO> allFlags = myPageService.allFlags();
+		mv.addObject("flags", allFlags);
+		mv.setViewName("Modify");
+		return mv;
+	}
+
+	/**
 	 * 회원정보 수정
 	 * 
 	 * @param memberDTO
@@ -145,4 +162,70 @@ public class MyPageController {
 			return null;
 		}
 	}
+
+	@GetMapping("/friends")
+	public ModelAndView friendsList(HttpSession session) {
+		ModelAndView mv = new ModelAndView();
+		// 세션에 바운딩된 유저아이디를 받아옴
+		Integer memberIdx = Integer.parseInt((String) session.getAttribute("memberIdx"));
+
+		// 전체친구
+		List<FriendDTO> allFriendsList = myPageService.allFriends(memberIdx);
+		List<Integer> resultList1 = new ArrayList<>();
+		for (FriendDTO allFriend : allFriendsList) {
+			resultList1.add(allFriend.getFriendMemberIdx());
+		}
+		// 내가 추가한 친구
+		List<FriendDTO> mySideFriendsList = myPageService.mySideFriends(memberIdx);
+		List<Integer> resultList2 = new ArrayList<>();
+		for (FriendDTO mySideFriend : mySideFriendsList) {
+			resultList2.add(mySideFriend.getFriendMemberIdx());
+		}
+		// 나를 추가한 친구
+		List<FriendDTO> otherSideFriendsList = myPageService.otherSideFriends(memberIdx);
+		List<Integer> resultList3 = new ArrayList<>();
+		for (FriendDTO otherSideFriend : otherSideFriendsList) {
+			resultList3.add(otherSideFriend.getMemberIdx());
+		}
+
+		if (resultList1 != null) {
+			List<MemberDTO> allFriends = myPageService.friendInfo(resultList1);
+			mv.addObject("allFriends", allFriends);
+			System.out.println(allFriends);
+		}
+		if (resultList2 != null) {
+			List<MemberDTO> mySideFriends = myPageService.friendInfo(resultList2);
+			mv.addObject("mySideFriends", mySideFriends);
+			System.out.println(mySideFriends);
+		}
+		if (resultList3 != null) {
+			List<MemberDTO> otherSideFriends = myPageService.friendInfo(resultList3);
+			mv.addObject("otherSideFriends", otherSideFriends);
+			System.out.println(otherSideFriends);
+		}
+		mv.setViewName("Admin");
+		return mv;
+
+	}
+
+	// List<FriendDTO> mySideFriendsList = myPageService.mySideFriends(memberIdx);
+	// if (mySideFriendsList != null) {
+	// List<Integer> resultList2 = new ArrayList<>();
+	// for (FriendDTO mySideFriends : mySideFriendsList) {
+	// resultList2.add(mySideFriends.getFriendMemberIdx());
+	// }
+	// List<MemberDTO> mySideFriends = myPageService.friendInfo(resultList2);
+	// System.out.println(mySideFriends);
+	// }
+
+	// List<FriendDTO> otherSideFriendsList =
+	// myPageService.otherSideFriends(memberIdx);
+	// List<Integer> resultList3 = new ArrayList<>();
+	// for (FriendDTO otherSideFriends : otherSideFriendsList) {
+	// resultList2.add(otherSideFriends.getMemberIdx());
+	// }
+	// if(resultList2 != null){
+	// List<MemberDTO> otherSideFriends = myPageService.friendInfo(resultList3);
+	// System.out.println(otherSideFriends);
+	// }
 }

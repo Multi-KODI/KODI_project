@@ -155,7 +155,7 @@ public class MemberController {
 		// 아이디가 존재하고, 비밀번호가 일치하는 경우
 		if (memberDTO.getPw().equals(findedMember.getPw())) {
 			// 멤버 아이디를 세션에 바운딩
-			Integer memberIdxInteger = findedMember.getMemberIdx();
+			int memberIdxInteger = findedMember.getMemberIdx();
 			String memberIdx = String.valueOf(memberIdxInteger);
 			session.setAttribute("memberIdx", memberIdx);
 			return new ResponseEntity<>("로그인에 성공하였습니다", HttpStatus.OK);

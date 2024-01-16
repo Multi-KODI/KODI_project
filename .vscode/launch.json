@@ -1,0 +1,14 @@
+{
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Spring Boot-KodiApplication<KODI>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.example.kodi.KodiApplication",
+      "projectName": "KODI",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
+    }
+  ]
+}

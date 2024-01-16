@@ -3,6 +3,7 @@ package service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import dao.AdminDAO;
@@ -12,6 +13,7 @@ import dto.PostDTO;
 public class AdminService {
 	
 	@Autowired
+	@Qualifier("admindao")
 	private AdminDAO adminDAO;
 	
 	//전체 게시글 조회

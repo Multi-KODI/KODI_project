@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dao.MyPageDAO">
+
+    <!-- select  -->
+    <select id="readMyPosts" resultType="postdto" parameterType="int">
+        SELECT * FROM posts WHERE member_idx=#{memberIdx}
+    </select>
+    <!-- 서로 이웃 -->
+    <select id="allFriends" resultType="frienddto" parameterType="int">
+        SELECT friend_member_idx as friendMemberIdx FROM friend WHERE member_idx = #{memberIdx} AND is_friend = 1;
+    </select>
+    <!-- 내가 추가한 이웃 -->
+    <select id="mySideFriends" resultType="frienddto" parameterType="int">
+        SELECT friend_member_idx as friendMemberIdx FROM friend WHERE member_idx = #{memberIdx} AND is_friend = 0;
+    </select>
+    <!-- 나를 추가한 이웃 -->
+    <select id="otherSideFriends" resultType="frienddto" parameterType="int">
+        SELECT member_idx as memberIdx FROM friend WHERE friend_member_idx = #{memberIdx} AND is_friend = 0;
+    </select>
+    <!-- 전체국가 -->
+    <select id="allFlags" resultType="flagdto">
+        SELECT flag_idx as flagIdx, country, src FROM flag;
+    </select>
+    
+    <!-- 친구 정보 조회 -->
+    <select id="friendInfo" resultType="memberdto" parameterType="java.util.List">
+        SELECT member_idx AS memberIdx, email, pw, member_name AS memberName, flag_idx AS flagIdx
+        FROM members WHERE member_idx IN
+        <foreach collection="list" item="idx" open="(" separator="," close=")">
+            #{idx}
+        </foreach>
+    </select> 
+</mapper>

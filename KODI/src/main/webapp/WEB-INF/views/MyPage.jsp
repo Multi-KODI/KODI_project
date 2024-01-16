@@ -18,10 +18,16 @@
 <%@ include file="/WEB-INF/views/SearchHeader.jsp" %>
 
 <main>
-<div class="modal_background">
+<div class="modal_background1">
 	<div class="modal_box"></div>
+</div>
+
+<div class="modal_background2">
 	<div class="modal_box2"></div>
 </div>
+
+
+
 
 
 <main>
@@ -128,7 +134,7 @@ $.ajax({
             success: function(isValid) {
                 if (isValid) {
                     $(".modal_box").load("/modifyModal", function() {
-                        $(".modal_background").fadeIn();
+                        $(".modal_background1").fadeIn();
                     });
                 } else {
                     alert("비밀번호가 틀렸습니다.");
@@ -139,14 +145,13 @@ $.ajax({
             }
         });
     });
-    
-    
-	//친구목록
+
     $("#friendbtn").on("click", function () {
         $(".modal_box2").load("/friendList", function() {
-            $(".modal_background").fadeIn();
+            $(".modal_background2").fadeIn();
         });
     });
+
 	
 	
 	

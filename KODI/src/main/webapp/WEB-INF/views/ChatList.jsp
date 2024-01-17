@@ -41,7 +41,7 @@
 			chatBtn.setAttribute("type", "button");
 			chatBtn.setAttribute("id", "chatBtn");
 			chatBtn.setAttribute("value", "채팅");
-			chatBtn.setAttribute("style", "display: inline-block; border:none; border-radius: 5px; background-color:#EDF2F6; color:gray; width: 50px; float:right; cursor: pointer;");
+			chatBtn.setAttribute("style", "display: inline-block; padding: 2px; border:none; border-radius: 5px; background-color:#EDF2F6; color:gray; width: 50px; float:right; cursor: pointer; font-family: 'NanumSquareNeo';");
 			chatBtn.setAttribute("onclick", `clickChatBtn(${one.friendMemberIdx})`);
 			
 			oneFriend.appendChild(chatBtn);
@@ -66,7 +66,7 @@
 	
 			chatInfo = document.createElement("button");
 			chatInfo.setAttribute("id", "chatInfo");
-			chatInfo.setAttribute("style", "display: inline-block; border: 2px solid #B6BBC4; border-radius: 10px; cursor: pointer; width: 64%; background-color: white;");
+			chatInfo.setAttribute("style", "display: inline-block; border: 2px solid #B6BBC4; border-radius: 10px; cursor: pointer; width: 64%; background-color: white; font-family: 'NanumSquareNeo';");
 			chatInfo.setAttribute("onclick", `clickChatInfo(${one.chatIdx})`);
 
 			friendName = document.createElement("p");
@@ -76,7 +76,7 @@
 	
 			chatContent = document.createElement("p");
 			chatContent.setAttribute("id", "chatContent");
-			chatContent.setAttribute("style", "display: flex; font-size: small;");
+			chatContent.setAttribute("style", "display: flex; font-size: small; margin: 15px;");
 			
 			if("${one.content}" == ""){
 				chatContent.innerHTML += "...";				
@@ -88,7 +88,7 @@
 			deleteChat.setAttribute("type", "button");
 			deleteChat.setAttribute("id", "deleteChat");
 			deleteChat.setAttribute("value", "삭제");
-			deleteChat.setAttribute("style", "display: inline-block; cursor: pointer; margin-left: 10px; background-color: #EDF2F6; border: 2px solid #EDF2F6; border-radius: 5px; width: 60px; height: 30px; color: gray;");
+			deleteChat.setAttribute("style", "display: inline-block; cursor: pointer; margin-left: 10px; background-color: #EDF2F6; border: 2px solid #EDF2F6; border-radius: 5px; width: 60px; height: 30px; color: gray; font-family: 'NanumSquareNeo';");
 			deleteChat.setAttribute("onclick", `deleteChatBtn(${one.chatIdx})`);
 			
 			chatInfo.appendChild(friendName);

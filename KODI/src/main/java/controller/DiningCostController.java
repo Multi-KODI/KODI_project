@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -56,6 +57,7 @@ public class DiningCostController {
 	 * @return 특정 품목 외식비
 	 */
 	@PostMapping("/diningcost")
+	@ResponseBody
 	public DiningCostDTO selectOneCost(String item) {
 		return service.selectOneCost(item);
 	}

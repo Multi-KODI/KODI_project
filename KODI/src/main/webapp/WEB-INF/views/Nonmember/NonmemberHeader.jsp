@@ -4,15 +4,17 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="/css/Header.css">
+<link rel="stylesheet" href="/css/Nonmember/NonmemberHeader.css">
 <link
 	href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css"
 	rel="stylesheet">
-<script src="/js/jquery-3.7.1.min.js"></script>
+<script src="js/jquery-3.7.1.min.js"></script>
 <title></title>
 </head>
 
 <body>
+
+
 	<header>
 		<div class="header-container">
 			<div class="menu">
@@ -20,10 +22,9 @@
 			</div>
 
 			<div class="end-btn">
-				<img class="icon" id="notify" src="/image/icon/notify.png"> 
-				<img class="icon" id="chat" src="/image/icon/chat.png">
-				<button class="btn" id="mypagenbtn">마이페이지</button>
-				<button class="btn" id="logoutbtn">로그아웃</button>
+
+				<button class="btn" id="registerbtn">회원가입</button>
+				<button class="btn" id="loginbtn">로그인</button>
 				<div class="language-selection">
 					<select>
 						<option value="ko">한국어</option>
@@ -41,10 +42,11 @@
 		<a href="/api/diningcost">지역별 외식비</a>
 	</div>
 	
-	
 	<button id="topBtn">
 		<img src="/image/icon/topicon.png"> 
 	</button>
+
+
 
 <script>
 $(document).ready(function () {
@@ -54,8 +56,8 @@ $(document).ready(function () {
 	}
 	
 	function updatetopBtn() {
-	    var topOffset = $("#logoutbtn").offset();  //상단이동 버튼
-	    var logoutbtnWidth = $("#logoutbtn").outerWidth();
+	    var topOffset = $("#loginbtn").offset();  //상단이동 버튼
+	    var logoutbtnWidth = $("#loginbtn").outerWidth();
 	    var rightPos = $(window).width() - topOffset.left - logoutbtnWidth;
 	    $("#topBtn").css({'right': rightPos + 'px'}); 
 	}
@@ -74,17 +76,13 @@ $(document).ready(function () {
 	    }
 	});
 	
-	$("#mypagenbtn").on("click", function (event) {
-	    event.preventDefault(); // 기본 클릭 동작x
-	    window.location.href = "/api/myPage";
+	$("#registerbtn").on("click", function (event) {
+		window.location.href = "/api/register";
 	});
 
     
-    $("#logoutbtn").on("click", function () {
-    	if (confirm("로그아웃 하시겠습니까?")){
-    		window.location.href = "/start";
-    	}
-    	else{}
+    $("#loginbtn").on("click", function () {
+    	window.location.href = "/api/login";
       });
     
     
@@ -92,7 +90,6 @@ $(document).ready(function () {
         window.location.href = "/api/chat";
       });
     
-
     let topBtn = document.getElementById("topBtn");
 
     function topFunction() {
@@ -109,19 +106,12 @@ $(document).ready(function () {
             topBtn.style.display = "none";
         }
     };
-
-
-
-   
-
     
     
     
   }); //ready
 
 </script>
-
-
 
 
 

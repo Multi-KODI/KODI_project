@@ -5,11 +5,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="/css/SearchHeader.css">
+<link rel="stylesheet" href="/css/Nonmember/NonmemberSearchHeader.css">
 <link
 	href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css"
 	rel="stylesheet">
-<script src="/js/jquery-3.7.1.min.js"></script>
+<script src="js/jquery-3.7.1.min.js"></script>
 <title></title>
 </head>
 <body>
@@ -18,7 +18,7 @@
 	<div class="headerbox">
 
 		<div class="logo-box">
-			<a href="/home"><img id="logoicon" src="/image/icon/logo.png" ></a>
+			<a href="/nonhome"><img id="logoicon" src="/image/icon/nonmemberlogo.png" ></a>
 		</div>
 
 		<div class="input-box">

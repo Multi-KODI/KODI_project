@@ -9,6 +9,7 @@ import dto.FlagDTO;
 import dto.FriendDTO;
 import dto.MemberDTO;
 import dto.PostDTO;
+import dto.PostImageDTO;
 
 @Repository("mypagedao")
 @Mapper
@@ -24,5 +25,8 @@ public interface MyPageDAO {
 	List<FriendDTO> otherSideFriends(int memberIdx);
 	//친구 정보 조회
 	List<MemberDTO> friendInfo(List<Integer> friendList);
+	//전체국가조회
   List<FlagDTO> allFlags();
+	//전체 이미지 조회
+	List<PostImageDTO> allImages();
 }

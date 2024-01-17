@@ -17,6 +17,7 @@ import dto.FlagDTO;
 import dto.FriendDTO;
 import dto.MemberDTO;
 import dto.PostDTO;
+import dto.PostImageDTO;
 import jakarta.servlet.http.HttpSession;
 import service.MemberService;
 import service.MyPageService;
@@ -94,6 +95,7 @@ public class MyPageController {
 
 	/**
 	 * 회원 수정창 요청
+	 * 
 	 * @param memberDTO
 	 * @param session
 	 * @return
@@ -138,8 +140,10 @@ public class MyPageController {
 	 * @param session
 	 * @return
 	 */
-	@GetMapping("/myPage")
+	@GetMapping("/mypage")
 	public ModelAndView readMyPosts(HttpSession session) {
+		String idx = String.valueOf(7);
+		session.setAttribute("memberIdx", idx);
 		ModelAndView mv = new ModelAndView();
 		// 세션에 바운딩된 유저아이디를 받아옴
 		Integer memberIdx = Integer.parseInt((String) session.getAttribute("memberIdx"));
@@ -147,15 +151,14 @@ public class MyPageController {
 		// 세션에 유저아이디가 있고, 실제로 DB에 존재하는 경우
 		if (memberIdx != null && memberService.findMemberByIdx(memberIdx) != null) {
 			// 나의 전체글 가져오기
-			try {
-				List<PostDTO> myPosts = myPageService.readMyPosts(memberIdx);
-				mv.addObject("myPosts", myPosts);
-				mv.setViewName("MyPage");
-				return mv;
-			} catch (Exception e) {
-				mv.setViewName("MyPage");
-				return mv;
+			List<PostDTO> posts = myPageService.readMyPosts(memberIdx);
+			if (posts != null) {
+				mv.addObject("posts", posts);
 			}
+			List<PostImageDTO> images = myPageService.allImages();
+			mv.addObject("images", images);
+			mv.setViewName("MyPage");
+			return mv;
 
 			// 로그인이 안돼어 있거나 회원이 존재하지 않는 경우
 		} else {

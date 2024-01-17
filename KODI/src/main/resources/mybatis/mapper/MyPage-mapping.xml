@@ -7,7 +7,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <!-- select  -->
     <select id="readMyPosts" resultType="postdto" parameterType="int">
-        SELECT * FROM posts WHERE member_idx=#{memberIdx}
+        SELECT post_idx as postIdx, title, content, regdate, address, category, grade, member_idx as memberIdx FROM post WHERE member_idx=#{memberIdx}
     </select>
     <!-- 서로 이웃 -->
     <select id="allFriends" resultType="frienddto" parameterType="int">
@@ -24,6 +24,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <!-- 전체국가 -->
     <select id="allFlags" resultType="flagdto">
         SELECT flag_idx as flagIdx, country, src FROM flag;
+    </select>
+    <!-- 전체사진 -->
+    <select id="allImages" resultType="postimagedto">
+        SELECT image_idx as imageIdx, src, post_idx as postIdx FROM post_image;
     </select>
     
     <!-- 친구 정보 조회 -->

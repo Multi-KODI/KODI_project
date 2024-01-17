@@ -10,12 +10,13 @@ import dto.FlagDTO;
 import dto.FriendDTO;
 import dto.MemberDTO;
 import dto.PostDTO;
+import dto.PostImageDTO;
 
 @Service("mypageservice")
 public class MyPageService {
   @Autowired
   private MyPageDAO myPageDAO;
-  
+  //나의 게시물
   public List<PostDTO> readMyPosts(int memberIdx){
     List<PostDTO> myPosts = myPageDAO.readMyPosts(memberIdx);
     return myPosts;
@@ -40,7 +41,12 @@ public class MyPageService {
     List<MemberDTO> friendInfo = myPageDAO.friendInfo(friendList);
     return friendInfo;
   }
+  //전체 국가 조회
   public List<FlagDTO> allFlags() {
     return myPageDAO.allFlags();
+  }
+  //전체 이미지 조회
+  public List<PostImageDTO> allImages() {
+    return myPageDAO.allImages();
   }
 }

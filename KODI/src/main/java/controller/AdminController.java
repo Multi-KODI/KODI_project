@@ -10,11 +10,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import dto.FlagDTO;
 import dto.MemberDTO;
 import dto.PostDTO;
 import jakarta.servlet.http.HttpSession;
 import service.AdminService;
 import service.MemberService;
+import service.MyPageService;
 
 @Controller
 @RequestMapping("/api/admin")
@@ -33,6 +35,9 @@ public class AdminController {
 	@Autowired
 	private AdminService adminService;
 
+	@Autowired
+	private MyPageService myPageService;
+
 	/**
 	 * 전체 유저 조회
 	 * 
@@ -45,9 +50,11 @@ public class AdminController {
 		if (validateAdmin(session)) {
 			// 전체 멤버 가져오기
 			List<MemberDTO> members = memberService.findAllMembers();
+			List<FlagDTO> flags = myPageService.allFlags();
 			ModelAndView mv = new ModelAndView();
 			mv.addObject("members", members);
-			mv.setViewName("Admin");
+			mv.addObject("flags", flags);
+			mv.setViewName("Admin-Member");
 			return mv;
 			// 유저가 관리자가 아니거나 유저정보가 없을 때
 		} else {
@@ -73,8 +80,7 @@ public class AdminController {
 			List<MemberDTO> members = memberService.findAllMembers();
 			mv.addObject("members", members);
 			mv.addObject("posts", posts);
-			mv.setViewName("Admin");
-			mv.setViewName("Admin");
+			mv.setViewName("Admin-Post");
 			return mv;
 			// 유저가 관리자가 아니거나 유저정보가 없을 때
 		} else {
@@ -97,7 +103,7 @@ public class AdminController {
 			List<MemberDTO> members = memberService.findAllMembers();
 			ModelAndView mv = new ModelAndView();
 			mv.addObject("members", members);
-			mv.setViewName("Admin");
+			mv.setViewName("Admin-Member");
 			return mv;
 			// 유저가 관리자가 아니거나 유저정보가 없을 때
 		} else {

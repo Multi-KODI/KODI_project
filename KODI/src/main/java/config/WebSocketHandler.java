@@ -13,12 +13,14 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 @Component
 public class WebSocketHandler extends TextWebSocketHandler {
 
-	List<WebSocketSession> list = new ArrayList<WebSocketSession>();
-
+	List<WebSocketSession> list = new ArrayList<WebSocketSession>(); // 한 채팅방에 모여 있는 클라이언트 리스트
+	
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		System.out.println(session.getRemoteAddress() + " 에서 접속했습니다."); // 클라이언트 IP
-		list.add(session);
+		if(list.size() < 1) { // 일단 현재 사용자가 채팅방 하나만 열 수 있도록 제한
+			list.add(session);
+		}
 	}
 
 	@Override

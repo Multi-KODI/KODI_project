@@ -36,6 +36,21 @@ public class LiveChatService {
 
 		return allChatDTO;
 	}
+	
+	/**
+	 * 채팅방 권한 조회
+	 * @param memberIdx
+	 * @param chatIdx
+	 * @return 채팅방 권한 여부(1|0)
+	 */
+	public int verifyMember(int memberIdx, int chatIdx) {
+		HashMap<String, Integer> map = new HashMap<>();
+		
+		map.put("memberIdx", memberIdx);
+		map.put("chatIdx", chatIdx);
+		
+		return dao.verifyMember(map);
+	}
 
 	/**
 	 * WebSocket 메시지 DB 저장
@@ -62,5 +77,4 @@ public class LiveChatService {
 	public String showMemberName(int memberIdx) {
 		return dao.selectMemberName(memberIdx);
 	}
-	
 }

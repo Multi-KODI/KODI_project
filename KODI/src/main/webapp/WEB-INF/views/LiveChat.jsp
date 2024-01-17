@@ -17,14 +17,35 @@
 </head>
 
 <script>
-	//memberIdx 추후 session 값 받아오기
+	// memberIdx 추후 session 값 받아오기
 	<%-- 	let sessionId = <%=session.getAttribute("memberIdx")%>; --%>
-	// let chatIdx;
 	
 	$(document).ready(function(){
-		showData();
-		webSocket();
+		verifyMember();
 	});
+	
+	function verifyMember(){
+		// 해당 채팅방에 들어올 수 있는 사용자 권한 제한
+		$.ajax({
+			url: "/api/chatroom/verifymember",
+			data: {"memberIdx": 1, "chatIdx": ${chatIdx}}, // 추후 memberIdx 변경
+			type: "post",
+			success: function(response){
+				if(response == 1){
+					showData();
+					webSocket();
+				} else {
+					alert("해당 채팅방에 입장할 수 없습니다.");
+					// 추후 memberIdx 변경
+					// location.href = "/api/chatlist/" + sessionId;
+					location.href = "/api/chatlist/" + 1;
+				}
+			},
+			error: function(request, e){
+				alert("코드: " + request.status + "메시지: " + request.responseText + "오류: " + e);
+			}
+		});
+	};
 	
 	function showData() {
 		let allMsgList = document.getElementById("allMsgList");
@@ -35,8 +56,6 @@
 		let regdate;
 		
 		<c:forEach items="${allChatMsg}" var="one">
-			//chatIdx = "${one.chatMsgDTO.chatIdx}";
-			
 			oneMsg = document.createElement("div");
 			oneMsg.setAttribute("id", "${one.chatMsgDTO.chatMsgIdx}");
 			
@@ -61,10 +80,10 @@
 			allMsgList.appendChild(oneMsg);
 		</c:forEach>
 	};
-	
+		
 	function webSocket(){
 		websocket = null;
-		
+
 		if(websocket == null){
 			websocket = new WebSocket("ws://localhost:7777/ws");
 			
@@ -72,7 +91,7 @@
 			websocket.onclose = function(){console.log("웹소켓 해제성공");};
 			websocket.onmessage = function(event){ // 서버로부터 데이터 받는 부분
 				console.log("웹소켓 서버로부터 수신성공");
-							
+				
 				var nowDate = new Date();
 				
 				var year = nowDate.getFullYear();
@@ -120,45 +139,49 @@
 						oneMsg.innerHTML += "<hr>";
 						
 						allMsgList.appendChild(oneMsg);
+						//location.reload();
 					},
 					error: function(request, e){
 						alert("코드: " + request.status + "메시지: " + request.responseText + "오류: " + e);
 					}
-				});				
+				});
 			};
 		};
 		
 		$("#sendMsgBtn").on("click", function(){
 			// 웹소켓 서버로 데이터 보내는 부분
-			let msg = $("#sendMsgInput").val();
-			websocket.send(msg);
-						
-			// 추후 memberIdx 변경
-			var data = {memberIdx: 1, chatIdx: ${chatIdx}, content: msg};
+			let sendMsgInput = document.getElementById("sendMsgInput");
 
-			$.ajax({
-				url: "/api/chatroom/savemsg",
-				data: JSON.stringify(data),
-				type: "post",
-				contentType: "application/json",
-				dataType: "json",
-				success: function(response){
-					let sendMsgInput = document.getElementById("sendMsgInput");
-					sendMsgInput.value = "";
-					
-					console.log("메시지 DB 저장 성공");
-				},
-				error: function(request, e){
-					alert("코드: " + request.status + "메시지: " + request.responseText + "오류: " + e);
-				}
-			});
-			
-			console.log("웹소켓 서버에게 송신성공");
+			if(sendMsgInput.value == ""){
+				$("#sendMsgBtn").attr("disabled", false);
+			} else {
+				let msg = sendMsgInput.value;			
+				websocket.send(msg);
+				
+				// 추후 memberIdx 변경
+				var data = {memberIdx: 1, chatIdx: ${chatIdx}, content: msg};
+
+				$.ajax({
+					url: "/api/chatroom/savemsg",
+					data: JSON.stringify(data),
+					type: "post",
+					contentType: "application/json",
+					dataType: "json",
+					success: function(response){
+						sendMsgInput.value = "";
+						console.log("메시지 DB 저장 성공");
+					},
+					error: function(request, e){
+						alert("코드: " + request.status + "메시지: " + request.responseText + "오류: " + e);
+					}
+				});
+				console.log("웹소켓 서버에게 송신성공");
+			};			
 		});
 		
 		$("#exitChat").on("click", function(){
 			websocket.close();
-			// 추후 sessionId로 변경
+			// 추후 memberIdx 변경
 			// location.href = "/api/chatlist/" + sessionId;
 			location.href = "/api/chatlist/" + 1;
 		});

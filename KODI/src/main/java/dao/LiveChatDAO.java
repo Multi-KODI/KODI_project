@@ -18,6 +18,14 @@ public interface LiveChatDAO {
 	 * @return 과거 채팅방 메시지 리스트
 	 */
 	List<ChatMsgDTO> selectAllChatMsg(int chatIdx);
+	
+	/**
+	 * 채팅방 권한 조회
+	 * @param memberIdx
+	 * @param chatIdx
+	 * @return 채팅방 권한 여부(1|0)
+	 */
+	int verifyMember(HashMap<String, Integer> map);
 
 	/**
 	 * 채팅 작성자 조회

@@ -31,7 +31,7 @@ public class LiveChatController {
 	@GetMapping("/chatroom/{chatIdx}")
 	public ModelAndView liveChat(@PathVariable int chatIdx) {
 		List<AllChatDTO> allChatMsg = service.selectAllChatMsg(chatIdx);
-		
+				
 		ModelAndView mv = new ModelAndView();
 		
 		mv.addObject("allChatMsg", allChatMsg);
@@ -40,6 +40,18 @@ public class LiveChatController {
 		mv.setViewName("LiveChat");
 		
 		return mv;
+	}
+	
+	/**
+	 * 채팅방 권한 조회 API
+	 * @param memberIdx
+	 * @param chatIdx
+	 * @return 채팅방 권한 여부(1|0)
+	 */
+	@PostMapping("/chatroom/verifymember")
+	@ResponseBody
+	public int verifyMember(int memberIdx, int chatIdx) {
+		return service.verifyMember(memberIdx, chatIdx);
 	}
 	
 	/**

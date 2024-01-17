@@ -48,11 +48,18 @@ public interface ChatListDAO {
 	List<Integer> selectChatList(int memberIdx);
 
 	/**
-	 * 채팅방 친구 고유값 조회
+	 * 채팅방 친구1 고유값 조회
 	 * @param memberIdx
-	 * @return 채팅방 친구 고유값 리스트
+	 * @return 채팅방 친구1 고유값
 	 */
-	int selectChatFriendIdx(int chatIdx);
+	int selectChatMemberOneIdx(int chatIdx);
+	
+	/**
+	 * 채팅방 친구2 고유값 조회
+	 * @param memberIdx
+	 * @return 채팅방 친구2 고유값
+	 */
+	int selectChatMemberTwoIdx(int chatIdx);
 
 	/**
 	 * 채팅방의 가장 최근 메시지 조회

@@ -65,7 +65,7 @@ body {
 
 
 
-td > button{
+.viewBtn, .deleteBtn, .withdrawBtn {
 	font-family: 'NanumSquareNeo';
 	padding: 4px 8px;
 	margin-right: 5px;

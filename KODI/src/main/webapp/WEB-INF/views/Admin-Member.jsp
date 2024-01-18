@@ -92,9 +92,6 @@
 															${flag.country}
 														</c:if>
 													</c:forEach>
-													<!-- <td>
-														<div class="tdDiv">${member.flagIdx}</div>
-													</td> -->
 												</div>
 											</td>
 											<td>

@@ -142,8 +142,6 @@ public class MyPageController {
 	 */
 	@GetMapping("/mypage")
 	public ModelAndView readMyPosts(HttpSession session) {
-		String idx = String.valueOf(7);
-		session.setAttribute("memberIdx", idx);
 		ModelAndView mv = new ModelAndView();
 		// 세션에 바운딩된 유저아이디를 받아옴
 		Integer memberIdx = Integer.parseInt((String) session.getAttribute("memberIdx"));
@@ -166,10 +164,13 @@ public class MyPageController {
 		}
 	}
 
+	/**
+	 * 친구목록 확인하기
+	 * @param session
+	 * @return
+	 */
 	@GetMapping("/friends")
 	public ModelAndView friendsList(HttpSession session) {
-		String member_Idx = String.valueOf(1);
-		session.setAttribute("memberIdx", member_Idx);
 		ModelAndView mv = new ModelAndView();
 		// 세션에 바운딩된 유저아이디를 받아옴
 		Integer memberIdx = Integer.parseInt((String) session.getAttribute("memberIdx"));
@@ -196,22 +197,19 @@ public class MyPageController {
 		if (!resultList1.isEmpty()) {
 			List<MemberDTO> allFriends = myPageService.friendInfo(resultList1);
 			mv.addObject("allFriends", allFriends);
-			System.out.println("1=====================");
-			System.out.println(allFriends);
+			session.setAttribute("allFriends", allFriends);
 		}
 		if (!resultList2.isEmpty()) {
 			List<MemberDTO> mySideFriends = myPageService.friendInfo(resultList2);
 			mv.addObject("mySideFriends", mySideFriends);
-			System.out.println("2==================");
-			System.out.println(mySideFriends);
+			session.setAttribute("mySideFriends", mySideFriends);
 		}
 		if (!resultList3.isEmpty()) {
 			List<MemberDTO> otherSideFriends = myPageService.friendInfo(resultList3);
 			mv.addObject("otherSideFriends", otherSideFriends);
-			System.out.println("3==================");
-			System.out.println(otherSideFriends);
+			session.setAttribute("otherSideFriends", otherSideFriends);
 		}
-		mv.setViewName("Admin");
+		mv.setViewName("");
 		return mv;
 
 	}

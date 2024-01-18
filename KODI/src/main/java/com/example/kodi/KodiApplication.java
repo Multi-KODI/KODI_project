@@ -19,7 +19,6 @@ public class KodiApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(KodiApplication.class, args);
 		System.out.println("=======부트 시작=======");
-
 	}
-
+	
 }

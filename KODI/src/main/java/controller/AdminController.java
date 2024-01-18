@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -46,8 +45,6 @@ public class AdminController {
 	 */
 	@GetMapping("/allmembers")
 	public ModelAndView findAllMemebers(HttpSession session) {
-		String memberIdx = String.valueOf(31);
-		session.setAttribute("memberIdx", memberIdx);
 		if (validateAdmin(session)) {
 			// 전체 멤버 가져오기
 			List<MemberDTO> members = memberService.findAllMembers();
@@ -70,8 +67,6 @@ public class AdminController {
 	 */
 	@GetMapping("/allposts")
 	public ModelAndView findAllPosts(HttpSession session) {
-		String memberIdx = String.valueOf(31);
-		session.setAttribute("memberIdx", memberIdx);
 		ModelAndView mv = new ModelAndView();
 		// 유저가 관리자일 때
 		if (validateAdmin(session)) {

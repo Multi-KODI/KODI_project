@@ -1,76 +1,69 @@
 @charset "UTF-8";
 
-.content {
-	max-height: 7* 20px; /* 7줄까지 표시 */
-	overflow: hidden;
-}
-
 body {
-	font-family: 'NanumSquareNeo';
-	margin: 0;
-	padding: 0;
+   font-family: 'NanumSquareNeo';
+   margin: 0;
+   padding: 0;
 }
 
 .main {
-	max-width: 1200px;
-	margin: 20px auto;
-	justify-content: center;
-	margin-bottom: 20px;
-	padding-bottom: 20px;
+   max-width: 1200px;
+   margin: 20px auto;
+   justify-content: center;
+   margin-bottom: 20px;
+   padding-bottom: 20px;
 }
 
 .logo-container {
-	border-bottom: 2px solid #000000;
+   border-bottom: 2px solid #000000;
 }
 
 .board-box {
-	margin-top: 20px;
+   margin-top: 20px;
 }
 
 
 #searchinput, #searchselect{
-	font-family: 'NanumSquareNeo';
-	border: 1px solid #B6BBC4;
-	border-radius: 6px;
-	padding: 5px;
-	outline: none;
+   font-family: 'NanumSquareNeo';
+   border: 1px solid #B6BBC4;
+   border-radius: 6px;
+   padding: 5px;
+   outline: none;
 }
 
 #board {
-	max-height: 1200px;
-	font-size: 18px;
+   max-height: 1200px;
+   font-size: 18px;
 }
 
 #title {
-	display: flex;
-	justify-content: space-between;
-	margin-bottom: 20px;
-	align-items: center;
-	border-bottom: 2px solid #000000;
-	padding-bottom:20px;
-	vertical-align: middle;
+   display: flex;
+   justify-content: space-between;
+   margin-bottom: 20px;
+   align-items: center;
+   border-bottom: 2px solid #000000;
+   padding-bottom:20px;
+   vertical-align: middle;
 }
 
 #board table {
-	text-align: left;
-	width: 100%;
+   text-align: left;
+   width: 100%;
 }
 
 #board th:nth-child(1) {
-	width: 25%;
+   width: 25%;
 }
 
 #board th:nth-child(2) {
-	width: 25%;
+   width: 25%;
 }
 
 #board th:nth-child(3) {
-	width: 40%;
+   width: 40%;
 }
 
-
-
-td > button{
+.viewBtn, .deleteBtn, .withdrawBtn{
 	font-family: 'NanumSquareNeo';
 	padding: 4px 8px;
 	margin-right: 5px;
@@ -85,10 +78,8 @@ td > button{
 
 
 .tdDiv{
-	margin-top: 20px;
-	padding-bottom:20px;
-	
-	
+   margin-top: 20px;
+   padding-bottom:20px;
 }
 
 table {
@@ -101,36 +92,46 @@ tr {
  
 }
 
+#postList {
+    max-height: 400px; 
+    overflow-y: auto; 
+}
 
 
 .viewBtn:hover{
-	background-color: #6A7EFC;
-	color: #ffffff;
-	
+   background-color: #6A7EFC;
+   color: #ffffff;
+   
 }
 
 .deleteBtn:hover, withdrawBtn:hover{
-	background-color: #FF5656;
-	color: #ffffff;
+   background-color: #FF5656;
+   color: #ffffff;
 }
 
 
 #pagination{
-	text-align: center;
-	margin-top: 20px;
-	
+   text-align: center;
+   margin-top: 20px;
+   
 }
 
 .pageBtn{
-	font-family: 'NanumSquareNeo';
-	cursor: pointer;
-	border-radius: 8px;
-	border: none;
-	padding: 4px 8px;
-	margin: 3px;
+   font-family: 'NanumSquareNeo';
+   cursor: pointer;
+   border-radius: 8px;
+   border: none;
+   padding: 4px 8px;
+   margin: 3px;
 }
 
 .pageBtn.selected{
-	background-color: #494953;
+   background-color: #494953;
     color: white;
 }
+
+a {
+	text-decoration: none;
+	color: black;
+}
+

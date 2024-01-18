@@ -6,8 +6,8 @@ $(document).ready(function () {
         deleteButton.addEventListener('click', function () {
             var postIdx = parseInt(deleteButton.dataset.postIdx); // 문자열을 숫자로 변환
             location.href="/api/admin/deletepost?postIdx=" + postIdx;
-            // id=postList
-태그 읽어와서        });
+            // postList
+        });
     });
 
     var withdrawButtons = document.querySelectorAll('.withdrawbtn');

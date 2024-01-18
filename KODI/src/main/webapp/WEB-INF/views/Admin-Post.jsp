@@ -36,8 +36,8 @@
 				</header>
 
 				<div class="menu-content">
-					<a href="" id="listallBtn">전체글</a>
-					<a href="" id="memberlistBtn">회원목록</a>
+					<a href="/api/admin/allposts" id="listallBtn">전체글</a>
+					<a href="/api/admin/allmembers" id="memberlistBtn">회원목록</a>
 				</div>
 
 				<div class="main">
@@ -50,15 +50,14 @@
 						<div class="title">
 
 							<div id="title">
-								<span style="margin-left: 10px;   ">전체글</span>
+								<span style="margin-left: 10px;">전체글</span>
 								<form action="boardsearchlist">
 									<select id="searchselect" name="search">
 										<option>제목</option>
 										<option>내용</option>
 										<option>작성자</option>
 										<option>모두</option>
-									</select>
-									<input id="searchinput" name="word">
+									</select> <input id="searchinput" name="word">
 									<button type="submit" style="border: none; background: none; cursor: pointer;">
 										<img src="/image/icon/search.png" style="margin-right: 10px; height: 20px; width: 20px;">
 									</button>
@@ -89,33 +88,31 @@
 												<div class="tdDiv">
 													<c:forEach var="member" items="${members}">
 														<c:if test="${post.memberIdx eq member.memberIdx}">
-															${member.email}
-														</c:if>
+															${member.email}</c:if>
 													</c:forEach>
 												</div>
 											</td>
+
 											<td>
 												<div class="tdDiv">${post.title}</div>
 											</td>
+
 											<td>
 												<div class="tdDiv">${fn:substring(post.content, 0, 20)}${post.content.length() > 20 ? '...' :
 													''}</div>
 											</td>
+
 											<td>
-												<div class="tdDiv">
-													<button class="viewbtn" type="button" data-post-idx="${post.postIdx}">보기</button>
-													<!-- <button class="deletebtn" type="button" data-post-idx="${post.postIdx}">삭제</button> -->
-													<a href="/api/admin/deletepost/${post.postIdx}">삭제</a>
-												</div>
+												<button class="viewBtn" type="button" data-post-idx="${post.postIdx}">보기</button>
 											</td>
+											<td>
+												<button class="deleteBtn"><a href="/api/admin/deletepost/${post.postIdx}">삭제</a></button>
+											</td>
+
 										</tr>
 									</c:forEach>
 								</tbody>
 							</table>
-							<div id="pagination">
-								<!-- 페이지네이션 버튼 -->
-							</div>
-
 						</div>
 
 
@@ -123,10 +120,7 @@
 				</div>
 
 
-				<!-- <script src="/js/AdminScript.js"></script> -->
-
-
-
+				<script src="/js/AdminScript.js"></script>
 			</body>
 
 			</html>

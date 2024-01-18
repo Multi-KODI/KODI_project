@@ -18,9 +18,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select is_friend as isFriend from friend where member_idx = #{friendIdx} and friend_member_idx = #{memberIdx}
 	</select>
 	<select id="selectChatList" resultType="int" parameterType="int">
-		select chat_idx as chatIdx from chat where member1_idx = #{memberIdx}
+		select chat_idx as chatIdx from chat where member1_idx = #{memberIdx} or member2_idx = #{memberIdx}
 	</select>
-	<select id="selectChatFriendIdx" resultType="int" parameterType="int">
+	<select id="selectChatMemberOneIdx" resultType="int" parameterType="int">
+		select member1_idx as friendMemberIdx from chat where chat_idx = #{chatIdx}
+	</select>
+	<select id="selectChatMemberTwoIdx" resultType="int" parameterType="int">
 		select member2_idx as friendMemberIdx from chat where chat_idx = #{chatIdx}
 	</select>
 	<select id="selectContent" resultType="String" parameterType="int">

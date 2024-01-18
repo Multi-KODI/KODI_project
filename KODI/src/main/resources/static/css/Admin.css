@@ -63,7 +63,9 @@ body {
    width: 40%;
 }
 
-.viewBtn, .deleteBtn, .withdrawBtn{
+
+
+td > button{
 	font-family: 'NanumSquareNeo';
 	padding: 4px 8px;
 	margin-right: 5px;
@@ -91,6 +93,12 @@ tr {
     
  
 }
+
+#postList {
+    max-height: 400px; 
+    overflow-y: auto; 
+}
+
 
 #postList {
     max-height: 400px; 

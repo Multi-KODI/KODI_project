@@ -32,6 +32,7 @@
 
 .form-group label {
 	width: 60%;
+	margin-top: 5px;
 }
 
 .form-control {
@@ -204,7 +205,7 @@ $(document).ready(function() {
 
 	//수정 취소버튼
 	$("#cancelbtn").on("click", function() {
-		$(".modal_background").fadeOut();
+		$(".modal_background1").fadeOut();
 	});
 	
 }); //ready

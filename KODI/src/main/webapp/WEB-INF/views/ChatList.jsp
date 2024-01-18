@@ -111,7 +111,7 @@
 				if(searchInput.value == ""){
 					alert("검색할 친구를 입력해주세요");
 				} else {
-					var data = {memberIdx: 31, friendName: searchInput.value};
+					var data = {memberIdx: 1, friendName: searchInput.value};
 					
 					$.ajax({
 						url: "/api/chatlist/search",

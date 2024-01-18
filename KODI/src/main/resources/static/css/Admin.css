@@ -1,10 +1,5 @@
 @charset "UTF-8";
 
-.content {
-	max-height: 7* 20px; /* 7줄까지 표시 */
-	overflow: hidden;
-}
-
 body {
 	font-family: 'NanumSquareNeo';
 	margin: 0;
@@ -70,7 +65,7 @@ body {
 
 
 
-td > button{
+.viewBtn, .deleteBtn, .withdrawBtn{
 	font-family: 'NanumSquareNeo';
 	padding: 4px 8px;
 	margin-right: 5px;
@@ -100,6 +95,12 @@ tr {
     
  
 }
+
+#postList {
+    max-height: 400px; 
+    overflow-y: auto; 
+}
+
 
 
 

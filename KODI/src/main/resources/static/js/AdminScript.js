@@ -5,23 +5,9 @@ $(document).ready(function () {
     deleteButtons.forEach(function (deleteButton) {
         deleteButton.addEventListener('click', function () {
             var postIdx = parseInt(deleteButton.dataset.postIdx); // 문자열을 숫자로 변환
-            var data = {
-                postIdx: postIdx
-            };
-
-            fetch('http://localhost:7777/api/admin/deletepost', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    // You can add more headers if needed
-                },
-                body: JSON.stringify(data) // 데이터를 JSON 문자열로 변환하여 전송
-            })
-                .then(() => {
-                    location.href = 'http://localhost:7777/api/admin/allposts';
-                })
-                .catch(error => console.error('Error:', error));
-        });
+            location.href="/api/admin/deletepost?postIdx=" + postIdx;
+            // id=postList
+태그 읽어와서        });
     });
 
     var withdrawButtons = document.querySelectorAll('.withdrawbtn');

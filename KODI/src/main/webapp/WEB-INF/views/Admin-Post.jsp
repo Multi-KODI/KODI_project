@@ -104,7 +104,8 @@
 											<td>
 												<div class="tdDiv">
 													<button class="viewbtn" type="button" data-post-idx="${post.postIdx}">보기</button>
-													<button class="deletebtn" type="button" data-post-idx="${post.postIdx}">삭제</button>
+													<!-- <button class="deletebtn" type="button" data-post-idx="${post.postIdx}">삭제</button> -->
+													<a href="/api/admin/deletepost/${post.postIdx}">삭제</a>
 												</div>
 											</td>
 										</tr>
@@ -122,7 +123,7 @@
 				</div>
 
 
-				<script src="/js/AdminScript.js"></script>
+				<!-- <script src="/js/AdminScript.js"></script> -->
 
 
 

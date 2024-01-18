@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,7 +46,7 @@ public class AdminController {
 	 */
 	@GetMapping("/allmembers")
 	public ModelAndView findAllMemebers(HttpSession session) {
-		String memberIdx = String.valueOf(32);
+		String memberIdx = String.valueOf(31);
 		session.setAttribute("memberIdx", memberIdx);
 		if (validateAdmin(session)) {
 			// 전체 멤버 가져오기
@@ -69,7 +70,7 @@ public class AdminController {
 	 */
 	@GetMapping("/allposts")
 	public ModelAndView findAllPosts(HttpSession session) {
-		String memberIdx = String.valueOf(32);
+		String memberIdx = String.valueOf(31);
 		session.setAttribute("memberIdx", memberIdx);
 		ModelAndView mv = new ModelAndView();
 		// 유저가 관리자일 때
@@ -93,7 +94,7 @@ public class AdminController {
 	 * 
 	 * @return
 	 */
-	@PostMapping("/deletemember")
+	@GetMapping("/deletemember")
 	public ModelAndView deleteMember(@RequestBody MemberDTO memberDTO, HttpSession session) {
 		// 유저가 관리자일 때
 		if (validateAdmin(session)) {
@@ -117,26 +118,21 @@ public class AdminController {
 	 * 
 	 * @return
 	 */
-	@PostMapping("/deletepost")
-	public ModelAndView deletePost(@RequestBody PostDTO postDTO, HttpSession session) {
+	@GetMapping("/deletepost/{postIdx}")
+	public String deletePost(@PathVariable Integer postIdx, HttpSession session) {
 		// 유저가 관리자일 때
 		if (validateAdmin(session)) {
 			// 게시물이 존재할 때
-			if (adminService.findPostByIdx(postDTO.getPostIdx()) != null) {
+			if (adminService.findPostByIdx(postIdx) != null) {
 				// 게시물 삭제 진행
-				adminService.deletePost(postDTO.getPostIdx());
+				adminService.deletePost(postIdx);
 			}
-			// 삭제 후 게시물 리스트를 보여줌
-			List<PostDTO> posts = adminService.findAllPosts();
-			ModelAndView mv = new ModelAndView();
-			mv.addObject("posts", posts);
-			mv.setViewName("Admin");
-			return mv;
-			// 유저가 관리자가 아니거나 유저정보가 없을 때
+			//
+			//allPosts url 매핑 컨트롤러 메소드 호출
+			return "redirect:/api/admin/allposts";
 		} else {
-			return null;
+			return "redirect:/api/admin/allposts";
 		}
-
 	}
 
 	/**

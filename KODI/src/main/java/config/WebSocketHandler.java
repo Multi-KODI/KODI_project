@@ -18,9 +18,11 @@ public class WebSocketHandler extends TextWebSocketHandler {
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		System.out.println(session.getRemoteAddress() + " 에서 접속했습니다."); // 클라이언트 IP
-		if(list.size() < 1) { // 일단 현재 사용자가 채팅방 하나만 열 수 있도록 제한
+		// 브라우저 여는 것마다 다 통신해서 일단 현재 사용자가 채팅방 하나만 열 수 있도록 제한
+		if(list.size() < 1) {
 			list.add(session);
 		}
+		//list.add(session);
 	}
 
 	@Override

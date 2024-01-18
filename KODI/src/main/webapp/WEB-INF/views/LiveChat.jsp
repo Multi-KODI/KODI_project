@@ -54,6 +54,7 @@
 		let friendName;
 		let content;
 		let regdate;
+		let json;
 		
 		<c:forEach items="${allChatMsg}" var="one">
 			oneMsg = document.createElement("div");
@@ -65,8 +66,11 @@
 			
 			content = document.createElement("p");
 			content.setAttribute("id", "content");
-			content.innerHTML = "${one.chatMsgDTO.content}";
-
+			
+			json = JSON.parse('${one.chatMsgDTO.content}');
+			
+			content.innerHTML = json.message.result.translatedText;
+			
 			regdate = document.createElement("p");
 			regdate.setAttribute("id", "regdate");
 			regdate.innerHTML = "${one.chatMsgDTO.regdate}";

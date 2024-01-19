@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,49 +12,44 @@
 <script src="/js/jquery-3.7.1.min.js"></script>
 <title>회원가입</title>
 
-
-</head>
-
-<body>
 <script>
 $(document).ready(function(){
 	
 	let confirmFlag = false;
 	
 	$("#confirmBtn").on('click', function(){
-		$.ajax({
-			url:"email",
-			data:{"email": $("#inputEmail").val()+"@"+$("#emailLocation").val()},
-			contentType : 'application/json; charset=utf-8',
-			type:"post",
-			dataType:"json",
-			success: function(response) {
-		        if (response) {
-		            $("#confirmCodeForm").html("<input type=\"text\" id=\"inputConfirmCode\" name=\"inputConfirmCode\" placeholder=\"인증코드 입력\" required>&nbsp;"
-		            +"<input type=\"button\" id=\"confirmCodeBtn\" value=\"확인\">");
-		        } else {
-		            //인증코드 전송 실패
-		            alert("이미 사용중인 이메일 입니다.");
-		        }
-		    },
-		    error: function(xhr, textStatus, errorThrown) {
-		        console.error("Error during login:", textStatus, errorThrown);
-		    }
-		});//ajax	
-	});	//btn
+	    alert($("#inputEmail").val() + "@" + $("#emailLocation").val());
+	    $.ajax({
+	        url: "/api/email",
+	        data: {
+	            'email': $("#inputEmail").val() + "@" + $("#emailLocation").val()
+	        },
+	        type: "post",
+	        success: function(response) {
+	            if (response=="인증코드를 발송했습니다, 이메일을 확인해 주세요") {
+	                alert(response);
+	                $("#confirmCodeForm").html("<input type=\"text\" id=\"inputConfirmCode\" name=\"inputConfirmCode\" placeholder=\"인증코드 입력\" required>&nbsp;" +
+	                    "<input type=\"button\" id=\"confirmCodeBtn\" value=\"확인\">");
+	            } else {
+	                alert("이미 사용중인 이메일 입니다.");
+	            }
+	        },
+	        error: function(request, status, error) {
+	            alert("코드: " + request.status + " 메시지: " + request.responseText + " 오류: " + error);
+	        }
+	    });
+	});
 	
-	$("#confirmCodeForm").on('click', "#confirmCodeBtn", function(){
+ 	$("#confirmCodeForm").on('click', "#confirmCodeBtn", function(){
 		$.ajax({
-			url:"verify",
-			data:{"otp": $("#inputConfirmCode").val()},
+			url:"/api/verify",
+			data:{"inputOtp": $("#inputConfirmCode").val()},
 			type:"post",
-			dataType:"json",
 			success: function(response) {
-		        if (response) {
-		            alert("인증되었습니다.")
+		        if (response =="이메일이 인증되었습니다") {
+		            alert(response);
 		            confirmFlag = true;
 		        } else {
-		            //인증코드 전송 실패
 		            alert("코드를 확인해주세요.");
 		        }
 		    },
@@ -64,21 +60,22 @@ $(document).ready(function(){
 	});	//btn
 	
 	$("#joinBtn").on('click', function(){
+		var dto = {
+	        "email": $("#inputEmail").val() + "@" + $("#emailLocation").val(),
+	        "pw": $("#inputPassword").val(),
+	        "memberName": $("#inputNickname").val(),
+	        "flagIdx": $("#nation").val()
+	    };
 		if(confirmFlag == true){
 			$.ajax({
-			    url:"register",
-			    data:{
-			        "email": $("#inputEmail").val() + "@" + $("#emailLocation").val(),
-			        "pw": $("#inputPassword").val(),
-			        "membername": $("#inputNickname").val(),
-			        "flagIdx": $("#nation").val()
-			    },
+			    url:"/api/join",
+			    data:  JSON.stringify(dto),
 			    type:"post",
-			    dataType:"json",
+			    contentType : "application/json",
 			    success: function(response) {
-			        if (response) {
-			        	alert("회원가입 완료하였습니다.");
-			            location.href = "Login";
+			        if (response=="회원등록이 완료되었습니다") {
+			        	alert(response);
+			            location.href = "login";
 			        } else {
 			            // 회원가입 실패
 			            alert("회원가입 실패하였습니다.");
@@ -91,11 +88,10 @@ $(document).ready(function(){
 
 			}// if
 			else{
-				//$("#inputConfirmCode").focus();
-				//!!!!인증코드 폼 안 연 상태에서 회원가입 버튼 누르면?
+				alert("이메일을 인증해주세요");	
 			}
 		});	//btn
-		
+		 
 		$("#loginBtn").on('click', function(){
 			location.href = "Login";	
 		});	//btn
@@ -103,15 +99,17 @@ $(document).ready(function(){
 });	//ready
 
 </script>
+</head>
+<body>
 	<div id="inner">
 		<form>
 		<h4>이메일</h4>
 	    <input type="text" id="inputEmail" name="inputEmail" placeholder="이메일" required>
 	    &nbsp;<label>@</label>&nbsp;
 	    <select name="emailLocation" id="emailLocation">
-		    <option value="google">google.com</option>
-		    <option value="naver" hidden>naver.com</option>
-		    <option value="daum" hidden>daum.net</option>
+		    <option value="google.com">google.com</option>
+		    <option value="naver.com" >naver.com</option>
+		    <option value="daum.net" hidden>daum.net</option>
 	  	</select>&nbsp;
 	  	
 	  	<input type="button" id="confirmBtn" value="인증코드"><br><br>
@@ -137,8 +135,6 @@ $(document).ready(function(){
     		&nbsp;&nbsp;&nbsp;&nbsp;
     		<input type="button" id="loginBtn" class="btn" value="로그인">
 		</form>	
-		
 		</div>
-	</div>
 </body>
 </html>

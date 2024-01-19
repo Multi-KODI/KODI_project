@@ -92,67 +92,94 @@
 //     });
 
 // }); //ready
-$(document).ready(function(){
-	$("#postList").on('click', $(".deleteBtn"), function(e){
-		e.preventDefault();
-		$.ajax({
-			url :'/api/admin/deletepost/'+$(e.target).attr('data-post-idx'),
-			dataType:'json',
-			type:"get",
-			success : function(response){// <- List<PostDTO>
-			
-                $('#postList').html();//<TBODY> 내부 내용 없앤다
-			let result = "";
-			for(let i = 0; i < response.length; i++){
-				result += 
-					'<tr><td>'
-					+ '<div class="tdDiv">' +response[i].title + '</div>'
-					+ '</td>'
-					+ '<td>'
-					+ '	<div class="tdDiv">' + response[i].content.substr(0, 20) + '</div>'
-					+ '</td>'
-					+ '<td>'
-					+	'<div class="tdDiv">'
-					+	'		<button class="viewBtn" type="button" data-post-idx="${post.postIdx}">보기</button>'
-					+	'		<a class="deleteBtn" data-post-idx="' + response[i].postIdx + '" href="/api/admin/deletepost/${post.postIdx}">삭제</a>'
-					+	'	</div>'
-					+	'</td>'
-					+	'</tr>'
-			}//for
-			$('#postList').html(result);
-			}//success
-		});//ajax
-	});//on-click
+$(document).ready(function () {
+    $("#postList").on('click', $(".deleteBtn"), function (e) {
+        e.preventDefault();
+        $.ajax({
+            url: '/api/admin/deletepost/' + $(e.target).attr('data-post-idx'),
+            dataType: 'json',
+            type: "get",
+            success: function (response) {// <- List<PostDTO>
 
-    $("#memberList").on('click', $(".withdrawBtn"), function(e){
-		e.preventDefault();
-		$.ajax({
-			url :'/api/admin/deletemember/'+$(e.target).attr('data-member-idx'),
-			dataType:'json',
-			type:"get",
-			success : function(response){// <- List<PostDTO>
-			
-            $('#memberList').html();//<TBODY> 내부 내용 없앤다
-			let result = "";
-			for(let i = 0; i < response.length; i++){
-				result += 
-					'<tr><td>'
-					+ '<div class="tdDiv">' +response[i].flagDTO + '</div>'
-					+ '</td>'
-					+ '<td>'
-					+ '	<div class="tdDiv">' + response[i].memberName + '</div>'
-					+ '</td>'
-					+ '<td>'
-					+	'<div class="tdDiv">'
-					+	'		<button class="viewBtn" type="button" data-post-idx="${member.memberIdx}">보기</button>'
-					+	'		<a class="withdrawBtn" data-member-idx="' + response[i].memberIdx + '" href="/api/admin/deletemember/${member.memberIdx}">탈퇴</a>'
-					+	'	</div>'
-					+	'</td>'
-					+	'</tr>'
-			}//for
-			$('#memberList').html(result);
-			}//success
-		});//ajax
-	});//on-click
-	
+                $('#postList').html();//<TBODY> 내부 내용 없앤다
+                let result = "";
+                for (let i = 0; i < response.postDTO.length; i++) {
+                    for (let j = 0; j < response.memberDTO.length; j++) {
+                        if (response.postDTO[i].memberIdx === response.memberDTO[j].memberIdx) {
+                            result +=
+                                '<tr>'+
+                                '<td>' +
+                                    '<div class="tdDiv">' + 
+                                        response.memberDTO[j].email + 
+                                    '</div>' +
+                                '</td>' +
+                                '<td>' +
+                                '   <div class="tdDiv">' + 
+                                        response.postDTO[i].title + 
+                                    '</div>' +
+                                '</td>' +
+                                '<td>' +
+                                '   <div class="tdDiv">' + 
+                                        response.postDTO[i].content + 
+                                    '</div>' +
+                                '</td>' +
+                                '<td>' +
+                                '   <div class="tdDiv">' +
+                                        '<a class="deleteBtn" data-post-idx="' + response.postDTO[i].postIdx + '" href="/api/admin/deletepost/' + response.postDTO[i].postIdx + '">삭제</a>' +
+                                '   </div>' +
+                                '</td>' +
+                                '</tr>';
+                        }
+                    }
+                }
+                $('#postList').html(result);
+            }//success
+        });//ajax
+    });//on-click
+
+    $("#memberList").on('click', '.withdrawBtn', function (e) {
+        e.preventDefault();
+        $.ajax({
+            url: '/api/admin/deletemember/' + $(e.target).attr('data-member-idx'),
+            dataType: 'json',
+            type: "get",
+            success: function (response) {
+
+                $('#memberList').html(''); // Clear the content inside <TBODY>
+                let result = "";
+                for (let i = 0; i < response.memberDTO.length; i++) {
+                    for (let j = 0; j < response.flagDTO.length; j++) {
+                        if (response.memberDTO[i].flagIdx === response.flagDTO[j].flagIdx) {
+                            result +=
+                                '<tr>'+
+                                '<td>' +
+                                    '<div class="tdDiv">' + 
+                                        response.memberDTO[i].email + 
+                                    '</div>' +
+                                '</td>' +
+                                '<td>' +
+                                '   <div class="tdDiv">' + 
+                                        response.memberDTO[i].memberName + 
+                                    '</div>' +
+                                '</td>' +
+                                '<td>' +
+                                '   <div class="tdDiv">' + 
+                                        response.flagDTO[j].country + 
+                                    '</div>' +
+                                '</td>' +
+                                '<td>' +
+                                '   <div class="tdDiv">' +
+                                        '<a class="withdrawBtn" data-member-idx="' + response.memberDTO[i].memberIdx + '" href="/api/admin/deletemember/' + response.memberDTO[i].memberIdx + '">탈퇴</a>' +
+                                '   </div>' +
+                                '</td>' +
+                                '</tr>';
+                        }
+                    }
+                }
+                $('#memberList').html(result);
+            }
+        });
+    });
+
+
 });//ready

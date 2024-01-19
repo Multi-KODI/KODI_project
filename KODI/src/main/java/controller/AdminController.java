@@ -1,20 +1,20 @@
 package controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import dto.FlagDTO;
 import dto.MemberDTO;
+import dto.MemberFlagDTO;
 import dto.PostDTO;
+import dto.PostMemberDTO;
 import jakarta.servlet.http.HttpSession;
 import service.AdminService;
 import service.MemberService;
@@ -56,7 +56,7 @@ public class AdminController {
 			ModelAndView mv = new ModelAndView();
 			mv.addObject("members", members);
 			mv.addObject("flags", flags);
-			mv.setViewName("Admin-Member");
+			mv.setViewName("/Admin/Admin-Member");
 			return mv;
 			// 유저가 관리자가 아니거나 유저정보가 없을 때
 		} else {
@@ -82,7 +82,7 @@ public class AdminController {
 			List<MemberDTO> members = memberService.findAllMembers();
 			mv.addObject("members", members);
 			mv.addObject("posts", posts);
-			mv.setViewName("Admin-Post");
+			mv.setViewName("/Admin/Admin-Post");
 			return mv;
 			// 유저가 관리자가 아니거나 유저정보가 없을 때
 		} else {
@@ -97,7 +97,7 @@ public class AdminController {
 	 */
 	@GetMapping("/deletemember/{memberIdx}")
 	@ResponseBody
-	public List<MemberDTO> deleteMember(@PathVariable Integer memberIdx, HttpSession session) {
+	public MemberFlagDTO deleteMember(@PathVariable Integer memberIdx, HttpSession session) {
 		String member_idx = String.valueOf(31);
 		session.setAttribute("memberIdx", member_idx);
 		// 유저가 관리자일 때
@@ -106,7 +106,10 @@ public class AdminController {
 			memberService.withdrawMember(memberIdx);
 			// 삭제 후 유저리스트를 보여줌
 		}
-		return memberService.findAllMembers();
+		List<MemberDTO> members = memberService.findAllMembers();
+		List<FlagDTO> flags = myPageService.allFlags();
+		MemberFlagDTO memberFlag = new MemberFlagDTO(members,flags);
+		return memberFlag;
 	}
 
 	/**
@@ -116,7 +119,7 @@ public class AdminController {
 	 */
 	@GetMapping("/deletepost/{postIdx}")
 	@ResponseBody
-	public List<Object> deletePost(@PathVariable Integer postIdx, HttpSession session) {
+	public PostMemberDTO deletePost(@PathVariable Integer postIdx, HttpSession session) {
 		String member_idx = String.valueOf(31);
 		session.setAttribute("memberIdx", member_idx);
 		// 유저가 관리자일 때
@@ -127,14 +130,10 @@ public class AdminController {
 				adminService.deletePost(postIdx);
 			}
 		}
-		List<Object> mergedList = new ArrayList<>();
 		List<PostDTO> posts = adminService.findAllPosts();
-		List<FlagDTO> flags = myPageService.allFlags();
-		if (!posts.isEmpty()) {
-			mergedList.addAll(posts);
-		}
-		mergedList.addAll(flags);
-		return mergedList;
+		List<MemberDTO> members = memberService.findAllMembers();
+		PostMemberDTO postMember = new PostMemberDTO(posts,members);
+		return postMember;
 
 	}
 

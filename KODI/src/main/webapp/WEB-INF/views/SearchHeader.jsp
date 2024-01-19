@@ -18,7 +18,7 @@
 	<div class="headerbox">
 
 		<div class="logo-box">
-			<a href="/home"><img id="logoicon" src="/image/icon/logo.png" ></a>
+			<a href="/api/home"><img id="logoicon" src="/image/icon/logo.png" ></a>
 		</div>
 
 		<div class="input-box">

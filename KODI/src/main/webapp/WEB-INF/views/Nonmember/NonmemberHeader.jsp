@@ -55,13 +55,6 @@ $(document).ready(function () {
 	    $(".menu-content").css({'left': menuOffset.left }); 
 	}
 	
-	function updatetopBtn() {
-	    var topOffset = $("#loginbtn").offset();  //상단이동 버튼
-	    var logoutbtnWidth = $("#loginbtn").outerWidth();
-	    var rightPos = $(window).width() - topOffset.left - logoutbtnWidth;
-	    $("#topBtn").css({'right': rightPos + 'px'}); 
-	}
-	
 	$("#menubtn").on("click", function () { //메뉴열기
 		alert('비회원은 이용하실 수 없습니다. 로그인해주세요.');
 		//updateMenuContentPosition();
@@ -72,9 +65,7 @@ $(document).ready(function () {
 	    if($(".menu-content").is(":visible")) {
 	        updateMenuContentPosition();
 	    }
-	    if($("#topBtn").is(":visible")) {
-	    	updatetopBtn();
-	    }
+
 	});
 	
 	$("#registerbtn").on("click", function (event) {

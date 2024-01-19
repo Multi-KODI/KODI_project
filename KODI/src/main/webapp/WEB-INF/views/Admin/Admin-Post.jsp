@@ -113,7 +113,7 @@
 							</td>
 							
 							<td>
-								<button class="deleteBtn" type="button" data-post-idx="${post.postIdx}">삭제</button>
+								<a class="deleteBtn" data-post-idx="${post.postIdx}" href="/api/admin/deletepost/${post.postIdx}">삭제</a>
 							</td>
 						</tr>
 						

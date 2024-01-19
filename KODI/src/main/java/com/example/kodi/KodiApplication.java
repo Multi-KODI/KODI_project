@@ -13,7 +13,6 @@ import org.springframework.context.annotation.ComponentScan;
 @MapperScan(basePackages = "dao")
 @MapperScan(basePackages = "config")
 @SpringBootApplication
-//@MapperScan
 public class KodiApplication {
 
 	public static void main(String[] args) {

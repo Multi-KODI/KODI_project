@@ -32,7 +32,7 @@ $(document).ready(function(){
 	            success: function(response) {
 	               		
 	                    if (response == "로그인에 성공하였습니다") {// 로그인이 성공
-	                    	location.href = "Home";
+	                    	location.href = "home";
 	                    } else if(response == "비밀번호를 확인해 주세요") {// 로그인이 실패(비밀번호 잘못입력)
 	                    	alert(response);
 	                    	$("#inputPassword").focus();

@@ -143,24 +143,25 @@ public class MemberController {
 	 * @return
 	 */
 	@PostMapping("/login")
-	public ResponseEntity<String> loginMember(@RequestBody MemberDTO memberDTO,
+	@ResponseBody	
+	public String loginMember(@RequestBody MemberDTO memberDTO,
 			HttpSession session) {
-
 		// 이메일로 회원여부 확인
 		MemberDTO findedMember = memberService.findMemberByEmail(memberDTO.getEmail());
+		
 		if (findedMember == null) {
 			// 회원이 없는 경우
-			return new ResponseEntity<>("회원이 존재하지 않습니다", HttpStatus.BAD_REQUEST);
+			return "회원이 존재하지 않습니다";
 		}
 		// 아이디가 존재하고, 비밀번호가 일치하는 경우
 		if (memberDTO.getPw().equals(findedMember.getPw())) {
 			// 멤버 아이디를 세션에 바운딩
-			int memberIdxInteger = findedMember.getMemberIdx();
+			Integer memberIdxInteger = findedMember.getMemberIdx();
 			String memberIdx = String.valueOf(memberIdxInteger);
 			session.setAttribute("memberIdx", memberIdx);
-			return new ResponseEntity<>("로그인에 성공하였습니다", HttpStatus.OK);
+			return "로그인에 성공하였습니다";
 		}
-		return new ResponseEntity<>("비밀번호를 확인해 주세요", HttpStatus.BAD_REQUEST);
+		return "비밀번호를 확인해 주세요";
 	}
 
 	/**

@@ -9,6 +9,7 @@
 <link
 	href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css"
 	rel="stylesheet">
+<link rel="stylesheet" href="/css/Join.css">
 <script src="/js/jquery-3.7.1.min.js"></script>
 <title>회원가입</title>
 
@@ -29,7 +30,7 @@ $(document).ready(function(){
 	            if (response=="인증코드를 발송했습니다, 이메일을 확인해 주세요") {
 	                alert(response);
 	                $("#confirmCodeForm").html("<input type=\"text\" id=\"inputConfirmCode\" name=\"inputConfirmCode\" placeholder=\"인증코드 입력\" required>&nbsp;" +
-	                    "<input type=\"button\" id=\"confirmCodeBtn\" value=\"확인\">");
+	                    "&nbsp;<input type=\"button\" id=\"confirmCodeBtn\" value=\"확인\">");
 	            } else {
 	                alert("이미 사용중인 이메일 입니다.");
 	            }
@@ -47,7 +48,7 @@ $(document).ready(function(){
 			type:"post",
 			success: function(response) {
 		        if (response =="이메일이 인증되었습니다") {
-		            alert(response);
+		        	 $("#confirmCodeForm").html("<h4>인증완료되었습니다.</h4>");
 		            confirmFlag = true;
 		        } else {
 		            alert("코드를 확인해주세요.");
@@ -88,12 +89,12 @@ $(document).ready(function(){
 
 			}// if
 			else{
-				alert("이메일을 인증해주세요");	
+				alert("이메일을 인증이 완료되지 않았습니다.");	
 			}
 		});	//btn
 		 
 		$("#loginBtn").on('click', function(){
-			location.href = "Login";	
+			location.href = "login";	
 		});	//btn
 		
 });	//ready
@@ -101,27 +102,38 @@ $(document).ready(function(){
 </script>
 </head>
 <body>
+<header>
+	<div class="header-container">
+	
+				<select id="languageSelect">
+					<option value="ko">한국어</option>
+					<option value="en">English</option>
+				</select>
+				<a href="/api/home" id = "logo"><img id="logoImage" src="/image/icon/logo.png" ></a>
+	</div>
+</header>
 	<div id="inner">
-		<form>
-		<h4>이메일</h4>
+	<img src="/image/icon/friends.png">
+		<form onsubmit="return false;">
+		<h3>이메일</h3>
 	    <input type="text" id="inputEmail" name="inputEmail" placeholder="이메일" required>
 	    &nbsp;<label>@</label>&nbsp;
 	    <select name="emailLocation" id="emailLocation">
-		    <option value="google.com">google.com</option>
+		    <option value="gmail.com">gmail.com</option>
 		    <option value="naver.com" >naver.com</option>
 		    <option value="daum.net" hidden>daum.net</option>
 	  	</select>&nbsp;
 	  	
-	  	<input type="button" id="confirmBtn" value="인증코드"><br><br>
+	  	<input type="button" id="confirmBtn" value="인증코드"><br>
 	    <div id="confirmCodeForm"></div>
 	    
-	    <h4>비밀번호</h4>
+	    <h3>비밀번호</h3>
     	<input type="password" id="inputPassword" name="inputPassword" placeholder="비밀번호" required>
     	
-	    <h4>닉네임</h4>
+	    <h3>닉네임</h3>
     	<input type="text" id="inputNickname" name="inputNikename" placeholder="닉네임" required>
     	
-    	<h4>국적</h4>
+    	<h3>국적</h3>
     	<select name="nation" id="nation">
 		    <option value="161">한국</option>
 		    <option value="37">中国</option>
@@ -131,8 +143,8 @@ $(document).ready(function(){
 	  	</select><br><br>
     	
     	<div id="garoBtns">
-    		<input type="button" id="joinBtn" class="btn" value="회원가입">
-    		&nbsp;&nbsp;&nbsp;&nbsp;
+    		<input type="submit" id="joinBtn" class="btn" value="회원가입">
+    		&nbsp;&nbsp;|&nbsp;&nbsp;
     		<input type="button" id="loginBtn" class="btn" value="로그인">
 		</form>	
 		</div>

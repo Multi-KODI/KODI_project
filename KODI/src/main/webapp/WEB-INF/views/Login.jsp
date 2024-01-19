@@ -5,9 +5,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link
-	href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css"
-	rel="stylesheet">
+<link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css" rel="stylesheet">
+
+<link rel="stylesheet" href="/css/Login.css">
 <script src="/js/jquery-3.7.1.min.js"></script>
 <title>로그인</title>
 <script>
@@ -54,20 +54,33 @@ $(document).ready(function(){
 	
 	
 	$("#joinBtn").on('click', function(){
-		location.href = "Join";	
+		location.href = "join";	
 	});	//btn
 	
+	
+
 });	//ready
 </script>
 </head>
 <body>
-
+<header>
+	<div class="header-container">
+	
+				<select id="languageSelect">
+					<option value="ko">한국어</option>
+					<option value="en">English</option>
+				</select>
+				<a href="/api/home" id = "logo"><img id="logoImage" src="/image/icon/logo.png" ></a>
+			
+	</div>
+</header>
 	<div id="inner">
+	<img src="/image/icon/friends.png">
 		<form id="loginForm" method="post">
-			<h4>이메일</h4>
+			<h3>이메일</h3>
 		    <input type="text" id="inputEmail" name="inputEmail" placeholder="이메일" required><br><br>
 		    
-		    <h4>비밀번호</h4>
+		    <h3>비밀번호</h3>
 		    <input type="password" id="inputPassword" name="inputPassword" placeholder="비밀번호" required><br><br>
 		    
 		    <div id="garoBtns">
@@ -75,7 +88,7 @@ $(document).ready(function(){
 		    	&nbsp;&nbsp;|&nbsp;&nbsp;
 		    	<input type="button" id="joinBtn" class="btn" value="회원가입">
 			</div>
-		</form>
+		</form><br><br><br>
 	</div>
 </body>
 </html>

@@ -8,7 +8,7 @@
 <link
 	href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css"
 	rel="stylesheet">
-<script src="js/jquery-3.7.1.min.js"></script>
+<script src="/js/jquery-3.7.1.min.js"></script>
 <title></title>
 </head>
 
@@ -36,10 +36,10 @@
 	</header>
 
 	<div class="menu-content">
-		<a href="/api/post">모든 게시글</a> 
-		<a href="/api/map">지도 서비스</a> 
-		<a href="/api/plan">여행 플래너</a> 
-		<a href="/api/diningcost">지역별 외식비</a>
+		<a href="">모든 게시글</a> 
+		<a href="">지도 서비스</a> 
+		<a href="">여행 플래너</a> 
+		<a href="">지역별 외식비</a>
 	</div>
 	
 	<button id="topBtn">
@@ -55,25 +55,17 @@ $(document).ready(function () {
 	    $(".menu-content").css({'left': menuOffset.left }); 
 	}
 	
-	function updatetopBtn() {
-	    var topOffset = $("#loginbtn").offset();  //상단이동 버튼
-	    var logoutbtnWidth = $("#loginbtn").outerWidth();
-	    var rightPos = $(window).width() - topOffset.left - logoutbtnWidth;
-	    $("#topBtn").css({'right': rightPos + 'px'}); 
-	}
-	
 	$("#menubtn").on("click", function () { //메뉴열기
-		updateMenuContentPosition();
-	    $(".menu-content").slideToggle(); 
+		alert('비회원은 이용하실 수 없습니다. 로그인해주세요.');
+		//updateMenuContentPosition();
+	   // $(".menu-content").slideToggle(); 
 	});
 	
 	$(window).on('resize', function(){ //윈도우창 크기에 따라 변화
 	    if($(".menu-content").is(":visible")) {
 	        updateMenuContentPosition();
 	    }
-	    if($("#topBtn").is(":visible")) {
-	    	updatetopBtn();
-	    }
+
 	});
 	
 	$("#registerbtn").on("click", function (event) {
@@ -87,7 +79,7 @@ $(document).ready(function () {
     
     
     $("#chat").on("click", function () {
-        window.location.href = "/api/chat";
+    	alert('비회원은 이용하실 수 없습니다. 로그인해주세요.');
       });
     
     let topBtn = document.getElementById("topBtn");

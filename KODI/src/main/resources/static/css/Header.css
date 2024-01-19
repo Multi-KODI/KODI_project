@@ -90,8 +90,8 @@ header {
 #topBtn {
   display: none;
   position: fixed; 
-  bottom: 20px; 
-  right:10px;
+  bottom: 5px; 
+  right:5px;
   z-index: 99; 
   background-color:transparent;
   border: none; 
@@ -107,20 +107,7 @@ header {
 }
 
 @media all and (min-width : 768px) , (max-width : 1024px) {
-#topBtn {
-  display: none;
-  position: fixed; 
-  bottom: 5px; 
-  right:5px;
-  z-index: 99; 
-  background-color:transparent;
-  border: none; 
-  outline: none; 
-  cursor: pointer;
-  padding: 10px; 
-  border-radius: 100px; 
-}
-	
+
 #topBtn img {
   width: 20px; 
   height: 20px;

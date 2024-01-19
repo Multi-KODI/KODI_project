@@ -57,13 +57,6 @@ $(document).ready(function () {
 	    $(".menu-content").css({'left': menuOffset.left }); 
 	}
 	
-	function updatetopBtn() {
-	    var topOffset = $("#logoutbtn").offset();  //상단이동 버튼
-	    var logoutbtnWidth = $("#logoutbtn").outerWidth();
-	    var rightPos = $(window).width() - topOffset.left - logoutbtnWidth;
-	    $("#topBtn").css({'right': rightPos + 'px'}); 
-	}
-	
 	$("#menubtn").on("click", function () { //메뉴열기
 		updateMenuContentPosition();
 	    $(".menu-content").slideToggle(); 
@@ -73,9 +66,7 @@ $(document).ready(function () {
 	    if($(".menu-content").is(":visible")) {
 	        updateMenuContentPosition();
 	    }
-	    if($("#topBtn").is(":visible")) {
-	    	updatetopBtn();
-	    }
+
 	});
 	
 	$("#mypagenbtn").on("click", function (event) {
@@ -86,13 +77,10 @@ $(document).ready(function () {
     
     $("#logoutbtn").on("click", function () {
     	if (confirm("로그아웃 하시겠습니까?")){
-    		window.location.href = "/start";
+    		window.location.href = "/";
     	}
     	else{}
       });
-    
-    
-
     
 
     let topBtn = document.getElementById("topBtn");

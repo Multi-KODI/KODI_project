@@ -77,8 +77,9 @@ public class MemberController {
 	 */
 	@PostMapping("/email")
 	@ResponseBody
-	public String sendEmail(@RequestBody MemberDTO memberDTO, HttpSession session) {
-		MemberDTO existingMember = memberService.findMemberByEmail(memberDTO.getEmail());
+	public String sendEmail(String email, HttpSession session) {
+		System.out.println(email);
+		MemberDTO existingMember = memberService.findMemberByEmail(email);
 		// 중복 유저 확인
 		if (existingMember != null) {
 			return "중복된 유저가 있습니다";
@@ -94,7 +95,7 @@ public class MemberController {
 		// 이메일 발송
 		String subject = "Email Verfication";
 		String body = "Your verification OPT is " + otp;
-		emailService.sendEmail(memberDTO.getEmail(), subject, body);
+		emailService.sendEmail(email, subject, body);
 		return "인증코드를 발송했습니다, 이메일을 확인해 주세요";
 	}
 
@@ -106,13 +107,13 @@ public class MemberController {
 	 */
 	@PostMapping("/verify")
 	@ResponseBody
-	public String verifyEmail(@RequestBody OtpDTO otpDTO, HttpSession session) {
+	public String verifyEmail(String inputOtp, HttpSession session) {
 
 		// 세션에서 OTP 받아오기
 		String sessionOtp = (String) session.getAttribute("otp");
 
 		// 사용자가 입력한 OTP와 세션의 OTP 비교
-		if (sessionOtp.equals(otpDTO.getOtp())) {
+		if (sessionOtp.equals(inputOtp)) {
 			session.removeAttribute("otp");
 			return "이메일이 인증되었습니다";
 		}

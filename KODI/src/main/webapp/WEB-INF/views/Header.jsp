@@ -70,8 +70,7 @@ $(document).ready(function () {
 	});
 	
 	$("#mypagenbtn").on("click", function (event) {
-	    event.preventDefault(); // 기본 클릭 동작x
-	    window.location.href = "/api/myPage";
+	    window.location.href = "/api/mypage";
 	});
 
     

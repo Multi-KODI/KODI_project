@@ -76,6 +76,9 @@
 				<thead>
 					<tr>
 						<th>
+							<div class="tdDiv">가입번호</div>
+						</th>
+						<th>
 							<div class="tdDiv">이메일</div>
 						</th>
 						<th>
@@ -90,6 +93,10 @@
 				<tbody id="memberList">
 					<c:forEach var="member" items="${members}">
 						<tr>
+							<td>
+								<div class="tdDiv">${member.memberIdx}</div>
+							</td>
+							
 							<td>
 								<div class="tdDiv">${member.email}</div>
 							</td>
@@ -116,6 +123,10 @@
 					
 				</tbody>
 			</table>
+			
+			<button id="topBtn">
+				<img src="/image/icon/topicon.png"> 
+			</button>
 			
 		
 		<%--<div id="pagination">

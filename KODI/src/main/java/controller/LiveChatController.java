@@ -38,9 +38,7 @@ public class LiveChatController {
 	public ModelAndView liveChat(HttpSession session, @PathVariable int chatIdx) {
 		List<AllChatDTO> allChatMsg = liveChatService.selectAllChatMsg(chatIdx);
 		
-		int memberIdx = 1;
-		// 추후 세션값으로 memberIdx 변경
-		// int memberIdx = (int)session.getAttribute("memberIdx");
+		int memberIdx = Integer.parseInt(String.valueOf(session.getAttribute("memberIdx")));
 		
 		int n = 0;
 		
@@ -53,9 +51,7 @@ public class LiveChatController {
 			} else { // 다른 언어를 쓰면 번역해서 전달
 				msg = papagoService.translateMsg(memberIdx, oneChat.getChatMsgDTO().getMemberIdx(), oneChat.getChatMsgDTO().getContent());
 			}
-			
-			//System.out.println("msg" + msg);
-			
+						
 			allChatMsg.get(n).getChatMsgDTO().setContent(msg);
 			n++;
 		}
@@ -78,7 +74,7 @@ public class LiveChatController {
 	 */
 	@PostMapping("/chatroom/verifymember")
 	@ResponseBody
-	public int verifyMember(int memberIdx, int chatIdx) {
+	public int verifyMember(int memberIdx, int chatIdx) {		
 		return liveChatService.verifyMember(memberIdx, chatIdx);
 	}
 	

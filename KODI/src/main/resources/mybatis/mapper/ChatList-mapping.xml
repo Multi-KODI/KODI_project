@@ -29,11 +29,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectContent" resultType="String" parameterType="int">
 		select content from chat_msg where chat_idx = #{chatIdx} order by chat_msg_idx desc limit 1
 	</select>
-	<select id="selectChatRoom" resultType="int" parameterType="hashmap">
+	<select id="selectChatRoom1" resultType="int" parameterType="hashmap">
+		select count(*) from chat where member1_idx = #{memberIdx} and member2_idx = #{friendMemberIdx}
+	</select>
+	<select id="selectChatRoom2" resultType="int" parameterType="hashmap">
+		select count(*) from chat where member1_idx = #{friendMemberIdx} and member2_idx = #{memberIdx}
+	</select>
+	<select id="selectChatIdxCnt" resultType="int" parameterType="hashmap">
 		select count(*) from chat where member1_idx = #{memberIdx} and member2_idx = #{friendMemberIdx};
 	</select>
-	<select id="selectChatIdx" resultType="int" parameterType="hashmap">
+	<select id="selectChatIdx1" resultType="int" parameterType="hashmap">
 		select chat_idx as chatIdx from chat where member1_idx = #{memberIdx} and member2_idx = #{friendMemberIdx};
+	</select>
+	<select id="selectChatIdx2" resultType="int" parameterType="hashmap">
+		select chat_idx as chatIdx from chat where member1_idx = #{friendMemberIdx} and member2_idx = #{memberIdx};
 	</select>
 	<select id="selectFriendInfo" resultType="chatlistfrienddto" parameterType="hashmap">
 		select 

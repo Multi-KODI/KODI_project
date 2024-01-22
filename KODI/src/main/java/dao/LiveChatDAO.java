@@ -41,4 +41,10 @@ public interface LiveChatDAO {
 	 */
 	int insertChatMsg(HashMap<String, Object> map);
 
+	/**
+	 * 국적 조회
+	 * @param memberIdx
+	 */
+	String selectCountry(int memberIdx);
+
 }

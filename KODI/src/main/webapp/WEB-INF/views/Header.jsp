@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,26 +14,29 @@
 </head>
 
 <body>
-	<header>
-		<div class="header-container">
-			<div class="menu">
-				<img src="/image/icon/menu.png" class="icon" id="menubtn">
-			</div>
+<header>
+	<div class="header-container">
+		<div class="menu">
+			<img src="/image/icon/menu.png" class="icon" id="menubtn">
+		</div>
 
-			<div class="end-btn">
-				<img class="icon" id="notify" src="/image/icon/notify.png"> 
-				<img class="icon" id="chat" src="/image/icon/chat.png">
-				<button class="btn" id="mypagenbtn">마이페이지</button>
-				<button class="btn" id="logoutbtn">로그아웃</button>
-				<div class="language-selection">
-					<select>
-						<option value="ko">한국어</option>
-						<option value="en">English</option>
-					</select>
-				</div>
+		<div class="end-btn">
+			<img class="icon" id="notifyIcon" src="/image/icon/notify.png"> 
+			<a href="/api/chatlist/<%= session.getAttribute("memberIdx") %>">
+    			<img class="icon" id="chatIcon" src="/image/icon/chat.png">
+			</a>
+
+			<button class="btn" id="mypagenbtn">마이페이지</button>
+			<button class="btn" id="logoutbtn">로그아웃</button>
+			<div class="language-selection">
+				<select>
+					<option value="ko">한국어</option>
+					<option value="en">English</option>
+				</select>
 			</div>
 		</div>
-	</header>
+	</div>
+</header>
 
 	<div class="menu-content">
 		<a href="/api/post">모든 게시글</a> 
@@ -53,13 +57,6 @@ $(document).ready(function () {
 	    $(".menu-content").css({'left': menuOffset.left }); 
 	}
 	
-	function updatetopBtn() {
-	    var topOffset = $("#logoutbtn").offset();  //상단이동 버튼
-	    var logoutbtnWidth = $("#logoutbtn").outerWidth();
-	    var rightPos = $(window).width() - topOffset.left - logoutbtnWidth;
-	    $("#topBtn").css({'right': rightPos + 'px'}); 
-	}
-	
 	$("#menubtn").on("click", function () { //메뉴열기
 		updateMenuContentPosition();
 	    $(".menu-content").slideToggle(); 
@@ -69,9 +66,7 @@ $(document).ready(function () {
 	    if($(".menu-content").is(":visible")) {
 	        updateMenuContentPosition();
 	    }
-	    if($("#topBtn").is(":visible")) {
-	    	updatetopBtn();
-	    }
+
 	});
 	
 	$("#mypagenbtn").on("click", function (event) {
@@ -82,14 +77,9 @@ $(document).ready(function () {
     
     $("#logoutbtn").on("click", function () {
     	if (confirm("로그아웃 하시겠습니까?")){
-    		window.location.href = "/start";
+    		window.location.href = "/";
     	}
     	else{}
-      });
-    
-    
-    $("#chat").on("click", function () {
-        window.location.href = "/api/chat";
       });
     
 
@@ -109,10 +99,12 @@ $(document).ready(function () {
             topBtn.style.display = "none";
         }
     };
+    
+  
 
+    
 
-
-   
+    
 
     
     

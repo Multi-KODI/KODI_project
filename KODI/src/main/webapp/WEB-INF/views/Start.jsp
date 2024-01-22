@@ -24,7 +24,7 @@ $(document).ready(function () {
    //email입력창에 넣은 값 가져오게 하기???ㅜㅜ
    
    $(".nonjoinbtn").on("click",function(){
-      window.location.href = "/nonjoin";
+      window.location.href = "/nonhome";
    });
    
 

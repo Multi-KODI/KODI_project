@@ -1,5 +1,7 @@
 package dto;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,10 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class MemberDTO {
-	private int memberIdx;
-	private String email;
-	private String pw;
-	private String memberName;
-	private int flagIdx;
+public class MemberFlagDTO {
+  private List<MemberDTO> memberDTO;
+  private List<FlagDTO> flagDTO;
 }

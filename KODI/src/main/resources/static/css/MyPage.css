@@ -51,7 +51,7 @@ main {
 	margin-top: 10px;
 }
 
-.modal_background {
+.modal_background1, .modal_background2 {
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -60,6 +60,7 @@ main {
 	background: rgba(0, 0, 0, 0.8);
 	display: none;
 }
+
 
 .modal_box {
 	position: absolute;

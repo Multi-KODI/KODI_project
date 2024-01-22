@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import dto.MemberDTO;
 import dto.OtpDTO;
 import jakarta.servlet.http.HttpSession;
+import service.AdminService;
 import service.EmailService;
 import service.MemberService;
 
@@ -42,15 +43,17 @@ public class MemberController {
 	@Qualifier("emailservice")
 	private EmailService emailService;
 
+	@Autowired
+	private AdminService adminService;
 	/**
 	 * 회원가입 페이지 요청
 	 * 
 	 * @return
 	 */
-	@GetMapping("/register")
+	@GetMapping("/join")
 	public ModelAndView registerMember() {
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("Register");
+		mv.setViewName("Join");
 		return mv;
 	}
 
@@ -74,11 +77,11 @@ public class MemberController {
 	 */
 	@PostMapping("/email")
 	@ResponseBody
-	public ResponseEntity<String> sendEmail(@RequestBody MemberDTO memberDTO, HttpSession session) {
+	public String sendEmail(@RequestBody MemberDTO memberDTO, HttpSession session) {
 		MemberDTO existingMember = memberService.findMemberByEmail(memberDTO.getEmail());
 		// 중복 유저 확인
 		if (existingMember != null) {
-			return new ResponseEntity<>("중복된 유저가 있습니다", HttpStatus.BAD_REQUEST);
+			return "중복된 유저가 있습니다";
 		}
 
 		// OTP 생성
@@ -92,7 +95,7 @@ public class MemberController {
 		String subject = "Email Verfication";
 		String body = "Your verification OPT is " + otp;
 		emailService.sendEmail(memberDTO.getEmail(), subject, body);
-		return new ResponseEntity<>("인증코드를 발송했습니다, 이메일을 확인해 주세요", HttpStatus.OK);
+		return "인증코드를 발송했습니다, 이메일을 확인해 주세요";
 	}
 
 	/**
@@ -103,7 +106,7 @@ public class MemberController {
 	 */
 	@PostMapping("/verify")
 	@ResponseBody
-	public ResponseEntity<String> verifyEmail(@RequestBody OtpDTO otpDTO, HttpSession session) {
+	public String verifyEmail(@RequestBody OtpDTO otpDTO, HttpSession session) {
 
 		// 세션에서 OTP 받아오기
 		String sessionOtp = (String) session.getAttribute("otp");
@@ -111,9 +114,9 @@ public class MemberController {
 		// 사용자가 입력한 OTP와 세션의 OTP 비교
 		if (sessionOtp.equals(otpDTO.getOtp())) {
 			session.removeAttribute("otp");
-			return new ResponseEntity<>("이메일이 인증되었습니다", HttpStatus.OK);
+			return "이메일이 인증되었습니다";
 		}
-		return new ResponseEntity<>("OTP 번호가 일치하지 않습니다.", HttpStatus.BAD_REQUEST);
+		return "OTP 번호가 일치하지 않습니다.";
 	}
 
 	/**
@@ -123,16 +126,17 @@ public class MemberController {
 	 * @param session
 	 * @return
 	 */
-	@PostMapping("/register")
-	public ResponseEntity<String> registerMember(@RequestBody MemberDTO memberDTO, HttpSession session) {
+	@PostMapping("/join")
+	@ResponseBody
+	public String registerMember(@RequestBody MemberDTO memberDTO, HttpSession session) {
 		MemberDTO findedMember = memberService.findMemberByEmail(memberDTO.getEmail());
 
 		// 기존에 멤버가 없을 때 회원등록
 		if (findedMember == null) {
 			memberService.registerMember(memberDTO);
-			return new ResponseEntity<>("회원등록이 완료되었습니다", HttpStatus.OK);
+			return "회원등록이 완료되었습니다";
 		}
-		return new ResponseEntity<>("회원등록을 실패하였습니다", HttpStatus.BAD_REQUEST);
+		return "중복된 회원이 있습니다";
 	}
 
 	/**
@@ -159,6 +163,9 @@ public class MemberController {
 			Integer memberIdxInteger = findedMember.getMemberIdx();
 			String memberIdx = String.valueOf(memberIdxInteger);
 			session.setAttribute("memberIdx", memberIdx);
+			if(adminService.validateAdmin(session)){
+				return "관리자로 로그인 하였습니다";
+			}
 			return "로그인에 성공하였습니다";
 		}
 		return "비밀번호를 확인해 주세요";
@@ -170,15 +177,16 @@ public class MemberController {
 	 * @return
 	 */
 	@PostMapping("/logout")
-	public ResponseEntity<String> logoutMember(HttpSession session) {
+	@ResponseBody
+	public String logoutMember(HttpSession session) {
 
 		// 로그인이 아닐 시
 		if (session.getAttribute("memberIdx") == null) {
-			return new ResponseEntity<>("로그인된 정보가 없습니다", HttpStatus.BAD_REQUEST);
+			return "로그인된 정보가 없습니다";
 			// 로그인한 상태일 때
 		} else {
 			session.removeAttribute("memberIdx");
-			return new ResponseEntity<>("로그아웃 되었습니다", HttpStatus.OK);
+			return "로그아웃 되었습니다";
 		}
 	}
 }

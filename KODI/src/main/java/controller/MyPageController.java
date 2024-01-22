@@ -155,7 +155,7 @@ public class MyPageController {
 			}
 			List<PostImageDTO> images = myPageService.allImages();
 			mv.addObject("images", images);
-			mv.setViewName("MyPage");
+			mv.setViewName("/MyPage/MyPage");
 			return mv;
 
 			// 로그인이 안돼어 있거나 회원이 존재하지 않는 경우

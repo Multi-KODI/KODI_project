@@ -187,7 +187,7 @@ public class MemberController {
 			// 로그인한 상태일 때
 		} else {
 			session.removeAttribute("memberIdx");
-			return "로그아웃 되었습니다";
+			 return "redirect:/";
 		}
 	}
 }

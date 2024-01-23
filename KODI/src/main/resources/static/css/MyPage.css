@@ -125,3 +125,39 @@ main {
 	height: 100%;
 	object-fit: cover;
 }
+
+
+
+
+
+
+@media all and (max-width:479px){
+.mypagebtn {
+	font-size:0.6em;
+	width: 70px;
+	margin-right: 5px;
+}
+
+#album {
+	grid-template-columns: repeat(2, 1fr);
+}
+
+	
+.album-item {
+	width: 180px;
+	height: 180px;
+	padding: 10px;
+}
+
+
+.modal_box {
+	width: 90vw;
+	height: 90vh;
+}
+
+.modal_box2 {
+	width: 90vw;
+	height: 90vh;
+}	
+	
+}

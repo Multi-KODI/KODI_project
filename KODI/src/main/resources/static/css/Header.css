@@ -27,7 +27,6 @@ header {
   cursor: pointer;
   }
 
-
 .menu {
   justify-content: flex-start;
   cursor: pointer;
@@ -37,7 +36,6 @@ header {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-
 }
 
 .btn{
@@ -49,7 +47,6 @@ header {
   background-color: #ffffff;
   border: none;
   cursor: pointer;
-
 }
 
 .btn:hover{
@@ -116,7 +113,44 @@ header {
 }
 
 	
+@media all and (max-width:479px) {
 
+
+header {
+  font-size :0.7em;
+}
+
+.header-container {
+  max-width: 500px;
+}
+
+.btn{
+  font-size :0.7em;
+}
+
+.language-selection select {
+  font-size :0.7em;
+  margin-right: 0;
+}
+
+.menu{
+	margin-left: 0;
+}
+
+.menu-content a {
+  font-size: 0.7em;
+}
+
+.end-btn{
+	margin-right: 0;
+}
+
+.icon{
+  width:15px;
+  height: 15px;
+  }  
+ 
+}
 
 
 

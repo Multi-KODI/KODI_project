@@ -187,4 +187,54 @@ tr {
 
 #f-drawBtn, #f-cancelBtn, #f-acceptBtn, #f-removeBtn {
 	
+	
+}
+
+
+
+@media all and (max-width:479px){
+.friendbox {
+	width: 100vw;
+	height: 100vh;
+}
+	
+.mainBox {
+	height: 95%;
+	width: 98%; 
+}
+
+.contentBox {
+  flex-direction: column;
+}
+
+#friendheader{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	margin-left: auto;
+    margin-right: auto;
+}
+
+#friendheader h2 {
+	margin-left: 10px;
+}
+
+.form-group{
+	flex-direction: row;
+}
+
+.form-group button {
+	font-size: 0.6em;
+	width: 100px;
+	box-sizing: border-box;
+	padding: 10px;
+	border: none;
+	cursor: pointer;
+	border-radius: 8px;
+	background-color: #D9D9D9;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 20px;
+}
+	
 }

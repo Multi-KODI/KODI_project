@@ -101,11 +101,12 @@ $(document).ready(function() {
                         $(".modal_background1").fadeIn();
                     });
                 } else {
-                	 alert("비밀번호가 틀렸습니다."); 
+                	console.error("error: " + error); 
                 }
             },
             error: function (xhr, status, error) {
-                console.error("error: " + error); 
+            	alert("비밀번호가 틀렸습니다."); 
+                
             }
         });
 

@@ -112,11 +112,25 @@ header {
   height: 50px;
 }
 
-@media all and (min-width : 768px) , (max-width : 1024px) {
+@media all and (max-width:479px) {
 
 #topBtn img {
   width: 20px; 
   height: 20px;
 }
+
+.menu {
+	margin-left: 3px;
+}
+
+.language-selection select{
+	margin-right: 3px;
+}
+
+.menu-content a{
+	font-size: 0.7em;
+}
 	
 }
+
+

@@ -46,9 +46,8 @@
 	<div class="main">
 
 		<div class="logo-container">
-			<img src="/image/icon/logo.png" alt="KoDi"
-				style="width: 170px; height: 150px;">
-	</div>
+			<img src="/image/icon/logo.png" id="KoDi">
+		</div>
 
 	<div class="board-box">
 		<div class="title">

@@ -19,7 +19,6 @@ $(document).ready(function(){
 	let confirmFlag = false;
 	
 	$("#confirmBtn").on('click', function(){
-	    alert($("#inputEmail").val() + "@" + $("#emailLocation").val());
 	    $.ajax({
 	        url: "/api/email",
 	        data: {

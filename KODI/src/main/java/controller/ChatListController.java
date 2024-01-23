@@ -49,7 +49,10 @@ public class ChatListController {
 	 */
 	@PostMapping("/chatlist/clickchat")
 	@ResponseBody
-	public boolean clickChat(@RequestBody ChatRq chatInfo) {		
+	public boolean clickChat(@RequestBody ChatRq chatInfo) {
+		
+		System.out.println("controller: " + service.selectChatRoom(chatInfo.getMemberIdx(), chatInfo.getFriendMemberIdx()));
+		
 		return service.selectChatRoom(chatInfo.getMemberIdx(), chatInfo.getFriendMemberIdx());
 	}
 	

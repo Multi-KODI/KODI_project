@@ -19,6 +19,10 @@ public class ChatListService {
 	@Qualifier("chatlistdao")
 	ChatListDAO dao;
 	
+	@Autowired
+	@Qualifier("papagoservice")
+	PapagoService papagoService;
+	
 	/**
 	 * 채팅 리스트 정보 조회
 	 * @param memberIdx
@@ -58,12 +62,30 @@ public class ChatListService {
 			
 			if(chatMemberIdx1 == memberIdx) {
 				String friendMemberName = dao.selectFriendMemberName(chatMemberIdx2);
-				String content = dao.selectContent(chatIdx);
+				boolean compareLang = papagoService.compareLang(memberIdx, chatMemberIdx2);
+				
+				String content;
+				
+				if(compareLang == false) { // 같은 언어를 쓰는 사람들이면 메시지 그대로 전달
+					content = "{\"message\":{\"result\":{\"srcLangType\":\"ko\",\"tarLangType\":\"ko\",\"translatedText\":\""+ dao.selectContent(chatIdx) +"\"}}}";
+				} else { // 다른 언어를 쓰면 번역해서 전달
+					content = papagoService.translateMsg(memberIdx, chatMemberIdx2, dao.selectContent(chatIdx));
+				}
+
 				ChatListRoomDTO chatInfo = new ChatListRoomDTO(chatIdx, chatMemberIdx2, friendMemberName, content);
 				chatListRoomDTO.add(chatInfo);
 			} else {
 				String friendMemberName = dao.selectFriendMemberName(chatMemberIdx1);
-				String content = dao.selectContent(chatIdx);
+				boolean compareLang = papagoService.compareLang(memberIdx, chatMemberIdx1);
+				
+				String content;
+				
+				if(compareLang == false) { // 같은 언어를 쓰는 사람들이면 메시지 그대로 전달
+					content = "{\"message\":{\"result\":{\"srcLangType\":\"ko\",\"tarLangType\":\"ko\",\"translatedText\":\""+ dao.selectContent(chatIdx) +"\"}}}";
+				} else { // 다른 언어를 쓰면 번역해서 전달
+					content = papagoService.translateMsg(memberIdx, chatMemberIdx1, dao.selectContent(chatIdx));
+				}
+				
 				ChatListRoomDTO chatInfo = new ChatListRoomDTO(chatIdx, chatMemberIdx1, friendMemberName, content);
 				chatListRoomDTO.add(chatInfo);
 			}
@@ -84,8 +106,10 @@ public class ChatListService {
 		map.put("memberIdx", memberIdx);
 		map.put("friendMemberIdx", friendMemberIdx);
 		
-		int result = dao.selectChatRoom(map);
-		if(result == 1) {
+		int result1 = dao.selectChatRoom1(map);
+		int result2 = dao.selectChatRoom2(map);
+
+		if(result1 == 1 || result2 == 1) {
 			return true;
 		} else {
 			return false;
@@ -104,7 +128,11 @@ public class ChatListService {
 		map.put("memberIdx", memberIdx);
 		map.put("friendMemberIdx", friendMemberIdx);
 		
-		return dao.selectChatIdx(map);
+		if(dao.selectChatIdxCnt(map) == 0) {
+			return dao.selectChatIdx2(map);
+		} else {
+			return dao.selectChatIdx1(map);
+		}
 	}
 
 	/**

@@ -74,21 +74,43 @@ public interface ChatListDAO {
 	 * @param friendMemberIdx
 	 * @return 채팅방 여부 (1|0)
 	 */
-	int selectChatRoom(HashMap<String, Integer> map);
+	int selectChatRoom1(HashMap<String, Integer> map);
+	
+	/**
+	 * 채팅방 여부 조회
+	 * @param memberIdx
+	 * @param friendMemberIdx
+	 * @return 채팅방 여부 (1|0)
+	 */
+	int selectChatRoom2(HashMap<String, Integer> map);
 
+	/**
+	 * 채팅방 개수 조회
+	 * @param map
+	 * @return 채팅방 번호
+	 */
+	int selectChatIdxCnt(HashMap<String, Integer> map);
+	
 	/**
 	 * 채팅방 번호 조회
 	 * @param map
 	 * @return 채팅방 번호
 	 */
-	int selectChatIdx(HashMap<String, Integer> map);
+	int selectChatIdx1(HashMap<String, Integer> map);
+	
+	/**
+	 * 채팅방 번호 조회
+	 * @param map
+	 * @return 채팅방 번호
+	 */
+	int selectChatIdx2(HashMap<String, Integer> map);
 
 	/**
 	 * 새로운 채팅방 생성
 	 * @param map
 	 */
 	void insertChat(HashMap<String, Integer> map);
-
+	
 	/**
 	 * 친구 검색
 	 * @param map

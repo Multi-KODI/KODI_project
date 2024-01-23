@@ -76,6 +76,9 @@
 				<thead>
 					<tr>
 						<th>
+							<div class="tdDiv">글번호</div>
+						</th>
+						<th>
 							<div class="tdDiv">작성자(이메일)</div>
 						</th>
 						<th>
@@ -90,6 +93,10 @@
 				<tbody id="postList">
 					<c:forEach var="post" items="${posts}">
 						<tr>
+							<td>
+								<div class="tdDiv">${post.postIdx}</div>
+							</td>
+						
 							<td>
 								<div class="tdDiv">
 									<c:forEach var="member" items="${members}">
@@ -109,7 +116,7 @@
 							</td>
 							
 							<td>
-								<button class="viewBtn" type="button" data-post-idx="${post.postIdx}">보기</button>
+								<a class="viewBtn" data-post-idx="${post.postIdx}" href="/api/post/${post.postIdx}">보기</a>
 							</td>
 							
 							<td>
@@ -120,6 +127,11 @@
 					</c:forEach>
 				</tbody>
 			</table>
+			
+				
+			<button id="topBtn">
+				<img src="/image/icon/topicon.png"> 
+			</button>
 			
 			<!--  <div id="pagination">
 				    <c:if test="${currentPage > 1}">

@@ -40,7 +40,7 @@ $(document).ready(function(){
 	                    	alert(response);
 	                    	$("#inputEmail").focus();
 	                    }else if(response == "관리자로 로그인 하였습니다"){
-	                    	location.href = "admin";
+	                    	location.href = "admin/allposts";
 	                    }else{
 	                    	alert("알 수 없는 오류");
 	                    }

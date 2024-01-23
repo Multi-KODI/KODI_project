@@ -33,17 +33,16 @@ main {
 	cursor: pointer;
 }
 
-.menuicon{
-  width:40px;
-  height: 40px;
-  cursor: pointer;
-  }
+.menuicon {
+	width: 40px;
+	height: 40px;
+	cursor: pointer;
+}
 
 .guidebox {
 	display: flex;
 	max-width: 90%;
 	width: 90%;
-	padding-bottom: 20px;
 	padding-top: 20px;
 	justify-content: center;
 	margin: 0 auto;
@@ -51,7 +50,6 @@ main {
 }
 
 .guide {
-	
 	flex: 1;
 	flex-direction: column;
 	align-items: center;
@@ -60,10 +58,12 @@ main {
 	margin: 0 auto;
 	max-width: 100%;
 	width: 100%;
+	height: 50%;
+	margin-bottom: 40px;
 }
-.guidetitle{
-	
-	 font-size: 20px;
+
+.guidetitle {
+	font-size: 20px;
 }
 
 .guidetext {
@@ -75,8 +75,8 @@ main {
 }
 
 .guidetext li a {
-    display: block;
-    word-break: break-all;
+	display: block;
+	word-break: break-all;
 }
 
 li {
@@ -84,12 +84,111 @@ li {
 	margin-bottom: 7px;
 }
 
-#chargebox{
+#chargebox {
 	overflow-y: auto;
-	width:100%; 
-	height:50%;
+	width: 100%;
+	height: 50%;
 }
 
-#chargebox img{
-	max-width:300px;
+#chargebox img {
+	max-width: 300px;
+}
+
+@media screen and (max-width:659px) {
+	#sendMsgInput {
+		width: 58%;
+		margin-left: 10%;
+	}
+}
+
+@media screen and (min-width:660px) and (max-width:899px) {
+	#sendMsgInput {
+		width: 65%;
+		margin-left: 10%;
+	}
+}
+
+@media screen and (min-width:900px) and (max-width:1399px) {
+	#sendMsgInput {
+		width: 70%;
+		margin-left: 10%;
+	}
+}
+
+@media screen and (min-width:1400px) {
+	#sendMsgInput {
+		width: 71%;
+		margin-left: 10%;
+	}
+}
+
+#chatTitle {
+	margin-top: 0px;
+	margin-left: 10%;
+	font-size: large;
+}
+
+#chatIcon {
+	height: 18px;
+	width: 18px;
+	margin-right: 10px;
+}
+
+#allMsgList {
+	display: block;
+	border: 2px solid #B6BBC4;
+	border-radius: 10px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	margin-left: 10%;
+	margin-right: 10%;
+	padding: 20px;
+}
+
+#friendName {
+	display: inline-block;
+	font-weight: bolder;
+	text-align: center;
+	padding: 5px 10px;
+	width: 50px;
+}
+
+#content {
+	display: inline-block;
+	margin-left: 20px;
+	border: 2px solid #EDF2F6;
+	border-radius: 10px;
+	background-color: #EDF2F6;
+	padding: 5px 20px;
+}
+
+#regdate {
+	margin-left: 92px;
+	margin-top: 0px;
+	font-size: small;
+}
+
+#sendMsgDiv {
+	display: flex;
+	margin-bottom: 70px;
+}
+
+#sendMsgInput {
+	display: inline-block;
+	border: 2px solid #B6BBC4;
+	border-radius: 10px;
+	padding: 10px 15px;
+	margin-right: 10px;
+}
+
+#sendMsgBtn {
+	display: inline-block;
+	cursor: pointer;
+	border: 2px solid #EDF2F6;
+	border-radius: 5px;
+	background-color: #EDF2F6;
+	width: 65px;
+	height: 40px;
+	color: gray;
+	font-family: 'NanumSquareNeo';
 }

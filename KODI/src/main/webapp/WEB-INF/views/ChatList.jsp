@@ -17,8 +17,8 @@
 </head>
 
 <script>
-	//memberIdx 추후 session 값 받아오기
-	<%-- 	let sessionId = <%=session.getAttribute("memberIdx")%>; --%>	
+	let sessionId = <%=session.getAttribute("memberIdx")%>;
+	
 	$(document).ready(function(){
 		showData();
 		searchFriend();
@@ -78,10 +78,14 @@
 			chatContent.setAttribute("id", "chatContent");
 			chatContent.setAttribute("style", "display: flex; font-size: small; margin: 15px;");
 			
-			if("${one.content}" == ""){
+			json = JSON.parse('${one.content}');
+			
+			//alert(json.message.result.translatedText);
+			
+			if(json.message.result.translatedText == "null"){
 				chatContent.innerHTML += "...";				
 			} else {
-				chatContent.innerHTML += "${one.content}";
+				chatContent.innerHTML += json.message.result.translatedText;				
 			}
 			
 			deleteChat = document.createElement("input");
@@ -105,13 +109,11 @@
 		let searchInput = document.getElementById("searchInput");
 
 		$("#searchBtn").on("click", function(){
-			// 추후 세션 비교 추가
-			//if(sessionId == ${chatListInfo.memberIdx}){
-			if(1 == ${chatListInfo.memberIdx}){
+			if(sessionId == ${chatListInfo.memberIdx}){
 				if(searchInput.value == ""){
 					alert("검색할 친구를 입력해주세요");
 				} else {
-					var data = {memberIdx: 1, friendName: searchInput.value};
+					var data = {memberIdx: sessionId, friendName: searchInput.value};
 					
 					$.ajax({
 						url: "/api/chatlist/search",
@@ -159,11 +161,8 @@
 	};
 	
 	function clickChatBtn(friendMemberIdx){
-		// 추후 세션 비교 추가
-		//if(sessionId == ${chatListInfo.memberIdx}){
-		if(1 == ${chatListInfo.memberIdx}){
-			// 추후 memberIdx 세션 값으로 변경
-			var data = {memberIdx: 1, friendMemberIdx: `${'${friendMemberIdx}'}`}
+		if(sessionId == ${chatListInfo.memberIdx}){
+			var data = {memberIdx: sessionId, friendMemberIdx: `${'${friendMemberIdx}'}`}
 			// 채팅방 여부 조회
 			$.ajax({
 				url: "/api/chatlist/clickchat",
@@ -171,8 +170,8 @@
 				type: "post",
 				contentType: "application/json",
 				dataType: "json",
-				success: function(response){
-					if(response == true){ // 이미 채팅방 존재
+				success: function(response1){
+					if(response1 == true){ // 이미 채팅방 존재
 						// 채팅방 번호 조회
 						$.ajax({
 							url: "/api/chatlist/chatidx",
@@ -180,8 +179,8 @@
 							type: "post",
 							contentType: "application/json",
 							dataType: "json",
-							success: function(response){
-								location.href="/api/chatroom/" + response;
+							success: function(response2){
+								location.href="/api/chatroom/" + response2;
 							},
 							error: function(request, e){
 								alert("코드: " + request.status + "메시지: " + request.responseText + "오류: " + e);
@@ -195,8 +194,8 @@
 							type: "post",
 							contentType: "application/json",
 							dataType: "json",
-							success: function(response){
-								location.href="/api/chatroom/" + response;
+							success: function(response3){
+								location.href="/api/chatroom/" + response3;
 							},
 							error: function(request, e){
 								alert("코드: " + request.status + "메시지: " + request.responseText + "오류: " + e);
@@ -209,24 +208,20 @@
 				}
 			});
 		} else {
-			alert("채팅방에 들어갈 수 없습니다.");
+			alert("해당 채팅방에 입장할 수 없습니다.");
 		}
 	};
 	
 	function clickChatInfo(chatIdx){
-		// 추후 세션 비교 추가
-		//if(sessionId == ${chatListInfo.memberIdx}){
-		if(1 == ${chatListInfo.memberIdx}){
+		if(sessionId == ${chatListInfo.memberIdx}){
 			location.href="/api/chatroom/" + `${'${chatIdx}'}`;
 		} else {
-			alert("채팅방에 들어갈 수 없습니다.");
+			alert("해당 채팅방에 입장할 수 없습니다.");
 		}
 	};
 	
 	function deleteChatBtn(chatIdx){
-		// 추후 세션 비교 추가
-		//if(sessionId == ${chatListInfo.memberIdx}){
-		if(1 == ${chatListInfo.memberIdx}){
+		if(sessionId == ${chatListInfo.memberIdx}){
 			let isDelete = confirm("해당 채팅방을 삭제하시겠습니까?");
 			
 			if(isDelete){

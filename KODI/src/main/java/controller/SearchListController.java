@@ -33,7 +33,7 @@ public class SearchListController {
 	 * 
 	 */
 	@GetMapping("/search?{filter}={question}")
-	public ModelAndView SearchList(@PathVariable String filter, @PathVariable String question, HttpSession session) {
+	public ModelAndView searchList(@PathVariable String filter, @PathVariable String question, HttpSession session) {
 		
 		ModelAndView mv = new ModelAndView();
 		

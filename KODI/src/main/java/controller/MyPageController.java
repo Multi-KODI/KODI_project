@@ -105,7 +105,11 @@ public class MyPageController {
 		ModelAndView mv = new ModelAndView();
 		List<FlagDTO> allFlags = myPageService.allFlags();
 		mv.addObject("flags", allFlags);
-		mv.setViewName("Modify");
+		
+	    String memberIdx = (String) session.getAttribute("memberIdx");
+	    MemberDTO member = memberService.findMemberByIdx(Integer.parseInt(memberIdx));
+	    mv.addObject("member", member);
+		mv.setViewName("/MyPage/Modify");
 		return mv;
 	}
 
@@ -119,20 +123,28 @@ public class MyPageController {
 	@PostMapping("/updateMemberInfo")
 	public ResponseEntity<String> updateMemberInfo(@RequestBody MemberDTO memberDTO, HttpSession session) {
 
-		// 세션에 바운딩된 유저아이디를 받아옴
-		Integer memberIdx = Integer.parseInt((String) session.getAttribute("memberIdx"));
+	    // 세션에 바운딩된 유저아이디를 받아옴
+	    Integer memberIdx = Integer.parseInt((String) session.getAttribute("memberIdx"));
 
-		// 세션에 유저아이디가 있고, 실제로 DB에 존재하는 경우
-		if (memberIdx != null && memberService.findMemberByIdx(memberIdx) != null) {
-			memberDTO.setMemberIdx(memberIdx);
-			memberService.updateMemberInfo(memberDTO);
-			return new ResponseEntity<>("회원정보가 업데이트 되었습니다", HttpStatus.OK);
+	    // 세션에 유저아이디가 있고, 실제로 DB에 존재하는 경우
+	    if (memberIdx != null && memberService.findMemberByIdx(memberIdx) != null) {
+	        // 기존 비밀번호 유지 처리
+	        if ("unchanged".equals(memberDTO.getPw())) {
+	            // 기존 비밀번호를 가져와서 설정
+	            String existingPassword = memberService.findMemberByIdx(memberIdx).getPw();
+	            memberDTO.setPw(existingPassword);
+	        }
 
-			// 세션에 유저아이디가 없거나 DB에 존재하지 않는 경우
-		} else {
-			return new ResponseEntity<>("회원이 존재하지 않습니다", HttpStatus.BAD_REQUEST);
-		}
+	        memberDTO.setMemberIdx(memberIdx);
+	        memberService.updateMemberInfo(memberDTO);
+	        return new ResponseEntity<>("회원정보가 업데이트 되었습니다", HttpStatus.OK);
+
+	    } else {
+	        // 세션에 유저아이디가 없거나 DB에 존재하지 않는 경우
+	        return new ResponseEntity<>("회원이 존재하지 않습니다", HttpStatus.BAD_REQUEST);
+	    }
 	}
+
 
 	/**
 	 * 마이페이지 요청
@@ -209,7 +221,7 @@ public class MyPageController {
 			mv.addObject("otherSideFriends", otherSideFriends);
 			session.setAttribute("otherSideFriends", otherSideFriends);
 		}
-		mv.setViewName("");
+		mv.setViewName("/MyPage/FriendList");
 		return mv;
 
 	}

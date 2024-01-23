@@ -9,7 +9,7 @@
 <link
    href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css"
    rel="stylesheet">
-<script src="js/jquery-3.7.1.min.js"></script>
+<script src="/js/jquery-3.7.1.min.js"></script>
 <title>start</title>
 
 <script>
@@ -19,12 +19,12 @@ $(document).ready(function () {
    });
    
    $(".joinbtn").on("click",function(){
-      window.location.href = "/api/register";
+      window.location.href = "/api/join";
    });
    //email입력창에 넣은 값 가져오게 하기???ㅜㅜ
    
    $(".nonjoinbtn").on("click",function(){
-      window.location.href = "/nonhome";
+      window.location.href = "/api/nonhome";
    });
    
 

@@ -52,7 +52,7 @@ body {
 }
 
 #board th:nth-child(1) {
-   width: 25%;
+   width: 20%;
 }
 
 #board th:nth-child(2) {
@@ -60,22 +60,32 @@ body {
 }
 
 #board th:nth-child(3) {
-   width: 40%;
+   width: 25%;
+}
+
+#board th:nth-child(4) {
+   width: 30%;
 }
 
 
 
 .viewBtn, .deleteBtn, .withdrawBtn {
-	font-family: 'NanumSquareNeo';
-	padding: 4px 8px;
-	margin-right: 5px;
-	color: #000000;
-	border: none;
-	cursor: pointer;
-	border-radius: 8px;
-	width: 70px;
-	box-sizing: border-box;
-	margin-right: 10px;
+  display: inline-block;
+  font-family: 'NanumSquareNeo';
+  padding: 4px 8px;
+  margin-right: 5px;
+  color: #000000;
+  border: none;
+  cursor: pointer;
+  border-radius: 8px;
+  width: 70px;
+  white-space: nowrap;
+  box-sizing: border-box;
+  margin-right: 10px;
+  background-color: #EDF2F6;
+  font-size: 12px;
+  text-align: center; 
+  text-decoration: none; 
 }
 
 
@@ -112,7 +122,7 @@ tr {
    
 }
 
-.deleteBtn:hover, withdrawBtn:hover{
+.deleteBtn:hover, .withdrawBtn:hover{
    background-color: #FF5656;
    color: #ffffff;
 }

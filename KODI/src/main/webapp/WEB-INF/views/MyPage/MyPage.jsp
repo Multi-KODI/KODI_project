@@ -47,7 +47,7 @@
 			<div id="album">
 			
 	 <c:forEach var="post" items="${posts}">
-	    <div class="album-item">
+	    <div class="album-item" data-post-idx="${post.postIdx}">
 	        <c:choose>
 	            <c:when
 	                test="${not empty images and post.postIdx eq images[0].postIdx}">
@@ -78,37 +78,48 @@ $(document).ready(function() {
       window.location.href=("/api/post/write");
     });
 	
-  //친구목록 - 추후 수정
+  	//친구목록 - 추후 수정
     $("#friendbtn").on("click", function () {
-        $(".modal_box2").load("/friendList", function() {
+        $(".modal_box2").load("/api/friends", function() {
             $(".modal_background2").fadeIn();
         });
     });
     
 
- 	// 정보수정 버튼 - 추후 수정
+	//정보수정 버튼 - 추후 수정
     $("#modifybtn").on("click", function () {
         var userInput = prompt("정보수정을 하려면 비밀번호를 입력하세요");
 
-        // 검증부분
         $.ajax({
-            url: '/verifyPw', // 비밀번호 데이터 받기
+            url: '/api/verifyPw',
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify({ pw: userInput }),
             success: function (response) {
                 if (response === "회원정보 확인 완료") {
-                    $(".modal_box").load("/modifyModal", function () {
+                    $(".modal_box").load("/api/update", function () {
                         $(".modal_background1").fadeIn();
                     });
                 } else {
-                    alert("비밀번호가 틀렸습니다.");
+                	 alert("비밀번호가 틀렸습니다."); 
                 }
             },
-            error: function (error) {
-                console.error("error : 비밀번호를 검증하는 데 실패했습니다.", error);
+            error: function (xhr, status, error) {
+                console.error("error: " + error); 
             }
         });
+
+    });
+
+ 	
+ 	//게시글 상세보기
+    $(".album-item").on("click", function () {
+        var postIdx = $(this).data("post-idx");
+
+        if (postIdx === undefined) {
+            return;
+        }
+        window.location.href = "/api/post/" + postIdx;
     });
 
  	

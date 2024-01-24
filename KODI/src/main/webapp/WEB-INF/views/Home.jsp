@@ -41,8 +41,8 @@
 			websocket = null;
 
 			if(websocket == null){
-/* 				websocket = new WebSocket("ws://localhost:7777/home");
- */				websocket = new WebSocket("ws://192.168.0.13:7777/home");
+				//websocket = new WebSocket("ws://localhost:7777/home");
+				websocket = new WebSocket("ws://192.168.0.13:7777/home");
 				
 				websocket.onopen = function(){console.log("웹소켓 연결성공");};
 				websocket.onclose = function(){console.log("웹소켓 해제성공");};

@@ -17,8 +17,7 @@
 </head>
 
 <script>
-	// memberIdx 추후 session 값 받아오기
-	<%-- 	let sessionId = <%=session.getAttribute("memberIdx")%>; --%>
+	let sessionId = <%=session.getAttribute("memberIdx")%>;
 	
 	$(document).ready(function(){
 		verifyMember();
@@ -28,7 +27,7 @@
 		// 해당 채팅방에 들어올 수 있는 사용자 권한 제한
 		$.ajax({
 			url: "/api/chatroom/verifymember",
-			data: {"memberIdx": 1, "chatIdx": ${chatIdx}}, // 추후 memberIdx 변경
+			data: {"memberIdx": sessionId, "chatIdx": ${chatIdx}},
 			type: "post",
 			success: function(response){
 				if(response == 1){
@@ -36,9 +35,7 @@
 					webSocket();
 				} else {
 					alert("해당 채팅방에 입장할 수 없습니다.");
-					// 추후 memberIdx 변경
-					// location.href = "/api/chatlist/" + sessionId;
-					location.href = "/api/chatlist/" + 1;
+					location.href = "/api/chatlist/" + sessionId;
 				}
 			},
 			error: function(request, e){
@@ -118,7 +115,7 @@
 				
 				$.ajax({
 					url: "/api/chatroom/showmembername",
-					data: {"memberIdx": 1}, // 추후 memberIdx 변경
+					data: {"memberIdx": sessionId},
 					type: "post",
 					dataType: "text",
 					success: function(response){
@@ -162,8 +159,7 @@
 				let msg = sendMsgInput.value;			
 				websocket.send(msg);
 				
-				// 추후 memberIdx 변경
-				var data = {memberIdx: 1, chatIdx: ${chatIdx}, content: msg};
+				var data = {memberIdx: sessionId, chatIdx: ${chatIdx}, content: msg};
 
 				$.ajax({
 					url: "/api/chatroom/savemsg",
@@ -185,9 +181,7 @@
 		
 		$("#exitChat").on("click", function(){
 			websocket.close();
-			// 추후 memberIdx 변경
-			// location.href = "/api/chatlist/" + sessionId;
-			location.href = "/api/chatlist/" + 1;
+			location.href = "/api/chatlist/" + sessionId;
 		});
 	};
 </script>

@@ -41,7 +41,7 @@ public class DiningCostController {
 	 * @param item
 	 * @return 특정 품목 외식비
 	 */
-	@PostMapping("/diningcost/one")
+	@PostMapping("/diningcost")
 	@ResponseBody
 	public DiningCostDTO selectOneCost(String item) {
 		return service.selectOneCost(item);

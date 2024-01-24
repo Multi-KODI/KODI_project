@@ -16,8 +16,7 @@
 </head>
 
 <script>
-	// memberIdx 추후 session 값 받아오기
-<%-- 	let sessionId = <%=session.getAttribute("memberIdx")%>; --%>	
+	let sessionId = <%=session.getAttribute("memberIdx")%>;
  
 	$(document).ready(function(){
 		showPostData();
@@ -53,8 +52,7 @@
 		$("#likeBtnText").html("${readPostOne.likeCnt}");
 		
 		$("#like").on("click", function(){
-			// memberIdx 추후 수정
-			var data = {postIdx: ${readPostOne.postInfo.postIdx}, memberIdx: 1};
+			var data = {postIdx: ${readPostOne.postInfo.postIdx}, memberIdx: sessionId};
 			
 			$.ajax({
 				url: "/api/post/like",
@@ -74,8 +72,7 @@
 	
 	function markingBtnClick(){
 		$("#marker").on("click", function(){
-			// memberIdx 추후 수정
-			var data = {postIdx: ${readPostOne.postInfo.postIdx}, memberIdx: 1};
+			var data = {postIdx: ${readPostOne.postInfo.postIdx}, memberIdx: sessionId};
 			
 			// 이미 마킹한 게시물인지 확인
 			$.ajax({
@@ -220,8 +217,7 @@
 	// 새로운 댓글 추가
 	function addComment(){
 		$("#postBtn").on("click", function(){
-			// memberIdx 추후 수정
-			var data = {content: $("#inputComment").val(), memberIdx: 1, postIdx: ${readPostOne.postInfo.postIdx}}
+			var data = {content: $("#inputComment").val(), memberIdx: sessionId, postIdx: ${readPostOne.postInfo.postIdx}}
 			
 			if (inputComment.value != "") {            
 				$.ajax({
@@ -232,7 +228,6 @@
 					dataType: "json",
 					success: function(response){
 						if(response == 1){
-							//alert("댓글 작성완료");
 							location.reload();
 						}else{
 							alert("댓글 작성실패");
@@ -249,9 +244,7 @@
 	};
 	
 	function deleteCommentBtn(commentIdx) {
-		// 추후 세션 추가, memberIdx 값 수정
-		//if(sessionId == ${readPostOne.postInfo.memberIdx}){
-		if(1 == ${readPostOne.postInfo.memberIdx}){
+		if(sessionId == ${readPostOne.postInfo.memberIdx}){
 			let isDelete = confirm("해당 댓글을 삭제하시겠습니까?");
 			
 			if (isDelete){
@@ -276,9 +269,7 @@
 	
 	function updateDelMenu() {
 		$("#updatePostBtn").on("click", function(){
-			// 추후 세션 추가, memberIdx 값 수정
-			//if(sessionId == ${readPostOne.postInfo.memberIdx}){
-			if(1 == ${readPostOne.postInfo.memberIdx}){
+			if(sessionId == ${readPostOne.postInfo.memberIdx}){
 				let isUpdate = confirm("해당 게시물을 수정하시겠습니까?");
             
 				if (isUpdate) {
@@ -293,9 +284,7 @@
 		$("#deletePostBtn").on("click", function(){         
 			var data = {postIdx: ${readPostOne.postInfo.postIdx}};
 			
-			// 추후 세션 추가, memberIdx 값 수정
-			//if(sessionId == ${readPostOne.postInfo.memberIdx}){
-			if(1 == ${readPostOne.postInfo.memberIdx}){
+			if(sessionId == ${readPostOne.postInfo.memberIdx}){
 				let isDelete = confirm("해당 게시물을 삭제하시겠습니까?");
 				
 				if (isDelete) {

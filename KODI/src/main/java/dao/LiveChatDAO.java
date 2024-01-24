@@ -26,7 +26,7 @@ public interface LiveChatDAO {
 	 * @return 채팅방 권한 여부(1|0)
 	 */
 	int verifyMember(HashMap<String, Integer> map);
-
+	
 	/**
 	 * 채팅 작성자 조회
 	 * @param memberIdx

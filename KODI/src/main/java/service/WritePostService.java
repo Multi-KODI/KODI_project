@@ -17,7 +17,7 @@ public class WritePostService {
 	@Qualifier("writepostdao")
 	WritePostDAO dao;
 	
-	public String InsertPost(WritePostDTO writePostDTO, int myMemberIdx) {
+	public String insertPost(WritePostDTO writePostDTO, int myMemberIdx) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
 		String title = writePostDTO.getTitle();

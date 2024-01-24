@@ -23,12 +23,12 @@ public class WritePostController {
 	//게시물 작성 페이지
 	@PostMapping("/post/issave")
 	@ResponseBody
-	public String WritePost(@RequestBody WritePostDTO writePostDTO, HttpSession session) {
+	public String writePost(@RequestBody WritePostDTO writePostDTO, HttpSession session) {
 		//세션 받아서 int 타입으로 변환
 		String sessionIdx = (String)session.getAttribute("memberIdx");
 		Integer myMemberIdx = Integer.parseInt(sessionIdx);
 		
-		return writeservice.InsertPost(writePostDTO, myMemberIdx);
+		return writeservice.insertPost(writePostDTO, myMemberIdx);
 		
 //		return "게시물이 성공적으로 작성되었습니다.";
 	}

@@ -20,7 +20,7 @@ public class ModifyPostService {
 	
 	//게시글 수정
 	//@return 게시글 수정 성공 여부(1|0)
-	public String UpdatePost(ReadPostOneDTO post) {
+	public String updatePost(ReadPostOneDTO post) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
 		int postIdx = post.getPostInfo().getPostIdx();
@@ -57,20 +57,20 @@ public class ModifyPostService {
 		//기존에 저장되어있던 해당 게시글의 태그 수
 		int tagsNum = dao.selectTagNum(postIdx);
 		//태그 수정
-		UpdateTag(map, postIdx, tags, tagIdxs, tagsNum);
+		updateTag(map, postIdx, tags, tagIdxs, tagsNum);
 		
 		//기존에 저장되어있는 이미지의 image_idx값들 저장
 		List<Integer> imageIdxs = dao.selectImage(postIdx);
 		//기존에 저장되어있던 해당 게시글의 이미지 수
 		int imagesNum = dao.selectImageNum(postIdx);
 		//이미지 수정
-		UpdateImage(map, postIdx, images, imageIdxs, imagesNum);
+		updateImage(map, postIdx, images, imageIdxs, imagesNum);
 		
 		return "수정을 완료하였습니다.";
 	}
 	
 	
-	private void UpdateImage(HashMap<String, Object> map, int postIdx, List<String> images, 
+	private void updateImage(HashMap<String, Object> map, int postIdx, List<String> images, 
 			List<Integer> imageIdxs, int imagesNum) {
 		//insert용 update용 delete용 image(src) 리스트들 구분
 		List<String> insertImages = new ArrayList<String>();
@@ -126,7 +126,7 @@ public class ModifyPostService {
 	}
 	
 	
-	private void UpdateTag(HashMap<String, Object> map, int postIdx, List<String> tags, 
+	private void updateTag(HashMap<String, Object> map, int postIdx, List<String> tags, 
 			List<Integer> tagIdxs, int tagsNum) {
 		//insert용 update용 delete용 tag 리스트들 구분
 		List<String> insertTags = new ArrayList<String>();

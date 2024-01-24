@@ -29,4 +29,14 @@ public interface MyPageDAO {
   List<FlagDTO> allFlags();
 	//전체 이미지 조회
 	List<PostImageDTO> allImages();
+	//서로 이웃 삭제
+	void pairDelete(Integer member_Idx, Integer memberIdx);
+	//팔로잉 삭제
+	void followingDelete(Integer member_Idx, Integer memberIdx);
+	//팔로워 수락
+  void followerAccept(Integer member_Idx, Integer memberIdx);
+	//친구 테이블 만들기
+	void createNewFriend(Integer member_Idx, Integer memberIdx);
+	//팔로워 삭제
+	void followerDelete(Integer member_Idx, Integer memberIdx);
 }

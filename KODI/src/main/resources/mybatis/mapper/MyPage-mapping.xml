@@ -29,7 +29,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="allImages" resultType="postimagedto">
         SELECT image_idx as imageIdx, src, post_idx as postIdx FROM post_image;
     </select>
-    
+
     <!-- 친구 정보 조회 -->
     <select id="friendInfo" resultType="memberdto" parameterType="java.util.List">
         SELECT member_idx AS memberIdx, email, pw, member_name AS memberName, flag_idx AS flagIdx
@@ -37,5 +37,33 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <foreach collection="list" item="idx" open="(" separator="," close=")">
             #{idx}
         </foreach>
-    </select> 
+    </select>
+
+    <!-- 서로 이웃 삭제 -->
+    <delete id="pairDelete" parameterType="int">
+    DELETE FROM friend WHERE member_idx = #{member_Idx} AND friend_member_idx = #{memberIdx} AND is_friend = 1;
+    </delete>
+
+    <!-- 팔로잉 삭제 -->
+    <delete id="followingDelete" parameterType="int">
+    DELETE FROM friend WHERE member_idx = #{member_Idx} AND friend_member_idx = #{memberIdx} AND is_friend = 0;
+    </delete>
+
+    <!-- 팔로워 수락 -->
+    <!-- is_friend를 1로 업데이트 -->
+    <update id="followerAccept" parameterType="int">
+    UPDATE friend
+    SET is_friend = 1
+    WHERE member_idx = #{memberIdx} AND friend_member_idx = #{member_Idx} AND is_friend = 0;
+    </update>
+
+    <insert id="createNewFriend" parameterType="int">
+    INSERT into friend(friend_member_idx, is_friend, member_idx) 
+    values(#{memberIdx},1,#{member_Idx});
+    </insert>
+
+    <!-- 팔로워 삭제 -->
+    <delete id="followerDelete" parameterType="int">
+    DELETE FROM friend WHERE member_idx = #{memberIdx} AND friend_member_idx = #{member_Idx} AND is_friend = 0;
+    </delete>
 </mapper>

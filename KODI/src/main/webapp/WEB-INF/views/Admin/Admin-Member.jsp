@@ -129,8 +129,7 @@
 			</button>
 			
 		
-		<%--<div id="pagination">
-			<!-- 페이지네이션 버튼 컨트롤러 수정 -->
+		<!--<div id="pagination">
 			<div id="pagination">
 			    <c:if test="${currentPage > 1}">
 			        <button class="pageBtn" onclick="loadPage(${currentPage - 1})">이전</button>
@@ -144,7 +143,7 @@
 			        <button class="pageBtn" onclick="loadPage(${currentPage + 1})">다음</button>
 		    </c:if>
 			</div>
-		</div> --%>
+		</div> -->
 
 		</div>
 

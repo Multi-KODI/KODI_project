@@ -199,7 +199,6 @@ public class MyPageController {
 
 		if (!resultList3.isEmpty()) {
 			List<MemberDTO> otherSideFriends = myPageService.friendInfo(resultList3);
-			System.out.println(otherSideFriends);
 			mv.addObject("otherSideFriends", otherSideFriends);
 		}
 		List<FlagDTO> flags = myPageService.allFlags();
@@ -231,7 +230,6 @@ public class MyPageController {
 		if (!resultList2.isEmpty()) {
 			List<MemberDTO> mySideFriends = myPageService.friendInfo(resultList2);
 			mv.addObject("mySideFriends", mySideFriends);
-			System.out.println(mySideFriends);
 		}
 		List<FlagDTO> flags = myPageService.allFlags();
 		mv.addObject("flags", flags);
@@ -259,7 +257,6 @@ public class MyPageController {
 	
 		if (!resultList1.isEmpty()) {
 			List<MemberDTO> allFriends = myPageService.friendInfo(resultList1);
-			System.out.println(allFriends);
 			mv.addObject("allFriends", allFriends);
 		}
 		List<FlagDTO> flags = myPageService.allFlags();

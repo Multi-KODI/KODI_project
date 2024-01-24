@@ -41,13 +41,16 @@
 			websocket = null;
 
 			if(websocket == null){
-				websocket = new WebSocket("ws://localhost:7777/home");
+				//websocket = new WebSocket("ws://localhost:7777/home");
+				websocket = new WebSocket("ws://192.168.0.13:7777/home");
 				
 				websocket.onopen = function(){console.log("웹소켓 연결성공");};
 				websocket.onclose = function(){console.log("웹소켓 해제성공");};
 				websocket.onmessage = function(event){ // 서버로부터 데이터 받는 부분
 					console.log("웹소켓 서버로부터 수신성공");
 					
+					let sendInfo = event.data.split(",");
+										
 					var nowDate = new Date();
 					
 					var year = nowDate.getFullYear();
@@ -70,7 +73,7 @@
 					
 					$.ajax({
 						url: "/api/chatroom/showmembername",
-						data: {"memberIdx": sessionId},
+						data: {"memberIdx": sendInfo[1]},
 						type: "post",
 						dataType: "text",
 						success: function(response){
@@ -82,7 +85,7 @@
 							
 							content = document.createElement("p");
 							content.setAttribute("id", "content");
-							content.innerHTML = event.data;
+							content.innerHTML = sendInfo[0];
 
 							regdate = document.createElement("p");
 							regdate.setAttribute("id", "regdate");
@@ -110,11 +113,12 @@
 				if(sendMsgInput.value == ""){
 					$("#sendMsgBtn").attr("disabled", false);
 				} else {
-					let msg = sendMsgInput.value;			
-					websocket.send(msg);
+					let sendData = [sendMsgInput.value, sessionId];
+					websocket.send(sendData);
+
 					sendMsgInput.value = "";
 					console.log("웹소켓 서버에게 송신성공");
-				};			
+				};
 			});
 		};
 	</script>

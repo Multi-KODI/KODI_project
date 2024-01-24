@@ -24,9 +24,10 @@ public class WebSocketHandler extends TextWebSocketHandler {
 			homeList.add(session);
 		} else {
 			// 브라우저 여는 것마다 다 통신해서 일단 현재 사용자가 채팅방 하나만 열 수 있도록 제한
-			if(chatList.size() < 1) {
-				chatList.add(session);
-			}	
+			/*
+			 * if(chatList.size() < 1) { chatList.add(session); }
+			 */
+			chatList.add(session);
 		}
 	}
 

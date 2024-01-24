@@ -84,15 +84,18 @@
 		
 	function webSocket(){
 		websocket = null;
-
+		
 		if(websocket == null){
-			websocket = new WebSocket("ws://localhost:7777/ws");
+			//websocket = new WebSocket("ws://localhost:7777/ws");
+			websocket = new WebSocket("ws://192.168.0.13:7777/ws");
 			
 			websocket.onopen = function(){console.log("웹소켓 연결성공");};
 			websocket.onclose = function(){console.log("웹소켓 해제성공");};
 			websocket.onmessage = function(event){ // 서버로부터 데이터 받는 부분
 				console.log("웹소켓 서버로부터 수신성공");
 				
+				let sendInfo = event.data.split(",");
+
 				var nowDate = new Date();
 				
 				var year = nowDate.getFullYear();
@@ -112,35 +115,48 @@
 				let friendName;
 				let content;
 				let regdate;
-				
+												
 				$.ajax({
 					url: "/api/chatroom/showmembername",
-					data: {"memberIdx": sessionId},
+					data: {"memberIdx": sendInfo[1]},
 					type: "post",
 					dataType: "text",
-					success: function(response){
-						oneMsg = document.createElement("div");
-						
-						friendName = document.createElement("p");
-						friendName.setAttribute("id", "friendName");
-						friendName.innerHTML = response;
-						
-						content = document.createElement("p");
-						content.setAttribute("id", "content");
-						content.innerHTML = event.data;
+					success: function(membername){
+						$.ajax({
+							url: "/api/chatroom/translatemsg",
+							data: {"sendMemberIdx": sendInfo[1] ,"msg": sendInfo[0]},
+							type: "post",
+							dataType: "text",
+							success: function(translatemsg){
+								let json = JSON.parse(translatemsg);
+								
+								oneMsg = document.createElement("div");
+								
+								friendName = document.createElement("p");
+								friendName.setAttribute("id", "friendName");
+								friendName.innerHTML = membername;
+								
+								content = document.createElement("p");
+								content.setAttribute("id", "content");
+								content.innerHTML = json.message.result.translatedText;
 
-						regdate = document.createElement("p");
-						regdate.setAttribute("id", "regdate");
-						regdate.innerHTML = dateString + " " + timeString;
-						
-						oneMsg.appendChild(friendName);
-						oneMsg.appendChild(content);
-						oneMsg.appendChild(regdate);
+								regdate = document.createElement("p");
+								regdate.setAttribute("id", "regdate");
+								regdate.innerHTML = dateString + " " + timeString;
+								
+								oneMsg.appendChild(friendName);
+								oneMsg.appendChild(content);
+								oneMsg.appendChild(regdate);
 
-						oneMsg.innerHTML += "<hr>";
-						
-						allMsgList.appendChild(oneMsg);
-						//location.reload();
+								oneMsg.innerHTML += "<hr>";
+								
+								allMsgList.appendChild(oneMsg);
+								//location.reload();
+							},
+							error: function(request, e){
+								alert("코드: " + request.status + "메시지: " + request.responseText + "오류: " + e);
+							}
+						});
 					},
 					error: function(request, e){
 						alert("코드: " + request.status + "메시지: " + request.responseText + "오류: " + e);
@@ -156,10 +172,10 @@
 			if(sendMsgInput.value == ""){
 				$("#sendMsgBtn").attr("disabled", false);
 			} else {
-				let msg = sendMsgInput.value;			
-				websocket.send(msg);
+				let sendData = [sendMsgInput.value, sessionId];
+				websocket.send(sendData);
 				
-				var data = {memberIdx: sessionId, chatIdx: ${chatIdx}, content: msg};
+				var data = {memberIdx: sessionId, chatIdx: ${chatIdx}, content: sendMsgInput.value};
 
 				$.ajax({
 					url: "/api/chatroom/savemsg",

@@ -160,11 +160,11 @@ tr {
 }
 
 #board th:nth-child(2) {
-	width: 30%;
+	width: 20%;
 }
 
 #board th:nth-child(3) {
-	width: 30%;
+	width: 25%;
 }
 
 .f-Btn{
@@ -177,7 +177,6 @@ tr {
 	border-radius: 8px;
 	width: 70px;
 	box-sizing: border-box;
-	margin-right: 10px;
 	
 }
 .f-Btn:hover{

@@ -4,8 +4,6 @@ import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,7 +13,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import dto.MemberDTO;
-import dto.OtpDTO;
 import jakarta.servlet.http.HttpSession;
 import service.AdminService;
 import service.EmailService;
@@ -78,7 +75,6 @@ public class MemberController {
 	@PostMapping("/email")
 	@ResponseBody
 	public String sendEmail(String email, HttpSession session) {
-		System.out.println(email);
 		MemberDTO existingMember = memberService.findMemberByEmail(email);
 		// 중복 유저 확인
 		if (existingMember != null) {

@@ -24,7 +24,7 @@ import service.PlannerService;
 public class PlannerController {
 	
 	@Autowired
-	@Qualifier("")
+	@Qualifier("plannerservice")
 	PlannerService service;
 	
 	//체크리스트 데이터 호출

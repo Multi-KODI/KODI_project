@@ -29,7 +29,7 @@ public class ModifyPostController {
 	
 	//게시물 수정 페이지
 	@GetMapping("/post/modify/{postIdx}")
-	public ModelAndView ModifyPost(@PathVariable int postIdx) {
+	public ModelAndView modifyPost(@PathVariable int postIdx) {
 		//게시물 하나에 대한 데이터
 		ReadPostOneDTO readPostOne = oneservice.getReadPostOne(postIdx);
 		
@@ -44,7 +44,7 @@ public class ModifyPostController {
 	@PostMapping("/post/isupdate")
 	@ResponseBody
 	public String isUpdate(@RequestBody ReadPostOneDTO post) {
-		return modifyservice.UpdatePost(post);
+		return modifyservice.updatePost(post);
 	}
 	
 }

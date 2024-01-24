@@ -167,7 +167,7 @@
 		
 		// 기존 데이터베이스에 있는 댓글 먼저 정렬
 		if(${readPostOne.comments.size() > 0}){
-			<c:forEach items="${readPostOne.comments}" var="one">            
+			<c:forEach items="${readPostOne.comments}" var="one">
 				comment = document.createElement("span");
 				comment.setAttribute("id", `${one.memberIdx}`);
 				
@@ -188,7 +188,7 @@
 				deleteBtn.setAttribute("id", "deleteBtn");
 				deleteBtn.setAttribute("value", "삭제");
 				deleteBtn.setAttribute("style", "display: inline; border:none; background-color:#EDF2F6; color:grey; float:right;");
-				deleteBtn.setAttribute("onclick", `deleteCommentBtn(${one.commentIdx})`);
+				deleteBtn.setAttribute("onclick", `deleteCommentBtn(${one.commentIdx}, ${one.memberIdx})`);
 								
 				comment.appendChild(commentMemberName);
 				comment.appendChild(commentText);
@@ -243,8 +243,8 @@
 		});
 	};
 	
-	function deleteCommentBtn(commentIdx) {
-		if(sessionId == ${readPostOne.postInfo.memberIdx}){
+	function deleteCommentBtn(commentIdx, memberIdx) {
+		if(sessionId == ${readPostOne.postInfo.memberIdx} || sessionId == memberIdx){
 			let isDelete = confirm("해당 댓글을 삭제하시겠습니까?");
 			
 			if (isDelete){
@@ -350,15 +350,8 @@
 				<p>게시글 내용</p>
 			</div>
 
-			<div id="addrDiv">
-				주소
-				<p id="addrInfo">서울시 강남구</p>
-			</div>
-
-			<div id="tagDiv">
-				태그
-				<!-- <div id="tag1">예시</div> -->
-			</div>
+			<div id="addrDiv"> 주소 <p id="addrInfo"></p> </div>
+			<div id="tagDiv"> 태그 </div>
 		</div>
 
 		<!-- 좋아요, 마킹, 공유 -->

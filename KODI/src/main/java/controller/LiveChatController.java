@@ -100,4 +100,26 @@ public class LiveChatController {
 		return liveChatService.showMemberName(memberIdx);
 	}
 	
+	/**
+	 * 실시간 통신하는 메시지 자동번역
+	 * @param session
+	 * @param msg
+	 * @param sendMemberIdx
+	 * @return 국적별로 자동번역한 메시지 내용
+	 */
+	@PostMapping("/chatroom/translatemsg")
+	@ResponseBody
+	public String translateMsg(HttpSession session, String msg, int sendMemberIdx) {
+		int memberIdx = Integer.parseInt(String.valueOf(session.getAttribute("memberIdx")));
+		
+		boolean compareLang = papagoService.compareLang(memberIdx, sendMemberIdx);
+		String content;
+		
+		if(compareLang == false) { // 같은 언어를 쓰는 사람들이면 메시지 그대로 전달
+			content = "{\"message\":{\"result\":{\"srcLangType\":\"ko\",\"tarLangType\":\"ko\",\"translatedText\":\""+ msg +"\"}}}";
+		} else { // 다른 언어를 쓰면 번역해서 전달
+			content = papagoService.translateMsg(memberIdx, sendMemberIdx, msg);
+		}
+		return content;
+	}
 }

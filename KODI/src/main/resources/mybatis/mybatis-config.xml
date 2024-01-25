@@ -19,5 +19,6 @@
 		<typeAlias type="dto.PostImageDTO" alias="postimagedto" />
 		<typeAlias type="dto.PostLikeDTO" alias="postlikedto" />
 		<typeAlias type="dto.PostTagDTO" alias="posttagdto" />
+		<typeAlias type="dto.VehicleDTO" alias="vehicledto" />
 	</typeAliases>
 </configuration>

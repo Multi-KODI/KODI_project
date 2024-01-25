@@ -192,3 +192,30 @@ li {
 	color: gray;
 	font-family: 'NanumSquareNeo';
 }
+
+@media all and (max-width:479px){
+
+
+main {
+	max-width: 470px;
+}
+
+.menubox {
+	border-bottom: 1px solid #000000;
+	border-top: 1px solid #000000;
+}
+
+.menuicon{
+  width:20px;
+  height:20px;
+  }
+
+.guidebox {
+	flex-direction: column;
+}
+
+.guide {
+	margin-bottom: 30px;
+}
+	
+}

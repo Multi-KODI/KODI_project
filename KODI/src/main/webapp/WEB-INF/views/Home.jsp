@@ -22,7 +22,7 @@
 			});
 
 			$("#menubar2").on("click", function() {
-				window.location.href = "#";
+				window.location.href = "/api/map";
 			});
 
 			$("#menubar3").on("click", function() {
@@ -149,7 +149,7 @@
 
 		<div class="guidebox">
 			<div class="guide" id="guide1">
-				<div class="guidetitle">교통 및 이동 수단 안내</div>
+				<div class="guidetitle">🚌 교통 및 이동 수단 안내</div>
 
 				<div class="guidetext">
 					<ul>
@@ -164,7 +164,7 @@
 			</div>
 
 			<div class="guide" id="guide2">
-				<div class="guidetitle">식사 문화와 에티켓</div>
+				<div class="guidetitle">🍲 식사 문화와 에티켓</div>
 				<div class="guidetext">
 					<ul>
 						<li>식사 중 숟가락과 젓가락은 반찬 그릇 위에 걸쳐 놓지 않는다.</li>
@@ -180,7 +180,7 @@
 
 
 			<div class="guide" id="guide3">
-				<div class="guidetitle">안전 및 응급 상황 대처</div>
+				<div class="guidetitle">🚨 안전 및 응급 상황 대처</div>
 				<div class="guidetext">
 					<ul>
 						<li>경찰서 - 112</li>

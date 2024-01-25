@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,152 +15,175 @@
 </head>
 <body>
 	<script>
-		let sessionId = <%=session.getAttribute("memberIdx")%>;
+	let sessionId = <%=session.getAttribute("memberIdx")%>;
+	
+	$(document).ready(function() {
+		$("#menubar1").on("click", function() {
+			window.location.href = "/api/post";
+		});
+
+		$("#menubar2").on("click", function() {
+			window.location.href = "/api/map";
+		});
+
+		$("#menubar3").on("click", function() {
+			window.location.href = "#";
+		});
+
+		$("#menubar4").on("click", function() {
+			window.location.href = "/api/diningcost";
+		});
 		
-		$(document).ready(function() {
-			$("#menubar1").on("click", function() {
-				window.location.href = "/api/post";
-			});
+		webSocket();
 
-			$("#menubar2").on("click", function() {
-				window.location.href = "/api/map";
-			});
+	}); //ready
+	
+	function webSocket(){
+		websocket = null;
 
-			$("#menubar3").on("click", function() {
-				window.location.href = "#";
-			});
-
-			$("#menubar4").on("click", function() {
-				window.location.href = "/api/diningcost";
-			});
+		if(websocket == null){
+			//websocket = new WebSocket("ws://localhost:7777/home");
+			websocket = new WebSocket("ws://192.168.0.13:7777/home");
 			
-			webSocket();
-
-		}); //ready
-		
-		function webSocket(){
-			websocket = null;
-
-			if(websocket == null){
-				//websocket = new WebSocket("ws://localhost:7777/home");
-				websocket = new WebSocket("ws://192.168.0.13:7777/home");
+			websocket.onopen = function(){console.log("웹소켓 연결성공");};
+			websocket.onclose = function(){console.log("웹소켓 해제성공");};
+			websocket.onmessage = function(event){ // 서버로부터 데이터 받는 부분
+				console.log("웹소켓 서버로부터 수신성공");
 				
-				websocket.onopen = function(){console.log("웹소켓 연결성공");};
-				websocket.onclose = function(){console.log("웹소켓 해제성공");};
-				websocket.onmessage = function(event){ // 서버로부터 데이터 받는 부분
-					console.log("웹소켓 서버로부터 수신성공");
-					
-					let sendInfo = event.data.split(",");
-										
-					var nowDate = new Date();
-					
-					var year = nowDate.getFullYear();
-					var month = ('0' + (nowDate.getMonth() + 1)).slice(-2);
-					var day = ('0' + nowDate.getDate()).slice(-2);
-					
-					var hours = ('0' + nowDate.getHours()).slice(-2); 
-					var minutes = ('0' + nowDate.getMinutes()).slice(-2);
-					var seconds = ('0' + nowDate.getSeconds()).slice(-2); 
-
-					var dateString = year + '-' + month  + '-' + day;
-					var timeString = hours + ':' + minutes  + ':' + seconds;
+				let sendInfo = event.data.split(",");
 									
-					let allMsgList = document.getElementById("allMsgList");
-					
-					let oneMsg;
-					let friendName;
-					let content;
-					let regdate;
-					
-					$.ajax({
-						url: "/api/chatroom/showmembername",
-						data: {"memberIdx": sendInfo[1]},
-						type: "post",
-						dataType: "text",
-						success: function(response){
-							oneMsg = document.createElement("div");
-							
-							friendName = document.createElement("p");
-							friendName.setAttribute("id", "friendName");
-							friendName.innerHTML = response;
-							
-							content = document.createElement("p");
-							content.setAttribute("id", "content");
-							content.innerHTML = sendInfo[0];
+				var nowDate = new Date();
+				
+				var year = nowDate.getFullYear();
+				var month = ('0' + (nowDate.getMonth() + 1)).slice(-2);
+				var day = ('0' + nowDate.getDate()).slice(-2);
+				
+				var hours = ('0' + nowDate.getHours()).slice(-2); 
+				var minutes = ('0' + nowDate.getMinutes()).slice(-2);
+				var seconds = ('0' + nowDate.getSeconds()).slice(-2); 
 
-							regdate = document.createElement("p");
-							regdate.setAttribute("id", "regdate");
-							regdate.innerHTML = dateString + " " + timeString;
-							
-							oneMsg.appendChild(friendName);
-							oneMsg.appendChild(content);
-							oneMsg.appendChild(regdate);
+				var dateString = year + '-' + month  + '-' + day;
+				var timeString = hours + ':' + minutes  + ':' + seconds;
+								
+				let allMsgList = document.getElementById("allMsgList");
+				
+				let oneMsg;
+				let friendName;
+				let content;
+				let regdate;
+				
+				$.ajax({
+					url: "/api/chatroom/showmembername",
+					data: {"memberIdx": sendInfo[1]},
+					type: "post",
+					dataType: "text",
+					success: function(response){
+						oneMsg = document.createElement("div");
+						
+						friendName = document.createElement("p");
+						friendName.setAttribute("id", "friendName");
+						friendName.innerHTML = response;
+						
+						content = document.createElement("p");
+						content.setAttribute("id", "content");
+						content.innerHTML = sendInfo[0];
 
-							oneMsg.innerHTML += "<hr>";
-							
-							allMsgList.appendChild(oneMsg);
-						},
-						error: function(request, e){
-							alert("코드: " + request.status + "메시지: " + request.responseText + "오류: " + e);
-						}
-					});
-				};
+						regdate = document.createElement("p");
+						regdate.setAttribute("id", "regdate");
+						regdate.innerHTML = dateString + " " + timeString;
+						
+						oneMsg.appendChild(friendName);
+						oneMsg.appendChild(content);
+						oneMsg.appendChild(regdate);
+
+						oneMsg.innerHTML += "<hr>";
+						
+						allMsgList.appendChild(oneMsg);
+					},
+					error: function(request, e){
+						alert("코드: " + request.status + "메시지: " + request.responseText + "오류: " + e);
+					}
+				});
 			};
-			
-			$("#sendMsgBtn").on("click", function(){
-				// 웹소켓 서버로 데이터 보내는 부분
-				let sendMsgInput = document.getElementById("sendMsgInput");
-
-				if(sendMsgInput.value == ""){
-					$("#sendMsgBtn").attr("disabled", false);
-				} else {
-					let sendData = [sendMsgInput.value, sessionId];
-					websocket.send(sendData);
-
-					sendMsgInput.value = "";
-					console.log("웹소켓 서버에게 송신성공");
-				};
-			});
 		};
-	</script>
+		
+		$("#sendMsgBtn").on("click", function(){
+			// 웹소켓 서버로 데이터 보내는 부분
+			let sendMsgInput = document.getElementById("sendMsgInput");
 
-	<%@ include file="/WEB-INF/views/Header.jsp"%>
-	<%@ include file="/WEB-INF/views/SearchHeader.jsp"%>
+			if(sendMsgInput.value == ""){
+				$("#sendMsgBtn").attr("disabled", false);
+			} else {
+				let sendData = [sendMsgInput.value, sessionId];
+				websocket.send(sendData);
 
-	<main>
+				sendMsgInput.value = "";
+				console.log("웹소켓 서버에게 송신성공");
+			};
+		});
+	};
+</script>
 
-		<div class="menubox">
-			<div class="menubar" id="menubar1">
-				<img class="menuicon" id="pageicon" src="/image/icon/blank-page.png">
-			</div>
+<%@ include file="/WEB-INF/views/Header.jsp"%>
+<%@ include file="/WEB-INF/views/SearchHeader.jsp"%>
 
-			<div class="menubar" id="menubar2">
-				<img class="menuicon" id="mapicon" src="/image/icon/map.png">
+<main>
 
-			</div>
-
-			<div class="menubar" id="menubar3">
-				<img class="menuicon" id="palnicon" src="/image/icon/planer.png">
-			</div>
-
-			<div class="menubar" id="menubar4">
-				<img class="menuicon" id="moneyicon" src="/image/icon/money.png">
-			</div>
+	<div class="menubox">
+		<div class="menubar" id="menubar1">
+			<img class="menuicon" id="pageicon" src="/image/icon/blank-page.png">
 		</div>
 
-		<div class="guidebox">
-			<div class="guide" id="guide1">
-				<div class="guidetitle">🚌 교통 및 이동 수단 안내</div>
+		<div class="menubar" id="menubar2">
+			<img class="menuicon" id="mapicon" src="/image/icon/map.png">
 
-				<div class="guidetext">
-					<ul>
-						<li>이용 가능 이동 수단</li>
-						<li>버스, 지하철, 기차, 택시</li>
-					</ul>
-				</div>
+		</div>
 
-				<div id="chargebox">
-					<img src="/image/charge.png">
+		<div class="menubar" id="menubar3">
+			<img class="menuicon" id="palnicon" src="/image/icon/planer.png">
+		</div>
+
+		<div class="menubar" id="menubar4">
+			<img class="menuicon" id="moneyicon" src="/image/icon/money.png">
+		</div>
+	</div>
+
+	<div class="guidebox">
+		<div class="guide" id="guide1">
+			<div class="guidetitle">🚌 교통 및 이동 수단 안내</div>
+
+			<div class="guidetext">
+				<ul>
+					<li>이용 가능 이동 수단</li>
+					<li>버스, 지하철, 기차, 택시</li>
+				</ul>
+			</div>
+
+			<div id="chargebox">
+				<table>
+				   <thead>
+				       <tr>
+				           <th>교통수단</th>
+				           <th>결제수단</th>
+				           <c:forEach var="city" items="${vehicleList[0]}">
+				               <th>${city.key}</th>
+				           </c:forEach>
+				       </tr>
+				   </thead>
+				   <tbody>
+				       <c:forEach var="vehicle" items="${vehicleList}">
+				           <tr>
+				               <td>${vehicle.vehicleType}</td>
+				               <td>${vehicle.paymentType}</td>
+				               <c:forEach var="cost" items="${vehicle}">
+				                   <c:if test="${not cost.key eq 'vehicleType' and not cost.key eq 'paymentType'}">
+				                       <td>${cost.value}</td>
+				                   </c:if>
+				               </c:forEach>
+				           </tr>
+				       </c:forEach>
+					    </tbody>
+					</table>
 				</div>
 			</div>
 

@@ -56,7 +56,7 @@
                                 </tr>
                             </thead>
 
-                           <tbody id="friendList">
+                           <tbody id="friendList3">
 						    <c:forEach var="friend" items="${otherSideFriends}">
 						        <tr>
 						            <td>

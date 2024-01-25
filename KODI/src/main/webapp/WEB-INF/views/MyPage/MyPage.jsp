@@ -20,16 +20,16 @@
 
                         <main>
                             <div class="modal_background1">
-                                <div class="modal_box"></div>
+                                <div class="modal_box">
+
+                                </div>
                             </div>
 
                             <div class="modal_background2">
-                                <div class="modal_box2"></div>
+                                <div class="modal_box2">
+
+                                </div>
                             </div>
-
-
-
-
 
                             <main>
                                 <div class="mypagebtn-box">

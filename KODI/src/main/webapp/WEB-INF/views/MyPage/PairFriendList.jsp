@@ -58,7 +58,7 @@
                                 </tr>
                             </thead>
 
-                            <tbody id="friendList">
+                            <tbody id="friendList1">
                                 <c:forEach var="friend" items="${allFriends}">
                                     <tr>
                                         <td>
@@ -77,7 +77,7 @@
                                         </td>
                                         <td>
                                             <button class="f-Btn" id="f-drawBtn" type="button"
-                                                data-member-idx="${friend.memberIdx}">삭제</button>
+                                                data-member-idx="${friend.memberIdx}">친구삭제</button>
                                         </td>
                                     </tr>
 

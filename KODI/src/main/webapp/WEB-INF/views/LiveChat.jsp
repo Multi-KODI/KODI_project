@@ -83,13 +83,17 @@
 	};
 		
 	function webSocket(){
-		websocket = null;
+		let websocket = null;
 		
 		if(websocket == null){
-			//websocket = new WebSocket("ws://localhost:7777/ws");
-			websocket = new WebSocket("ws://192.168.0.13:7777/ws");
+			//websocket = new WebSocket("ws://localhost:7777/chatroom");
+			//websocket = new WebSocket("ws://192.168.0.13:7777/chatroom", "${chatIdx}");
+			websocket = new WebSocket("ws://192.168.0.13:7777/chatroom");
 			
-			websocket.onopen = function(){console.log("웹소켓 연결성공");};
+			websocket.onopen = function(){
+				console.log("웹소켓 연결성공");
+				websocket.send(${chatIdx});
+			};
 			websocket.onclose = function(){console.log("웹소켓 해제성공");};
 			websocket.onmessage = function(event){ // 서버로부터 데이터 받는 부분
 				console.log("웹소켓 서버로부터 수신성공");
@@ -172,7 +176,7 @@
 			if(sendMsgInput.value == ""){
 				$("#sendMsgBtn").attr("disabled", false);
 			} else {
-				let sendData = [sendMsgInput.value, sessionId];
+				let sendData = [sendMsgInput.value, sessionId, ${chatIdx}];
 				websocket.send(sendData);
 				
 				var data = {memberIdx: sessionId, chatIdx: ${chatIdx}, content: sendMsgInput.value};
@@ -196,6 +200,7 @@
 		});
 		
 		$("#exitChat").on("click", function(){
+			websocket.send(${chatIdx});
 			websocket.close();
 			location.href = "/api/chatlist/" + sessionId;
 		});

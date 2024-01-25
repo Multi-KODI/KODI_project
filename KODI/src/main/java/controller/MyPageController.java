@@ -290,7 +290,7 @@ public class MyPageController {
 			List<MemberDTO> allFriends = myPageService.friendInfo(resultList1);
 			return new MemberFlagDTO(allFriends, flags);
 		}
-		return null;
+		return new MemberFlagDTO();
 	}
 
 	/**
@@ -304,7 +304,7 @@ public class MyPageController {
 		Integer member_Idx = Integer.parseInt((String) session.getAttribute("memberIdx"));
 		myPageService.followingDelete(member_Idx, memberIdx);
 		List<FlagDTO> flags = myPageService.allFlags();
-		List<FriendDTO> mySideFriendsList = myPageService.mySideFriends(memberIdx);
+		List<FriendDTO> mySideFriendsList = myPageService.mySideFriends(member_Idx);
 		List<Integer> resultList2 = new ArrayList<>();
 		for (FriendDTO mySideFriend : mySideFriendsList) {
 			resultList2.add(mySideFriend.getFriendMemberIdx());
@@ -313,7 +313,7 @@ public class MyPageController {
 			List<MemberDTO> mySideFriends = myPageService.friendInfo(resultList2);
 			return new MemberFlagDTO(mySideFriends, flags);
 		}
-		return null;
+		return new MemberFlagDTO();
 	}
 
 	/**
@@ -328,7 +328,7 @@ public class MyPageController {
 		myPageService.followerAccept(member_Idx, memberIdx);
 		myPageService.createNewFriend(member_Idx, memberIdx);
 		List<FlagDTO> flags = myPageService.allFlags();
-		List<FriendDTO> otherSideFriendsList = myPageService.otherSideFriends(memberIdx);
+		List<FriendDTO> otherSideFriendsList = myPageService.otherSideFriends(member_Idx);
 		List<Integer> resultList3 = new ArrayList<>();
 		for (FriendDTO otherSideFriend : otherSideFriendsList) {
 			resultList3.add(otherSideFriend.getMemberIdx());
@@ -338,7 +338,7 @@ public class MyPageController {
 			List<MemberDTO> otherSideFriends = myPageService.friendInfo(resultList3);
 			return new MemberFlagDTO(otherSideFriends, flags);
 		}
-		return null;
+		return new MemberFlagDTO();
 	}
 
 	/**
@@ -351,7 +351,7 @@ public class MyPageController {
 		Integer member_Idx = Integer.parseInt((String) session.getAttribute("memberIdx"));
 		myPageService.followerDelete(member_Idx, memberIdx);
 		List<FlagDTO> flags = myPageService.allFlags();
-		List<FriendDTO> otherSideFriendsList = myPageService.otherSideFriends(memberIdx);
+		List<FriendDTO> otherSideFriendsList = myPageService.otherSideFriends(member_Idx);
 		List<Integer> resultList3 = new ArrayList<>();
 		for (FriendDTO otherSideFriend : otherSideFriendsList) {
 			resultList3.add(otherSideFriend.getMemberIdx());
@@ -361,6 +361,6 @@ public class MyPageController {
 			List<MemberDTO> otherSideFriends = myPageService.friendInfo(resultList3);
 			return new MemberFlagDTO(otherSideFriends, flags);
 		}
-		return null;
+		return new MemberFlagDTO();
 	}
 }

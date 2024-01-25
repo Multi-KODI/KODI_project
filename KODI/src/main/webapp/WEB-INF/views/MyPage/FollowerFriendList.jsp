@@ -6,7 +6,6 @@
 
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="/css/FriendList.css">
     <script src="/js/jquery-3.7.1.min.js"></script>
 
 <title></title>
@@ -56,7 +55,7 @@
                                 </tr>
                             </thead>
 
-                           <tbody id="friendList">
+                           <tbody id="friendList3">
 						    <c:forEach var="friend" items="${otherSideFriends}">
 						        <tr>
 						            <td>

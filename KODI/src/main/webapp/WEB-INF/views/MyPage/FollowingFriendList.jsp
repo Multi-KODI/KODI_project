@@ -6,7 +6,6 @@
 
 			<head>
 				<meta charset="UTF-8">
-				<link rel="stylesheet" href="/css/FriendList.css">
 				<script src="/js/jquery-3.7.1.min.js"></script>
 
 				<title></title>

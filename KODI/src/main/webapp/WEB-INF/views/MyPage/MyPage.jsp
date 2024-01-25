@@ -9,6 +9,7 @@
                 <meta charset="UTF-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 <link rel="stylesheet" href="/css/MyPage.css">
+                <link rel="stylesheet" href="/css/FriendList.css">
                 <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css" rel="stylesheet">
                 <script src="/js/jquery-3.7.1.min.js"></script>
                 <title>mypage</title>

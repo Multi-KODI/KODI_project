@@ -46,9 +46,8 @@
 	<div class="main">
 
 		<div class="logo-container">
-			<img src="/image/icon/logo.png" alt="KoDi"
-				style="width: 170px; height: 150px;">
-	</div>
+			<img src="/image/icon/logo.png" id="KoDi">
+		</div>
 
 	<div class="board-box">
 		<div class="title">
@@ -129,8 +128,7 @@
 			</button>
 			
 		
-		<%--<div id="pagination">
-			<!-- 페이지네이션 버튼 컨트롤러 수정 -->
+		<!--<div id="pagination">
 			<div id="pagination">
 			    <c:if test="${currentPage > 1}">
 			        <button class="pageBtn" onclick="loadPage(${currentPage - 1})">이전</button>
@@ -144,7 +142,7 @@
 			        <button class="pageBtn" onclick="loadPage(${currentPage + 1})">다음</button>
 		    </c:if>
 			</div>
-		</div> --%>
+		</div> -->
 
 		</div>
 

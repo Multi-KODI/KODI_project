@@ -18,6 +18,12 @@ body {
    border-bottom: 2px solid #000000;
 }
 
+	
+#KoDi{
+   width: 170px;
+   height: 150px;
+}
+
 .board-box {
    margin-top: 20px;
 }
@@ -67,13 +73,10 @@ body {
    width: 30%;
 }
 
-
-
 .viewBtn, .deleteBtn, .withdrawBtn {
   display: inline-block;
   font-family: 'NanumSquareNeo';
   padding: 4px 8px;
-  margin-right: 5px;
   color: #000000;
   border: none;
   cursor: pointer;
@@ -109,13 +112,6 @@ tr {
     overflow-y: auto; 
 }
 
-
-#postList {
-    max-height: 400px; 
-    overflow-y: auto; 
-}
-
-
 .viewBtn:hover{
    background-color: #6A7EFC;
    color: #ffffff;
@@ -127,29 +123,87 @@ tr {
    color: #ffffff;
 }
 
-
-#pagination{
-   text-align: center;
-   margin-top: 20px;
-   
-}
-
-.pageBtn{
-   font-family: 'NanumSquareNeo';
-   cursor: pointer;
-   border-radius: 8px;
-   border: none;
-   padding: 4px 8px;
-   margin: 3px;
-}
-
-.pageBtn.selected{
-   background-color: #494953;
-    color: white;
-}
-
 a {
 	text-decoration: none;
 	color: black;
 }
+
+
+@media all and (max-width:479px) {
+.logo-container {
+   border-bottom: 1px solid #000000;
+   text-align: center;
+}
+	
+#KoDi{
+   width: 100px;
+   height: 80px;
+}
+	
+
+#board {
+   font-size: 0.7em;
+}
+
+#title {
+   margin-bottom: 10px;
+   border-bottom: 1px solid #000000;
+   padding-bottom:10px;
+}
+
+#title span{
+	font-size: 0.7em;
+}
+
+#searchinput, #searchselect{
+   font-size : 0.7em;
+   padding: 3px;
+}
+
+
+.board-box {
+   margin-top: 10px;
+}
+
+#board table {
+   text-align: left;
+   width: 100%;
+   margin-right: 5px;
+   margin-left: 5px;
+}
+
+#board th:nth-child(1) {
+   width: 20%;
+}
+
+#board th:nth-child(2) {
+   width: 25%;
+}
+
+#board th:nth-child(3) {
+   width: 25%;
+}
+
+#board th:nth-child(4) {
+   width: 30%;
+}
+
+
+
+.viewBtn, .deleteBtn, .withdrawBtn {
+  padding: 2px 5px;
+  margin-right: 5px;
+  width: 50px;
+  font-size: 0.5em;
+}
+
+
+.tdDiv{
+   margin-top: 20px;
+   padding-bottom:20px;
+}
+	
+	
+}
+
 

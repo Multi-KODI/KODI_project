@@ -21,7 +21,7 @@
 			<a href="/api/home"><img id="logoicon" src="/image/icon/logo.png" ></a>
 		</div>
 
-<form action="/api/search" method="get">
+<form action="/api/search" method="get" class="input-box">
     <div class="input-box">
         <div id="search-box">
             <select id="searchfilter" name="filter">

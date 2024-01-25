@@ -1,0 +1,117 @@
+@charset "UTF-8";
+
+#categoryPost{
+	width: 100px;
+    padding: 5px;
+    border: 3px solid #D9D9D9;
+  	border-radius: 10px;
+}
+#point{
+	width: 100px;
+    padding: 5px;
+    border: 3px solid #D9D9D9;
+  	border-radius: 10px;
+}
+#tagInput {
+    width: 400px;
+    padding: 5px;
+    border: 3px solid #D9D9D9;
+  	border-radius: 10px;
+}
+#writePostTitle{
+	width: 400px;
+    padding: 5px;
+    border: 3px solid #D9D9D9;
+  	border-radius: 10px;
+}
+#writePostContent{
+	width: 400px;
+    padding: 5px;
+    border: 3px solid #D9D9D9;
+  	border-radius: 10px;
+}
+
+#tagList {
+    margin-top: 5px;
+}
+.tag {
+display: inline;
+border: 2px solid #FF5656;
+background-color: #FF5656;
+border-radius: 10px;
+color: white;
+padding-left: 10px;
+padding-right: 10px;
+margin-left: 10px;
+}
+#addressInput{
+	width: 400px;
+    padding: 5px;
+    border: 3px solid #D9D9D9;
+  	border-radius: 10px;
+}
+
+#photoBox {
+  display: none;
+}
+
+
+#tagAddBtn{
+background-color: #EDF2F6;
+  border: 1px solid #EDF2F6;
+  border-radius: 10px;
+  font-weight: 500;
+  cursor: pointer;
+}
+#addressSearchBtn{
+	background-color: #EDF2F6;
+  border: 1px solid #EDF2F6;
+  border-radius: 10px;
+  font-weight: 500;
+  cursor: pointer;
+   box-shadow: 0 2px 2px gray, 0 2px 2px #D9D9D9;
+}
+#imageAddBtn {
+  width: 90px;
+  height: 30px;
+  background-color: #EDF2F6;
+  border: 1px solid #EDF2F6;
+  border-radius: 10px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+#imageAddBtn:hover {
+	background-color: #e0e0e0;
+	color: #fff;
+}
+#addImageIcon {
+	width: 10px;
+  height: 10px;
+}
+#finishBtn{
+  width: 90px;
+  height: 30px;
+  background-color: #EDF2F6;
+  border: 1px solid #EDF2F6;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 2px gray, 0 2px 2px #D9D9D9;
+  font-family: 'Noto Sans KR', sans-serif;
+
+}
+#cancelBtn{
+width: 90px;
+  height: 30px;
+  background-color: #EDF2F6;
+  border: 1px solid #EDF2F6;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 2px gray, 0 2px 2px #D9D9D9;
+  
+}

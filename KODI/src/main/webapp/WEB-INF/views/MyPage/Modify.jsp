@@ -87,7 +87,6 @@ $(document).ready(function() {
 	    }
 	});
 	
-	// 수정버튼
 	$("#modibtn").on("click", function() {
 	    var newPassword = $("#newPassword").val();
 	    var confirmPassword = $("#confirmPassword").val();
@@ -95,7 +94,7 @@ $(document).ready(function() {
 	    var country = $("#country").val();
 
 	    // 비밀번호를 입력하지 않았을 때 기존 비밀번호를 사용하도록 수정
-	    var useOldPassword = !newPassword && !confirmPassword;
+	    var useOldPassword = newPassword === '' && confirmPassword === '';
 
 	    if (!useOldPassword && newPassword !== confirmPassword) {
 	        alert("변경 비밀번호와 비밀번호 확인이 일치하지 않습니다.");
@@ -103,7 +102,7 @@ $(document).ready(function() {
 	    }
 
 	    var memberDTO = {
-	        pw: useOldPassword ? "unchanged" : newPassword,  // useOldPassword가 true이면 "unchanged", 아니면 newPassword
+	        pw: useOldPassword ? "unchanged" : newPassword,
 	        memberName: nickname,
 	        flagIdx: country
 	    };
@@ -123,6 +122,7 @@ $(document).ready(function() {
 	        }
 	    });
 	});
+
 
 	// 수정 취소
 	$("#cancelbtn").on("click", function() {

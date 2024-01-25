@@ -5,10 +5,10 @@
 	justify-content: center;
 	text-align: center;
 	position: static; 
-	width: 60vw;
-	height: 60vh;
-	max-width: 1000px;
-	max-height: 700px;
+	width: 100%;
+	height: 100%;
+	max-width: 900px;
+	max-height: 600px;
 	align-items: center;
 	flex-direction: column;
 }
@@ -160,11 +160,11 @@ tr {
 }
 
 #board th:nth-child(2) {
-	width: 30%;
+	width: 20%;
 }
 
 #board th:nth-child(3) {
-	width: 30%;
+	width: 25%;
 }
 
 .f-Btn{
@@ -177,7 +177,6 @@ tr {
 	border-radius: 8px;
 	width: 70px;
 	box-sizing: border-box;
-	margin-right: 10px;
 	
 }
 .f-Btn:hover{
@@ -186,5 +185,60 @@ tr {
 }
 
 #f-drawBtn, #f-cancelBtn, #f-acceptBtn, #f-removeBtn {
+	
+	
+}
+
+
+
+@media all and (max-width:479px){
+.friendbox {
+	width: 100vw;
+	height: 100vh;
+}
+	
+.mainBox {
+	height: 95%;
+	width: 98%; 
+}
+
+.contentBox {
+  flex-direction: column;
+}
+
+#friendheader{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	margin-left: auto;
+    margin-right: auto;
+}
+
+#friendheader h2 {
+	margin-left: 10px;
+}
+
+.form-group{
+	flex-direction: row;
+}
+
+.form-group button {
+	font-size: 0.6em;
+	width: 100px;
+	box-sizing: border-box;
+	padding: 10px;
+	border: none;
+	cursor: pointer;
+	border-radius: 8px;
+	background-color: #D9D9D9;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 10px;
+}
+
+.tdDiv {
+	margin-top: 15px;
+	padding-bottom: 15px;
+}
 	
 }

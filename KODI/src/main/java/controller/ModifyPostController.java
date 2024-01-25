@@ -29,14 +29,14 @@ public class ModifyPostController {
 	
 	//게시물 수정 페이지
 	@GetMapping("/post/modify/{postIdx}")
-	public ModelAndView modifyPost(@PathVariable int postIdx) {
+	public ModelAndView modifyPost(@PathVariable("postIdx") int postIdx) {
 		//게시물 하나에 대한 데이터
 		ReadPostOneDTO readPostOne = oneservice.getReadPostOne(postIdx);
 		
 		ModelAndView mv = new ModelAndView();
 		
 		mv.addObject("readPostOne", readPostOne);
-		mv.setViewName("Modify");
+		mv.setViewName("Editpost");
 		
 		return mv;
 	}

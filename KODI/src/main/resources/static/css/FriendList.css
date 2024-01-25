@@ -80,7 +80,7 @@
 }
 
 
-.friendList {
+.friendList, .friendList1, .friendList2, .friendList3 {
 	display: flex;
 /* 	background-color: green;
  */	flex: 75%;

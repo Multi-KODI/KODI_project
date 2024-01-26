@@ -35,9 +35,9 @@
         <ul class="days"></ul>
       </div>
     <div class="modal" id="modal">
-	 
-	
-	</div>
+    
+   
+   </div>
     </div>
     
   </body>

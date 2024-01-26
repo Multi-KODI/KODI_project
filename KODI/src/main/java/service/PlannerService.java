@@ -27,8 +27,8 @@ public class PlannerService {
 		return checklist;
 	}
 	
-	public String selectSchedule(int memberIdx, int oneday) {
-		Map<String, Integer> map = new HashMap<String, Integer>();
+	public String selectSchedule(int memberIdx, String oneday) {
+		Map<String, Object> map = new HashMap<String, Object>();
 		
 		//선택된 날짜의 나의 스케줄 내용 전부 불러오기
 		map.put("memberIdx", memberIdx);
@@ -59,7 +59,7 @@ public class PlannerService {
 		dao.insertChecklist(map);
 	}
 	
-	public int selectScheduleIsSave(int memberIdx, String date) {
+	public Integer selectScheduleIsSave(int memberIdx, String date) {
 		//저장된 plan의 plan_idx 불러오기
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("memberIdx", memberIdx);

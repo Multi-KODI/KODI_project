@@ -1,4 +1,5 @@
-<%@page import="java.util.List"%>
+<%@page import="java.util.regex.Pattern"%>
+<%@page import="java.util.regex.Matcher"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -9,8 +10,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="/css/SearchList.css">
 <link
-	href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css"
-	rel="stylesheet">
+    href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css"
+    rel="stylesheet">
 <script src="/js/jquery-3.7.1.min.js"></script>
 <title></title>
 <script>
@@ -22,25 +23,51 @@
 <%@ include file="/WEB-INF/views/SearchHeader.jsp"%>
 
 <main>
-<table border="1">
-    <thead>
-        <tr>
-            <th>게시글 제목</th>
-            <th>작성자</th>
-        </tr>
-    </thead>
-    <tbody id="postList">
-        <c:forEach var="post" items="${readPostAll}">
-            <tr>
-                <td><div class="tdDiv">${post.postInfo.title}</div></td>
-                <td><div class="tdDiv">${post.memberName}</div></td>
-            </tr>
-        </c:forEach>
-    </tbody>
-</table>
+
+<p><strong><span style="color: #6A7EFC;">${param.question}</span></strong>에 대한 검색결과 입니다.</p>
+
+
+
+<c:forEach var="post" items="${readPostAll}">
+    <div>
+        <div class="listBox">
+            <div class="contentBox">
+                <div id="title">
+                    <a href="/api/post/${post.postInfo.postIdx}" class="post-link" data-title="${post.postInfo.title}" data-content="${post.postInfo.content}">
+                       ${post.postInfo.title}
+                    </a>
+                </div>
+                <div id="content">
+                    <a href="/api/post/${post.postInfo.postIdx}" class="post-link" data-title="${post.postInfo.title}" data-content="${post.postInfo.content}">
+                        ${post.postInfo.content}
+                    </a>
+                </div>
+                <div class="tagBox">
+                    ${post.postTags}
+                </div>
+                <div class="nameBox">
+                    <div id="memberName">
+                        ${post.memberName}
+                    </div>
+                    <div id="date">
+                        ${post.postInfo.regdate}
+                    </div>
+                </div>
+            </div>
+            <div id="imageBox">
+                <a href="${path}/api/post/${post.postInfo.postIdx}">
+        			<img src="${path}/image/db/${post.postImage}">
+   				</a>
+            </div>
+        </div>
+    </div>
+</c:forEach>
+
+
+
+
 
 </main>
-
 
 
 </body>

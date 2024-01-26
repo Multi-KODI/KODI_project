@@ -60,16 +60,25 @@ public class SearchListController {
         } else if (filter.equals("사용자")) {
             // question에 해당하는 사용자 idx 받아오기
             List<Integer> readMemberAllIdx = memberservice.getReadMemberAllIdx(question);
-            // 세션에서 나의 member_idx 받아오기
-            int myMemberIdx = Integer.parseInt((String) session.getAttribute("myMemberIdx"));
 
-            List<ReadMemberAllDTO> readMemberAll = new ArrayList<ReadMemberAllDTO>();
-            for (int i = 0; i < readMemberAllIdx.size(); i++) {
-                ReadMemberAllDTO readMemberAllone = memberservice.getReadMemberAll(readMemberAllIdx.get(i), myMemberIdx);
-                readMemberAll.add(readMemberAllone);
+            // 세션에서 나의 member_idx 받아오기
+            Integer myMemberIdx = null;
+            String memberIdxStr = (String) session.getAttribute("memberIdx");
+            if (memberIdxStr != null) {
+                myMemberIdx = Integer.parseInt(memberIdxStr);
             }
-            mv.addObject("readMemberAll", readMemberAll);
-            mv.setViewName("/SearchList/SearchListMember");
+
+            if (myMemberIdx != null) {
+                List<ReadMemberAllDTO> readMemberAll = new ArrayList<ReadMemberAllDTO>();
+                for (int i = 0; i < readMemberAllIdx.size(); i++) {
+                    ReadMemberAllDTO readMemberAllone = memberservice.getReadMemberAll(readMemberAllIdx.get(i), myMemberIdx);
+                    readMemberAll.add(readMemberAllone);
+                }
+                mv.addObject("readMemberAll", readMemberAll);
+                mv.setViewName("/SearchList/SearchListMember");
+            } else {
+                System.out.println("session - null");
+            }
         }
 
         return mv;

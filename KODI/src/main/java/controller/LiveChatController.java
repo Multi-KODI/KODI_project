@@ -37,8 +37,16 @@ public class LiveChatController {
 	@GetMapping("/chatroom/{chatIdx}")
 	public ModelAndView liveChat(HttpSession session, @PathVariable int chatIdx) {
 		List<AllChatDTO> allChatMsg = liveChatService.selectAllChatMsg(chatIdx);
-		
-		int memberIdx = Integer.parseInt(String.valueOf(session.getAttribute("memberIdx")));
+
+		ModelAndView mv = new ModelAndView();
+		int memberIdx;
+
+		if(session.getAttribute("memberIdx") == null) {
+			mv.setViewName("redirect:/api/login");
+			return mv;
+		} else {
+			memberIdx = Integer.parseInt(String.valueOf(session.getAttribute("memberIdx")));			
+		}
 		
 		int n = 0;
 		
@@ -55,9 +63,7 @@ public class LiveChatController {
 			allChatMsg.get(n).getChatMsgDTO().setContent(msg);
 			n++;
 		}
-		
-		ModelAndView mv = new ModelAndView();
-		
+				
 		mv.addObject("allChatMsg", allChatMsg);
 		mv.addObject("chatIdx", chatIdx);
 		

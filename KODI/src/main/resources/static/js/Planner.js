@@ -65,27 +65,48 @@ const handleDateSelection = (clickedDate) => {
     startDate.setDate(startDate.getDate()+1);
     endDate.setDate(endDate.getDate()+1);
     const dateRange = getDateRange(startDate, endDate);
+    
+    $.ajax({
+      url:"/api/planner/schedule",
+      type:"post",
+      data:{
+         day1:dateRange[0],
+         day2:dateRange[dateRange.length-1]   
+      },
+      
+      success:function(response){
+         console.log(response)
+         var schedulelist = response.schedulelist;
+     	 makeModal(dateRange, schedulelist);
+      },
+      error:function(error){
+         console.log(error);
+      }
+      
+      
+   });
     console.log('선택된 날짜 사이의 모든 날짜:', dateRange);
     
-  	makeModal(dateRange);
     
   }
 }
 
-function makeModal(dateList){
-	document.querySelector('.modal').style.display ='block';
-	var container = document.querySelector('.modal');
+function makeModal(dateList, schedulelist){
+   document.querySelector('.modal').style.display ='block';
+   var container = document.querySelector('.modal');
 deleteAllChildren(container);
-	
-	for (var i = 0; i < dateList.length; i++) {
-	  var modalDiv = document.createElement('div');
-	  modalDiv.className = 'modalDate' + i;
-	  modalDiv.innerHTML = dateList[i] + '<button class="modalBtn" id="insertBtn' + i + '\" onclick=\"saveDiv(' +dateList[i]+','+ i + ')\">저장</button>' +
-	                      '<button class="modalBtn" id="deleteBtn' + i + '\" onclick=\"deleteDiv(' + i + ')\">삭제</button>'+'<input type=\'text\' value=\''+'dfg'+'\'></input><br>';
-	  
-	  document.querySelector('.modal').appendChild(modalDiv);
-	}
-	
+   
+   for (var i = 0; i < dateList.length; i++) {
+     var modalDiv = document.createElement('div');
+     modalDiv.className = 'modalDate' + i;
+     modalDiv.innerHTML = dateList[i];
+    dateList[i] = "\'" + dateList[i] + "\'"; 
+    modalDiv.innerHTML += 
+    '<button class="modalBtn" id="insertBtn' + i + '" onclick="saveDiv(' + dateList[i] + ' , ' + i +')">저장</button>'
+    + '<button class="modalBtn" id="deleteBtn' + i + '\" onclick=\"deleteDiv(' + i + ')\">삭제</button>'+'<input type=\'text\' value=\''+schedulelist[i]+'\'></input><br>';
+     document.querySelector('.modal').appendChild(modalDiv);
+   }
+   
 }
 
 function deleteAllChildren(element) {
@@ -105,30 +126,30 @@ function deleteDiv(index) {
     inputElement.value = "";
 }
 
-function saveDiv(date, index) {
+function saveDiv(target, index) {
     var container = document.querySelector('.modal');
     
     // 지정된 div 내의 input 요소 가져오기
     var inputElement = container.children[index].querySelector('input');
     
     // input 요소의 값을 빈 문자열로 설정
-    var date = date;
+    var date = target;
     var content=inputElement.value;
     $.ajax({
-		url:"/api/planner/schedule/issave",
-		type:'post',
-		data:{ 
-			date:date,
-			content:content
-		},
-		success : function(result) { 
-			 console.log(result);
-		   },    
-		error : function(error) {  
-				console.log(error);
-		   }
-		
-	});
+      url:"/api/planner/schedule/issave",
+      type:'post',
+      data:{ 
+         date:date,
+         content:content
+      },
+      success : function(result) { 
+          
+         },    
+      error : function(error) {  
+            console.log(error);
+         }
+      
+   });
 }
 
 const getDateRange = (start, end) => {

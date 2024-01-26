@@ -87,7 +87,6 @@
 		
 		if(websocket == null){
 			//websocket = new WebSocket("ws://localhost:7777/chatroom");
-			//websocket = new WebSocket("ws://192.168.0.13:7777/chatroom", "${chatIdx}");
 			websocket = new WebSocket("ws://192.168.0.13:7777/chatroom");
 			
 			websocket.onopen = function(){
@@ -155,7 +154,6 @@
 								oneMsg.innerHTML += "<hr>";
 								
 								allMsgList.appendChild(oneMsg);
-								//location.reload();
 							},
 							error: function(request, e){
 								alert("코드: " + request.status + "메시지: " + request.responseText + "오류: " + e);

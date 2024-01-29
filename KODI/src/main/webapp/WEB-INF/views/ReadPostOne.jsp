@@ -49,11 +49,30 @@
 	};
 	
 	function likeBtnClick() {
+		var data = {postIdx: ${readPostOne.postInfo.postIdx}, memberIdx: sessionId};
+
 		$("#likeBtnText").html("${readPostOne.likeCnt}");
 		
-		$("#like").on("click", function(){
-			var data = {postIdx: ${readPostOne.postInfo.postIdx}, memberIdx: sessionId};
-			
+		$.ajax({
+			url: "/api/post/like/isclick",
+			type: "post",
+			data: JSON.stringify(data),
+			contentType: "application/json",
+			dataType: "json",
+			success: function(isClick){
+				let likeIcon = document.getElementById("likeIcon");
+				if(isClick > 0){
+					likeIcon.setAttribute("src", "/image/icon/full-love.png");
+				} else {
+					likeIcon.setAttribute("src", "/image/icon/love.png");					
+				}
+			},
+			error: function(res, e){
+				alert("코드: " + res.status + "메시지: " + res.responseText + "오류: " + e);
+			}
+		});
+		
+		$("#like").on("click", function(){			
 			$.ajax({
 				url: "/api/post/like",
 				type: "post",
@@ -62,6 +81,25 @@
 				dataType: "json",
 				success: function(res){
 					$("#likeBtnText").html(res);
+					
+					$.ajax({
+						url: "/api/post/like/isclick",
+						type: "post",
+						data: JSON.stringify(data),
+						contentType: "application/json",
+						dataType: "json",
+						success: function(isClick){
+							let likeIcon = document.getElementById("likeIcon");
+							if(isClick > 0){
+								likeIcon.setAttribute("src", "/image/icon/full-love.png");
+							} else {
+								likeIcon.setAttribute("src", "/image/icon/love.png");					
+							}
+						},
+						error: function(res, e){
+							alert("코드: " + res.status + "메시지: " + res.responseText + "오류: " + e);
+						}
+					});
 				},
 				error: function(res, e){
 					alert("코드: " + res.status + "메시지: " + res.responseText + "오류: " + e);
@@ -357,7 +395,7 @@
 		<!-- 좋아요, 마킹, 공유 -->
 		<div id="btns">
 			<button id="like" type="button">
-				<span> <img src="/image/icon/love.png" align= "center">
+				<span> <img id="likeIcon" src="/image/icon/love.png" align= "center">
 					<p id="likeBtnText" style="display: inline;">0</p>
 				</span>
 			</button>

@@ -54,6 +54,17 @@ public class ReadPostOneController {
 		
 		return mv;
 	}
+	
+	/**
+	 * 게시글 좋아요 클릭 여부 조회 API
+	 * @param like
+	 * @return 클릭 여부(1|0)
+	 */
+	@PostMapping("/post/like/isclick")
+	@ResponseBody
+	public int isClickLike(@RequestBody PostLikeDTO like) {
+		return service.isClickLike(like.getPostIdx(), like.getMemberIdx());
+	}
 
 	/**
 	 * 게시글 좋아요 클릭 API

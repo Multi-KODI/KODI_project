@@ -1,36 +1,52 @@
 @charset "UTF-8";
+body {
+	font-family: 'NanumSquareNeo';
+	margin: 0;
+	padding: 0;
+}
+
+main {
+	max-width: 1400px;
+	margin: 20px auto;
+	justify-content: center;
+	margin-bottom: 20px;
+	padding-bottom: 20px;
+}
 
 #result {
 	display: flex;
 	flex-direction: column;
-	margin-left: 10%;
-	margin-right: 10%;
 	overflow-x: auto;
+	align-items: center;
+	
 }
 
 #categoryBox {
-	margin-left: 10%;
-	margin-right: 10%;
 	display: flex;
+	align-items: center;
+	padding-left: 10%;
 }
 
 table {
+	margin: 0 auto;
 	border-collapse: collapse;
-	/* 인접한 테이블 셀의 경계를 합칩니다. */
 	width: 1200px;
+	
 }
 
 table,
 th,
 td {
 	border: 1px solid #B6BBC4;
-	/* 모든 테이블, th, td에 1px 굵기의 테두리를 설정합니다. */
 	padding: 5px;
+}
+
+#resultTbody tr:hover {
+    background-color: #f0f0f0; 
 }
 
 table {
 	text-align: center;
-	/* 폼 안의 텍스트 가운데 정렬 */
 }
 
 #categoryBox {
@@ -58,4 +74,16 @@ table {
 
 #foodSelect {
 	font-family: 'NanumSquareNeo';
+}
+
+
+@media all and (max-width:479px){
+	
+	main {
+		max-width: 470px;
+	}
+	#result{
+	width:100%;
+	overflow-x: auto;
+	}
 }

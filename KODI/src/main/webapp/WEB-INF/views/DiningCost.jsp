@@ -33,6 +33,7 @@ $(document).ready(function(){
 </script>
 </head>
 <body>
+<main>
 	<div id="categoryBox" style="display: block">
 		<span id="category">
 			<label>품목</label>&nbsp;&nbsp;
@@ -102,5 +103,6 @@ $(document).ready(function(){
 			</tbody>
 		</table>
 	</div>
+</main>
 </body>
 </html>

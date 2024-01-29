@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -33,23 +32,40 @@ public class PlannerController {
 	
 	//체크리스트 데이터 호출
 	@GetMapping("/planner")
-	public ModelAndView selectChecklist(HttpSession session) {
+	public ModelAndView  selectChecklist0(HttpSession session) {
 		//세션 받아서 int 타입으로 변환
 		//String sessionIdx = (String)session.getAttribute("memberIdx");
 		String sessionIdx = "1";
 		Integer memberIdx = Integer.parseInt(sessionIdx);
-				
+			
+		//체크리스트 호출
+		List<String> checklist = service.selectAllChecklist(memberIdx); 
+		List<Integer> listIdx = service.selectAllListIdx(memberIdx);
+		ModelAndView mv = new ModelAndView();
+		
+		mv.setViewName("Planner");
+
+		return mv;
+	}
+	
+	//체크리스트 데이터 호출
+	@GetMapping("/plannerstart")
+	@ResponseBody
+	public /*ModelAndView*/ List[] selectChecklist(HttpSession session) {
+		//세션 받아서 int 타입으로 변환
+		//String sessionIdx = (String)session.getAttribute("memberIdx");
+		String sessionIdx = "1";
+		Integer memberIdx = Integer.parseInt(sessionIdx);
+			
 		//체크리스트 호출
 		List<String> checklist = service.selectAllChecklist(memberIdx); 
 		List<Integer> listIdx = service.selectAllListIdx(memberIdx);
 		
-		ModelAndView mv = new ModelAndView();
-		
-		mv.addObject("checklist", checklist);
-		mv.addObject("listIdx", listIdx);
-		mv.setViewName("Planner");
-		
-		return mv;
+		//강사 파트 
+		List listarray[] =  new List[2]; 
+		listarray[0] = checklist; 
+		listarray[1] = listIdx;	
+		return listarray;
 	}
 	
 	
@@ -100,7 +116,8 @@ public class PlannerController {
 	@PostMapping("/planner/checklist/issave")
 	public void isSaveChecklist(@RequestParam("content") String content, HttpSession session) {
 		//세션 받아서 int 타입으로 변환
-		String sessionIdx = (String)session.getAttribute("memberIdx");
+		/* String sessionIdx = (String)session.getAttribute("memberIdx"); */
+		String sessionIdx = "1";
 		Integer memberIdx = Integer.parseInt(sessionIdx);
 		
 		service.insertChecklist(content, memberIdx);
@@ -109,7 +126,7 @@ public class PlannerController {
 	//체크리스트 삭제
 	@PostMapping("/planner/checklist/isdelete")
 	public void isDeleteChecklist(@RequestParam("listIdx") Integer listIdx) {
-		
+		System.out.println(listIdx);
 		service.deleteChecklist(listIdx);
 	}
 	

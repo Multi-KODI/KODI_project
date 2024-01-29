@@ -1,5 +1,6 @@
 package dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -43,6 +44,18 @@ public interface SearchMemberListDAO {
 	//@param friendIdx
 	//@return is_friend(boolean타입)
 	public boolean selectIsFriend(int friendIdx);
+	
+	//기존 친구 삭제
+	//@param hashmap
+	public void deleteFriend(HashMap<String, Integer> map);
+	
+	//새로운 친구 관계 추가
+	//@param hashmap
+	public void insertFriendRequest(HashMap<String, Object> map);
+	
+	//친구 요청 수락
+	//@param memberIdx, friendMemberIdx
+	public void updateFriendRequest(int memberIdx, int friendMemberIdx);
 	
 	
 }

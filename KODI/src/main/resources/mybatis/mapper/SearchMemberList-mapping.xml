@@ -48,12 +48,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<!-- insert -->
-	
+	<insert id="insertFriendRequest" parameterType="hashmap">
+		insert into friend(friend_member_idx, is_friend, member_idx)
+		values (#{friendMemberIdx}, #{isFriend}, #{memberIdx});
+	</insert>
 	
 	<!-- update -->
-	
+	<update id="updateFriendRequest" parameterType="int">
+		update friend
+		set isFriend = true
+		where friend_member_idx = #{friendMemberIdx} and member_idx = #{memberIdx};
+	</update>
 	
 	<!-- delete -->
-	
+	<delete id="deleteFriend">
+		delete from friend
+		where friend_member_idx = #{friendMemberIdx} and member_idx = #{memberIdx};
+	</delete>
 	
 </mapper>

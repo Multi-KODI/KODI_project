@@ -99,8 +99,9 @@ function makeModal(dateList, schedulelist){
 	for (var i = 0; i < dateList.length; i++) {
 		var modalDiv = document.createElement('div');
 		modalDiv.className = 'modalDate' + i;
+		modalDiv.innerHTML += dateList[i];
 		dateList[i] = "\'" + dateList[i] + "\'"; 
-		modalDiv.innerHTML += dateList[i]+
+		modalDiv.innerHTML +=
 		'<button class="modalBtn" id="insertBtn' + i + '" onclick="saveDiv(' + dateList[i] + ' , ' + i +')">저장</button>'
 		+'<button class="modalBtn" id="deleteBtn' + i + '\" onclick=\"deleteDiv(' + i + ')\">삭제</button>'
 		+'<input type=\'text\' value=\''+schedulelist[i]+'\'></input><br>';
@@ -186,9 +187,10 @@ loadCheckList();
 function loadCheckList(){
 	$.ajax({
                 type: "get",
-                url: "/api/planner",
+                url: "/api/plannerstart",
                 success: function(response) {
-                	makeCheckList(response.checlist, response.idxlist);
+			
+                	makeCheckList(response[0], response[1]);
                 },
                 error: function(status, error) {
                     console.error("AJAX request failed:", status, error);
@@ -196,6 +198,7 @@ function loadCheckList(){
             });
 }
 function makeCheckList(checkList, idxList){
+	document.querySelector('.checkList').innerHTML="";
 	for (var i = 0; i < idxList.length; i++) {
 		var oneLi = document.createElement('li');
 		oneLi.className = "'"+idxList[i]+"'";
@@ -214,13 +217,13 @@ function deleteLi(idx) {
 	    // 특정 클래스를 가진 <li> 요소인지 확인
 	    if (currentLi.className === targetClassName) {
 	        currentLi.remove();
-    }
-}
+    	}
+	}
     
     $.ajax({
-		url: "/api/checklist/isdelete",
+		url: "/api/planner/checklist/isdelete",
 		data:{
-			idx: idx
+			listIdx: idx
 		},
 		type:"post",
 		success: function(){
@@ -240,14 +243,18 @@ function closeCheckListModal(){
 	$("#modal").hide();
 }
 
-function addLi(content){
+function addLi(){
+	var content = $("#inputCheckList").val();
 	$.ajax({
-		url:"/api/checklist/issave",
-		data: content,
+		url:"/api/planner/checklist/issave",
+		data: {
+			content:content
+			},
 		type:'post',
 		success: function(){},
 		error: function(){}
 	});
-	loadCheckList();
+	
+	location.href="/api/planner";
 	
 }

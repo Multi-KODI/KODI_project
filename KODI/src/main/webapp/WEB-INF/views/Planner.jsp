@@ -34,9 +34,9 @@
         </ul>
         <ul class="days"></ul>
       </div>
-    <div class="modal" id="modal"></div>
+    <div class="modal"></div>
 </div>
-<div>
+<div id="checklist">
 <h5>체크리스트</h5>
 <button class="checkListInsertBtn" onclick="makeCheckListModal()">추가</button>
 <ul class="checkList"></ul>
@@ -46,12 +46,12 @@
 <div id="modal">
 	<div class="pop">
 		<input id="inputCheckList" type="text">
-		<button id="inputCheckListBtn" type="button" onclick="addLi(addLi(document.getElementById('inputCheckList').value)">입력</button>
-		<button id ="closeCheckkList" type="button" onclick="closeCheckListModal()"></button>
+		<button id="inputCheckListBtn" type="button" onclick="addLi()">입력</button>
+		<button id ="closeCheckkList" type="button" onclick="closeCheckListModal()">닫기</button>
 	</div>
 </div>
 
-<div>
+<div id="app">
 <h5>유용한 어플</h5>
 <ul>
     <li>배달

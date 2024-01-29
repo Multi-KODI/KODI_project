@@ -1,4 +1,3 @@
-<%@page import="java.util.regex.Pattern"%>
 <%@page import="java.util.regex.Matcher"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -52,8 +51,24 @@
 					<div class="tdDiv">${member.country}</div>
 				</td>
 				
-				<td>
-					<button class="fBtn" type="button" data-member-idx="${member.memberIdx}"></button>
+				<td class="tdButton">
+					<button class="fBtn" type="button" data-member-idx="${member.memberIdx}">
+						<c:if test="${member.friendState eq '서로 친구'}"> 
+						친구 삭제하기
+						</c:if>
+						<c:if test="${member.friendState eq '내가 추가한 친구'}"> 
+						친구 요청 취소
+						</c:if>
+						<c:if test="${member.friendState eq '나를 추가한 친구'}"> 
+						친구 수락
+						</c:if>
+						<c:if test="${member.friendState eq '친구 신청 가능'}"> 
+						친구 요청 보내기
+						</c:if>
+					</button>
+					<c:if test="${member.friendState eq '나를 추가한 친구'}">
+						<button class="fBtn" type="button" data-member-idx="${member.memberIdx}">친구 거절</button>
+					</c:if>
 				</td>
 			</tr>
 			
@@ -82,55 +97,88 @@ $(document).ready(function() {
         memberNameDiv.html(randomEmoji + ' ' + memberName);
     });
 	
-	
-	
-    $(".fBtn").each(function() {
-        var friendStatus = $(this).text().trim();
-        switch (friendStatus) {
-            case "서로친구":
-            case "내가 추가한 친구":
-            case "나를 추가한 친구":
-                $(this).text("삭제");
-                break;
-            case "유저":
-                $(this).text("친구신청");
-                break;
-            default:
-                break;
-        }
-    });
-
     $("#memberList").on("click", ".fBtn", function() {
         var memberId = $(this).data("member-idx");
-        var friendStatus = $(this).text().trim();
+        var friendState = $(this).text().trim();
+        console.log(memberId);
+        console.log(friendState);
         
-        if (friendStatus === "유저") {
+        if(friendState === "친구 요청 보내기") {
             // 친구신청
-            if (confirm("친구신청 하시겠습니까?")) {
+            if(confirm("친구신청 하시겠습니까?")) {
                 $.ajax({
-                    url: '/api/friendRequest/' + memberId,
+                    url: '/api/search/isClickBtn',
                     type: 'POST',
-                    success: function(response) {
-                        $("#memberList").find("[data-member-idx='" + memberId + "']").text("삭제");
-                    },
-                    error: function(xhr, status, error) {
-                    }
-                });
-            }
-        } else {
-            // 삭제
-            if (confirm("친구삭제를 하시겠습니까?")) {
-                $.ajax({
-                    url: '/api/removeFriend/' + memberId,
-                    type: 'POST',
-                    success: function(response) {
-                        $("#memberList").find("[data-member-idx='" + memberId + "']").text("친구신청");
+                    data:{
+                    	clickState: friendState,
+                    	friendMemberIdx: memberId
                     },
                     error: function(xhr, status, error) {
                     }
                 });
             }
         }
+        else if(friendState === "친구 요청 취소") {
+        	//요청 취소
+        	if(confirm("친구신청을 취소하시겠습니까?")) {
+        		$.ajax({
+        			url: '/api/search/isClickBtn',
+                    type: 'POST',
+                    data:{
+                    	clickState: friendState,
+                    	friendMemberIdx: memberId
+                    },
+                    error: function(xhr, status, error) {
+                    }
+        		});
+        	}
+        }
+        else if(friendState === "친구 수락") {
+        	//요청 수락
+        	if(confirm("친구요청을 수락하시겠습니까?")) {
+        		$.ajax({
+        			url: '/api/search/isClickBtn',
+                    type: 'POST',
+                    data:{
+                    	clickState: friendState,
+                    	friendMemberIdx: memberId
+                    },
+                    error: function(xhr, status, error) {
+                    }
+        		});
+        	}
+        }
+        else if(friendState === "친구 거절") {
+        	//요청 거절
+			if(confirm("친구요청을 거절하시겠습니까?")) {
+        		$.ajax({
+        			url: '/api/search/isClickBtn',
+                    type: 'POST',
+                    data:{
+                    	clickState: friendState,
+                    	friendMemberIdx: memberId
+                    },
+                    error: function(xhr, status, error) {
+                    }
+        		});
+        	}
+        }
+        else if(friendState === "친구 삭제하기") {
+            // 삭제
+            if(confirm("친구삭제를 하시겠습니까?")) {
+                $.ajax({
+                	url: '/api/search/isClickBtn',
+                    type: 'POST',
+                    data:{
+                    	friendMemberIdx: memberId,
+                    	clickState: friendState
+                    },
+                    error: function(xhr, status, error) {
+                    }
+                });
+            }
+        }
+		location.reload(true); //새로고침
     }); //클릭
 
 });

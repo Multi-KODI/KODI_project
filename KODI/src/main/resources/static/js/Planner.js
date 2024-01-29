@@ -1,3 +1,4 @@
+										/*플래너 구현*/
 const daysTag = document.querySelector(".days"),
   currentDate = document.querySelector(".current-date"),
   prevNextIcon = document.querySelectorAll(".icons span");
@@ -12,11 +13,11 @@ const months = ["1월", "2월", "3월", "4월", "5월", "6월", "7월",
   "8월", "9월", "10월", "11월", "12월"];
 
 const renderCalendar = () => {
-  let firstDayofMonth = new Date(currYear, currMonth, 1).getDay(),
+  	let firstDayofMonth = new Date(currYear, currMonth, 1).getDay(),
     lastDateofMonth = new Date(currYear, currMonth + 1, 0).getDate(),
     lastDayofMonth = new Date(currYear, currMonth, lastDateofMonth).getDay(),
     lastDateofLastMonth = new Date(currYear, currMonth, 0).getDate();
-  let liTag = "";
+  	let liTag = "";
 
   for (let i = firstDayofMonth; i > 0; i--) {
     liTag += `<li class="inactive">${lastDateofLastMonth - i + 1}</li>`;
@@ -47,18 +48,18 @@ const modal = document.querySelector(".modal");
 let map = null //controller에서 받아오기
 
 const handleDateSelection = (clickedDate) => {
-  // 두 날짜가 이미 선택되어 있다면 선택을 초기화합니다.
+  // 두 날짜가 이미 선택되어 있다면 선택을 초기화
   if (selectedDates.length === 2) {
     selectedDates = [];
   }
 
-  // 클릭한 날짜를 선택 목록에 추가합니다.
+  // 클릭한 날짜를 선택 목록에 추가
   selectedDates.push(clickedDate);
 
-  // 선택된 날짜를 콘솔에 표시합니다.
+  // 선택된 날짜를 콘솔에 표시
   console.log('선택된 날짜:', selectedDates);
 
-  // 두 날짜가 선택된 경우, 선택된 날짜 사이의 모든 날짜를 콘솔에 표시합니다.
+  // 두 날짜가 선택된 경우, 선택된 날짜 사이의 모든 날짜를 콘솔에 표시
   if (selectedDates.length === 2) {
     const startDate = new Date(selectedDates[0]);
     const endDate = new Date(selectedDates[1]);
@@ -92,19 +93,18 @@ const handleDateSelection = (clickedDate) => {
 }
 
 function makeModal(dateList, schedulelist){
-   document.querySelector('.modal').style.display ='block';
-   var container = document.querySelector('.modal');
-deleteAllChildren(container);
-   
-   for (var i = 0; i < dateList.length; i++) {
-     var modalDiv = document.createElement('div');
-     modalDiv.className = 'modalDate' + i;
-     modalDiv.innerHTML = dateList[i];
-    dateList[i] = "\'" + dateList[i] + "\'"; 
-    modalDiv.innerHTML += 
-    '<button class="modalBtn" id="insertBtn' + i + '" onclick="saveDiv(' + dateList[i] + ' , ' + i +')">저장</button>'
-    + '<button class="modalBtn" id="deleteBtn' + i + '\" onclick=\"deleteDiv(' + i + ')\">삭제</button>'+'<input type=\'text\' value=\''+schedulelist[i]+'\'></input><br>';
-     document.querySelector('.modal').appendChild(modalDiv);
+   	document.querySelector('.modal').style.display ='block';
+   	var container = document.querySelector('.modal');
+	deleteAllChildren(container);
+	for (var i = 0; i < dateList.length; i++) {
+		var modalDiv = document.createElement('div');
+		modalDiv.className = 'modalDate' + i;
+		dateList[i] = "\'" + dateList[i] + "\'"; 
+		modalDiv.innerHTML += dateList[i]+
+		'<button class="modalBtn" id="insertBtn' + i + '" onclick="saveDiv(' + dateList[i] + ' , ' + i +')">저장</button>'
+		+'<button class="modalBtn" id="deleteBtn' + i + '\" onclick=\"deleteDiv(' + i + ')\">삭제</button>'
+		+'<input type=\'text\' value=\''+schedulelist[i]+'\'></input><br>';
+		document.querySelector('.modal').appendChild(modalDiv);
    }
    
 }
@@ -136,18 +136,15 @@ function saveDiv(target, index) {
     var date = target;
     var content=inputElement.value;
     $.ajax({
-      url:"/api/planner/schedule/issave",
-      type:'post',
-      data:{ 
-         date:date,
-         content:content
-      },
-      success : function(result) { 
-          
-         },    
-      error : function(error) {  
-            console.log(error);
-         }
+	  	url:"/api/planner/schedule/issave",
+	  	type:'post',
+	  	data:{ 
+	     	date:date,
+	     	content:content
+	 	},   
+		error : function(error) {  
+        	console.log(error);
+		}
       
    });
 }
@@ -181,3 +178,76 @@ prevNextIcon.forEach(icon => {
     renderCalendar();
   });
 });
+
+
+											/*체크리스트 구현*/
+loadCheckList();
+
+function loadCheckList(){
+	$.ajax({
+                type: "get",
+                url: "/api/planner",
+                success: function(response) {
+                	makeCheckList(response.checlist, response.idxlist);
+                },
+                error: function(status, error) {
+                    console.error("AJAX request failed:", status, error);
+                }
+            });
+}
+function makeCheckList(checkList, idxList){
+	for (var i = 0; i < idxList.length; i++) {
+		var oneLi = document.createElement('li');
+		oneLi.className = "'"+idxList[i]+"'";
+		oneLi.innerHTML = checkList[i];
+		document.querySelector('.checkList').appendChild(oneLi);
+		oneLi.setAttribute('onclick', 'deleteLi('+idxList[i]+')');
+   }
+	
+}
+function deleteLi(idx) {
+	var targetClassName = "'"+idx+"'";
+    var container = document.querySelector('.checkList');
+    var liElements = container.getElementsByTagName('li');
+	for (var i = liElements.length - 1; i >= 0; i--) {
+    	var currentLi = liElements[i];
+	    // 특정 클래스를 가진 <li> 요소인지 확인
+	    if (currentLi.className === targetClassName) {
+	        currentLi.remove();
+    }
+}
+    
+    $.ajax({
+		url: "/api/checklist/isdelete",
+		data:{
+			idx: idx
+		},
+		type:"post",
+		success: function(){
+		},
+		error: function(e){
+			console.log(e);
+		},
+		
+	});
+    
+}
+function makeCheckListModal(){
+	$("#modal").show();
+}
+
+function closeCheckListModal(){
+	$("#modal").hide();
+}
+
+function addLi(content){
+	$.ajax({
+		url:"/api/checklist/issave",
+		data: content,
+		type:'post',
+		success: function(){},
+		error: function(){}
+	});
+	loadCheckList();
+	
+}

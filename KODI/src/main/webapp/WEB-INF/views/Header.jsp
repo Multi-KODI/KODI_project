@@ -21,7 +21,11 @@
 		</div>
 
 		<div class="end-btn">
-			<img class="icon" id="notifyIcon" src="/image/icon/notify.png"> 
+			
+			<a href="#">
+    			<img class="icon" id="notifyIcon" src="/image/icon/notify.png"> 
+			</a>
+			
 			<a href="/api/chatlist/<%= session.getAttribute("memberIdx") %>">
     			<img class="icon" id="chatIcon" src="/image/icon/chat.png">
 			</a>

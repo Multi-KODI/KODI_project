@@ -354,8 +354,12 @@
 	<!-- 헤더 -->
 	<%@ include file="/WEB-INF/views/Header.jsp" %>
 	<%@ include file="/WEB-INF/views/SearchHeader.jsp" %>
-
+<main>
 	<div id="allElement">
+		
+
+		<div id="postAllInfo">
+		
 		<!-- 게시물 정보 -->
 		<div class="moreHoriz">
 			<button class="moreHorizBtn">
@@ -369,9 +373,8 @@
 				<button class="optionBtn" id="deletePostBtn" value="delete">게시글
 					삭제</button>
 			</div>
+			<br>
 		</div>
-
-		<div id="postAllInfo">
 
 			<h2 id="postTitle">게시글 제목</h2>
 
@@ -390,9 +393,8 @@
 
 			<div id="addrDiv"> 주소 <p id="addrInfo"></p> </div>
 			<div id="tagDiv"> 태그 </div>
-		</div>
-
-		<!-- 좋아요, 마킹, 공유 -->
+			
+			<!-- 좋아요, 마킹, 공유 -->
 		<div id="btns">
 			<button id="like" type="button">
 				<span> <img id="likeIcon" src="/image/icon/love.png" align= "center">
@@ -406,6 +408,9 @@
 				<img src="/image/icon/export.png" align= "center">
 			</button>
 		</div>
+		</div>
+
+		
 
 		<!-- 댓글 -->
 		<div id="commentInfo">
@@ -416,5 +421,6 @@
 			<div id="showComment"></div>
 		</div>
 	</div>
+</main>
 </body>
 </html>

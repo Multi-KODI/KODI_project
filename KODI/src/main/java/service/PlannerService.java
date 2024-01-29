@@ -27,6 +27,15 @@ public class PlannerService {
 		return checklist;
 	}
 	
+	public List<Integer> selectAllListIdx(int memberIdx){
+		List<Integer> listIdx = new ArrayList<Integer>();
+		
+		//나의 list_idx 전부 불러오기
+		listIdx = dao.selectListIdx(memberIdx);
+		
+		return listIdx;
+	}
+	
 	public String selectSchedule(int memberIdx, String oneday) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		
@@ -57,6 +66,11 @@ public class PlannerService {
 		map.put("content", content);
 		map.put("memberIdx", memberIdx);
 		dao.insertChecklist(map);
+	}
+	
+	public void deleteChecklist(int listIdx) {
+		//체크리스트 삭제하기
+		dao.deleteChecklist(listIdx);
 	}
 	
 	public Integer selectScheduleIsSave(int memberIdx, String date) {

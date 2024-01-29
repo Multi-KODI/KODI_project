@@ -41,10 +41,12 @@ public class PlannerController {
 				
 		//체크리스트 호출
 		List<String> checklist = service.selectAllChecklist(memberIdx); 
+		List<Integer> listIdx = service.selectAllListIdx(memberIdx);
 		
 		ModelAndView mv = new ModelAndView();
 		
 		mv.addObject("checklist", checklist);
+		mv.addObject("listIdx", listIdx);
 		mv.setViewName("Planner");
 		
 		return mv;
@@ -96,20 +98,19 @@ public class PlannerController {
 	
 	//체크리스트 저장
 	@PostMapping("/planner/checklist/issave")
-	@ResponseBody
-	public void isSaveChecklist(@RequestBody String content, HttpSession session) {
+	public void isSaveChecklist(@RequestParam("content") String content, HttpSession session) {
 		//세션 받아서 int 타입으로 변환
 		String sessionIdx = (String)session.getAttribute("memberIdx");
 		Integer memberIdx = Integer.parseInt(sessionIdx);
 		
-		//현재 저장된 checklist가 있는지 확인(해당 list_idx 확인)
-		int isSave = service.selectChecklistIsSave(memberIdx);
-		if(isSave > 0) { //저장된 checklist가 있는 경우 update
-			service.updateChecklist(content, isSave);
-		}
-		else { //저장된 checklist가 없는 경우 insert
-			service.insertChecklist(content, memberIdx);
-		}
+		service.insertChecklist(content, memberIdx);
+	}
+	
+	//체크리스트 삭제
+	@PostMapping("/planner/checklist/isdelete")
+	public void isDeleteChecklist(@RequestParam("listIdx") Integer listIdx) {
+		
+		service.deleteChecklist(listIdx);
 	}
 	
 	//스케줄 저장
@@ -131,7 +132,5 @@ public class PlannerController {
 			service.insertSchedule(content, date, memberIdx);
 		}
 	}
-	
-	
 	
 }

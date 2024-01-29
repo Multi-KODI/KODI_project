@@ -16,6 +16,11 @@ public interface PlannerDAO {
 	//@return 체크리스트 content들
 	public List<String> selectChecklistContent(int memberIdx);
 	
+	//나의 체크리스트 list_idx 호출
+	//@param memberIdx
+	//@return 체크리스트 list_idx들
+	public List<Integer> selectListIdx(int memberIdx);
+	
 	//나의 스케줄 content 호출
 	//@param memberIdx
 	//@return plan테이블의 content들
@@ -33,6 +38,10 @@ public interface PlannerDAO {
 	//나의 체크리스트 새로 저장
 	//@param hashmap
 	public void insertChecklist(HashMap<String, Object> map);
+	
+	//나의 체크리스트 삭제
+	//@param listIdx
+	public void deleteChecklist(int listIdx);
 	
 	//나의 스케줄(plan) plan_idx 호출
 	//@param hashmap

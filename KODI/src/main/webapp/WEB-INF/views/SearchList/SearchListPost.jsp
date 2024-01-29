@@ -69,6 +69,31 @@
 
 </main>
 
+<script>
+const emojis = [ '😀', '😆', '😍', '🥰', '😘', '😙', '☺️', '🤗' ];
+
+function getRandomEmoji() {
+	return emojis[Math.floor(Math.random() * emojis.length)];
+}
+
+$(document).ready(
+function() {
+	$(".nameBox").each(function() {
+        var memberNameDiv = $(this).find("#memberName");
+        var memberName = memberNameDiv.text().trim();
+        var randomEmoji = getRandomEmoji();
+        memberNameDiv.html(randomEmoji + ' ' + memberName);
+    });
+	
+	$(".tagBox").each(
+			function() {
+				var tags = $(this).text();
+				var updatedTags = tags.replace(/\[(.*?)\]/g,
+						'<span class="tag">$1</span>');
+				$(this).html(updatedTags);
+			});
+});
+</script>
 
 </body>
 </html>

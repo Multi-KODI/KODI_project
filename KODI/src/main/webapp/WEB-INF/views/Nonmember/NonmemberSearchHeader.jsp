@@ -18,23 +18,24 @@
 	<div class="headerbox">
 
 		<div class="logo-box">
-			<a href="/nonhome"><img id="logoicon" src="/image/icon/nonmemberlogo.png" ></a>
+			<a href="/api/nonhome"><img id="logoicon" src="/image/icon/nonmemberlogo.png" ></a>
 		</div>
 
-		<div class="input-box">
-			<div id="search-box">
-				<select id="searchfilter" name="search">
-					<option>게시글</option>
-					<option>태그</option>
-					<option>사용자</option>
-				</select>
-				<input id="searchinput" placeholder="검색어 입력">
+<form action="" method="get" class="input-box">
+    <div class="input-box">
+        <div id="search-box">
+            <select id="searchfilter" name="filter">
+                <option value="게시글">게시글</option>
+                <option value="사용자">사용자</option>
+            </select>
+            <input id="searchinput" name="question" placeholder="검색어 입력">
 
-				<button id="searchbtn" type="submit">
-					<img id="searchicon" src="/image/icon/search.png" >
-				</button>
-			</div>
-		</div>
+            <button id="searchbtn" type="submit">
+                <img id="searchicon" src="/image/icon/search.png">
+            </button>
+        </div>
+    </div>
+</form>
 
 	</div>
 

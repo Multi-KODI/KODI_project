@@ -39,7 +39,7 @@ public class SearchMemberListService {
 		List<Integer> friendMemberIdx = dao.selectFriendMemberIdx(myMemberIdx);
 		
 		//친구 상태 확인 메세지
-		String friendStatus = "";
+		String friendState = "";
 		//만약 나의 friendMemberIdx 리스트에 조회 요청한 해당 memberIdx가 있다면
 		if(friendMemberIdx.contains(memberIdx)) {
 			//member_idx가 myMemberIdx이고, friend_member_idx가 memberIdx인 칼럼의 friend_idx값 조회 
@@ -54,23 +54,23 @@ public class SearchMemberListService {
 				isFriend = dao.selectIsFriend(friendIdx);
 				//둘다 is_friend가 true인 경우
 				if(isFriend == true) {
-					friendStatus = "친구인 상태"; 
+					friendState = "서로 친구"; 
 				}
 				//나만 is_friend가 true인 경우
 				else {
-					friendStatus = "친구 요청을 한 상태";
+					friendState = "내가 추가한 친구";
 				}
 			}
 			//나는 is_friend가 false인 경우
 			else{
-				friendStatus = "친구 요청을 받은 상태";
+				friendState = "나를 추가한 친구";
 			}
 		}
 		else {
-			friendStatus = "친구신청이 가능한 상태";
+			friendState = "친구 신청 가능";
 		}
 		
-		return new ReadMemberAllDTO(memberIdx, memberName, country, friendStatus);
+		return new ReadMemberAllDTO(memberIdx, memberName, country, friendState);
 	}
 	
 	public void deleteFriend(int memberIdx, int friendMemberIdx) {
@@ -96,7 +96,6 @@ public class SearchMemberListService {
 		map.put("isFriend", isFriend);
 		map.put("memberIdx", memberIdx);
 		dao.insertFriendRequest(map);
-		
 		//나의 member_idx = friend_member_idx / 상대의 member_idx = member_idx
 		isFriend = false;
 		map.clear();

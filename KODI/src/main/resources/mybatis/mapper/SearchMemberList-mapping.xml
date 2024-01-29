@@ -56,7 +56,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- update -->
 	<update id="updateFriendRequest" parameterType="int">
 		update friend
-		set isFriend = true
+		set is_friend = true
 		where friend_member_idx = #{friendMemberIdx} and member_idx = #{memberIdx};
 	</update>
 	

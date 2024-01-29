@@ -1,4 +1,3 @@
-<%@page import="java.util.regex.Pattern"%>
 <%@page import="java.util.regex.Matcher"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>

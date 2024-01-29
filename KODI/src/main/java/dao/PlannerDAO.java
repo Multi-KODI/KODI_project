@@ -16,10 +16,15 @@ public interface PlannerDAO {
 	//@return 체크리스트 content들
 	public List<String> selectChecklistContent(int memberIdx);
 	
+	//나의 체크리스트 list_idx 호출
+	//@param memberIdx
+	//@return 체크리스트 list_idx들
+	public List<Integer> selectListIdx(int memberIdx);
+	
 	//나의 스케줄 content 호출
 	//@param memberIdx
 	//@return plan테이블의 content들
-	public String selectOneSchedule(Map<String, Integer> map);
+	public String selectOneSchedule(Map<String, Object> map);
 	
 	//나의 체크리스트 list_idx 호출
 	//@param memberIdx
@@ -34,10 +39,14 @@ public interface PlannerDAO {
 	//@param hashmap
 	public void insertChecklist(HashMap<String, Object> map);
 	
+	//나의 체크리스트 삭제
+	//@param listIdx
+	public void deleteChecklist(int listIdx);
+	
 	//나의 스케줄(plan) plan_idx 호출
 	//@param hashmap
 	//@return 0또는 자신의 plan_idx값
-	public int selectScheduleIsSave(HashMap<String, Object> map);
+	public Integer selectScheduleIsSave(HashMap<String, Object> map);
 	
 	//나의 스케줄 업데이트
 	//@param hashmap

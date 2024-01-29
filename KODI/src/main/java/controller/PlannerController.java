@@ -1,6 +1,10 @@
 package controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,10 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -29,78 +32,116 @@ public class PlannerController {
 	
 	//체크리스트 데이터 호출
 	@GetMapping("/planner")
-	public ModelAndView selectChecklist(HttpSession session) {
+	public ModelAndView  selectChecklist0(HttpSession session) {
 		//세션 받아서 int 타입으로 변환
-		String sessionIdx = (String)session.getAttribute("memberIdx");
+		//String sessionIdx = (String)session.getAttribute("memberIdx");
+		String sessionIdx = "1";
 		Integer memberIdx = Integer.parseInt(sessionIdx);
-				
+			
 		//체크리스트 호출
 		List<String> checklist = service.selectAllChecklist(memberIdx); 
-		
+		List<Integer> listIdx = service.selectAllListIdx(memberIdx);
 		ModelAndView mv = new ModelAndView();
 		
-		mv.addObject("checklist", checklist);
-		mv.setViewName("Checklist");
-		
+		mv.setViewName("Planner");
+
 		return mv;
+	}
+	
+	//체크리스트 데이터 호출
+	@GetMapping("/plannerstart")
+	@ResponseBody
+	public /*ModelAndView*/ List[] selectChecklist(HttpSession session) {
+		//세션 받아서 int 타입으로 변환
+		//String sessionIdx = (String)session.getAttribute("memberIdx");
+		String sessionIdx = "1";
+		Integer memberIdx = Integer.parseInt(sessionIdx);
+			
+		//체크리스트 호출
+		List<String> checklist = service.selectAllChecklist(memberIdx); 
+		List<Integer> listIdx = service.selectAllListIdx(memberIdx);
+		
+		//강사 파트 
+		List listarray[] =  new List[2]; 
+		listarray[0] = checklist; 
+		listarray[1] = listIdx;	
+		return listarray;
 	}
 	
 	
 	//해당 날짜 일정 데이터 호출
-	@PostMapping("/planner/date1={day1}&date2={day2}")
+	@PostMapping("/planner/schedule")
 	@ResponseBody
-	public Map<Integer, String> selectSchedule(@PathVariable Integer day1, 
-			@PathVariable Integer day2, HttpSession session) {
+	public Map<String, Object> selectSchedule(@RequestParam("day1") String day1, @RequestParam("day2") String day2,
+			HttpSession session) throws ParseException {
 		//세션 받아서 int 타입으로 변환
-		String sessionIdx = (String)session.getAttribute("memberIdx");
+		//String sessionIdx = (String)session.getAttribute("memberIdx");
+		String sessionIdx = "1";
 		Integer memberIdx = Integer.parseInt(sessionIdx);
 		
-		//선택된 날짜 저장
-		List<Integer> days = new ArrayList<Integer>();
-		for(int i=day1; i<=day2; i++) {
-			days.add(i);
-		}
+		//포멧터
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		
+		Date date1 = formatter.parse(day1);
+		Date date2 = formatter.parse(day2);
+		
+		Calendar cal1 = Calendar.getInstance();
+		Calendar cal2 = Calendar.getInstance();
+		
+		//Calendar 타입으로 변경
+		cal1.setTime(date1);
+		cal2.setTime(date2);
 		
 		//선택된 날짜에 해당하는 스케줄 호출
-		Map<Integer, String> schedulelist = new HashMap<Integer, String>(); //전체 스케줄 리스트
+		Map<String, Object> schedulemap = new HashMap<String, Object>(); //전체 스케줄 리스트
+		List<String> schedulelist = new ArrayList<String>();
 		String schedule; //하루에 대한 스케줄(String)
-		for (Integer oneday : days) {
+
+		//시작날짜가 끝날짜보다 크지 않을때까지 반복
+		while(cal1.compareTo(cal2) != 1) {
+			Date date = cal1.getTime();
+			String oneday = formatter.format(date);
+			
 			schedule = service.selectSchedule(memberIdx, oneday);
-			schedulelist.put(oneday, schedule);
+			schedulelist.add(schedule);
+			
+			//하루씩 추가
+			cal1.add(Calendar.DATE, 1);
 		}
-		
-		return schedulelist;
+		schedulemap.put("schedulelist", schedulelist);
+		return schedulemap;
 	}
 	
 	//체크리스트 저장
 	@PostMapping("/planner/checklist/issave")
-	@ResponseBody
-	public void isSaveChecklist(@RequestBody String content, HttpSession session) {
+	public void isSaveChecklist(@RequestParam("content") String content, HttpSession session) {
 		//세션 받아서 int 타입으로 변환
-		String sessionIdx = (String)session.getAttribute("memberIdx");
+		/* String sessionIdx = (String)session.getAttribute("memberIdx"); */
+		String sessionIdx = "1";
 		Integer memberIdx = Integer.parseInt(sessionIdx);
 		
-		//현재 저장된 checklist가 있는지 확인(해당 list_idx 확인)
-		int isSave = service.selectChecklistIsSave(memberIdx);
-		if(isSave > 0) { //저장된 checklist가 있는 경우 update
-			service.updateChecklist(content, isSave);
-		}
-		else { //저장된 checklist가 없는 경우 insert
-			service.insertChecklist(content, memberIdx);
-		}
+		service.insertChecklist(content, memberIdx);
+	}
+	
+	//체크리스트 삭제
+	@PostMapping("/planner/checklist/isdelete")
+	public void isDeleteChecklist(@RequestParam("listIdx") Integer listIdx) {
+		System.out.println(listIdx);
+		service.deleteChecklist(listIdx);
 	}
 	
 	//스케줄 저장
 	@PostMapping("/planner/schedule/issave")
-	@ResponseBody
-	public void isSaveSchedule(@RequestBody String content, @RequestBody String date, 
+	public void isSaveSchedule(@RequestParam("content") String content, @RequestParam("date") String date, 
 			HttpSession session) {
 		//세션 받아서 int 타입으로 변환
-		String sessionIdx = (String)session.getAttribute("memberIdx");
+		//String sessionIdx = (String)session.getAttribute("memberIdx");
+		String sessionIdx = "1";
 		Integer memberIdx = Integer.parseInt(sessionIdx);
 		
 		//현재 날짜에 저장된 스케줄이 있는지 확인(해당 plan_idx 확인)
-		int isSave = service.selectScheduleIsSave(memberIdx, date);
+		Integer isSave = service.selectScheduleIsSave(memberIdx, date);
+		if(isSave == null) isSave = 0;
 		if(isSave > 0) { //저장된 schedule이 있는 경우 update
 			service.updateSchedule(content, isSave);
 		}
@@ -108,7 +149,5 @@ public class PlannerController {
 			service.insertSchedule(content, date, memberIdx);
 		}
 	}
-	
-	
 	
 }

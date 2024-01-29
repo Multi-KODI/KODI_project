@@ -69,7 +69,7 @@ $(document).ready(function () {
 	});
 	
 	$("#registerbtn").on("click", function (event) {
-		window.location.href = "/api/register";
+		window.location.href = "/api/join";
 	});
 
     

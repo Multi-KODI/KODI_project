@@ -11,6 +11,12 @@
 		where member_idx = #{memberIdx};
 	</select>
 	
+	<select id="selectListIdx" resultType="String" parameterType="int">
+		select list_idx as listIdx
+		from checklist
+		where member_idx = #{memberIdx};
+	</select>
+	
 	<select id="selectOneSchedule" resultType="String" parameterType="map">
 		select content
 		from plan
@@ -53,4 +59,8 @@
 		where plan_idx = #{planIdx};
 	</update>
 	<!-- delete -->
+	<delete id="deleteChecklist" parameterType="int">
+		delete from checklist
+		where list_idx = #{listIdx};
+	</delete>
 </mapper>

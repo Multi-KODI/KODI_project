@@ -36,7 +36,16 @@ header {
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  text-align: center;
 }
+
+.end-btn a{
+  display: flex;
+  text-align: center;
+  margin: auto;
+}
+
+
 
 .btn{
   max-width:200px;

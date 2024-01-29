@@ -66,9 +66,6 @@ public class MyPageService {
     myPageDAO.followerAccept(member_Idx, memberIdx);
   }
 
-  public void createNewFriend(Integer member_Idx, Integer memberIdx){
-    myPageDAO.createNewFriend(member_Idx, memberIdx);
-  }
   //팔로워 삭제
   public void followerDelete(Integer member_Idx, Integer memberIdx) {
     myPageDAO.followerDelete(member_Idx, memberIdx);

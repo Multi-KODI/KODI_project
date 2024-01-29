@@ -280,6 +280,7 @@ public class MyPageController {
 	public MemberFlagDTO pairDelete(@PathVariable Integer memberIdx, HttpSession session) {
 		Integer member_Idx = Integer.parseInt((String) session.getAttribute("memberIdx"));
 		myPageService.pairDelete(member_Idx, memberIdx);
+		myPageService.pairDelete(memberIdx, member_Idx);
 		List<FlagDTO> flags = myPageService.allFlags();
 		List<FriendDTO> allFriendsList = myPageService.allFriends(member_Idx);
 		List<Integer> resultList1 = new ArrayList<>();
@@ -326,7 +327,6 @@ public class MyPageController {
 	public MemberFlagDTO acceptFollower(@PathVariable Integer memberIdx, HttpSession session) {
 		Integer member_Idx = Integer.parseInt((String) session.getAttribute("memberIdx"));
 		myPageService.followerAccept(member_Idx, memberIdx);
-		myPageService.createNewFriend(member_Idx, memberIdx);
 		List<FlagDTO> flags = myPageService.allFlags();
 		List<FriendDTO> otherSideFriendsList = myPageService.otherSideFriends(member_Idx);
 		List<Integer> resultList3 = new ArrayList<>();

@@ -35,8 +35,6 @@ public interface MyPageDAO {
 	void followingDelete(Integer member_Idx, Integer memberIdx);
 	//팔로워 수락
   void followerAccept(Integer member_Idx, Integer memberIdx);
-	//친구 테이블 만들기
-	void createNewFriend(Integer member_Idx, Integer memberIdx);
 	//팔로워 삭제
 	void followerDelete(Integer member_Idx, Integer memberIdx);
 }

@@ -55,7 +55,10 @@
 				</td>
 				
 				<td>
-					<div class="tdDiv">${member.country}</div>
+				<div class="tdDiv" style="display: flex; align-items: center; ">
+                 <img style="width: 16px; height: 16px; margin-right: 3px;" src="${member.flag}">
+				${member.country}
+				</div>
 				</td>
 				
 				<td class="tdButton">

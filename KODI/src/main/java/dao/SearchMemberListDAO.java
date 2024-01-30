@@ -30,6 +30,11 @@ public interface SearchMemberListDAO {
 	//@return 나라이름(country)
 	public String selectMemberCountry(int flagIdx);
 	
+	// 게시글 국기 이미지 조회
+	// @param flagIdx
+	// @return 국기 src
+	public String selectFlag(int flagIdx);
+	
 	//나의 friend_member_idx들 조회
 	//@param myMemberIdx
 	//@return friend_member_idx 리스트

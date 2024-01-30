@@ -23,6 +23,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where member_idx = #{memberIdx};
 	</select>
 	
+	<select id="selectFlag" resultType="String" parameterType="int">
+		select src
+		from flag
+		where flag_idx = #{flagIdx};
+	</select>
+	
 	<select id="selectMemberCountry" resultType="String" parameterType="int">
 		select country
 		from flag

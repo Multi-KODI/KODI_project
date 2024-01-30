@@ -14,4 +14,5 @@ public class ReadMemberAllDTO {
 	private String memberName;
 	private String country;
 	private String friendState;
+	private String flag;
 }

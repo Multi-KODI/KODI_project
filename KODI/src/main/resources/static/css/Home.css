@@ -151,12 +151,16 @@ li {
 	
 }
 
-
-
-
-@media screen and (max-width:659px) {
+@media screen and (max-width:499px) {
 	#sendMsgInput {
-		width: 58%;
+		width: 54%;
+		margin-left: 10%;
+	}
+}
+
+@media screen and (min-width:500px) and (max-width:659px) {
+	#sendMsgInput {
+		width: 59%;
 		margin-left: 10%;
 	}
 }
@@ -168,14 +172,14 @@ li {
 	}
 }
 
-@media screen and (min-width:900px) and (max-width:1399px) {
+@media screen and (min-width:900px) and (max-width:1199px) {
 	#sendMsgInput {
-		width: 70%;
+		width: 68%;
 		margin-left: 10%;
 	}
 }
 
-@media screen and (min-width:1400px) {
+@media screen and (min-width:1200px) {
 	#sendMsgInput {
 		width: 71%;
 		margin-left: 10%;
@@ -203,6 +207,8 @@ li {
 	margin-left: 10%;
 	margin-right: 10%;
 	padding: 20px;
+	height: 500px;
+	overflow-y: scroll;
 }
 
 #friendName {
@@ -215,15 +221,15 @@ li {
 
 #content {
 	display: inline-block;
-	margin-left: 20px;
+	margin-left: 10px;
 	border: 2px solid #EDF2F6;
 	border-radius: 10px;
 	background-color: #EDF2F6;
 	padding: 5px 20px;
+	text-align: center;
 }
 
 #regdate {
-	margin-left: 92px;
 	margin-top: 0px;
 	font-size: small;
 }

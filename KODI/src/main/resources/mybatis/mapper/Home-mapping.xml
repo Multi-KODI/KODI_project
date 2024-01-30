@@ -28,5 +28,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		sejong_cost as sejongCost
 		from vehicle_cost
 	</select>
+	<select id="searchChatMsgCnt" resultType="int">
+		select count(*) from home_chat_msg
+	</select>
+	<select id="selectAllChatMsg" resultType="homechatmsgdto">
+		select chat_msg_idx as chatMsgIdx, content, regdate, member_idx as memberIdx from home_chat_msg
+	</select>
+	<select id="selectMemberName" resultType="String" parameterType="int">
+		select member_name as memberName from members where member_idx = #{memberIdx}
+	</select>
+	
+	<insert id="insertChatMsg" parameterType="hashmap">
+		insert into home_chat_msg(content, regdate, member_idx) values(#{content}, now(), #{memberIdx})
+	</insert>
+	
+	<delete id="deleteChatMsg">
+		delete from home_chat_msg order by regdate asc limit 1
+	</delete>
 </mapper>
 

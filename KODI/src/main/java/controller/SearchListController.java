@@ -95,19 +95,19 @@ public class SearchListController {
 		Integer memberIdx = Integer.parseInt(sessionIdx);
 		
 		//버튼 상태에 따라 구분
-    	if(clickState.equals("친구 삭제하기")) { //친구인 상태
+    	if(clickState.equals("친구 삭제")) { //친구인 상태
     		memberservice.deleteFriend(memberIdx, friendMemberIdx);
     	}
-    	else if(clickState.equals("친구 요청 보내기")) { //친구신청이 가능한 상태
+    	else if(clickState.equals("친구 신청")) { //친구신청이 가능한 상태
     		memberservice.insertFriendRequest(memberIdx, friendMemberIdx);
     	}
-    	else if(clickState.equals("친구 요청 취소")) { //친구 요청을 한 상태
+    	else if(clickState.equals("요청 취소")) { //친구 요청을 한 상태
     		memberservice.deleteFriend(memberIdx, friendMemberIdx);
     	}
     	else if(clickState.equals("친구 수락")) { //친구 요청을 받은 상태
     		memberservice.updateFriendRequest(memberIdx, friendMemberIdx);
     	}
-    	else if(clickState.equals("친구 거절")) { //친구 요청을 받은 상태
+    	else if(clickState.equals("거절")) { //친구 요청을 받은 상태
     		memberservice.deleteFriend(memberIdx, friendMemberIdx);
     	}
     }

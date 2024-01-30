@@ -1,4 +1,10 @@
 @charset "UTF-8";
+body {
+	font-family: 'NanumSquareNeo';
+	margin: 0;
+	padding: 0;
+}
+
 
 .allElement {
 	text-align: center;
@@ -7,16 +13,16 @@
 #postAllInfo {
 	width: 75%;
 	height: 75%;
-	padding-left:13%;
 	padding-top: 20px;
 	padding-bottom: 30px;
+	max-width: 1200px;
+	margin: 20px auto;
 }
 
 .moreHorizBtn {
 	float: right;
 	background-color: white;
 	border: 2px solid white;
-	margin-right:15%;
 }
 
 .moreHoriz:hover .option {
@@ -69,7 +75,6 @@
 	border: 2px solid lightgrey;
 	border-radius: 10px;
 	box-shadow: 3px 5px 5px lightgrey;
-
 	width: 90%;
 	height: 90%;
 	margin: 0 auto;
@@ -111,8 +116,9 @@
 
 #btns {
 	margin: 0 auto;
-	margin-left: 16%;
 	text-align: left;
+	width: 93%;
+	padding: 20px;
 }
 
 #btns #like {
@@ -153,9 +159,10 @@
 	text-align: left;
 	width: 75%;
 	height: 75%;
-	padding-left: 13%;
 	padding-top: 20px;
 	padding-bottom: 30px;
+	max-width: 1200px;
+	margin: 20px auto;
 }
 
 #inputComment {

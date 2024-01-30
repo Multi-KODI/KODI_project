@@ -221,15 +221,15 @@ li {
 
 #content {
 	display: inline-block;
-	margin-left: 20px;
+	margin-left: 10px;
 	border: 2px solid #EDF2F6;
 	border-radius: 10px;
 	background-color: #EDF2F6;
 	padding: 5px 20px;
+	text-align: center;
 }
 
 #regdate {
-	margin-left: 92px;
 	margin-top: 0px;
 	font-size: small;
 }

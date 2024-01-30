@@ -79,7 +79,6 @@ public class HomeController {
 	@PostMapping("/home/savemsg")
 	@ResponseBody
 	public int saveMsg(int memberIdx, String content) {
-		System.out.println("controller: "+service.getChatMsgCnt());
 		if(service.getChatMsgCnt() >= 30) {
 			service.removeChatMsg();
 		}

@@ -79,9 +79,7 @@
 			chatContent.setAttribute("style", "display: flex; font-size: small; margin: 15px;");
 			
 			json = JSON.parse('${one.content}');
-			
-			//alert(json.message.result.translatedText);
-			
+						
 			if(json.message.result.translatedText == "null"){
 				chatContent.innerHTML += "...";				
 			} else {

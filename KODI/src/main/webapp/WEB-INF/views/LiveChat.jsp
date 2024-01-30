@@ -114,6 +114,10 @@
 				oneMsg.innerHTML += "<br>";
 			};
 			
+			if(json.message.result.translatedText.length >= 90) {
+				oneMsg.innerHTML += "<br>";
+			};
+			
 			oneMsg.appendChild(regdate);
 
 			oneMsg.innerHTML += "<br><br>";
@@ -129,7 +133,7 @@
 		
 		if(websocket == null){
 			websocket = new WebSocket("ws://localhost:7777/chatroom");
-			//websocket = new WebSocket("ws://192.168.0.13:7777/chatroom");
+			//websocket = new WebSocket("ws://192.168.0.13:7777/chatroom"); // 추후 ncp 배포 공인 IP로 변경
 			
 			websocket.onopen = function() {
 				console.log("웹소켓 연결성공");
@@ -227,6 +231,10 @@
 								};
 								
 								if(json.message.result.translatedText.length >= 70) {
+									oneMsg.innerHTML += "<br>";
+								};
+								
+								if(json.message.result.translatedText.length >= 90) {
 									oneMsg.innerHTML += "<br>";
 								};
 								

@@ -111,6 +111,10 @@ function showData() {
 			oneMsg.innerHTML += "<br>";
 		};
 		
+		if(json.message.result.translatedText.length >= 90) {
+			oneMsg.innerHTML += "<br>";
+		};
+		
 		oneMsg.appendChild(regdate);
 
 		oneMsg.innerHTML += "<br><br>";
@@ -128,7 +132,7 @@ function webSocket(){
 
 	if(websocket == null){
 		websocket = new WebSocket("ws://localhost:7777/home");
-		//websocket = new WebSocket("ws://192.168.0.13:7777/home");
+		//websocket = new WebSocket("ws://192.168.0.13:7777/home"); // 추후 ncp 배포 공인 IP로 변경
 		
 		websocket.onopen = function(){console.log("웹소켓 연결성공");};
 		websocket.onclose = function(){console.log("웹소켓 해제성공");};
@@ -226,6 +230,10 @@ function webSocket(){
 								oneMsg.innerHTML += "<br>";
 							};
 							
+							if(json.message.result.translatedText.length >= 90) {
+								oneMsg.innerHTML += "<br>";
+							};
+							
 							oneMsg.appendChild(regdate);
 
 							oneMsg.innerHTML += "<br><br>";
@@ -255,21 +263,6 @@ function webSocket(){
 	$("#sendMsgBtn").on("click", function(){
 		sendMsg();
 	});
-	
-	/* function sendMsg() {
-		// 웹소켓 서버로 데이터 보내는 부분
-		let sendMsgInput = document.getElementById("sendMsgInput");
-
-		if(sendMsgInput.value == ""){
-			$("#sendMsgBtn").attr("disabled", false);
-		} else {
-			let sendData = [sendMsgInput.value, sessionId];
-			websocket.send(sendData);
-
-			sendMsgInput.value = "";
-			console.log("웹소켓 서버에게 송신성공");
-		};
-	}; */
 	
 	function sendMsg() {
 		// 웹소켓 서버로 데이터 보내는 부분

@@ -30,17 +30,9 @@ public class PlannerController {
 	@Qualifier("plannerservice")
 	PlannerService service;
 	
-	//체크리스트 데이터 호출
+	//view 출력
 	@GetMapping("/planner")
-	public ModelAndView  selectChecklist0(HttpSession session) {
-		//세션 받아서 int 타입으로 변환
-		//String sessionIdx = (String)session.getAttribute("memberIdx");
-		String sessionIdx = "1";
-		Integer memberIdx = Integer.parseInt(sessionIdx);
-			
-		//체크리스트 호출
-		List<String> checklist = service.selectAllChecklist(memberIdx); 
-		List<Integer> listIdx = service.selectAllListIdx(memberIdx);
+	public ModelAndView viewPlanner() {
 		ModelAndView mv = new ModelAndView();
 		
 		mv.setViewName("Planner");
@@ -51,7 +43,7 @@ public class PlannerController {
 	//체크리스트 데이터 호출
 	@GetMapping("/plannerstart")
 	@ResponseBody
-	public /*ModelAndView*/ List[] selectChecklist(HttpSession session) {
+	public List[] selectChecklist(HttpSession session) {
 		//세션 받아서 int 타입으로 변환
 		//String sessionIdx = (String)session.getAttribute("memberIdx");
 		String sessionIdx = "1";
@@ -61,8 +53,8 @@ public class PlannerController {
 		List<String> checklist = service.selectAllChecklist(memberIdx); 
 		List<Integer> listIdx = service.selectAllListIdx(memberIdx);
 		
-		//강사 파트 
-		List listarray[] =  new List[2]; 
+		//
+		List<?> listarray[] =  new List[2]; 
 		listarray[0] = checklist; 
 		listarray[1] = listIdx;	
 		return listarray;
@@ -72,7 +64,9 @@ public class PlannerController {
 	//해당 날짜 일정 데이터 호출
 	@PostMapping("/planner/schedule")
 	@ResponseBody
-	public Map<String, Object> selectSchedule(@RequestParam("day1") String day1, @RequestParam("day2") String day2,
+	public Map<String, Object> selectSchedule(
+			@RequestParam("day1") String day1, 
+			@RequestParam("day2") String day2,
 			HttpSession session) throws ParseException {
 		//세션 받아서 int 타입으로 변환
 		//String sessionIdx = (String)session.getAttribute("memberIdx");

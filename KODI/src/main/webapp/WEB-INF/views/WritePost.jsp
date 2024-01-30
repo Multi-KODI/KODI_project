@@ -71,7 +71,7 @@
 </head>
 <body>
 	<div class="post">
-			<form id="wirtePostForm">
+			<form action="/api/post/issave" method="post" enctype="multipart/form-data">
 				<select name="categoryPost" id="categoryPost" required>
 				    <option value="" selected disabled hidden>카테고리</option>
 				    <option value="food">맛집</option>

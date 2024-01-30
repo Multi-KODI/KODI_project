@@ -6,13 +6,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-<!-- 오류로 인한 임시 주석처리 PGH -->
-<!-- <link rel="stylesheet" href="resources/css/WritePost.css"> -->
+<title>editpost</title>
+<link rel="stylesheet" href="/css/WritePost.css">
+<link
+	href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css"
+	rel="stylesheet">
 <script src="/js/jquery-3.7.1.min.js"></script>
-<style>
-
-</style>
 </head>
 <script>
 window.onload = function(){
@@ -80,7 +79,7 @@ window.onload = function(){
 	}
 	
 	//오류가 나서 임시로 주석처리 함 ------------------------------------ PGH
-	/* $("#clickFileBtn").on('click', function(e){
+	 $("#clickFileBtn").on('click', function(e){
 		let data = new FormData($("#imageForm").get(0));
 		$.ajax({
 			url:"uploadfile",
@@ -98,14 +97,14 @@ window.onload = function(){
 			
 			
 		});//ajax
-	}); *///btn
+	});
 	//임시 주석 끝 -------------------------------------------------	
 }
 
 </script>
 <body>
 	<div class="post">
-			<form id="wirtePostForm">
+			<form id="wirtePostForm" method="post" enctype="multipart/form-data">
 				<select name="categoryPost" id="categoryPost" required>
 				    <option value="" selected disabled hidden>카테고리</option>
 				    <!-- 수정1 시작(value값 수정) PGH-->
@@ -154,7 +153,7 @@ window.onload = function(){
 					<br><br>
 					
 					<!-- 오류로 인한 임시 주석처리 PGH -->
-					<!-- <button type="button" id="imageAddBtn" class="btn" onclick="addImage()"><img id="addImageIcon" src="resources/images/search.png">&nbsp;사진첨부</button> -->
+					<button type="button" id="imageAddBtn" class="btn" onclick="addImage()"><img id="addImageIcon" src="resources/images/search.png">&nbsp;사진첨부</button>
 					
 					<span class="photoBoxs" id= "photoBoxs">	
 						<input type="file" id="photoBox" name="imagePost" accept="image/*" >

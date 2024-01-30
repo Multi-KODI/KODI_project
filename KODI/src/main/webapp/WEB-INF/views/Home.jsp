@@ -34,16 +34,105 @@ $(document).ready(function() {
 		window.location.href = "/api/diningcost";
 	});
 	
+	showData();
 	webSocket();
+	
+	$('#allMsgList').scrollTop($('#allMsgList')[0].scrollHeight);
 
 }); //ready
+
+function showData() {
+	let allMsgList = document.getElementById("allMsgList");
+	
+	let oneMsg;
+	let friendName;
+	let content;
+	let regdate;
+	let json;
+	
+	<c:forEach items="${allChatMsg}" var="one">
+		oneMsg = document.createElement("div");
+		oneMsg.setAttribute("id", "${one.chatMsgDTO.chatMsgIdx}");
+		oneMsg.setAttribute("style", "display: inline;");
+		
+		friendName = document.createElement("p");
+		friendName.setAttribute("id", "friendName");
+		friendName.innerHTML = "${one.memberName}";
+		
+		content = document.createElement("p");
+		content.setAttribute("id", "content");
+		
+		json = JSON.parse('${one.chatMsgDTO.content}');
+		
+		content.innerHTML = json.message.result.translatedText;
+		
+		if(sessionId == "${one.chatMsgDTO.memberIdx}"){
+			friendName.setAttribute("style", "float: right;");
+			
+			if(json.message.result.translatedText.length < 35) {
+				content.setAttribute("style", "border: 2px solid #F8E8EE; background-color: #F8E8EE; float: right;");					
+			} else {
+				content.setAttribute("style", "text-align: left; width: 350px; word-break: break-all; border: 2px solid #F8E8EE; background-color: #F8E8EE; float: right;");
+			}
+		} else {
+			friendName.setAttribute("style", "float: left;");
+			
+			if(json.message.result.translatedText.length < 35) {
+				content.setAttribute("style", "float: left;");
+			} else {
+				content.setAttribute("style", "text-align: left; width: 350px; float: left;");
+			}
+		}
+		
+		regdate = document.createElement("p");
+		regdate.setAttribute("id", "regdate");
+		regdate.innerHTML = "${one.chatMsgDTO.regdate}";
+		
+		if(sessionId == "${one.chatMsgDTO.memberIdx}"){
+			regdate.setAttribute("style", "margin-right: 70px; float: right;");
+		} else {
+			regdate.setAttribute("style", "margin-left: 80px; float: left;");
+		}
+		
+		oneMsg.appendChild(friendName);
+		oneMsg.appendChild(content);
+
+		oneMsg.innerHTML += "<br><br><br><br>";
+		
+		if(json.message.result.translatedText.length >= 35) {
+			oneMsg.innerHTML += "<br>";
+		};
+		
+		if(json.message.result.translatedText.length >= 50) {
+			oneMsg.innerHTML += "<br>";
+		};
+		
+		if(json.message.result.translatedText.length >= 70) {
+			oneMsg.innerHTML += "<br>";
+		};
+		
+		if(json.message.result.translatedText.length >= 90) {
+			oneMsg.innerHTML += "<br>";
+		};
+		
+		oneMsg.appendChild(regdate);
+
+		oneMsg.innerHTML += "<br><br>";
+		
+		allMsgList.appendChild(oneMsg);
+	</c:forEach>
+	
+	$('#allMsgList').scrollTop($('#allMsgList')[0].scrollHeight);
+};
+
+
 
 function webSocket(){
 	websocket = null;
 
 	if(websocket == null){
-		//websocket = new WebSocket("ws://localhost:7777/home");
-		websocket = new WebSocket("ws://192.168.0.13:7777/home");
+		websocket = new WebSocket("ws://localhost:7777/home");
+		//websocket = new WebSocket("ws://192.168.0.13:7777/home"); // 추후 ncp 배포 공인 IP로 변경
 		
 		websocket.onopen = function(){console.log("웹소켓 연결성공");};
 		websocket.onclose = function(){console.log("웹소켓 해제성공");};
@@ -77,28 +166,86 @@ function webSocket(){
 				data: {"memberIdx": sendInfo[1]},
 				type: "post",
 				dataType: "text",
-				success: function(response){
-					oneMsg = document.createElement("div");
-					
-					friendName = document.createElement("p");
-					friendName.setAttribute("id", "friendName");
-					friendName.innerHTML = response;
-					
-					content = document.createElement("p");
-					content.setAttribute("id", "content");
-					content.innerHTML = sendInfo[0];
+				success: function(membername){
+					$.ajax({
+						url: "/api/chatroom/translatemsg",
+						data: {"sendMemberIdx": sendInfo[1] ,"msg": sendInfo[0]},
+						type: "post",
+						dataType: "text",
+						success: function(translatemsg){
+							let json = JSON.parse(translatemsg);
+							
+							oneMsg = document.createElement("div");
+							
+							friendName = document.createElement("p");
+							friendName.setAttribute("id", "friendName");
+							friendName.innerHTML = membername;
+							
+							content = document.createElement("p");
+							content.setAttribute("id", "content");
+							content.innerHTML = json.message.result.translatedText;
+							
+							if(sessionId == sendInfo[1]){
+								friendName.setAttribute("style", "float: right;");
+								
+								if(json.message.result.translatedText.length < 35) {
+									content.setAttribute("style", "border: 2px solid #F8E8EE; background-color: #F8E8EE; float: right;");					
+								} else {
+									content.setAttribute("style", "text-align: left; width: 350px; word-break: break-all; border: 2px solid #F8E8EE; background-color: #F8E8EE; float: right;");
+								}
+							} else {
+								friendName.setAttribute("style", "float: left;");
+								
+								if(json.message.result.translatedText.length < 35) {
+									content.setAttribute("style", "float: left;");
+								} else {
+									content.setAttribute("style", "text-align: left; width: 350px; float: left;");
+								}
+							}
 
-					regdate = document.createElement("p");
-					regdate.setAttribute("id", "regdate");
-					regdate.innerHTML = dateString + " " + timeString;
-					
-					oneMsg.appendChild(friendName);
-					oneMsg.appendChild(content);
-					oneMsg.appendChild(regdate);
+							regdate = document.createElement("p");
+							regdate.setAttribute("id", "regdate");
+							regdate.innerHTML = dateString + " " + timeString;
+							
+							if(sessionId == sendInfo[1]){
+								regdate.setAttribute("style", "margin-right: 70px; float: right;");
+							} else {
+								regdate.setAttribute("style", "margin-left: 80px; float: left;");
+							}
+							
+							oneMsg.appendChild(friendName);
+							oneMsg.appendChild(content);
 
-					oneMsg.innerHTML += "<hr>";
-					
-					allMsgList.appendChild(oneMsg);
+							oneMsg.innerHTML += "<br><br><br><br>";
+							
+							if(json.message.result.translatedText.length >= 35) {
+								oneMsg.innerHTML += "<br>";
+							};
+							
+							if(json.message.result.translatedText.length >= 50) {
+								oneMsg.innerHTML += "<br>";
+							};
+							
+							if(json.message.result.translatedText.length >= 70) {
+								oneMsg.innerHTML += "<br>";
+							};
+							
+							if(json.message.result.translatedText.length >= 90) {
+								oneMsg.innerHTML += "<br>";
+							};
+							
+							oneMsg.appendChild(regdate);
+
+							oneMsg.innerHTML += "<br><br>";
+							
+							allMsgList.appendChild(oneMsg);
+							
+							$('#allMsgList').scrollTop($('#allMsgList')[0].scrollHeight);
+						},
+						error: function(request, e){
+							alert("코드: " + request.status + "메시지: " + request.responseText + "오류: " + e);
+						}
+					});
 				},
 				error: function(request, e){
 					alert("코드: " + request.status + "메시지: " + request.responseText + "오류: " + e);
@@ -107,7 +254,17 @@ function webSocket(){
 		};
 	};
 	
+	$("#sendMsgInput").on("keypress", function(e){
+		if(e.keyCode == 13) {
+			sendMsg();				
+		};
+	});
+	
 	$("#sendMsgBtn").on("click", function(){
+		sendMsg();
+	});
+	
+	function sendMsg() {
 		// 웹소켓 서버로 데이터 보내는 부분
 		let sendMsgInput = document.getElementById("sendMsgInput");
 
@@ -116,11 +273,22 @@ function webSocket(){
 		} else {
 			let sendData = [sendMsgInput.value, sessionId];
 			websocket.send(sendData);
-
-			sendMsgInput.value = "";
+			
+			$.ajax({
+				url: "/api/home/savemsg",
+				data: {"memberIdx": sessionId, "content": sendMsgInput.value},
+				type: "post",
+				success: function(response){
+					sendMsgInput.value = "";
+					console.log("메시지 DB 저장 성공");
+				},
+				error: function(request, e){
+					alert("코드: " + request.status + "메시지: " + request.responseText + "오류: " + e);
+				}
+			});
 			console.log("웹소켓 서버에게 송신성공");
 		};
-	});
+	};
 };
 </script>
 

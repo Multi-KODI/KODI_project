@@ -35,6 +35,8 @@ $(document).ready(function() {
 	});
 	
 	webSocket();
+	
+	//$('#allMsgList').scrollTop($('#allMsgList')[0].scrollHeight);
 
 }); //ready
 

@@ -1,6 +1,6 @@
 @charset "UTF-8";
 
-@media screen and (max-width:659px) {
+@media screen and (max-width:549px) {
 	#exitChat {
 		margin-right: 10%;
 	}
@@ -9,7 +9,21 @@
 		margin-right: 10%;
 	}
 	#sendMsgInput {
-		width: 58%;
+		width: 55%;
+		margin-left: 10%;
+	}
+}
+
+@media screen and (min-width:550px) and (max-width:659px) {
+	#exitChat {
+		margin-right: 10%;
+	}
+	#allMsgList {
+		margin-left: 10%;
+		margin-right: 10%;
+	}
+	#sendMsgInput {
+		width: 59%;
 		margin-left: 10%;
 	}
 }
@@ -23,7 +37,7 @@
 		margin-right: 10%;
 	}
 	#sendMsgInput {
-		width: 66%;
+		width: 67%;
 		margin-left: 10%;
 	}
 }
@@ -37,7 +51,7 @@
 		margin-right: 10%;
 	}
 	#sendMsgInput {
-		width: 70%;
+		width: 71%;
 		margin-left: 10%;
 	}
 }
@@ -51,7 +65,7 @@
 		margin-right: 15%;
 	}
 	#sendMsgInput {
-		width: 61%;
+		width: 62%;
 		margin-left: 15%;
 	}
 }
@@ -65,7 +79,7 @@
 		margin-right: 20%;
 	}
 	#sendMsgInput {
-		width: 53%;
+		width: 54%;
 		margin-left: 20%;
 	}
 }
@@ -97,6 +111,8 @@
 	margin-top: 70px;
 	margin-bottom: 20px;
 	padding: 20px;
+	height: 500px;
+	overflow-y: scroll;
 }
 
 #friendName {
@@ -109,15 +125,15 @@
 
 #content {
 	display: inline-block;
-	margin-left: 20px;
+	margin-left: 10px;
 	border: 2px solid #EDF2F6;
 	border-radius: 10px;
 	background-color: #EDF2F6;
 	padding: 5px 20px;
+	text-align: center;
 }
 
 #regdate {
-	margin-left: 92px;
 	margin-top: 0px;
 	font-size: small;
 }
@@ -138,7 +154,7 @@
 #sendMsgBtn {
 	display: inline-block;
 	cursor: pointer;
-	border: 2px solid #EDF2F6;
+	border: 2px solid #EDF2F6;	
 	border-radius: 5px;
 	background-color: #EDF2F6;
 	width: 65px;

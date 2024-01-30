@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -21,9 +22,11 @@ import dto.MemberDTO;
 import dto.MemberFlagDTO;
 import dto.PostDTO;
 import dto.PostImageDTO;
+import dto.ReadMemberAllDTO;
 import jakarta.servlet.http.HttpSession;
 import service.MemberService;
 import service.MyPageService;
+import service.SearchMemberListService;
 
 @Controller
 @RequestMapping("/api")
@@ -41,43 +44,44 @@ public class MyPageController {
 	@Autowired
 	private MyPageService myPageService;
 
+	@Autowired
+	@Qualifier("searchmemberlistservice")
+	SearchMemberListService searchService;
+
 	@PostMapping("/verifyPw")
 	public ResponseEntity<String> verifyPw(HttpSession session, @RequestBody MemberDTO memberDTO) {
-	    String memberSessionIdx = (String) session.getAttribute("memberIdx");
+		String memberSessionIdx = (String) session.getAttribute("memberIdx");
 
-	    // 세션에 로그인이 되어있는지 확인
-	    // 로그인이 안되어 있을 때
-	    if (memberSessionIdx == null) {
-	        return new ResponseEntity<>("로그인 정보가 없습니다", HttpStatus.BAD_REQUEST);
+		// 세션에 로그인이 되어있는지 확인
+		// 로그인이 안되어 있을 때
+		if (memberSessionIdx == null) {
+			return new ResponseEntity<>("로그인 정보가 없습니다", HttpStatus.BAD_REQUEST);
 
-	        // 로그인이 되어 있을 때
-	    } else {
+			// 로그인이 되어 있을 때
+		} else {
 
-	        // 비밀번호를 받아옴
-	        Integer memberIdx = Integer.parseInt(memberSessionIdx);
-	        MemberDTO member = memberService.findMemberByIdx(memberIdx);
-	        
-	        // 클라이언트에서 전달된 비밀번호
-	        String clientPassword = memberDTO.getPw();
+			// 비밀번호를 받아옴
+			Integer memberIdx = Integer.parseInt(memberSessionIdx);
+			MemberDTO member = memberService.findMemberByIdx(memberIdx);
 
-	        // 클라이언트에서 전달된 비밀번호가 null인 경우
-	        if (clientPassword == null) {
-	            return new ResponseEntity<>("비밀번호를 입력하세요", HttpStatus.BAD_REQUEST);
-	        }
+			// 클라이언트에서 전달된 비밀번호
+			String clientPassword = memberDTO.getPw();
 
-	        // 비밀번호가 일치하는 경우
-	        if (clientPassword.equals(member.getPw())) {
-	            return new ResponseEntity<>("회원정보 확인 완료", HttpStatus.OK);
+			// 클라이언트에서 전달된 비밀번호가 null인 경우
+			if (clientPassword == null) {
+				return new ResponseEntity<>("비밀번호를 입력하세요", HttpStatus.BAD_REQUEST);
+			}
 
-	            // 비밀번호가 불일치하는 경우
-	        } else {
-	            return new ResponseEntity<>("비밀번호가 일치하지 않습니다", HttpStatus.UNAUTHORIZED);
-	        }
-	    }
+			// 비밀번호가 일치하는 경우
+			if (clientPassword.equals(member.getPw())) {
+				return new ResponseEntity<>("회원정보 확인 완료", HttpStatus.OK);
+
+				// 비밀번호가 불일치하는 경우
+			} else {
+				return new ResponseEntity<>("비밀번호가 일치하지 않습니다", HttpStatus.UNAUTHORIZED);
+			}
+		}
 	}
-
-
-
 
 	/**
 	 * 회원탈퇴 처리
@@ -192,25 +196,33 @@ public class MyPageController {
 	@GetMapping("/follower")
 	public ModelAndView follower(HttpSession session) {
 		ModelAndView mv = new ModelAndView();
-		// 세션에 바운딩된 유저아이디를 받아옴
 		Integer memberIdx = Integer.parseInt((String) session.getAttribute("memberIdx"));
 
-		// 나를 추가한 친구
-		List<FriendDTO> otherSideFriendsList = myPageService.otherSideFriends(memberIdx);
-		List<Integer> resultList3 = new ArrayList<>();
-		for (FriendDTO otherSideFriend : otherSideFriendsList) {
-			resultList3.add(otherSideFriend.getMemberIdx());
+		List<Integer> resultList1 = new ArrayList<>();
+		List<MemberDTO> memberList = memberService.findAllMembers();
+		for (int i = 0; i < memberList.size(); i++) {
+			resultList1.add(memberList.get(i).getMemberIdx());
 		}
 
-		if (!resultList3.isEmpty()) {
-			List<MemberDTO> otherSideFriends = myPageService.friendInfo(resultList3);
-			mv.addObject("otherSideFriends", otherSideFriends);
+		if (memberIdx != null) {
+			List<ReadMemberAllDTO> readMemberAll = new ArrayList<ReadMemberAllDTO>();
+			for (int i = 0; i < resultList1.size(); i++) {
+				// 나에 대한 검색은 제외
+				if (resultList1.get(i) != memberIdx) {
+					ReadMemberAllDTO readMemberAllone = searchService.getReadMemberAll(resultList1.get(i), memberIdx);
+					readMemberAll.add(readMemberAllone);
+				}
+			}
+			for (int i = 0; i < readMemberAll.size(); i++) {
+				if (!"나를 추가한 친구".equals(readMemberAll.get(i).getFriendState())) {
+					readMemberAll.remove(i);
+					i--;
+				}
+			}
+			mv.addObject("members", readMemberAll);
+			mv.setViewName("/MyPage/FollowerFriendList");
 		}
-		List<FlagDTO> flags = myPageService.allFlags();
-		mv.addObject("flags", flags);
-		mv.setViewName("/MyPage/FollowerFriendList");
 		return mv;
-
 	}
 
 	/**
@@ -222,23 +234,32 @@ public class MyPageController {
 	@GetMapping("/following")
 	public ModelAndView following(HttpSession session) {
 		ModelAndView mv = new ModelAndView();
-		// 세션에 바운딩된 유저아이디를 받아옴
 		Integer memberIdx = Integer.parseInt((String) session.getAttribute("memberIdx"));
 
-		// 내가 추가한 친구
-		List<FriendDTO> mySideFriendsList = myPageService.mySideFriends(memberIdx);
-		List<Integer> resultList2 = new ArrayList<>();
-		for (FriendDTO mySideFriend : mySideFriendsList) {
-			resultList2.add(mySideFriend.getFriendMemberIdx());
+		List<Integer> resultList1 = new ArrayList<>();
+		List<MemberDTO> memberList = memberService.findAllMembers();
+		for (int i = 0; i < memberList.size(); i++) {
+			resultList1.add(memberList.get(i).getMemberIdx());
 		}
 
-		if (!resultList2.isEmpty()) {
-			List<MemberDTO> mySideFriends = myPageService.friendInfo(resultList2);
-			mv.addObject("mySideFriends", mySideFriends);
+		if (memberIdx != null) {
+			List<ReadMemberAllDTO> readMemberAll = new ArrayList<ReadMemberAllDTO>();
+			for (int i = 0; i < resultList1.size(); i++) {
+				// 나에 대한 검색은 제외
+				if (resultList1.get(i) != memberIdx) {
+					ReadMemberAllDTO readMemberAllone = searchService.getReadMemberAll(resultList1.get(i), memberIdx);
+					readMemberAll.add(readMemberAllone);
+				}
+			}
+			for (int i = 0; i < readMemberAll.size(); i++) {
+				if (!"내가 추가한 친구".equals(readMemberAll.get(i).getFriendState())) {
+					readMemberAll.remove(i);
+					i--;
+				}
+			}
+			mv.addObject("members", readMemberAll);
+			mv.setViewName("/MyPage/FollowingFriendList");
 		}
-		List<FlagDTO> flags = myPageService.allFlags();
-		mv.addObject("flags", flags);
-		mv.setViewName("/MyPage/FollowingFriendList");
 		return mv;
 	}
 
@@ -253,20 +274,30 @@ public class MyPageController {
 		ModelAndView mv = new ModelAndView();
 		Integer memberIdx = Integer.parseInt((String) session.getAttribute("memberIdx"));
 
-		// 전체친구
-		List<FriendDTO> allFriendsList = myPageService.allFriends(memberIdx);
 		List<Integer> resultList1 = new ArrayList<>();
-		for (FriendDTO allFriend : allFriendsList) {
-			resultList1.add(allFriend.getFriendMemberIdx());
+		List<MemberDTO> memberList = memberService.findAllMembers();
+		for (int i = 0; i < memberList.size(); i++) {
+			resultList1.add(memberList.get(i).getMemberIdx());
 		}
-	
-		if (!resultList1.isEmpty()) {
-			List<MemberDTO> allFriends = myPageService.friendInfo(resultList1);
-			mv.addObject("allFriends", allFriends);
+
+		if (memberIdx != null) {
+			List<ReadMemberAllDTO> readMemberAll = new ArrayList<ReadMemberAllDTO>();
+			for (int i = 0; i < resultList1.size(); i++) {
+				// 나에 대한 검색은 제외
+				if (resultList1.get(i) != memberIdx) {
+					ReadMemberAllDTO readMemberAllone = searchService.getReadMemberAll(resultList1.get(i), memberIdx);
+					readMemberAll.add(readMemberAllone);
+				}
+			}
+			for (int i = 0; i < readMemberAll.size(); i++) {
+				if (!"서로 친구".equals(readMemberAll.get(i).getFriendState())) {
+					readMemberAll.remove(i);
+					i--;
+				}
+			}
+			mv.addObject("members", readMemberAll);
+			mv.setViewName("/MyPage/PairFriendList");
 		}
-		List<FlagDTO> flags = myPageService.allFlags();
-		mv.addObject("flags", flags);
-		mv.setViewName("/MyPage/PairFriendList");
 		return mv;
 	}
 
@@ -343,6 +374,7 @@ public class MyPageController {
 
 	/**
 	 * 팔로워 삭제
+	 * 
 	 * @return
 	 */
 	@GetMapping("/follower/delete/{memberIdx}")

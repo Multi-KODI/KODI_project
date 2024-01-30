@@ -70,7 +70,7 @@ $(document).ready(function(){
 					<option value="ko">한국어</option>
 					<option value="en">English</option>
 				</select>
-				<a href="/api/home" id = "logo"><img id="logoImage" src="/image/icon/logo.png" ></a>
+				<a href="/api/nonhome" id = "logo"><img id="logoImage" src="/image/icon/logo.png" ></a>
 			
 	</div>
 </header>

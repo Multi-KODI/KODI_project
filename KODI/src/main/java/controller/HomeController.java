@@ -34,4 +34,18 @@ public class HomeController {
 		
 		return mv;
 	}
+	
+	
+	@GetMapping("/nonhome")
+	public ModelAndView nonhome() {
+		List<VehicleDTO> vehicleList = service.getVehicleList();
+
+		ModelAndView mv = new ModelAndView();
+		
+		mv.addObject("vehicleList", vehicleList);
+		mv.setViewName("/Nonmember/NonmemberHome");
+		
+		return mv;
+	}
+	
 }

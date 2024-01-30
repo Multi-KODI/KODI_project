@@ -68,3 +68,50 @@
 	height: 20px; 
 	width: 20px;
 }
+
+
+
+
+
+
+
+
+@media all and (max-width:479px){
+	
+
+.logo-box {
+	margin-left: 5px;
+}
+
+#logoicon{
+	width: 90px;
+	height: 70px;
+}
+
+.input-box {
+	width:100%;
+	margin-left: 10px;
+	margin-right: 5px;
+}
+
+#search-box {
+	padding: 3px;
+
+}
+
+#searchinput {
+	font-size: 0.7em;
+}
+
+#searchfilter {
+	font-size: 0.7em;
+}
+
+
+#searchicon{
+	margin-right: 10px; 
+	height: 15px; 
+	width: 15px;
+}
+	
+}

@@ -45,7 +45,7 @@
 	<div class="menu-content">
 		<a href="/api/post">모든 게시글</a> 
 		<a href="/api/map">지도 서비스</a> 
-		<a href="/api/plan">여행 플래너</a> 
+		<a href="/api/planner">여행 플래너</a> 
 		<a href="/api/diningcost">지역별 외식비</a>
 	</div>
 	

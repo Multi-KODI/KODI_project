@@ -39,7 +39,7 @@
                           <thead>
                                 <tr>
                                  	<th>
-                                       <div class="tdDiv">이메일</div>
+                                       <div class="tdDiv">유저 넘버</div>
                                     </th>
                                     <th>
                                         <div class="tdDiv">닉네임</div>
@@ -56,21 +56,17 @@
                             </thead>
 
                            <tbody id="friendList3">
-						    <c:forEach var="friend" items="${otherSideFriends}">
+						    <c:forEach var="friend" items="${members}">
 						        <tr>
 						            <td>
-						                <div class="tdDiv">${friend.email}</div>
+						                <div class="tdDiv">${friend.memberIdx}</div>
 						            </td>
 						            <td>
 						                <div class="tdDiv">${friend.memberName}</div>
 						            </td>
 						            <td>
 						                <div class="tdDiv">
-						                    <c:forEach var="flag" items="${flags}">
-						                        <c:if test="${friend.flagIdx eq flag.flagIdx}">
-						                            ${flag.country}
-						                        </c:if>
-						                    </c:forEach>
+						                    ${friend.country}
 						                </div>
 						            </td>
 						            <td>

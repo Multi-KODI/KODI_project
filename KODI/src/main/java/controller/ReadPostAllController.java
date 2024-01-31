@@ -51,6 +51,7 @@ public class ReadPostAllController {
 		
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("readPostAll", readPostAll);
+		mv.addObject("category", category);
 		mv.setViewName("ReadPostAll");
 		
 		return mv;

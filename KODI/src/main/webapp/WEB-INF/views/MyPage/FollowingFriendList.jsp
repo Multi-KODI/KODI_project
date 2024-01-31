@@ -42,7 +42,7 @@
 										<thead>
 											<tr>
 												<th>
-													<div class="tdDiv">유저 네임</div>
+													<div class="tdDiv">유저 넘버</div>
 												</th>
 												<th>
 													<div class="tdDiv">닉네임</div>

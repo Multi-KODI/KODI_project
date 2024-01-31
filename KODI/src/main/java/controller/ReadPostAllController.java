@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import dto.ReadPostAllDTO;
@@ -26,28 +26,34 @@ public class ReadPostAllController {
 	 * return 게시글 데이터
 	 * 게시글 idx, 제목, 이미지, 유저닉네임, 추천수, 위치(주소), 태그, 국기
 	 */
-	@GetMapping("/post")
-	public ModelAndView readPostAll(/*@RequestParam("category") String category*/) {
-		String category = "";
-		// 처음 들어오는 경우
-		if(category.length() == 0) {
+	@GetMapping("/posts/{category}")
+	public ModelAndView readPostAll(@PathVariable("category") String category) {
+		if(category.equals("food")) {
 			category = "맛집";
+		}
+		else if(category.equals("cafe")) {
+			category = "카페";
+		}
+		else if(category.equals("play")) {
+			category = "놀거리";
+		}
+		else if(category.equals("hotel")) {
+			category = "숙소";
 		}
 		
 		List<Integer> readPostAllIdx = service.getReadPostAllIdx(category);
 		
-		List<ReadPostAllDTO> readPostAll = new ArrayList<ReadPostAllDTO>();
-		for(int i=0; i<readPostAllIdx.size(); i++) {
-			ReadPostAllDTO readPostAllone = service.getReadPostAll(readPostAllIdx.get(i));
-			readPostAll.add(readPostAllone);
+		List<ReadPostAllDTO> readPostAll = new ArrayList<ReadPostAllDTO>(); 
+		for(int	i=0; i<readPostAllIdx.size(); i++) { 
+			ReadPostAllDTO readPostAllone =	service.getReadPostAll(readPostAllIdx.get(i));
+			readPostAll.add(readPostAllone); 
 		}
 		
 		ModelAndView mv = new ModelAndView();
-		
-		mv.setViewName("ReadPostAll"); 
 		mv.addObject("readPostAll", readPostAll);
+		mv.setViewName("ReadPostAll");
 		
 		return mv;
 	}
-
+	
 }

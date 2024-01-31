@@ -34,6 +34,7 @@ public class SearchMemberListService {
 		int flagIdx = dao.selectFlagIdx(memberIdx);
 		//조회한 flag_idx의 국가이름(country) 조회
 		String country = dao.selectMemberCountry(flagIdx);
+		String flag = dao.selectFlag(flagIdx);
 		
 		//내가 친구요청을 보낸 사람인지 확인하기 위한 나의 friendMemberIdx 리스트 조회
 		List<Integer> friendMemberIdx = dao.selectFriendMemberIdx(myMemberIdx);
@@ -70,7 +71,7 @@ public class SearchMemberListService {
 			friendState = "친구 신청 가능";
 		}
 		
-		return new ReadMemberAllDTO(memberIdx, memberName, country, friendState);
+		return new ReadMemberAllDTO(memberIdx, memberName, country, friendState, flag);
 	}
 	
 	public void deleteFriend(int memberIdx, int friendMemberIdx) {

@@ -51,7 +51,9 @@
                     ${post.postTags}
                 </div>
                 <div class="nameBox">
-                    <div id="memberName">
+                    <div id="memberName" style="display: flex; align-items: center; justify-content: center;">
+                    <img style="width: 16px; height: 16px; margin-right: 3px;" src="${post.flag}">
+
                         ${post.memberName}
                     </div>
                     <div id="date">
@@ -83,12 +85,12 @@ function getRandomEmoji() {
 
 $(document).ready(
 function() {
-	$(".nameBox").each(function() {
+	/* $(".nameBox").each(function() {
         var memberNameDiv = $(this).find("#memberName");
         var memberName = memberNameDiv.text().trim();
         var randomEmoji = getRandomEmoji();
         memberNameDiv.html(randomEmoji + ' ' + memberName);
-    });
+    }); */
 	
 	$(".tagBox").each(
 			function() {

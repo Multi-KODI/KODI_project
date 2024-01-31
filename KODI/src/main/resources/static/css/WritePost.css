@@ -1,5 +1,11 @@
 @charset "UTF-8";
 
+
+
+.post{
+	margin-left: 38%;
+}
+
 #categoryPost{
 	width: 100px;
     padding: 5px;
@@ -51,17 +57,48 @@ margin-left: 10px;
   	border-radius: 10px;
 }
 
+#sample6_postcode{
+	width: 100px;
+    padding: 5px;
+    border: 3px solid #D9D9D9;
+  	border-radius: 10px;
+}
+#sample6_address{
+	width: 400px;
+    padding: 5px;
+    border: 3px solid #D9D9D9;
+  	border-radius: 10px;
+}
+#sample6_detailAddress{
+	width: 100px;
+    padding: 5px;
+    border: 3px solid #D9D9D9;
+  	border-radius: 10px;
+}
+#sample6_extraAddress{
+	width: 100px;
+    padding: 5px;
+    border: 3px solid #D9D9D9;
+  	border-radius: 10px;
+}
+
 #photoBox {
   display: none;
 }
 
 
-#tagAddBtn{
+#tagAddBtn,#addressBtn{
+	height: 30px;
 background-color: #EDF2F6;
   border: 1px solid #EDF2F6;
   border-radius: 10px;
   font-weight: 500;
   cursor: pointer;
+}
+
+#addressBtn{
+	width: 110px;
+
 }
 #addressSearchBtn{
 	background-color: #EDF2F6;
@@ -84,7 +121,7 @@ background-color: #EDF2F6;
   justify-content: center;
   font-family: 'Noto Sans KR', sans-serif;
 }
-#imageAddBtn:hover {
+#imageAddBtn:hover,#addressBtn:hover,#tagAddBtn:hover {
 	background-color: #e0e0e0;
 	color: #fff;
 }
@@ -92,8 +129,9 @@ background-color: #EDF2F6;
 	width: 10px;
   height: 10px;
 }
+
 #finishBtn{
-  width: 90px;
+  width: 100px;
   height: 30px;
   background-color: #EDF2F6;
   border: 1px solid #EDF2F6;
@@ -101,7 +139,6 @@ background-color: #EDF2F6;
   font-weight: 600;
   cursor: pointer;
   box-shadow: 0 2px 2px gray, 0 2px 2px #D9D9D9;
-  font-family: 'Noto Sans KR', sans-serif;
 
 }
 #cancelBtn{

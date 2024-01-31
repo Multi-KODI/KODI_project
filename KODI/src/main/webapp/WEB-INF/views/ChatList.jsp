@@ -79,9 +79,7 @@
 			chatContent.setAttribute("style", "display: flex; font-size: small; margin: 15px;");
 			
 			json = JSON.parse('${one.content}');
-			
-			//alert(json.message.result.translatedText);
-			
+						
 			if(json.message.result.translatedText == "null"){
 				chatContent.innerHTML += "...";				
 			} else {
@@ -244,6 +242,58 @@
 		}	
 	};
 	
+	function enterKey(e){
+		if(e.keyCode == 13) {
+			if(sessionId == ${chatListInfo.memberIdx}){
+				if(searchInput.value == ""){
+					alert("검색할 친구를 입력해주세요");
+				} else {
+					var data = {memberIdx: sessionId, friendName: searchInput.value};
+					
+					$.ajax({
+						url: "/api/chatlist/search",
+						data: JSON.stringify(data),
+						type: "post",
+						contentType: "application/json",
+						dataType: "json",
+						success: function(response){
+							let friendList = document.getElementById("friendList");
+							
+							friendList.innerHTML = "";
+							
+							let oneFriend;
+							let chatBtn;
+							
+							for (var i = 0; i < response.length; i++) {
+								oneFriend = document.createElement("div");
+								oneFriend.setAttribute("id", response[i].friendMemberIdx);
+								oneFriend.setAttribute("style", "padding-top: 5px; padding-left: 5px; padding-right: 5px;");
+								oneFriend.innerHTML += response[i].friendMemberName;
+								
+								chatBtn = document.createElement("input");
+								chatBtn.setAttribute("type", "button");
+								chatBtn.setAttribute("id", "chatBtn");
+								chatBtn.setAttribute("value", "채팅");
+								chatBtn.setAttribute("style", "display: inline-block; border:none; border-radius: 5px; background-color:#EDF2F6; color:gray; width: 50px; float:right; cursor: pointer;");
+								chatBtn.setAttribute("onclick", `clickChatBtn(${"${response[i].friendMemberIdx}"})`);
+								
+								oneFriend.appendChild(chatBtn);
+								
+								oneFriend.innerHTML += "<hr>";
+								
+								friendList.appendChild(oneFriend);
+							}
+						},
+						error: function(request, e){
+							alert("코드: " + request.status + "메시지: " + request.responseText + "오류: " + e);
+						}
+					});
+				}
+			} else {
+				alert("친구 검색할 수 없습니다.");
+			}
+		};
+	};
 </script>
 
 <body>
@@ -257,7 +307,7 @@
 			<p id="title">친구 검색</p>
 
 			<div id="searchInputDiv">
-				<input id="searchInput" type="search" placeholder="친구 검색">
+				<input id="searchInput" type="search" placeholder="친구 검색" onkeypress="enterKey(event)">
 				<button id="searchBtn" type="button">
 					<img id="searchIcon" src="/image/icon/search.png" align="center">
 				</button>

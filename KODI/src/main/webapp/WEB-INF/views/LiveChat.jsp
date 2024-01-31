@@ -33,7 +33,7 @@
 				if(response == 1){
 					showData();
 					webSocket();
-				} else {
+			} else {
 					alert("해당 채팅방에 입장할 수 없습니다.");
 					location.href = "/api/chatlist/" + sessionId;
 				}
@@ -56,6 +56,7 @@
 		<c:forEach items="${allChatMsg}" var="one">
 			oneMsg = document.createElement("div");
 			oneMsg.setAttribute("id", "${one.chatMsgDTO.chatMsgIdx}");
+			oneMsg.setAttribute("style", "display: inline;");
 			
 			friendName = document.createElement("p");
 			friendName.setAttribute("id", "friendName");
@@ -68,28 +69,73 @@
 			
 			content.innerHTML = json.message.result.translatedText;
 			
+			if(sessionId == "${one.chatMsgDTO.memberIdx}"){
+				friendName.setAttribute("style", "float: right;");
+				
+				if(json.message.result.translatedText.length < 35) {
+					content.setAttribute("style", "border: 2px solid #F8E8EE; background-color: #F8E8EE; float: right;");					
+				} else {
+					content.setAttribute("style", "text-align: left; width: 350px; word-break: break-all; border: 2px solid #F8E8EE; background-color: #F8E8EE; float: right;");
+				}
+			} else {
+				friendName.setAttribute("style", "float: left;");
+				
+				if(json.message.result.translatedText.length < 35) {
+					content.setAttribute("style", "float: left;");
+				} else {
+					content.setAttribute("style", "text-align: left; width: 350px; float: left;");
+				}
+			}
+			
 			regdate = document.createElement("p");
 			regdate.setAttribute("id", "regdate");
 			regdate.innerHTML = "${one.chatMsgDTO.regdate}";
 			
+			if(sessionId == "${one.chatMsgDTO.memberIdx}"){
+				regdate.setAttribute("style", "margin-right: 70px; float: right;");
+			} else {
+				regdate.setAttribute("style", "margin-left: 80px; float: left;");
+			}
+			
 			oneMsg.appendChild(friendName);
 			oneMsg.appendChild(content);
+
+			oneMsg.innerHTML += "<br><br><br><br>";
+			
+			if(json.message.result.translatedText.length >= 35) {
+				oneMsg.innerHTML += "<br>";
+			};
+			
+			if(json.message.result.translatedText.length >= 50) {
+				oneMsg.innerHTML += "<br>";
+			};
+			
+			if(json.message.result.translatedText.length >= 70) {
+				oneMsg.innerHTML += "<br>";
+			};
+			
+			if(json.message.result.translatedText.length >= 90) {
+				oneMsg.innerHTML += "<br>";
+			};
+			
 			oneMsg.appendChild(regdate);
 
-			oneMsg.innerHTML += "<hr>";
+			oneMsg.innerHTML += "<br><br>";
 			
 			allMsgList.appendChild(oneMsg);
 		</c:forEach>
-	};
 		
+		$('#allMsgList').scrollTop($('#allMsgList')[0].scrollHeight);
+	};
+
 	function webSocket(){
 		let websocket = null;
 		
 		if(websocket == null){
-			//websocket = new WebSocket("ws://localhost:7777/chatroom");
-			websocket = new WebSocket("ws://192.168.0.13:7777/chatroom");
+			websocket = new WebSocket("ws://localhost:7777/chatroom");
+			//websocket = new WebSocket("ws://192.168.0.13:7777/chatroom"); // 추후 ncp 배포 공인 IP로 변경
 			
-			websocket.onopen = function(){
+			websocket.onopen = function() {
 				console.log("웹소켓 연결성공");
 				websocket.send(${chatIdx});
 			};
@@ -142,18 +188,63 @@
 								content = document.createElement("p");
 								content.setAttribute("id", "content");
 								content.innerHTML = json.message.result.translatedText;
+								
+								if(sessionId == sendInfo[1]){
+									friendName.setAttribute("style", "float: right;");
+									
+									if(json.message.result.translatedText.length < 35) {
+										content.setAttribute("style", "border: 2px solid #F8E8EE; background-color: #F8E8EE; float: right;");					
+									} else {
+										content.setAttribute("style", "text-align: left; width: 350px; word-break: break-all; border: 2px solid #F8E8EE; background-color: #F8E8EE; float: right;");
+									}
+								} else {
+									friendName.setAttribute("style", "float: left;");
+									
+									if(json.message.result.translatedText.length < 35) {
+										content.setAttribute("style", "float: left;");
+									} else {
+										content.setAttribute("style", "text-align: left; width: 350px; float: left;");
+									}
+								}
 
 								regdate = document.createElement("p");
 								regdate.setAttribute("id", "regdate");
 								regdate.innerHTML = dateString + " " + timeString;
 								
+								if(sessionId == sendInfo[1]){
+									regdate.setAttribute("style", "margin-right: 70px; float: right;");
+								} else {
+									regdate.setAttribute("style", "margin-left: 80px; float: left;");
+								}
+								
 								oneMsg.appendChild(friendName);
 								oneMsg.appendChild(content);
+
+								oneMsg.innerHTML += "<br><br><br><br>";
+								
+								if(json.message.result.translatedText.length >= 35) {
+									oneMsg.innerHTML += "<br>";
+								};
+								
+								if(json.message.result.translatedText.length >= 50) {
+									oneMsg.innerHTML += "<br>";
+								};
+								
+								if(json.message.result.translatedText.length >= 70) {
+									oneMsg.innerHTML += "<br>";
+								};
+								
+								if(json.message.result.translatedText.length >= 90) {
+									oneMsg.innerHTML += "<br>";
+								};
+								
 								oneMsg.appendChild(regdate);
 
-								oneMsg.innerHTML += "<hr>";
+								oneMsg.innerHTML += "<br><br>";
 								
 								allMsgList.appendChild(oneMsg);
+								
+								$('#allMsgList').scrollTop($('#allMsgList')[0].scrollHeight);
 							},
 							error: function(request, e){
 								alert("코드: " + request.status + "메시지: " + request.responseText + "오류: " + e);
@@ -167,7 +258,23 @@
 			};
 		};
 		
+		$("#sendMsgInput").on("keypress", function(e){
+			if(e.keyCode == 13) {
+				sendMsg();				
+			};
+		});
+		
 		$("#sendMsgBtn").on("click", function(){
+			sendMsg();
+		});
+		
+		$("#exitChat").on("click", function(){
+			websocket.send(${chatIdx});
+			websocket.close();
+			location.href = "/api/chatlist/" + sessionId;
+		});
+		
+		function sendMsg() {
 			// 웹소켓 서버로 데이터 보내는 부분
 			let sendMsgInput = document.getElementById("sendMsgInput");
 
@@ -194,14 +301,8 @@
 					}
 				});
 				console.log("웹소켓 서버에게 송신성공");
-			};			
-		});
-		
-		$("#exitChat").on("click", function(){
-			websocket.send(${chatIdx});
-			websocket.close();
-			location.href = "/api/chatlist/" + sessionId;
-		});
+			};
+		};
 	};
 </script>
 
@@ -212,7 +313,7 @@
 
 	<button id="exitChat" type="button">
 		<img id="exitIcon" src="/image/icon/exit-chat.png" align="center">
-		<p id="exitMsg">채팅방 나가기</p>
+		<p id="exitMsg">뒤로 가기</p>
 	</button>
 
 	<div id="allMsgList"></div>

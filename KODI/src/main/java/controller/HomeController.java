@@ -11,6 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import dto.HomeAllChatDTO;
 import dto.VehicleDTO;
 import jakarta.servlet.http.HttpSession;
@@ -31,9 +36,11 @@ public class HomeController {
 	/**
 	 * 홈페이지 API
 	 * @return 교통수단 비용 리스트
+	 * @throws JsonProcessingException 
+	 * @throws JsonMappingException 
 	 */
 	@GetMapping("/home")
-	public ModelAndView home(HttpSession session) {
+	public ModelAndView home(HttpSession session) throws JsonMappingException, JsonProcessingException {
 		List<VehicleDTO> vehicleList = service.getVehicleList();
 		List<HomeAllChatDTO> allChatMsg = service.selectAllChatMsg();
 		
@@ -58,8 +65,21 @@ public class HomeController {
 			} else { // 다른 언어를 쓰면 번역해서 전달
 				msg = papagoService.translateMsg(memberIdx, oneChat.getChatMsgDTO().getMemberIdx(), oneChat.getChatMsgDTO().getContent());
 			}
-						
-			allChatMsg.get(n).getChatMsgDTO().setContent(msg);
+			
+			ObjectMapper mapper = new ObjectMapper();
+			JsonNode jsonNode = mapper.readValue(msg, JsonNode.class);
+			
+			String content = jsonNode.findValue("translatedText").toString();
+			
+			if(content.contains("\"")) {
+				content = content.replace("\"", "");
+			}
+			
+			if(content.contains("'")) {
+				content = content.replace("'", "\\'");
+			}
+			
+			allChatMsg.get(n).getChatMsgDTO().setContent(content);
 			n++;
 		}
 				

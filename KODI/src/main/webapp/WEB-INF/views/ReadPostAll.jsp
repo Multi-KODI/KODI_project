@@ -33,7 +33,7 @@
 		 	</a>
       	</div>
       	<div id="flagImage">
-			<img src="/image/db/${post.flag}">
+			<img src="${post.flag}">
   		</div>
       	<div class="likeCount">
    			<img src="/image/icon/love.png">
@@ -50,63 +50,40 @@
 </c:forEach>
 <script>
 
-var category = getAttribute(category);
-if(category == "food"){
+/* var category = getAttribute(category);
+if(category == "맛집"){
 	$("#food").css("background-color", "#EDF2F6");
-}else if(category == "cafe"){
+}else if(category == "카페"){
 	$("#cafe").css("background-color", "#EDF2F6");
-}else if(category == "play"){
+}else if(category == "놀거리"){
 	$("#play").css("background-color", "#EDF2F6");
-}else if(category == "hotel"){
+}else if(category == "숙소"){
 	$("#hotel").css("background-color", "#EDF2F6");
-}
+} */
 
-$("#food").onclick(function(){
-	$.ajax({
-		url:"api/post",
-		data:{
-			category:"food"
-		},
-		type:"post",
-		success: function(){},
-		error: function(){}
-	});
+$("#food").on("click", function(){
+	location.href = "/api/posts/food";
 });
 
-$("#cafe").onclick(function(){
-	$.ajax({
-		url:"api/post",
-		data:{
-			category:"cafe"
-		},
-		type:"post",
-		success: function(){},
-		error: function(){}
-	});
+$("#cafe").on("click", function(){
+	location.href = "/api/posts/cafe";
 });
 
-$("#play").onclick(function(){
-	$.ajax({
-		url:"api/post",
-		data:{
-			category:"play"
-		},
-		type:"post",
-		success: function(){},
-		error: function(){}
-	});
+$("#play").on("click", function(){
+	location.href = "/api/posts/play";
 });
 
-$("#hotel").onclick(function(){
-	$.ajax({
-		url:"api/post",
+$("#hotel").on("click", function(){
+	location.href = "/api/posts/hotel";
+	/* $.ajax({
+		url:"post/category",
 		data:{
-			category:"hotel"
+			category:"숙소"
 		},
 		type:"post",
 		success: function(){},
 		error: function(){}
-	});
+	}); */
 });
 
 </script>

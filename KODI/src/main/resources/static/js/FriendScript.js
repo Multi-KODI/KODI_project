@@ -56,7 +56,7 @@ $(document).ready(function () {
 	//서로친구 삭제
 	$("#friendList1").on('click', '#f-drawBtn', function (e) {
 		e.preventDefault();
-		if (confirm('이 친구를 삭제하겠습니까??')) {
+		if (confirm('이 친구를 삭제하겠습니까?')) {
 			$.ajax({
 				url: '/api/pair/delete/' + $(e.target).attr('data-member-idx'),
 				dataType: 'json',
@@ -64,32 +64,28 @@ $(document).ready(function () {
 				success: function (response) {
 					$('#friendList1').html('');
 					let result = "";
-					for (let i = 0; i < response.memberDTO.length; i++) {
-						for (let j = 0; j < response.flagDTO.length; j++) {
-							if (response.memberDTO[i].flagIdx === response.flagDTO[j].flagIdx) {
-								result +=
-									'<tr>' +
-									'<td>' +
-									'<div class="tdDiv">' +
-									response.memberDTO[i].email +
-									'</div>' +
-									'</td>' +
-									'<td>' +
-									'<div class="tdDiv">' +
-									response.memberDTO[i].memberName +
-									'</div>' +
-									'</td>' +
-									'<td>' +
-									'<div class="tdDiv">' +
-									response.flagDTO[j].country +
-									'</div>' +
-									'</td>' +
-									'<td>' +
-									'<button class="f-Btn" id="f-drawBtn" data-member-idx="' + response.memberDTO[i].memberIdx + '" href="/api/pair/delete/' + response.memberDTO[i].memberIdx + '">친구삭제</a>' +
-									'</td>' +
-									'</tr>';
-							}
-						}
+					for (let i = 0; i < response.length; i++) {
+						result +=
+							'<tr>' +
+							'<td>' +
+							'<div class="tdDiv">' +
+							response[i].memberIdx +
+							'</div>' +
+							'</td>' +
+							'<td>' +
+							'<div class="tdDiv">' +
+							response[i].memberName +
+							'</div>' +
+							'</td>' +
+							'<td>' +
+							'<div class="tdDiv">' +
+							response[i].country +
+							'</div>' +
+							'</td>' +
+							'<td>' +
+							'<button class="f-Btn" id="f-drawBtn" data-member-idx="' + response[i].memberIdx + '" href="/api/pair/delete/' + response[i].memberIdx + '">친구삭제</a>' +
+							'</td>' +
+							'</tr>';
 					}
 					$('#friendList1').html(result);
 				}
@@ -109,33 +105,29 @@ $(document).ready(function () {
 				success: function (response) {
 					$('#friendList2').html('');
 					let result = "";
-					for (let i = 0; i < response.memberDTO.length; i++) {
-						for (let j = 0; j < response.flagDTO.length; j++) {
-							if (response.memberDTO[i].flagIdx === response.flagDTO[j].flagIdx) {
-								result +=
-									'<tr>' +
-									'<td>' +
-									'<div class="tdDiv">' +
-									response.memberDTO[i].email +
-									'</div>' +
-									'</td>' +
-									'<td>' +
-									'   <div class="tdDiv">' +
-									response.memberDTO[i].memberName +
-									'</div>' +
-									'</td>' +
-									'<td>' +
-									'   <div class="tdDiv">' +
-									response.flagDTO[j].country +
-									'</div>' +
-									'</td>' +
-									'<td>' +
-									'<button class="f-Btn" id="f-cancelBtn" data-member-idx="' + response.memberDTO[i].memberIdx + '" href="/api/following/delete/' + response.memberDTO[i].memberIdx + '">요청 취소</a>' +
-									'</td>' +
+					for (let i = 0; i < response.length; i++) {
+						result +=
+							'<tr>' +
+							'<td>' +
+							'<div class="tdDiv">' +
+							response[i].memberIdx +
+							'</div>' +
+							'</td>' +
+							'<td>' +
+							'   <div class="tdDiv">' +
+							response[i].memberName +
+							'</div>' +
+							'</td>' +
+							'<td>' +
+							'   <div class="tdDiv">' +
+							response[i].country +
+							'</div>' +
+							'</td>' +
+							'<td>' +
+							'<button class="f-Btn" id="f-cancelBtn" data-member-idx="' + response[i].memberIdx + '" href="/api/following/delete/' + response[i].memberIdx + '">요청 취소</a>' +
+							'</td>' +
 
-									'</tr>';
-							}
-						}
+							'</tr>';
 					}
 					$('#friendList2').html(result);
 				}
@@ -154,33 +146,29 @@ $(document).ready(function () {
 				success: function (response) {
 					$('#friendList3').html('');
 					let result = "";
-					for (let i = 0; i < response.memberDTO.length; i++) {
-						for (let j = 0; j < response.flagDTO.length; j++) {
-							if (response.memberDTO[i].flagIdx === response.flagDTO[j].flagIdx) {
-								result +=
-									'<tr>' +
-									'<td>' +
-									'<div class="tdDiv">' +
-									response.memberDTO[i].email +
-									'</div>' +
-									'</td>' +
-									'<td>' +
-									'   <div class="tdDiv">' +
-									response.memberDTO[i].memberName +
-									'</div>' +
-									'</td>' +
-									'<td>' +
-									'   <div class="tdDiv">' +
-									response.flagDTO[j].country +
-									'</div>' +
-									'</td>' +
-									'<td>' +
-									'<button class="f-Btn" id="f-acceptBtn" data-member-idx="' + response.memberDTO.memberIdx + '" href="/api/follower/accept/' + response.memberDTO.memberIdx + '">수락</a>' +
-									'<button class="f-Btn" id="f-removeBtn" data-member-idx="' + response.memberDTO[i].memberIdx + '" href="/api/follower/delete/' + response.memberDTO[i].memberIdx + '">삭제</a>' +
-									'</td>' +
-									'</tr>';
-							}
-						}
+					for (let i = 0; i < response.length; i++) {
+						result +=
+							'<tr>' +
+							'<td>' +
+							'<div class="tdDiv">' +
+							response[i].memberIdx +
+							'</div>' +
+							'</td>' +
+							'<td>' +
+							'   <div class="tdDiv">' +
+							response[i].memberName +
+							'</div>' +
+							'</td>' +
+							'<td>' +
+							'   <div class="tdDiv">' +
+							response[i].country +
+							'</div>' +
+							'</td>' +
+							'<td>' +
+							'<button class="f-Btn" id="f-acceptBtn" data-member-idx="' + response[i].memberIdx + '" href="/api/follower/accept/' + response[i].memberIdx + '">수락</a>' +
+							'<button class="f-Btn" id="f-removeBtn" data-member-idx="' + response[i].memberIdx + '" href="/api/follower/delete/' + response[i].memberIdx + '">삭제</a>' +
+							'</td>' +
+							'</tr>';
 					}
 					$('#friendList3').html(result); // 여기를 변경
 				}
@@ -200,33 +188,29 @@ $(document).ready(function () {
 				success: function (response) {
 					$('#friendList3').html('');
 					let result = "";
-					for (let i = 0; i < response.memberDTO.length; i++) {
-						for (let j = 0; j < response.flagDTO.length; j++) {
-							if (response.memberDTO[i].flagIdx === response.flagDTO[j].flagIdx) {
-								result +=
-									'<tr>' +
-									'<td>' +
-									'<div class="tdDiv">' +
-									response.memberDTO[i].email +
-									'</div>' +
-									'</td>' +
-									'<td>' +
-									'   <div class="tdDiv">' +
-									response.memberDTO[i].memberName +
-									'</div>' +
-									'</td>' +
-									'<td>' +
-									'   <div class="tdDiv">' +
-									response.flagDTO[j].country +
-									'</div>' +
-									'</td>' +
-									'<td>' +
-									'<button class="f-Btn" id="f-acceptBtn" data-member-idx="' + response.memberDTO.memberIdx + '" href="/api/follower/accept/' + response.memberDTO.memberIdx + '">수락</a>' +
-									'<button class="f-Btn" id="f-removeBtn" data-member-idx="' + response.memberDTO[i].memberIdx + '" href="/api/follower/delete/' + response.memberDTO[i].memberIdx + '">삭제</a>' +
-									'</td>' +
-									'</tr>';
-							}
-						}
+					for (let i = 0; i < response.length; i++) {
+						result +=
+							'<tr>' +
+							'<td>' +
+							'<div class="tdDiv">' +
+							response[i].memberIdx +
+							'</div>' +
+							'</td>' +
+							'<td>' +
+							'   <div class="tdDiv">' +
+							response[i].memberName +
+							'</div>' +
+							'</td>' +
+							'<td>' +
+							'   <div class="tdDiv">' +
+							response[i].country +
+							'</div>' +
+							'</td>' +
+							'<td>' +
+							'<button class="f-Btn" id="f-acceptBtn" data-member-idx="' + response[i].memberIdx + '" href="/api/follower/accept/' + response[i].memberIdx + '">수락</a>' +
+							'<button class="f-Btn" id="f-removeBtn" data-member-idx="' + response[i].memberIdx + '" href="/api/follower/delete/' + response[i].memberIdx + '">삭제</a>' +
+							'</td>' +
+							'</tr>';
 					}
 					$('#friendList3').html(result); // 여기를 변경
 				}

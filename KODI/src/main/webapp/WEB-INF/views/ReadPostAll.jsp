@@ -53,7 +53,10 @@
 </c:forEach>
 </div>
 <script>
-
+if(${isSession} == false) {
+    alert("로그인하세요");
+    location.href = "/";
+ } 
 var category = "${category}";
 if(category == "맛집"){
 	$("#food").css("background-color", "#EDF2F6");

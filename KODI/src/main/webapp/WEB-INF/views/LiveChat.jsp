@@ -20,7 +20,12 @@
 	let sessionId = <%=session.getAttribute("memberIdx")%>;
 	
 	$(document).ready(function(){
-		verifyMember();
+		if(${isSession} == false) {
+			alert("로그인하세요");
+			location.href = "/";
+		} else {
+			verifyMember();			
+		}
 	});
 	
 	function verifyMember(){
@@ -65,22 +70,23 @@
 			content = document.createElement("p");
 			content.setAttribute("id", "content");
 			
-			json = JSON.parse('${one.chatMsgDTO.content}');
+			//json = JSON.parse('${one.chatMsgDTO.content}');
+			//content.innerHTML = json.message.result.translatedText;
 			
-			content.innerHTML = json.message.result.translatedText;
+			content.innerHTML = '${one.chatMsgDTO.content}';
 			
 			if(sessionId == "${one.chatMsgDTO.memberIdx}"){
 				friendName.setAttribute("style", "float: right;");
 				
-				if(json.message.result.translatedText.length < 35) {
-					content.setAttribute("style", "border: 2px solid #F8E8EE; background-color: #F8E8EE; float: right;");					
+				if('${one.chatMsgDTO.content}'.length < 35) {
+					content.setAttribute("style", "margin-bottom: 5px; border: 2px solid #F8E8EE; background-color: #F8E8EE; float: right;");					
 				} else {
-					content.setAttribute("style", "text-align: left; width: 350px; word-break: break-all; border: 2px solid #F8E8EE; background-color: #F8E8EE; float: right;");
+					content.setAttribute("style", "margin-bottom: 15px; text-align: left; width: 350px; word-break: break-all; border: 2px solid #F8E8EE; background-color: #F8E8EE; float: right;");
 				}
 			} else {
 				friendName.setAttribute("style", "float: left;");
 				
-				if(json.message.result.translatedText.length < 35) {
+				if('${one.chatMsgDTO.content}'.length < 35) {
 					content.setAttribute("style", "float: left;");
 				} else {
 					content.setAttribute("style", "text-align: left; width: 350px; float: left;");
@@ -101,21 +107,33 @@
 			oneMsg.appendChild(content);
 
 			oneMsg.innerHTML += "<br><br><br><br>";
-			
-			if(json.message.result.translatedText.length >= 35) {
+
+			if('${one.chatMsgDTO.content}'.length >= 35 && '${one.chatMsgDTO.content}'.length < 40) {
 				oneMsg.innerHTML += "<br>";
 			};
 			
-			if(json.message.result.translatedText.length >= 50) {
-				oneMsg.innerHTML += "<br>";
+			if('${one.chatMsgDTO.content}'.length >= 40 && '${one.chatMsgDTO.content}'.length < 45) {
+				oneMsg.innerHTML += "<br><br>";
 			};
 			
-			if(json.message.result.translatedText.length >= 70) {
-				oneMsg.innerHTML += "<br>";
+			if('${one.chatMsgDTO.content}'.length >= 45 && '${one.chatMsgDTO.content}'.length < 61) {
+				oneMsg.innerHTML += "<br><br><br>";
 			};
 			
-			if(json.message.result.translatedText.length >= 90) {
-				oneMsg.innerHTML += "<br>";
+			if('${one.chatMsgDTO.content}'.length >= 61 && '${one.chatMsgDTO.content}'.length < 70) {
+				oneMsg.innerHTML += "<br><br><br><br>";
+			};
+			
+			if('${one.chatMsgDTO.content}'.length >= 70 && '${one.chatMsgDTO.content}'.length < 89) {
+				oneMsg.innerHTML += "<br><br><br>";
+			};
+			
+			if('${one.chatMsgDTO.content}'.length >= 89 && '${one.chatMsgDTO.content}'.length < 100) {
+				oneMsg.innerHTML += "<br><br><br><br>";
+			};
+			
+			if('${one.chatMsgDTO.content}'.length >= 100) {
+				oneMsg.innerHTML += "<br><br><br><br><br>";
 			};
 			
 			oneMsg.appendChild(regdate);
@@ -132,8 +150,8 @@
 		let websocket = null;
 		
 		if(websocket == null){
-			websocket = new WebSocket("ws://localhost:7777/chatroom");
-			//websocket = new WebSocket("ws://192.168.0.13:7777/chatroom"); // 추후 ncp 배포 공인 IP로 변경
+			//websocket = new WebSocket("ws://localhost:7777/chatroom");
+			websocket = new WebSocket("ws://192.168.0.13:7777/chatroom"); // 추후 ncp 배포 공인 IP로 변경
 			
 			websocket.onopen = function() {
 				console.log("웹소켓 연결성공");
@@ -177,7 +195,7 @@
 							type: "post",
 							dataType: "text",
 							success: function(translatemsg){
-								let json = JSON.parse(translatemsg);
+								//let json = JSON.parse(translatemsg);
 								
 								oneMsg = document.createElement("div");
 								
@@ -187,20 +205,22 @@
 								
 								content = document.createElement("p");
 								content.setAttribute("id", "content");
-								content.innerHTML = json.message.result.translatedText;
+								
+								//content.innerHTML = json.message.result.translatedText;
+								content.innerHTML = translatemsg;
 								
 								if(sessionId == sendInfo[1]){
 									friendName.setAttribute("style", "float: right;");
 									
-									if(json.message.result.translatedText.length < 35) {
-										content.setAttribute("style", "border: 2px solid #F8E8EE; background-color: #F8E8EE; float: right;");					
+									if(translatemsg.length < 35) {
+										content.setAttribute("style", "margin-bottom: 5px; border: 2px solid #F8E8EE; background-color: #F8E8EE; float: right;");					
 									} else {
-										content.setAttribute("style", "text-align: left; width: 350px; word-break: break-all; border: 2px solid #F8E8EE; background-color: #F8E8EE; float: right;");
+										content.setAttribute("style", "margin-bottom: 15px; text-align: left; width: 350px; word-break: break-all; border: 2px solid #F8E8EE; background-color: #F8E8EE; float: right;");
 									}
 								} else {
 									friendName.setAttribute("style", "float: left;");
 									
-									if(json.message.result.translatedText.length < 35) {
+									if(translatemsg.length < 35) {
 										content.setAttribute("style", "float: left;");
 									} else {
 										content.setAttribute("style", "text-align: left; width: 350px; float: left;");
@@ -222,20 +242,32 @@
 
 								oneMsg.innerHTML += "<br><br><br><br>";
 								
-								if(json.message.result.translatedText.length >= 35) {
+								if(translatemsg.length >= 35 && translatemsg.length < 40) {
 									oneMsg.innerHTML += "<br>";
 								};
 								
-								if(json.message.result.translatedText.length >= 50) {
-									oneMsg.innerHTML += "<br>";
+								if(translatemsg.length >= 40 && translatemsg.length < 45) {
+									oneMsg.innerHTML += "<br><br>";
 								};
 								
-								if(json.message.result.translatedText.length >= 70) {
-									oneMsg.innerHTML += "<br>";
+								if(translatemsg.length >= 45 && translatemsg.length < 61) {
+									oneMsg.innerHTML += "<br><br><br>";
 								};
 								
-								if(json.message.result.translatedText.length >= 90) {
-									oneMsg.innerHTML += "<br>";
+								if(translatemsg.length >= 61 && translatemsg.length < 70) {
+									oneMsg.innerHTML += "<br><br><br><br>";
+								};
+								
+								if(translatemsg.length >= 70 && translatemsg.length < 89) {
+									oneMsg.innerHTML += "<br><br><br>";
+								};
+								
+								if(translatemsg.length >= 89 && translatemsg.length < 100) {
+									oneMsg.innerHTML += "<br><br><br><br>";
+								};
+								
+								if(translatemsg.length >= 100) {
+									oneMsg.innerHTML += "<br><br><br><br><br>";
 								};
 								
 								oneMsg.appendChild(regdate);

@@ -62,8 +62,7 @@ public class SearchListController {
             List<Integer> readMemberAllIdx = memberservice.getReadMemberAllIdx(question);
 
             // 세션에서 나의 member_idx 받아오기
-            //String sessionIdx = (String)session.getAttribute("memberIdx");
-    		String sessionIdx = "1";
+            String sessionIdx = (String)session.getAttribute("memberIdx");
     		Integer memberIdx = Integer.parseInt(sessionIdx);
 
             if (memberIdx != null) {
@@ -90,8 +89,7 @@ public class SearchListController {
     		@RequestParam("friendMemberIdx") int friendMemberIdx,
     		HttpSession session) {
     	// 세션에서 나의 member_idx 받아오기
-        //String sessionIdx = (String)session.getAttribute("memberIdx");
-		String sessionIdx = "1";
+        String sessionIdx = (String)session.getAttribute("memberIdx");
 		Integer memberIdx = Integer.parseInt(sessionIdx);
 		
 		//버튼 상태에 따라 구분
@@ -104,7 +102,7 @@ public class SearchListController {
     	else if(clickState.equals("요청 취소")) { //친구 요청을 한 상태
     		memberservice.deleteFriend(memberIdx, friendMemberIdx);
     	}
-    	else if(clickState.equals("친구 수락")) { //친구 요청을 받은 상태
+    	else if(clickState.equals("수락")) { //친구 요청을 받은 상태
     		memberservice.updateFriendRequest(memberIdx, friendMemberIdx);
     	}
     	else if(clickState.equals("거절")) { //친구 요청을 받은 상태

@@ -41,7 +41,6 @@
 		$("#date").html("${readPostOne.postInfo.regdate}");
 		$("#postContent").html("${readPostOne.postInfo.content}" + "<br><br>");
 
-		// 수정
 		<c:forEach items="${readPostOne.postImages}" var="image">
 			 $("#postImage").append("<img id='postImg' src='/image/db/" + "${image}" + "' width=200px height=200px>&nbsp;");		
 		</c:forEach>

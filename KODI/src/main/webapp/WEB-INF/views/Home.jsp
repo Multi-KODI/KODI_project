@@ -19,7 +19,7 @@ let sessionId = <%=session.getAttribute("memberIdx")%>;
 
 $(document).ready(function() {
 	$("#menubar1").on("click", function() {
-		window.location.href = "/api/post";
+		window.location.href = "/api/posts/food";
 	});
 
 	$("#menubar2").on("click", function() {
@@ -27,7 +27,7 @@ $(document).ready(function() {
 	});
 
 	$("#menubar3").on("click", function() {
-		window.location.href = "#";
+		window.location.href = "/api/planner";
 	});
 
 	$("#menubar4").on("click", function() {

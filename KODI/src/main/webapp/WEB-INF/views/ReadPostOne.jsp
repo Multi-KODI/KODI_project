@@ -352,75 +352,75 @@
 
 <body>
 	<!-- 헤더 -->
-	<%@ include file="/WEB-INF/views/Header.jsp" %>
-	<%@ include file="/WEB-INF/views/SearchHeader.jsp" %>
-<main>
-	<div id="allElement">
-		
+	<%@ include file="/WEB-INF/views/Header.jsp"%>
+	<%@ include file="/WEB-INF/views/SearchHeader.jsp"%>
+	<main>
+		<div id="allElement">
+			<div id="postAllInfo">
+				<!-- 게시물 정보 -->
+				<div class="moreHoriz">
+					<button class="moreHorizBtn">
+						<img class="moreHorizImg" src="/image/icon/more_horiz.svg"
+							width="24" height="24"></img>
+					</button>
+					<div class="option">
+						<button class="optionBtn" id="updatePostBtn" value="update">게시글
+							수정</button>
+						<hr>
+						<button class="optionBtn" id="deletePostBtn" value="delete">게시글
+							삭제</button>
+					</div>
+					<br>
+				</div>
 
-		<div id="postAllInfo">
-		
-		<!-- 게시물 정보 -->
-		<div class="moreHoriz">
-			<button class="moreHorizBtn">
-				<img class="moreHorizImg" src="/image/icon/more_horiz.svg" width="24"
-					height="24"></img>
-			</button>
-			<div class="option">
-				<button class="optionBtn" id="updatePostBtn" value="update">게시글
-					수정</button>
-				<hr>
-				<button class="optionBtn" id="deletePostBtn" value="delete">게시글
-					삭제</button>
+				<h2 id="postTitle">게시글 제목</h2>
+
+				<div id="postInfo">
+					<p id="grade" style="display: inline;">평점 3.5/5</p>
+					<img id="flag" src="/image/love.png" width=15px height=15px
+						align="center">
+					<p id="memberName" style="display: inline;">작성자</p>
+					<p id="date" style="display: inline;">2023.11.08. 15:48</p>
+				</div>
+
+				<hr width="100%" align="center" />
+
+				<div id="postContent">
+					<p>게시글 내용</p>
+				</div>
+
+				<div id="addrDiv">
+					주소
+					<p id="addrInfo"></p>
+				</div>
+				<div id="tagDiv">태그</div>
+
+				<!-- 좋아요, 마킹, 공유 -->
+				<div id="btns">
+					<button id="like" type="button">
+						<span> <img id="likeIcon" src="/image/icon/love.png"
+							align="center">
+							<p id="likeBtnText" style="display: inline;">0</p>
+						</span>
+					</button>
+					<button id="marker" type="button">
+						<img src="/image/icon/marker.png" align="center">
+					</button>
+					<button id="share" type="button">
+						<img src="/image/icon/export.png" align="center">
+					</button>
+				</div>
 			</div>
-			<br>
-		</div>
-
-			<h2 id="postTitle">게시글 제목</h2>
-
-			<div id="postInfo">
-				<p id="grade" style="display: inline;">평점 3.5/5</p>
-				<img id="flag" src="/image/love.png" width=15px height=15px align= "center">
-				<p id="memberName" style="display: inline;">작성자</p>
-				<p id="date" style="display: inline;">2023.11.08. 15:48</p>
-			</div>
-
-			<hr width="100%" align="center" />
-
-			<div id="postContent">
-				<p>게시글 내용</p>
-			</div>
-
-			<div id="addrDiv"> 주소 <p id="addrInfo"></p> </div>
-			<div id="tagDiv"> 태그 </div>
 			
-			<!-- 좋아요, 마킹, 공유 -->
-		<div id="btns">
-			<button id="like" type="button">
-				<span> <img id="likeIcon" src="/image/icon/love.png" align= "center">
-					<p id="likeBtnText" style="display: inline;">0</p>
-				</span>
-			</button>
-			<button id="marker" type="button">
-				<img src="/image/icon/marker.png" align= "center">
-			</button>
-			<button id="share" type="button">
-				<img src="/image/icon/export.png" align= "center">
-			</button>
+			<!-- 댓글 -->
+			<div id="commentInfo">
+				<p>댓글</p>
+				<hr width="100%" align="center">
+				<textarea id="inputComment" rows="5" placeholder="댓글을 입력하세요."></textarea>
+				<br> <input type="button" id="postBtn" value="등록">
+				<div id="showComment"></div>
+			</div>
 		</div>
-		</div>
-
-		
-
-		<!-- 댓글 -->
-		<div id="commentInfo">
-			<p>댓글</p>
-			<hr width="100%" align="center">
-			<textarea id="inputComment" rows="5" placeholder="댓글을 입력하세요."></textarea>
-			<br> <input type="button" id="postBtn" value="등록">
-			<div id="showComment"></div>
-		</div>
-	</div>
-</main>
+	</main>
 </body>
 </html>

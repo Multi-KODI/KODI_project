@@ -50,6 +50,8 @@ public class HomeController {
 		if(session.getAttribute("memberIdx") == null) {
         	mv.addObject("isSession", false);
 		} else {
+        	mv.addObject("isSession", true);
+
 			memberIdx = Integer.parseInt(String.valueOf(session.getAttribute("memberIdx")));			
 		
 			int n = 0;

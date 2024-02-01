@@ -34,6 +34,8 @@ public class DiningCostController {
 
 		if(session.getAttribute("memberIdx") == null) {
         	mv.addObject("isSession", false);
+		} else {
+        	mv.addObject("isSession", true);
 		}
 		
 		mv.addObject("list", list);

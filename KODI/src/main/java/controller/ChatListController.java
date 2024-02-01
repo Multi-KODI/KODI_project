@@ -43,6 +43,7 @@ public class ChatListController {
         	mv.addObject("isSession", false);
         	sessionMemberIdx = 0;
 		} else {
+        	mv.addObject("isSession", true);
 			sessionMemberIdx = Integer.parseInt(String.valueOf(session.getAttribute("memberIdx")));
 		}
 

@@ -50,6 +50,8 @@ public class ReadPostOneController {
 		
 		if(session.getAttribute("memberIdx") == null) {
         	mv.addObject("isSession", false);
+		} else {
+        	mv.addObject("isSession", true);
 		}
 		
 		mv.addObject("readPostOne", readPostOne);

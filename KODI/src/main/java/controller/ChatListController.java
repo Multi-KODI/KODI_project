@@ -17,6 +17,7 @@ import dto.ChatListDTO;
 import dto.ChatListFriendDTO;
 import dto.ChatRq;
 import dto.FriendRq;
+import jakarta.servlet.http.HttpSession;
 import service.ChatListService;
 
 @Controller
@@ -32,10 +33,25 @@ public class ChatListController {
 	 * @return 전체 친구 리스트, 채팅방 리스트
 	 */
 	@GetMapping("/chatlist/{memberIdx}")
-	public ModelAndView chatList(@PathVariable int memberIdx) {
+	public ModelAndView chatList(HttpSession session, @PathVariable int memberIdx) {
 		ChatListDTO chatListInfo = service.getChatListInfo(memberIdx);
 		
+		int sessionMemberIdx;
 		ModelAndView mv = new ModelAndView();
+
+		if(session.getAttribute("memberIdx") == null) {
+        	mv.addObject("isSession", false);
+        	sessionMemberIdx = 0;
+		} else {
+			sessionMemberIdx = Integer.parseInt(String.valueOf(session.getAttribute("memberIdx")));
+		}
+
+		if(sessionMemberIdx == memberIdx) {
+			mv.addObject("verifyMemberIdx", true);
+		} else {
+			mv.addObject("verifyMemberIdx", false);
+		}
+		
 		mv.addObject("chatListInfo", chatListInfo);
 		mv.setViewName("ChatList");
 		

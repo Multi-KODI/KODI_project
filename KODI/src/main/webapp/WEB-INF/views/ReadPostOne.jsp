@@ -19,13 +19,18 @@
 	let sessionId = <%=session.getAttribute("memberIdx")%>;
  
 	$(document).ready(function(){
-		showPostData();
-		likeBtnClick();
-		markingBtnClick();
-		shareBtnClick();
-		showComments();
-		addComment();
-		updateDelMenu();
+		if(${isSession} == false) {
+			alert("로그인하세요");
+			location.href = "/";
+		} else {
+			showPostData();
+			likeBtnClick();
+			markingBtnClick();
+			shareBtnClick();
+			showComments();
+			addComment();
+			updateDelMenu();	
+		}
 	});
 	
 	function showPostData() {		

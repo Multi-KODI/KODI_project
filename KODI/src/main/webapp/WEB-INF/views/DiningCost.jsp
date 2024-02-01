@@ -13,22 +13,27 @@
 <script src="/js/jquery-3.7.1.min.js"></script>
 <link rel="stylesheet" href="/css/DiningCost.css">
 <script type="text/javascript">
-$(document).ready(function(){	
-	$("#searchBtn").on('click', function(){
-		$.ajax({
-	        url: "/api/diningcost",
-	        data: {
-	            "item": $("#foodSelect").val()
-	        },
-	        type: "post",
-	        success: function(response) {
-	        	$("#resultTbody").html("<tr><td>"+ response.item + "</td><td>"+response.seoulCost+"</td><td>"+response.busanCost+"</td><td>"+response.daeguCost+"</td><td>"+ response.incheonCost+"</td><td>"+response.gwangjuCost+"</td><td>"+response.daejeonCost+"</td><td>"+response.ulsanCost+"</td><td>"+response.gyeonggiCost+"</td><td>"+response.gangwonCost+"</td><td>"+response.chungbukCost+"</td><td>"+response.chungnamCost+"</td><td>"+response.jeonbukCost+"</td><td>"+response.jeonnamCost+"</td><td>"+response.gyeongbukCost+"</td><td>"+response.gyeongnamCost+"</td><td>"+response.jejuCost+"</td></tr>");
-	        },
-	        error: function(request, e){
-				alert("코드: " + request.status + "메시지: " + request.responseText + "오류: " + e);
-			}
-	    }); //ajax
-	});
+$(document).ready(function(){
+	if(${isSession} == false) {
+		alert("로그인하세요");
+		location.href = "/";
+	} else {
+		$("#searchBtn").on('click', function(){
+			$.ajax({
+		        url: "/api/diningcost",
+		        data: {
+		            "item": $("#foodSelect").val()
+		        },
+		        type: "post",
+		        success: function(response) {
+		        	$("#resultTbody").html("<tr><td>"+ response.item + "</td><td>"+response.seoulCost+"</td><td>"+response.busanCost+"</td><td>"+response.daeguCost+"</td><td>"+ response.incheonCost+"</td><td>"+response.gwangjuCost+"</td><td>"+response.daejeonCost+"</td><td>"+response.ulsanCost+"</td><td>"+response.gyeonggiCost+"</td><td>"+response.gangwonCost+"</td><td>"+response.chungbukCost+"</td><td>"+response.chungnamCost+"</td><td>"+response.jeonbukCost+"</td><td>"+response.jeonnamCost+"</td><td>"+response.gyeongbukCost+"</td><td>"+response.gyeongnamCost+"</td><td>"+response.jejuCost+"</td></tr>");
+		        },
+		        error: function(request, e){
+					alert("코드: " + request.status + "메시지: " + request.responseText + "오류: " + e);
+				}
+		    }); //ajax
+		});
+	}
 })
 </script>
 </head>

@@ -49,39 +49,38 @@ public class LiveChatController {
 		int memberIdx;
 
 		if(session.getAttribute("memberIdx") == null) {
-			mv.setViewName("redirect:/api/login");
-			return mv;
+        	mv.addObject("isSession", false);
 		} else {
 			memberIdx = Integer.parseInt(String.valueOf(session.getAttribute("memberIdx")));			
-		}
-		
-		int n = 0;
-		
-		for (AllChatDTO oneChat : allChatMsg) {	
-			boolean compareLang = papagoService.compareLang(memberIdx, oneChat.getChatMsgDTO().getMemberIdx());
-			String msg;
 			
-			if(compareLang == false) { // 같은 언어를 쓰는 사람들이면 메시지 그대로 전달
-				msg = "{\"message\":{\"result\":{\"srcLangType\":\"ko\",\"tarLangType\":\"ko\",\"translatedText\":\""+ oneChat.getChatMsgDTO().getContent() +"\"}}}";
-			} else { // 다른 언어를 쓰면 번역해서 전달
-				msg = papagoService.translateMsg(memberIdx, oneChat.getChatMsgDTO().getMemberIdx(), oneChat.getChatMsgDTO().getContent());
+			int n = 0;
+			
+			for (AllChatDTO oneChat : allChatMsg) {	
+				boolean compareLang = papagoService.compareLang(memberIdx, oneChat.getChatMsgDTO().getMemberIdx());
+				String msg;
+				
+				if(compareLang == false) { // 같은 언어를 쓰는 사람들이면 메시지 그대로 전달
+					msg = "{\"message\":{\"result\":{\"srcLangType\":\"ko\",\"tarLangType\":\"ko\",\"translatedText\":\""+ oneChat.getChatMsgDTO().getContent() +"\"}}}";
+				} else { // 다른 언어를 쓰면 번역해서 전달
+					msg = papagoService.translateMsg(memberIdx, oneChat.getChatMsgDTO().getMemberIdx(), oneChat.getChatMsgDTO().getContent());
+				}
+				
+				ObjectMapper mapper = new ObjectMapper();
+				JsonNode jsonNode = mapper.readValue(msg, JsonNode.class);
+				
+				String content = jsonNode.findValue("translatedText").toString();
+				
+				if(content.contains("\"")) {
+					content = content.replace("\"", "");
+				}
+				
+				if(content.contains("'")) {
+					content = content.replace("'", "\\'");
+				}
+							
+				allChatMsg.get(n).getChatMsgDTO().setContent(content);
+				n++;
 			}
-			
-			ObjectMapper mapper = new ObjectMapper();
-			JsonNode jsonNode = mapper.readValue(msg, JsonNode.class);
-			
-			String content = jsonNode.findValue("translatedText").toString();
-			
-			if(content.contains("\"")) {
-				content = content.replace("\"", "");
-			}
-			
-			if(content.contains("'")) {
-				content = content.replace("'", "\\'");
-			}
-						
-			allChatMsg.get(n).getChatMsgDTO().setContent(content);
-			n++;
 		}
 				
 		mv.addObject("allChatMsg", allChatMsg);

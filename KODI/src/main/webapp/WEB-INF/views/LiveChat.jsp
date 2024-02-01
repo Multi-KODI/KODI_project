@@ -20,7 +20,12 @@
 	let sessionId = <%=session.getAttribute("memberIdx")%>;
 	
 	$(document).ready(function(){
-		verifyMember();
+		if(${isSession} == false) {
+			alert("로그인하세요");
+			location.href = "/";
+		} else {
+			verifyMember();			
+		}
 	});
 	
 	function verifyMember(){

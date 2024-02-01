@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import dto.DiningCostDTO;
+import jakarta.servlet.http.HttpSession;
 import service.DiningCostService;
 
 @Controller
@@ -26,10 +27,17 @@ public class DiningCostController {
 	 * @return 품목별 외식비 리스트
 	 */
 	@GetMapping("/diningcost")
-	public ModelAndView selectAllCost(){
+	public ModelAndView selectAllCost(HttpSession session){
 		List<DiningCostDTO> list = service.selectAllCost();
 		
 		ModelAndView mv = new ModelAndView();
+
+		if(session.getAttribute("memberIdx") == null) {
+        	mv.addObject("isSession", false);
+		} else {
+        	mv.addObject("isSession", true);
+		}
+		
 		mv.addObject("list", list);
 		mv.setViewName("DiningCost");
 		

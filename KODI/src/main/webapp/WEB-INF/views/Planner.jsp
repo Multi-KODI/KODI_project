@@ -13,6 +13,13 @@
 	href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css"
 	rel="stylesheet">
     <script src="/js/Planner.js" defer></script>
+    <script>
+    if (${isSession}==false){
+        alert("로그인하세요");
+        location.href = "/";
+  }
+    
+    </script>
 </head>
 <body>
 <div class="wrapper">

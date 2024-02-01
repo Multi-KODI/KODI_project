@@ -32,7 +32,7 @@ $(document).ready(function(){
 	            success: function(response) {
 	               		
 	                    if (response == "로그인에 성공하였습니다") {// 로그인이 성공
-	                    	location.href = "home";
+	                    	location.href = "/api/home";
 	                    } else if(response == "비밀번호를 확인해 주세요") {// 로그인이 실패(비밀번호 잘못입력)
 	                    	alert(response);
 	                    	$("#inputPassword").focus();
@@ -40,7 +40,7 @@ $(document).ready(function(){
 	                    	alert(response);
 	                    	$("#inputEmail").focus();
 	                    }else if(response == "관리자로 로그인 하였습니다"){
-	                    	location.href = "admin/allposts";
+	                    	location.href = "/api/admin/allposts";
 	                    }else{
 	                    	alert("알 수 없는 오류");
 	                    }
@@ -54,7 +54,7 @@ $(document).ready(function(){
 	
 	
 	$("#joinBtn").on('click', function(){
-		location.href = "join";	
+		location.href = "/api/join";	
 	});	//btn
 	
 	
@@ -70,7 +70,7 @@ $(document).ready(function(){
 					<option value="ko">한국어</option>
 					<option value="en">English</option>
 				</select>
-				<a href="/api/nonhome" id = "logo"><img id="logoImage" src="/image/icon/logo.png" ></a>
+				<a href="nonhome" id = "logo"><img id="logoImage" src="/image/icon/logo.png" ></a>
 			
 	</div>
 </header>

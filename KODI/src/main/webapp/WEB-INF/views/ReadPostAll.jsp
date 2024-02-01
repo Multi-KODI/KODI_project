@@ -8,17 +8,19 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="/css/Planner.css">
-</head>
-<body>
+<link rel="stylesheet" href="/css/ReadPostAll.css">
 
+</head>
+
+<body>
+<main>
 <div class="categoryBox">
 	<button class="categoryBtn" id="food">맛집</button>
 	<button class="categoryBtn" id="cafe">카페</button>
 	<button class="categoryBtn" id="play">놀거리</button>
 	<button class="categoryBtn" id="hotel">숙소</button>
 </div>
-
+<div class="container">
 <c:forEach var="post" items="${readPostAll}">
 <div class="listBox">
  	<div class="contentBox">
@@ -27,18 +29,19 @@
       			<img src="/image/db/${post.postImage}">
 			</a>
      	</div>
+     	<div class="firstLine">
      	<div id="title">
 	 		<a href="/api/post/${post.postInfo.postIdx}" class="post-link" data-title="${post.postInfo.title}" data-content="${post.postInfo.content}">
 		    	${post.postInfo.title}
 		 	</a>
       	</div>
-      	<div id="flagImage">
-			<img src="${post.flag}">
-  		</div>
-      	<div class="likeCount">
-   			<img src="/image/icon/love.png">
-            ${post.likeCnt}
-        </div>
+      	<div id="rightSide">
+				<img id="flagImage" src="${post.flag}">
+	   			<img id="likeCount" src="/image/icon/love.png">
+	            <label id="likeCountNum">${post.likeCnt}</label>
+	     
+      	</div>
+     	</div>
        	<div class="address">
 			${post.postInfo.address}
         </div>
@@ -48,9 +51,10 @@
 	</div>
 </div>
 </c:forEach>
+</div>
 <script>
 
-/* var category = getAttribute(category);
+var category = "${category}";
 if(category == "맛집"){
 	$("#food").css("background-color", "#EDF2F6");
 }else if(category == "카페"){
@@ -59,7 +63,7 @@ if(category == "맛집"){
 	$("#play").css("background-color", "#EDF2F6");
 }else if(category == "숙소"){
 	$("#hotel").css("background-color", "#EDF2F6");
-} */
+}
 
 $("#food").on("click", function(){
 	location.href = "/api/posts/food";
@@ -87,5 +91,6 @@ $("#hotel").on("click", function(){
 });
 
 </script>
+</main>
 </body>
 </html>

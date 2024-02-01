@@ -5,8 +5,8 @@
 	justify-content: center;
 	text-align: center;
 	position: static; 
-	width: 100%;
-	height: 100%;
+	width: 80vw;
+	height: 80vh;
 	max-width: 900px;
 	max-height: 600px;
 	align-items: center;
@@ -46,7 +46,7 @@
 }
 
 .mainBox {
-	height: 90%;
+	height: 100%;
 	width: 90%; 
 	max-height: 90%;
 	max-width: 90%;
@@ -119,7 +119,7 @@ thead {
 
 #list {
 	width: 100%;
-	height: 95%;
+	height: 100%;
 	overflow-y: auto;
     display: flex;
     flex-direction: column;
@@ -155,17 +155,18 @@ tr {
 	width: 100%;
 }
 
-#board th:nth-child(1) {
-	width: 30%;
+.friendList table th:nth-child(1) {
+width: 30%;
 }
 
-#board th:nth-child(2) {
-	width: 20%;
+.friendList table th:nth-child(2) {
+width: 45%;
 }
 
-#board th:nth-child(3) {
-	width: 25%;
+.friendList table th:nth-child(3) {
+width: 25%;
 }
+
 
 .f-Btn{
 	font-family: 'NanumSquareNeo';
@@ -182,6 +183,11 @@ tr {
 .f-Btn:hover{
 	background-color: #D9D9D9;
 	color:#ffffff;
+}
+
+#f-acceptBtn, #f-removeBtn{
+	width: 50px;
+	
 }
 
 #f-drawBtn, #f-cancelBtn, #f-acceptBtn, #f-removeBtn {

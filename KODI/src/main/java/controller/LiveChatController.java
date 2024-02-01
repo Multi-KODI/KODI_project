@@ -12,6 +12,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import dto.AllChatDTO;
 import dto.ChatMsgRq;
 import jakarta.servlet.http.HttpSession;
@@ -33,9 +38,11 @@ public class LiveChatController {
 	 * 과거 채팅방 메시지 조회 API
 	 * @param chatIdx
 	 * @return 과거 채팅방 메시지 리스트
+	 * @throws JsonProcessingException 
+	 * @throws JsonMappingException 
 	 */
 	@GetMapping("/chatroom/{chatIdx}")
-	public ModelAndView liveChat(HttpSession session, @PathVariable int chatIdx) {
+	public ModelAndView liveChat(HttpSession session, @PathVariable int chatIdx) throws JsonMappingException, JsonProcessingException {
 		List<AllChatDTO> allChatMsg = liveChatService.selectAllChatMsg(chatIdx);
 
 		ModelAndView mv = new ModelAndView();
@@ -59,8 +66,21 @@ public class LiveChatController {
 			} else { // 다른 언어를 쓰면 번역해서 전달
 				msg = papagoService.translateMsg(memberIdx, oneChat.getChatMsgDTO().getMemberIdx(), oneChat.getChatMsgDTO().getContent());
 			}
+			
+			ObjectMapper mapper = new ObjectMapper();
+			JsonNode jsonNode = mapper.readValue(msg, JsonNode.class);
+			
+			String content = jsonNode.findValue("translatedText").toString();
+			
+			if(content.contains("\"")) {
+				content = content.replace("\"", "");
+			}
+			
+			if(content.contains("'")) {
+				content = content.replace("'", "\\'");
+			}
 						
-			allChatMsg.get(n).getChatMsgDTO().setContent(msg);
+			allChatMsg.get(n).getChatMsgDTO().setContent(content);
 			n++;
 		}
 				
@@ -112,20 +132,36 @@ public class LiveChatController {
 	 * @param msg
 	 * @param sendMemberIdx
 	 * @return 국적별로 자동번역한 메시지 내용
+	 * @throws JsonProcessingException 
+	 * @throws JsonMappingException 
 	 */
 	@PostMapping("/chatroom/translatemsg")
 	@ResponseBody
-	public String translateMsg(HttpSession session, String msg, int sendMemberIdx) {
+	public String translateMsg(HttpSession session, String msg, int sendMemberIdx) throws JsonMappingException, JsonProcessingException {
 		int memberIdx = Integer.parseInt(String.valueOf(session.getAttribute("memberIdx")));
 		
 		boolean compareLang = papagoService.compareLang(memberIdx, sendMemberIdx);
-		String content;
+		String message;
 		
 		if(compareLang == false) { // 같은 언어를 쓰는 사람들이면 메시지 그대로 전달
-			content = "{\"message\":{\"result\":{\"srcLangType\":\"ko\",\"tarLangType\":\"ko\",\"translatedText\":\""+ msg +"\"}}}";
+			message = "{\"message\":{\"result\":{\"srcLangType\":\"ko\",\"tarLangType\":\"ko\",\"translatedText\":\""+ msg +"\"}}}";
 		} else { // 다른 언어를 쓰면 번역해서 전달
-			content = papagoService.translateMsg(memberIdx, sendMemberIdx, msg);
+			message = papagoService.translateMsg(memberIdx, sendMemberIdx, msg);
 		}
+		
+		ObjectMapper mapper = new ObjectMapper();
+		JsonNode jsonNode = mapper.readValue(message, JsonNode.class);
+		
+		String content = jsonNode.findValue("translatedText").toString();
+		
+		if(content.contains("\"")) {
+			content = content.replace("\"", "");
+		}
+		
+		if(content.contains("'")) {
+			content = content.replace("'", "\\'");
+		}
+		
 		return content;
 	}
 }

@@ -13,8 +13,6 @@
 </head>
 
 <body>
-
-
 	<header>
 		<div class="header-container">
 			<div class="menu">
@@ -25,12 +23,12 @@
 
 				<button class="btn" id="registerbtn">회원가입</button>
 				<button class="btn" id="loginbtn">로그인</button>
-				<div class="language-selection">
+				<!-- <div class="language-selection">
 					<select>
 						<option value="ko">한국어</option>
 						<option value="en">English</option>
 					</select>
-				</div>
+				</div> -->
 			</div>
 		</div>
 	</header>
@@ -56,7 +54,7 @@ $(document).ready(function () {
 	}
 	
 	$("#menubtn").on("click", function () { //메뉴열기
-		alert('비회원은 이용하실 수 없습니다. 로그인해주세요.');
+		alert('로그인 후 이용하실 수 있습니다.');
 		//updateMenuContentPosition();
 	   // $(".menu-content").slideToggle(); 
 	});
@@ -79,7 +77,7 @@ $(document).ready(function () {
     
     
     $("#chat").on("click", function () {
-    	alert('비회원은 이용하실 수 없습니다. 로그인해주세요.');
+    	alert('로그인 후 이용하실 수 있습니다.');
       });
     
     let topBtn = document.getElementById("topBtn");

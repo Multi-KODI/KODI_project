@@ -2,6 +2,21 @@
 /* Import Google font - Poppins */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
 
+body {
+	font-family: 'NanumSquareNeo';
+	margin: 0;
+	padding: 0;
+}
+
+main {
+   max-width: 1200px;
+   margin: 20px auto;
+   justify-content: center;
+   margin-bottom: 20px;
+   padding-bottom: 20px;
+}
+
+
 /* 플래너 */
 .wrapper{
 margin-left: 200px;

@@ -11,8 +11,8 @@
 
 .headerbox {
 	display: flex;
-	max-height: 100%;
-	max-width: 100%;
+	width: 980px;
+	max-width: 1000px;
 }
 
 .logo-box {
@@ -28,8 +28,8 @@
 	margin-left: 30px;
 	display: flex;
 	align-items: center;
-	width: 800px;
-	max-width: 100%;
+	width: 100%;
+	max-width: 800px;
 }
 
 #search-box {

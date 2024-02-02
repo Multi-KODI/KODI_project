@@ -40,9 +40,6 @@
                         <table>
                             <thead>
                                 <tr>
-                                 	<th>
-                                       <div class="tdDiv">유저 넘버</div>
-                                    </th>
                                     <th>
                                         <div class="tdDiv">닉네임</div>
                                     </th>
@@ -60,9 +57,6 @@
                             <tbody id="friendList1">
                                 <c:forEach var="friend" items="${members}">
                                     <tr>
-                                        <td>
-                                            <div class="tdDiv">${friend.memberIdx}</div>
-                                        </td>
                                         <td>
                                             <div class="tdDiv">${friend.memberName}</div>
                                         </td>

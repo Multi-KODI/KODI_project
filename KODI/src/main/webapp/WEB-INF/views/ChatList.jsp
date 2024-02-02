@@ -311,6 +311,7 @@
 	<%@ include file="/WEB-INF/views/Header.jsp"%>
 	<%@ include file="/WEB-INF/views/SearchHeader.jsp"%>
 
+<main>
 	<div id="allElement">
 		<div id="searchFriendDiv">
 			<img id="friendIcon" src="/image/icon/friends.png" align="center">
@@ -333,6 +334,6 @@
 			<div id="chatList"></div>
 		</div>
 	</div>
-
+</main>
 </body>
 </html>

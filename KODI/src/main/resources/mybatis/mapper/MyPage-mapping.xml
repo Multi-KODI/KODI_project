@@ -7,15 +7,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <!-- select  -->
     <select id="readMyPosts" resultType="postdto" parameterType="int">
-        SELECT post_idx as postIdx, title, content, regdate, address, category, grade, member_idx as memberIdx FROM post WHERE member_idx=#{memberIdx}
+        SELECT post_idx as postIdx, title, content, regdate, address, category, grade, member_idx as memberIdx 
+        FROM post WHERE member_idx=#{memberIdx}
+        ORDER BY regdate DESC;
     </select>
     <!-- 전체국가 -->
     <select id="allFlags" resultType="flagdto">
-        SELECT flag_idx as flagIdx, country, src FROM flag;
+        SELECT flag_idx as flagIdx, country, src 
+        FROM flag;
     </select>
     <!-- 전체사진 -->
     <select id="allImages" resultType="postimagedto">
-        SELECT image_idx as imageIdx, src, post_idx as postIdx FROM post_image;
+        SELECT image_idx as imageIdx, src, post_idx as postIdx 
+        FROM post_image
+        ORDER BY image_idx DESC;
     </select>
 
     <!-- 친구 정보 조회 -->

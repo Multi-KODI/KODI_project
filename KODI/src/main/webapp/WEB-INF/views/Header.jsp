@@ -22,9 +22,9 @@
 
 		<div class="end-btn">
 			
-			<a href="#">
+			<!-- <a href="#">
     			<img class="icon" id="notifyIcon" src="/image/icon/notify.png"> 
-			</a>
+			</a> -->
 			
 			<a href="/api/chatlist/<%= session.getAttribute("memberIdx") %>">
     			<img class="icon" id="chatIcon" src="/image/icon/chat.png">
@@ -32,18 +32,18 @@
 
 			<button class="btn" id="mypagenbtn">마이페이지</button>
 			<button class="btn" id="logoutbtn">로그아웃</button>
-			<div class="language-selection">
+			<!-- <div class="language-selection">
 				<select>
 					<option value="ko">한국어</option>
 					<option value="en">English</option>
 				</select>
-			</div>
+			</div> -->
 		</div>
 	</div>
 </header>
 
 	<div class="menu-content">
-		<a href="/api/post">모든 게시글</a> 
+		<a href="/api/posts/food">모든 게시글</a> 
 		<a href="/api/map">지도 서비스</a> 
 		<a href="/api/planner">여행 플래너</a> 
 		<a href="/api/diningcost">지역별 외식비</a>
@@ -78,13 +78,14 @@ $(document).ready(function () {
 	});
 
     
-    $("#logoutbtn").on("click", function () {
-    	if (confirm("로그아웃 하시겠습니까?")){
-    		window.location.href = "/";
-    	}
-    	else{}
-      });
-    
+	$("#logoutbtn").on("click", function() {
+	    if (confirm("로그아웃 하시겠습니까?")) {
+	        $.post("/api/logout", function(response) {
+	            window.location.href = "/";
+	        });
+	    }
+	});
+
 
     let topBtn = document.getElementById("topBtn");
 

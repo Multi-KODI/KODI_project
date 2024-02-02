@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.IOException;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import dto.MemberDTO;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import service.AdminService;
 import service.EmailService;
@@ -174,16 +176,12 @@ public class MemberController {
 	 * @return
 	 */
 	@PostMapping("/logout")
-	@ResponseBody
-	public String logoutMember(HttpSession session) {
-
-		// 로그인이 아닐 시
-		if (session.getAttribute("memberIdx") == null) {
-			return "로그인된 정보가 없습니다";
-			// 로그인한 상태일 때
-		} else {
-			session.removeAttribute("memberIdx");
-			 return "redirect:/";
-		}
+	public void logoutMember(HttpSession session, HttpServletResponse response) throws IOException {
+	    // 로그인 상태일 때
+	    if (session.getAttribute("memberIdx") != null) {
+	        session.removeAttribute("memberIdx");
+	    }
+	    response.sendRedirect("/");
 	}
+
 }

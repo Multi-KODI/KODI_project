@@ -49,21 +49,27 @@ public class WritePostService {
 		
 		//나의 게시글 중에서 가장 최근에 저장된 post_idx를 불러오기
 		int postIdx = dao.selectPostIdx(myMemberIdx);
-
-		//게시글 태그 저장
-		for(int i=0; i<postTags.size(); i++) {
-			map.clear();
-			map.put("postIdx", postIdx);
-			map.put("postTags", postTags.get(i));
-			dao.insertPostTags(map);
+		
+		//태그가 있는 경우
+		if(postTags != null) {
+			//게시글 태그 저장
+			for(int i=0; i<postTags.size(); i++) {
+				map.clear();
+				map.put("postIdx", postIdx);
+				map.put("postTags", postTags.get(i));
+				dao.insertPostTags(map);
+			}
 		}
 		
-		//게시글 이미지 저장
-		for(int i=0; i<postImages.size(); i++) {
-			map.clear();
-			map.put("postIdx", postIdx);
-			map.put("postImages", postImages.get(i));
-			dao.insertPostImages(map);
+		//파일이 있는 경우(파일 선택에 파일이 들어가 있는 경우)
+		if(postImages.size() != 0) {
+			//게시글 이미지 저장
+			for(int i=0; i<postImages.size(); i++) {
+				map.clear();
+				map.put("postIdx", postIdx);
+				map.put("postImages", postImages.get(i));
+				dao.insertPostImages(map);
+			}
 		}
 		
 		return "작성을 완료하였습니다.";

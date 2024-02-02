@@ -24,30 +24,36 @@
 <body>
 	<div class="post">
 			<form action="/api/post/issave" method="post" enctype="multipart/form-data">
-				<select name="categoryPost" id="categoryPost" required>
-				    <option value="" selected disabled hidden>카테고리</option>
-				    <option value="food">맛집</option>
-				    <option value="cafe">카페</option>
-				    <option value="hotel">숙소</option>
-				    <option value="play">놀거리</option>
+				<select name="category" id="categoryPost" required>
+				    <option value="" selected disabled>카테고리</option>
+				     <!-- 수정1 시작(value값 수정) PGH-->
+				    <option value="맛집">맛집</option>
+				    <option value="카페">카페</option>
+				    <option value="숙소">숙소</option>
+				    <option value="놀거리">놀거리</option>
+				    <!-- 수정1 종료 PGH-->
 				</select>
 				&nbsp;&nbsp;
-				<select name="point" id="point" required>
-				    <option value="" selected disabled hidden>평점</option>
-				    <option value="one">1</option>
-				    <option value="onePointFive">1.5</option>
-				    <option value="two">2</option>
-				    <option value="twoPointFive">2.5</option>
-				    <option value="three">3</option>
-				    <option value="threePointFive">3.5</option>
-				    <option value="four">4</option>
-				    <option value="fourPointFive">4.5</option>
-				    <option value="five">5</option>
+				<select name="grade" id="point" required>
+				    <option value="" selected disabled>평점</option>
+				     <!-- 수정2 시작(value값 수정) PGH-->
+				    <option value="1.0">1</option>
+				    <option value="1.5">1.5</option>
+				    <option value="2.0">2</option>
+				    <option value="2.5">2.5</option>
+				    <option value="3.0">3</option>
+				    <option value="3.5">3.5</option>
+				    <option value="4.0">4</option>
+				    <option value="4.5">4.5</option>
+				    <option value="5.0">5</option>
+				    <!-- 수정2 종료 PGH-->
 				</select>
 				<br><br>
 				<div>
-					<input type="text" id="writePostTitle" name="writePostTitle" placeholder="제목" required><br><br>
-					<textarea id="writePostContent" name="writePostContent" rows="4" placeholder="내용" required></textarea>
+				<!-- input 태그들에 대해서 name 속성 추가 시작-->
+					<input type="text" id="writePostTitle" name="title" placeholder="제목" required><br><br>
+					<hr><br>
+					<textarea id="writePostContent" name="content" rows="4" placeholder="내용" required></textarea>
 				
 					<br><br>
 				    <input type="text" id="tagInput" placeholder="#해시태그#입력" onkeypress="handleKeyPress(event)">
@@ -56,7 +62,7 @@
 				    <div id="tagList"></div>
 					<br>
 					
-					<input type="text" id="sample6_address" placeholder="주소"><br>
+					<input type="text" id="sample6_address" name="address" placeholder="주소"><br>
 					<input type="button" id="addressBtn" onclick="sample6_execDaumPostcode()" value="주소검색"><br>
 					
 					
@@ -67,6 +73,7 @@
 					<span class="photoBoxs" id= "photoBoxs">	
 						<input type="file" id="photoBox" name="files" accept="image/*" >
 					</span>
+				<!-- input 태그들에 대해서 name 속성 추가 종류 -->
 					
 					<br><br>
 					<div id="garo_btns">
@@ -101,41 +108,39 @@
 	}
 	
 	function addTag() {
-	    var inputElement = document.getElementById('tagInput');
-	    var tagListElement = document.getElementById('tagList');
+		var inputElement = document.getElementById('tagInput');
+		var tagListElement = document.getElementById('tagList');
 
-	    var tagValues = inputElement.value.trim().split(/#| /).filter(Boolean);
+       	var tagValues = inputElement.value.trim().split(/#| /).filter(Boolean);
 
-	    for (var i = 0; i < tagValues.length; i++) {
-	        var tagValue = tagValues[i];
-
-	        // 새로운 태그를 생성
-	        var tagElement = document.createElement('div');
-	        tagElement.className = 'tag';
-	        tagElement.textContent = tagValue;
-
-	        // 태그를 클릭하면 지워지도록 이벤트 핸들러 추가
-	        tagElement.onclick = function (element) {
-	            return function () {
-	                tagListElement.removeChild(element);
-	            };
-	        }(tagElement);
-
-	        // 태그를 목록에 추가
-	        tagListElement.appendChild(tagElement);
-	    }
-
-	    // 입력창 초기화
-	    inputElement.value = '';
-	}
-	
-	function addressSearch(){
-	    var inputElement = document.getElementById('tagInput');
-	}
-	
-	function clickFileBtn() {
+		for (var i = 0; i < tagValues.length; i++) {
+		    var tagValue = tagValues[i];
 		
-	}
+		    // 새로운 태그를 생성
+		    var inputHidden = document.createElement('input');
+		    inputHidden.name = "postTags";
+		    inputHidden.value = tagValue;
+		
+		    var tagElement = document.createElement('div');
+		    tagElement.className = 'tag';
+		    tagElement.textContent = tagValue;
+		
+		    // 태그를 클릭하면 지워지도록 이벤트 핸들러 추가
+		    tagElement.onclick = function (tagDiv, tagInput) {
+		        return function () {
+		            tagListElement.removeChild(tagDiv);
+		            tagInput.parentNode.removeChild(tagInput); // 숨겨진 input 요소도 함께 제거
+		        };
+		    }(tagElement, inputHidden);
+		
+		    // 태그를 목록에 추가
+		    tagListElement.appendChild(tagElement);
+		    tagListElement.appendChild(inputHidden); // 숨겨진 input 요소도 함께 추가
+		}
+		
+		// 입력창 초기화
+		inputElement.value = '';
+   }
 	
 /* 주소검색 api */
 function sample6_execDaumPostcode() {

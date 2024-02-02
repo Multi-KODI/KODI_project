@@ -1,147 +1,160 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-        <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
-            <!DOCTYPE html>
-            <html>
+<!DOCTYPE html>
+<html>
 
-            <head>
-                <meta charset="UTF-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <link rel="stylesheet" href="/css/MyPage.css">
-                <link rel="stylesheet" href="/css/FriendList.css">
-                <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css" rel="stylesheet">
-                <script src="/js/jquery-3.7.1.min.js"></script>
-                <title>mypage</title>
-            </head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/MyPage.css">
+    <link rel="stylesheet" href="/css/FriendList.css">
+    <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css" rel="stylesheet">
+    <script src="/js/jquery-3.7.1.min.js"></script>
+    <title>mypage</title>
+</head>
 
-            <body>
-                <%@ include file="/WEB-INF/views/Header.jsp" %>
-                    <%@ include file="/WEB-INF/views/SearchHeader.jsp" %>
+<body>
+<%@ include file="/WEB-INF/views/Header.jsp" %>
+<%@ include file="/WEB-INF/views/SearchHeader.jsp" %>
 
-                        <main>
-                            <div class="modal_background1">
-                                <div class="modal_box">
+<main>
+    <div class="modal_background1">
+        <div class="modal_box">
 
-                                </div>
-                            </div>
+        </div>
+    </div>
 
-                            <div class="modal_background2">
-                                <div class="modal_box2">
+    <div class="modal_background2">
+        <div class="modal_box2">
 
-                                </div>
-                            </div>
+        </div>
+    </div>
 
-                            <main>
-                                <div class="mypagebtn-box">
-                                    <button class="mypagebtn" id="friendbtn">친구목록</button>
+    <div class="mypagebtn-box">
+        <button class="mypagebtn" id="friendbtn">친구목록</button>
 
-                                    <div>
-                                        <button class="mypagebtn" id="writebtn">글작성</button>
-                                        <button class="mypagebtn" id="modifybtn">정보수정</button>
-                                    </div>
+        <div>
+            <button class="mypagebtn" id="writebtn">글작성</button>
+            <button class="mypagebtn" id="modifybtn">정보수정</button>
+        </div>
 
-                                </div>
+     </div>
 
-                                <div id="mypage-box">
-                                    <div id="album">
-
-                                        <c:forEach var="post" items="${posts}">
-                                            <div class="album-item" data-post-idx="${post.postIdx}">
-                                                <c:set var="hasImage" value="false" />
-                                                <c:forEach var="image" items="${images}">
-                                                    <c:if test="${post.postIdx eq image.postIdx}">
-                                                        <c:set var="hasImage" value="true" />
-                                                        <img src="${path}/image/db/${image.src}">
-                                                    </c:if>
-                                                </c:forEach>
-                                                <c:if test="${not hasImage}">
-                                                    <p>${post.title}</p>
-                                                </c:if>
-                                            </div>
-                                        </c:forEach>
-                                    </div>
-                                </div>
-
-                            </main>
+	<div id="mypage-box">
+		<div id="album">
+			<c:forEach var="post" items="${posts}">
+				<div class="album-item" data-post-idx="${post.postIdx}">
+					<c:set var="hasImage" value="false" />
+					<c:forEach var="image" items="${images}">
+						<c:if test="${post.postIdx eq image.postIdx}">
+							<c:set var="hasImage" value="true" />
+							<div class="image-container">
+				                <div class="image-title">${post.title}</div>
+				                <img src="${path}/image/db/${image.src}">
+				                <p class="title">${post.title}</p>
+				            </div>
+						</c:if>
+					</c:forEach>
+					<c:if test="${not hasImage}">
+						<div class="image-container">
+			                <div class="image-title">${post.title}</div>
+			                <img class="random-image" src="/image/db/ex.jpg">
+			            </div>
+					</c:if>
+				</div>
+			</c:forEach>
+		</div>
+	</div>
+	
+	
+</main>
 
 
 
 
 
 <script>
-$(document).ready(function () {
-    //글작성 버튼>글작성페이지
-    $("#writebtn").on("click", function () {
-        window.location.href = ("/api/post/write");
-    });
+$(document).ready(function() {
+    var randomImages = ["/image/db/ex.jpg", "/image/db/ex2.jpg", "/image/db/ex3.jpg"];
 
-    //친구목록 - 추후 수정
-    $("#friendbtn").on("click", function () {
-        $(".modal_box2").load("/api/pair", function () {
-            $(".modal_background2").fadeIn();
-        });
-    });
-    
-                           
-
-	//정보수정
-    $("#modifybtn").on("click", function () {
-    var userInput = prompt("정보수정을 하려면 비밀번호를 입력하세요");
-
-    // 사용자가 "취소"를 눌렀을 때 AJAX 요청을 보내지 않음
-    if (userInput === null) {
-        return;
+    function getRandomImage() {
+        var randomIndex = Math.floor(Math.random() * randomImages.length);
+        return randomImages[randomIndex];
     }
 
-    $.ajax({
-        url: '/api/verifyPw',
-        type: 'POST',
-        contentType: 'application/json',
-        data: JSON.stringify({ pw: userInput }),
-        success: function (response) {
-            if (response === "회원정보 확인 완료") {
-                $(".modal_box").load("/api/update", function () {
-                    $(".modal_background1").fadeIn();
-                });
-            } else {
-                alert(response); // 서버에서 반환한 에러 메시지를 출력
-            }
-        },
-        error: function (xhr, status, error) {
-            if (xhr.status === 401) {
-                alert("비밀번호가 일치하지 않습니다."); // 비밀번호 불일치 처리
-            } else {
-                console.error("error: " + error);
-                alert("서버 오류가 발생했습니다."); // 서버 오류 처리
-            }
+    var albumItems = document.querySelectorAll('.album-item');
+    albumItems.forEach(function (item) {
+        var image = item.querySelector('.random-image');
+        if (image) {
+            image.src = getRandomImage();
         }
     });
-});
+	
+	//글작성 버튼>글작성페이지
+	$("#writebtn").on("click", function() {
+		window.location.href = ("/api/post/write");
+	});
 
+	//친구목록 - 추후 수정
+	$("#friendbtn").on("click", function() {
+		$(".modal_box2").load("/api/pair", function() {
+			$(".modal_background2").fadeIn();
+			
+		});
+	});
 
+	//정보수정
+	$("#modifybtn").on("click", function() {
+		var userInput = prompt("정보수정을 하려면 비밀번호를 입력하세요");
 
+		// 사용자가 "취소"를 눌렀을 때 AJAX 요청을 보내지 않음
+		if (userInput === null) {
+			return;
+		}
 
-    //게시글 상세보기
-    $(".album-item").on("click", function () {
-        var postIdx = $(this).data("post-idx");
+		$.ajax({
+			url : '/api/verifyPw',
+			type : 'POST',
+			contentType : 'application/json',
+			data : JSON.stringify({
+				pw : userInput
+			}),
+			success : function(response) {
+				if (response === "회원정보 확인 완료") {
+					$(".modal_box").load("/api/update", function() {
+						$(".modal_background1").fadeIn();
+					});
+				} else {
+					alert(response); // 서버에서 반환한 에러 메시지를 출력
+				}
+			},
+			error : function(xhr, status, error) {
+				if (xhr.status === 401) {
+					alert("비밀번호가 일치하지 않습니다."); // 비밀번호 불일치 처리
+				} else {
+					console.error("error: " + error);
+					alert("서버 오류가 발생했습니다."); // 서버 오류 처리
+				}
+			}
+		});
+	});
 
-        if (postIdx === undefined) {
-            return;
-        }
-        window.location.href = "/api/post/" + postIdx;
-    });
+	//게시글 상세보기
+	$(".album-item").on("click", function() {
+		var postIdx = $(this).data("post-idx");
 
-
+		if (postIdx === undefined) {
+			return;
+		}
+		window.location.href = "/api/post/" + postIdx;
+	});
 
 });//ready
 </script>
 
 
+</body>
 
-
-
-
-            </body>
-
-            </html>
+</html>

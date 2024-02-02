@@ -14,12 +14,6 @@
 <title>home</title>
 </head>
 <body>
-
-
-
-
-
-
 <%@ include file="/WEB-INF/views/Nonmember/NonmemberHeader.jsp" %>
 <%@ include file="/WEB-INF/views/Nonmember/NonmemberSearchHeader.jsp" %>
 
@@ -28,23 +22,18 @@
 <div class="menubox">
 	<div class="menubar" id="menubar1">
 	<img class="menuicon" id="pageicon" src="/image/icon/blank-page.png">
-
-
 	</div>
 	
 	<div class="menubar" id="menubar2">
 	<img class="menuicon" id="mapicon" src="/image/icon/map.png">
-
 	</div>
 	
 	<div class="menubar" id="menubar3">
 	<img class="menuicon" id="palnicon" src="/image/icon/planer.png">
-
 	</div>
 	
 	<div class="menubar" id="menubar4">
 	<img class="menuicon" id="moneyicon" src="/image/icon/money.png">
-
 	</div>
 </div>
 
@@ -156,24 +145,12 @@
 
 
 <script>
-$(document).ready(function () {    
-    $("#menubar1").on("click", function () {
-    	alert('비회원은 이용하실 수 없습니다. 로그인해주세요.');
-      });
-    
-    $("#menubar2").on("click", function () {
-    	alert('비회원은 이용하실 수 없습니다. 로그인해주세요.');
-      });
-    
-    $("#menubar3").on("click", function () {
-    	alert('비회원은 이용하실 수 없습니다. 로그인해주세요.');
-      });
-    
-    $("#menubar4").on("click", function () {
-    	alert('비회원은 이용하실 수 없습니다. 로그인해주세요.');
-      });
-    
-  }); //ready
+$(document).ready(function () {
+    $("#menubar1, #menubar2, #menubar3, #menubar4").on("click", function () {
+        alert('로그인 후 이용하실 수 있습니다.');
+    });
+});
+
 
 </script>
 

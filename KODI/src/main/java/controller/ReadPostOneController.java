@@ -21,6 +21,7 @@ import dto.DeletePostRq;
 import dto.MarkingInfoDTO;
 import dto.PostLikeDTO;
 import dto.ReadPostOneDTO;
+import jakarta.servlet.http.HttpSession;
 import service.ReadPostOneService;
 
 @Controller
@@ -36,7 +37,7 @@ public class ReadPostOneController {
 	 * @return 게시글 데이터
 	 */
 	@GetMapping("/post/{postIdx}")
-	public ModelAndView readPostOne(@PathVariable int postIdx) {
+	public ModelAndView readPostOne(HttpSession session, @PathVariable int postIdx) {
 		ReadPostOneDTO readPostOne = service.getReadPostOne(postIdx);
 		
 		List<CommentMemberDTO> commentMemberInfo = new ArrayList<>();
@@ -46,6 +47,12 @@ public class ReadPostOneController {
 		}
 
 		ModelAndView mv = new ModelAndView();
+		
+		if(session.getAttribute("memberIdx") == null) {
+        	mv.addObject("isSession", false);
+		} else {
+        	mv.addObject("isSession", true);
+		}
 		
 		mv.addObject("readPostOne", readPostOne);
 		mv.addObject("commentMemberInfo", commentMemberInfo);

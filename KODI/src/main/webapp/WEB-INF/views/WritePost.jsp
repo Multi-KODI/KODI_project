@@ -13,7 +13,13 @@
 	rel="stylesheet">
 
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-
+<script>
+    if (${isSession}==false){
+        alert("로그인하세요");
+        location.href = "/";
+  }
+    
+    </script>
 </head>
 <body>
 	<div class="post">

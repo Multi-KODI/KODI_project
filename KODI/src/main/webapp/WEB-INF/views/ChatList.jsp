@@ -20,8 +20,18 @@
 	let sessionId = <%=session.getAttribute("memberIdx")%>;
 	
 	$(document).ready(function(){
-		showData();
-		searchFriend();
+		if(${isSession} == false) {
+			alert("로그인하세요");
+			location.href = "/";
+		} else {
+			if(${verifyMemberIdx} == false){
+				alert("해당 페이지에 접근할 수 없습니다.");
+				location.href = "/api/home";
+			} else {
+				showData();
+				searchFriend();
+			}	
+		}
 	});
 	
 	function showData(){
@@ -301,6 +311,7 @@
 	<%@ include file="/WEB-INF/views/Header.jsp"%>
 	<%@ include file="/WEB-INF/views/SearchHeader.jsp"%>
 
+<main>
 	<div id="allElement">
 		<div id="searchFriendDiv">
 			<img id="friendIcon" src="/image/icon/friends.png" align="center">
@@ -323,6 +334,6 @@
 			<div id="chatList"></div>
 		</div>
 	</div>
-
+</main>
 </body>
 </html>

@@ -18,27 +18,31 @@
 let sessionId = <%=session.getAttribute("memberIdx")%>;
 
 $(document).ready(function() {
-	$("#menubar1").on("click", function() {
-		window.location.href = "/api/posts/food";
-	});
+	if(${isSession} == false) {
+		alert("로그인하세요");
+		location.href = "/";
+	} else {
+		$("#menubar1").on("click", function() {
+			window.location.href = "/api/posts/food";
+		});
 
-	$("#menubar2").on("click", function() {
-		window.location.href = "/api/map";
-	});
+		$("#menubar2").on("click", function() {
+			window.location.href = "/api/map";
+		});
 
-	$("#menubar3").on("click", function() {
-		window.location.href = "/api/planner";
-	});
+		$("#menubar3").on("click", function() {
+			window.location.href = "/api/planner";
+		});
 
-	$("#menubar4").on("click", function() {
-		window.location.href = "/api/diningcost";
-	});
-	
-	showData();
-	webSocket();
-	
-	$('#allMsgList').scrollTop($('#allMsgList')[0].scrollHeight);
-
+		$("#menubar4").on("click", function() {
+			window.location.href = "/api/diningcost";
+		});
+		
+		showData();
+		webSocket();
+		
+		$('#allMsgList').scrollTop($('#allMsgList')[0].scrollHeight);	
+	}
 }); //ready
 
 function showData() {

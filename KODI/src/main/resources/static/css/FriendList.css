@@ -1,12 +1,13 @@
 @charset "UTF-8";
+
 .friendbox {
 	display: flex;
 	overflow: hidden;
 	justify-content: center;
 	text-align: center;
-	position: static; 
-	width: 100%;
-	height: 100%;
+	position: static;
+	width: 80vw;
+	height: 80vh;
 	max-width: 900px;
 	max-height: 600px;
 	align-items: center;
@@ -46,13 +47,13 @@
 }
 
 .mainBox {
-	height: 90%;
-	width: 90%; 
-	max-height: 90%;
+	height: 95%;
+	width: 90%;
 	max-width: 90%;
 	box-sizing: border-box;
-/* 	background-color: yellow;
- */	margin: auto;
+	/* 	background-color: yellow;
+ */
+	margin: auto;
 	justify-content: center;
 	text-align: center;
 	position: relative;
@@ -62,37 +63,39 @@
 
 .contentBox {
 	height: 100%;
-	width: 100%; 
+	width: 100%;
 	box-sizing: border-box;
-/* 	background-color: red;
- */	margin: auto;
+	/* 	background-color: red;
+ */
+	margin: auto;
+	margin-top : 10px;
 	justify-content: center;
 	text-align: center;
 	position: relative;
 	display: flex;
+	flex: 1;
+	overflow: hidden;
 }
 
 .logoBtn {
 	display: flex;
 	flex-direction: column;
-/* 	background-color: blue;*/	
+	/* 	background-color: blue;*/
 	flex: 25%;
 }
 
-
 .friendList, .friendList1, .friendList2, .friendList3 {
 	display: flex;
-/* 	background-color: green;
- */	flex: 75%;
+	/* 	background-color: green;
+ */
+	flex: 75%;
 }
 
-
-
 thead {
-	width:100%;
-    position: sticky;
-    top: 0;
-    background-color: white;
+	width: 100%;
+	position: sticky;
+	top: 0;
+	background-color: white;
 }
 
 .form-group {
@@ -115,14 +118,12 @@ thead {
 	margin-top: 20px;
 }
 
-
-
 #list {
 	width: 100%;
-	height: 95%;
+	height: auto;
 	overflow-y: auto;
-    display: flex;
-    flex-direction: column;
+	display: flex;
+	flex-direction: column;
 }
 
 .tdDiv {
@@ -131,10 +132,11 @@ thead {
 }
 
 table {
-	width:100%;
+	width: 100%;
 	border-collapse: collapse;
-/* 	background-color: pink;
- */}
+	/* 	background-color: pink;
+ */
+}
 
 tr {
 	border-bottom: 2px solid #D9D9D9;
@@ -155,19 +157,19 @@ tr {
 	width: 100%;
 }
 
-#board th:nth-child(1) {
+.friendList table th:nth-child(1) {
 	width: 30%;
 }
 
-#board th:nth-child(2) {
-	width: 20%;
+.friendList table th:nth-child(2) {
+	width: 45%;
 }
 
-#board th:nth-child(3) {
+.friendList table th:nth-child(3) {
 	width: 25%;
 }
 
-.f-Btn{
+.f-Btn {
 	font-family: 'NanumSquareNeo';
 	padding: 4px 8px;
 	margin-right: 5px;
@@ -177,68 +179,69 @@ tr {
 	border-radius: 8px;
 	width: 70px;
 	box-sizing: border-box;
-	
 }
-.f-Btn:hover{
+
+.f-Btn:hover {
 	background-color: #D9D9D9;
-	color:#ffffff;
+	color: #ffffff;
+}
+
+#f-acceptBtn, #f-removeBtn {
+	width: 50px;
 }
 
 #f-drawBtn, #f-cancelBtn, #f-acceptBtn, #f-removeBtn {
 	
+}
+
+@media all and (max-width:479px) {
+	.friendbox {
+		width: 90vw;
+		height: 90vh;
+	}
+	.logoBtn {
+		height: auto;
+	}
+	.contentBox {
+		overflow: hidden;
+		flex-wrap: wrap;
+		align-content: flex-start;
+	}
+	#friendheader {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	#friendheader h2 {
+		margin-left: 10px;
+	}
+	.form-group {
+		flex-direction: row;
+	}
+	.form-group button {
+		font-size: 0.6em;
+		width: 100px;
+		box-sizing: border-box;
+		padding: 10px;
+		border: none;
+		cursor: pointer;
+		border-radius: 8px;
+		background-color: #D9D9D9;
+		margin-left: auto;
+		margin-right: auto;
+		margin-top: 10px;
+	}
+	.tdDiv {
+		margin-top: 15px;
+		padding-bottom: 15px;
+	}
 	
-}
-
-
-
-@media all and (max-width:479px){
-.friendbox {
-	width: 100vw;
-	height: 100vh;
+	.friendList {
+    overflow-y: auto; 
+    max-height: 600px; 
 }
 	
-.mainBox {
-	height: 95%;
-	width: 98%; 
-}
-
-.contentBox {
-  flex-direction: column;
-}
-
-#friendheader{
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	margin-left: auto;
-    margin-right: auto;
-}
-
-#friendheader h2 {
-	margin-left: 10px;
-}
-
-.form-group{
-	flex-direction: row;
-}
-
-.form-group button {
-	font-size: 0.6em;
-	width: 100px;
-	box-sizing: border-box;
-	padding: 10px;
-	border: none;
-	cursor: pointer;
-	border-radius: 8px;
-	background-color: #D9D9D9;
-	margin-left: auto;
-	margin-right: auto;
-	margin-top: 10px;
-}
-
-.tdDiv {
-	margin-top: 15px;
-	padding-bottom: 15px;
-}
 	
 }

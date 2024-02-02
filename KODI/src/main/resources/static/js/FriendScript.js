@@ -69,11 +69,6 @@ $(document).ready(function () {
 							'<tr>' +
 							'<td>' +
 							'<div class="tdDiv">' +
-							response[i].memberIdx +
-							'</div>' +
-							'</td>' +
-							'<td>' +
-							'<div class="tdDiv">' +
 							response[i].memberName +
 							'</div>' +
 							'</td>' +
@@ -108,11 +103,6 @@ $(document).ready(function () {
 					for (let i = 0; i < response.length; i++) {
 						result +=
 							'<tr>' +
-							'<td>' +
-							'<div class="tdDiv">' +
-							response[i].memberIdx +
-							'</div>' +
-							'</td>' +
 							'<td>' +
 							'   <div class="tdDiv">' +
 							response[i].memberName +
@@ -150,11 +140,6 @@ $(document).ready(function () {
 						result +=
 							'<tr>' +
 							'<td>' +
-							'<div class="tdDiv">' +
-							response[i].memberIdx +
-							'</div>' +
-							'</td>' +
-							'<td>' +
 							'   <div class="tdDiv">' +
 							response[i].memberName +
 							'</div>' +
@@ -191,11 +176,6 @@ $(document).ready(function () {
 					for (let i = 0; i < response.length; i++) {
 						result +=
 							'<tr>' +
-							'<td>' +
-							'<div class="tdDiv">' +
-							response[i].memberIdx +
-							'</div>' +
-							'</td>' +
 							'<td>' +
 							'   <div class="tdDiv">' +
 							response[i].memberName +

@@ -41,9 +41,8 @@
 		$("#date").html("${readPostOne.postInfo.regdate}");
 		$("#postContent").html("${readPostOne.postInfo.content}" + "<br><br>");
 
-		// 수정
 		<c:forEach items="${readPostOne.postImages}" var="image">
-			 $("#postContent").append("<img id='postImg' src='/image/db/" + "${image}" + "' width=150px height=150px>&nbsp;");		
+			 $("#postImage").append("<img id='postImg' src='/image/db/" + "${image}" + "' width=200px height=200px>&nbsp;");		
 		</c:forEach>
 		
 		$("#addrInfo").html("${readPostOne.postInfo.address}");
@@ -382,8 +381,7 @@
 
 				<div id="postInfo">
 					<p id="grade" style="display: inline;">평점 3.5/5</p>
-					<img id="flag" src="/image/love.png" width=15px height=15px
-						align="center">
+					<img id="flag" width=15px height=15px align="center">
 					<p id="memberName" style="display: inline;">작성자</p>
 					<p id="date" style="display: inline;">2023.11.08. 15:48</p>
 				</div>
@@ -393,6 +391,8 @@
 				<div id="postContent">
 					<p>게시글 내용</p>
 				</div>
+				
+				<div id="postImage"></div>
 
 				<div id="addrDiv">
 					주소

@@ -24,11 +24,12 @@
 
 <body>
 	<div class="post">
-			<form id="wirtePostForm" method="post" enctype="multipart/form-data">
-				<select name="categoryPost" id="categoryPost" required>
-				    <option value="" selected disabled hidden>카테고리</option>
-				    <!-- 수정1 시작(value값 수정) PGH-->
+		<!-- 수정0 action속성 추가, name 속성 추가 및 변경 PGH -->
+			<form action="/api/post/isupdate" id="wirtePostForm" method="post" enctype="multipart/form-data">
+			<input type="number" name="postIdx" value="${readPostOne.postInfo.postIdx}" style="display:none">
+				<select name="category" id="categoryPost" required>
 				    <option value="" selected disabled>카테고리</option>
+				    <!-- 수정1 시작(value값 수정) PGH-->
 				    <option value="맛집">맛집</option>
 				    <option value="카페">카페</option>
 				    <option value="숙소">숙소</option>
@@ -37,7 +38,7 @@
 				    
 				</select>
 				&nbsp;&nbsp;
-				<select name="point" id="point" required>
+				<select name="grade" id="point" required>
 				    <option value="" selected disabled>평점</option>
 				    <!-- 수정2 시작(value값 수정) PGH-->
 				    <option value="1.0">1</option>
@@ -54,8 +55,9 @@
 				<br><br>
 				<div>
 					<!-- 수정3 시작(value 속성 추가) PGH -->
-					<input type="text" id="writePostTitle" name="writePostTitle" placeholder="제목" value="" required><br><br>
-					<textarea id="writePostContent" name="writePostContent" rows="4" placeholder="내용" value="" required></textarea>
+					<input type="text" id="writePostTitle" name="title" placeholder="제목" value="" required><br><br>
+					<hr><br>
+					<textarea id="writePostContent" name="content" rows="4" placeholder="내용" value="" required></textarea>
 					<!-- 수정3 종료 PGH-->
 				
 					<br><br>
@@ -68,10 +70,11 @@
 					<br>
 					
 					<!-- 수정5 시작(value 속성 추가) PGH -->
-				    <input type="text" id="sample6_address" placeholder="주소" value="" onkeypress="handleKeyPress(event)">
+				    <input type="text" id="addressInput" name="address" placeholder="주소" value="" onkeypress="handleKeyPress(event)">
 					<!-- 수정5 종료 PGH -->
 				    <input type="button" id="addressBtn" onclick="sample6_execDaumPostcode()" value="주소검색">
 					<br><br>
+			<!-- 수정0 종료 PGH -->
 					
 					<button type="button" id="imageAddBtn" class="btn" onclick="addImage()"><img id="addImageIcon" src="resources/images/search.png">사진추가</button><br>
 					
@@ -106,29 +109,57 @@
 		
 	      tagValue = tagValue.substring(1);
 	      tagValue = tagValue.substring(0, tagValue.length-1);
-	      console.log(tagValue);
-	      console.log(tagValue.split(", "));
+	      /* 검증 */console.log(tagValue);
+	      /* 검증 */console.log(tagValue.split(", "));
 	      var tagValues = tagValue.split(", ");
 
 		for (var i = 0; i < tagValues.length; i++) {
 		    var tagValue = tagValues[i];
-
+	//변경------------------------------------------------------------------------ PGH
 		    // 새로운 태그를 생성
+		    var inputHidden = document.createElement('input');
+		    inputHidden.name = "postTags";
+		    inputHidden.value = tagValue;
+		
 		    var tagElement = document.createElement('div');
 		    tagElement.className = 'tag';
 		    tagElement.textContent = tagValue;
-
+		
 		    // 태그를 클릭하면 지워지도록 이벤트 핸들러 추가
-		    tagElement.onclick = function (element) {
+		    tagElement.onclick = function (tagDiv, tagInput) {
 		        return function () {
-		            tagListElement.removeChild(element);
+		            tagListElement.removeChild(tagDiv);
+		            tagInput.parentNode.removeChild(tagInput); // 숨겨진 input 요소도 함께 제거
 		        };
-		    }(tagElement);
-
+		    }(tagElement, inputHidden);
+		
 		    // 태그를 목록에 추가
 		    tagListElement.appendChild(tagElement);
-		   
-		    
+		    tagListElement.appendChild(inputHidden); // 숨겨진 input 요소도 함께 추가
+	//변경 종료-----------------------------------------------------------------------	   
+		}
+	//추가------------------------------------------------------------------------ PGH
+		var container = document.getElementById("photoBoxs");
+		var imageSrc = "${readPostOne.postImages}";
+		imageSrc = imageSrc.substring(1);
+		imageSrc = imageSrc.substring(0, imageSrc.length-1);
+		/* 검증 */console.log(imageSrc);
+		var imageSrcs = imageSrc.split(", ");
+		/* 검증 */console.log(imageSrcs);
+		
+		for(var i=0; i<imageSrcs.length; i++) {
+			var imageSrc = "/image/db/" + imageSrcs[i];
+			// 새로운 이미지 태그를 생성(db에 저장되어 있는 이미지를 보여주기 위해)
+			var inputImage = document.createElement("img");
+			inputImage.type = "image";
+			inputImage.name = "alreadySaveImage";
+			inputImage.id = "myImage";
+			inputImage.src = imageSrc;
+			inputImage.width = "200";
+			inputImage.height = "200";
+			
+			// 이미지 태그를 사진 추가 밑에 추가
+			container.appendChild(inputImage);
 		}
 
 	}
@@ -139,7 +170,7 @@
             // 새로운 파일 첨부 input 태그 생성
             var newInput = document.createElement("input");
             newInput.type = "file";
-            newInput.name = "files";
+            newInput.name = "imagePost";	//변경 PGH
             newInput.id = "files";
             newInput.accept = "image/*";
 
@@ -190,21 +221,29 @@
 	    for (var i = 0; i < tagValues.length; i++) {
 	        var tagValue = tagValues[i];
 
-	        // 새로운 태그를 생성
-	        var tagElement = document.createElement('div');
-	        tagElement.className = 'tag';
-	        tagElement.textContent = tagValue;
-
-	        // 태그를 클릭하면 지워지도록 이벤트 핸들러 추가
-	        tagElement.onclick = function (element) {
-	            return function () {
-	                tagListElement.removeChild(element);
-	            };
-	        }(tagElement);
-
-	        // 태그를 목록에 추가
-	        tagListElement.appendChild(tagElement);
-	    }
+		//변경------------------------------------------------------------------------ PGH
+	     	// 새로운 태그를 생성
+		    var inputHidden = document.createElement('input');
+		    inputHidden.name = "postTags";
+		    inputHidden.value = tagValue;
+		
+		    var tagElement = document.createElement('div');
+		    tagElement.className = 'tag';
+		    tagElement.textContent = tagValue;
+		
+		    // 태그를 클릭하면 지워지도록 이벤트 핸들러 추가
+		    tagElement.onclick = function (tagDiv, tagInput) {
+		        return function () {
+		            tagListElement.removeChild(tagDiv);
+		            tagInput.parentNode.removeChild(tagInput); // 숨겨진 input 요소도 함께 제거
+		        };
+		    }(tagElement, inputHidden);
+		
+		    // 태그를 목록에 추가
+		    tagListElement.appendChild(tagElement);
+		    tagListElement.appendChild(inputHidden); // 숨겨진 input 요소도 함께 추가
+		//변경 종료-----------------------------------------------------------------------	
+		}
 
 	    // 입력창 초기화
 	    inputElement.value = '';
@@ -229,7 +268,7 @@
 	                addr = data.jibunAddress;
 	            } 
 	          
-	            document.getElementById("sample6_address").value = addr;
+	            document.getElementById("addressInput").value = addr;
 	      
 	        }
 	    }).open();

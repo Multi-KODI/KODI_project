@@ -14,12 +14,13 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class WritePostDTO {
-   private String title;
-   private String content;
-   private String address;
-   private String category;
-   private double grade;
-   private List<String> postTags;
-   private MultipartFile imagePost[];
+	private int postIdx;
+	private String title;
+	private String content;
+	private String address;
+	private String category;
+	private double grade;
+	private List<String> postTags;
+	private MultipartFile imagePost[];
 }
 

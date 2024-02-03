@@ -39,7 +39,6 @@ public class WritePostController {
 	@PostMapping("/post/issave")
 	public void isWrite(WritePostDTO writePostDTO, HttpSession session) 
 			throws IllegalStateException, IOException {
-		/* 검증 */System.out.println("--------------------------------");
 		//세션 받아서 int 타입으로 변환
 		String sessionIdx = (String)session.getAttribute("memberIdx");
 		Integer myMemberIdx = Integer.parseInt(sessionIdx);

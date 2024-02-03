@@ -8,7 +8,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectTag" resultType="int" parameterType="int">
 		select tag_idx as tagIdx
 		from post_tag
-		where post_idx = #{postIdx);
+		where post_idx = #{postIdx};
 	</select>
 	
 	<select id="selectTagNum" resultType="int" parameterType="int">
@@ -31,56 +31,32 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<!-- insert -->
 	<insert id="insertTag" parameterType="hashmap">
-		<foreach item="content" index="index" collection="insertTags">
 		insert into post_tag(content, post_idx)
-		values(#{content}, #{postIdx});
-		</foreach>
+		values(#{insertTags}, #{postIdx});
 	</insert>
 	
-	<insert id="insertImage" parameterType="hashmap">
-		<foreach item="src" index="index" collection="insertImages">
+	<insert id="insertImages" parameterType="hashmap">
 		insert into post_image(src, post_idx)
-		values(#{src}, #{postIdx});
-		</foreach>
+		values(#{postImages}, #{postIdx});
 	</insert>
 	
 	<!-- update -->
 	<update id="updatePost" parameterType="hashmap">
 		update post
-		set category = #{category}, grade = #{grade}, title = #{title}, content = #{content}, address = #{address}
+		set category = #{category}, grade = #{grade}, title = #{title}, content = #{content}, address = #{address}, regdate = now()
 		where post_idx = #{postIdx};
 	</update>
 	
 	<update id="updateTag" parameterType="hashmap">
 		update post_tag
-		<foreach item="tagIdxs" index="index" collection="tagIdxs">
-			<foreach item="content" index="index" collection="updateTags">
-				<if test="updateTags.indexOf(${content}) == tagIdxs.indexOf(${tagIdxs})">
-				set content = #{content}
-				</if>
-			</foreach>
+		set content = #{updateTags}
 		where tag_idx = #{tagIdxs};
-		</foreach>
-	</update>
-	
-	<update id="updateImage" parameterType="hashmap">
-		update post_image
-		<foreach item="imageIdxs" index="index" collection="imageIdxs">
-			<foreach item="src" index="index" collection="updateImages">
-				<if test="updateImages.indexOf(${src}) == imageIdxs.indexOf(${imageIdxs})">
-				set src = #{src}
-				</if>
-			</foreach>
-		where image_idx = #{imageIdxs};
-		</foreach>
 	</update>
 	
 	<!-- delete -->
 	<delete id="deleteTag" parameterType="hashmap">
-		<foreach item="tagIdxs" index="index" collection="deleteTags">
 		delete from post_tag
-		where tag_idx = #{tagIdxs};
-		</foreach>
+		where tag_idx = #{deleteTags};
 	</delete>
 	
 	<delete id="deleteImage" parameterType="hashmap">

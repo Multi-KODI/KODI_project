@@ -42,7 +42,6 @@ public class WritePostController {
 		//세션 받아서 int 타입으로 변환
 		String sessionIdx = (String)session.getAttribute("memberIdx");
 		Integer myMemberIdx = Integer.parseInt(sessionIdx);
-		System.out.println(myMemberIdx);
 		
 		//이미지 파일 이름 저장
 		List<String> fileName = new ArrayList<String>();
@@ -51,18 +50,18 @@ public class WritePostController {
 		//이미지 파일들 로컬에 저장
 		String fileDir = "C:/FullStack/파이널 프로젝트/git/KODI_project/KODI/src/main/resources/static/image/db/";
 		String imagePath = "";
-		for(MultipartFile data : file) {
-			imagePath = fileDir + data.getOriginalFilename();
-			fileName.add(data.getOriginalFilename());
-			data.transferTo(new File(imagePath));
+		
+		//파일이 있는 경우에만 저장(사진첨부를 눌러서 파일 선택이 생성된 경우)
+		if(file != null) {
+			for(MultipartFile data : file) {
+				imagePath = fileDir + data.getOriginalFilename();
+				//파일 선택에 파일이 들어가 있는 경우
+				if(!data.getOriginalFilename().equals("")) {
+					fileName.add(data.getOriginalFilename());
+					data.transferTo(new File(imagePath));
+				}
+			}
 		}
-		System.out.println(writePostDTO.getTitle());
-		System.out.println(writePostDTO.getContent());
-		System.out.println(writePostDTO.getCategory());
-		System.out.println(writePostDTO.getGrade());
-		System.out.println(writePostDTO.getAddress());
-		System.out.println(writePostDTO.getPostTags());
-		System.out.println(fileName.toString());
 		writeservice.insertPost(writePostDTO, fileName, myMemberIdx);
 		
 //		return "게시물이 성공적으로 작성되었습니다.";

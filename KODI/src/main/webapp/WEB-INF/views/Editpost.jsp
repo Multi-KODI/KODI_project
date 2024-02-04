@@ -12,7 +12,13 @@
 	href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css"
 	rel="stylesheet">
 <script src="/js/jquery-3.7.1.min.js"></script>
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=29b72f9b60c9876e854ca883b07bc82d"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=APIKEY&libraries=LIBRARY"></script>
+<!-- services 라이브러리 불러오기 -->
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=APIKEY&libraries=services"></script>
+<!-- services와 clusterer, drawing 라이브러리 불러오기 -->
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=APIKEY&libraries=services,clusterer,drawing"></script>
 <script>
     /* if (${isSession}==false){
         alert("로그인하세요");
@@ -69,14 +75,27 @@
 				    <div id="tagList"></div>
 					<br>
 					
+					
+					
 					<!-- 수정5 시작(value 속성 추가) PGH -->
-				    <input type="text" id="addressInput" name="address" placeholder="주소" value="" onkeypress="handleKeyPress(event)">
+				    <input type="text" id="selectedAddress" name="address" placeholder="가게주소" value="" readonly>&nbsp;
 					<!-- 수정5 종료 PGH -->
-				    <input type="button" id="addressBtn" onclick="sample6_execDaumPostcode()" value="주소검색">
+				    <input type="button" id="addressBtn" onclick="openModal()" value="주소검색">
 					<br><br>
 			<!-- 수정0 종료 PGH -->
+					<div id="modal">
+						<div class="pop">
+							<div class=modal-header>
+								<input id="inputStoreName" placeholder="장소, 주소" type="text" >&nbsp;
+								<button id ="searchAddressBtn" type="button" onclick="searchAddress()">검색</button>&nbsp;
+								<button id ="closeModalBtn" type="button" onclick="closeModal()">창닫기</button>
+								<div class="labels"></div>
+							</div>
+						</div>
+					</div>
+			
 					
-					<button type="button" id="imageAddBtn" class="btn" onclick="addImage()"><img id="addImageIcon" src="resources/images/search.png">사진추가</button><br>
+					<button type="button" id="imageAddBtn" class="btn" onclick="addImage()"><img id="addImageIcon" src="/image/icon/fileupload.png">&nbsp;사진추가</button><br>
 					
 					<span class="photoBoxs" id= "photoBoxs">	
 						<input type="file" id="photoBox" name="files" accept="image/*" >
@@ -103,7 +122,8 @@
 		$("#point").val("${readPostOne.postInfo.grade}").attr("selected", "selected");
 		$("#writePostTitle").attr("value", "${readPostOne.postInfo.title}");
 		$("#writePostContent").val("${readPostOne.postInfo.content}");
-		$("#addressInput").val("${readPostOne.postInfo.address}");
+		/* 은선 수정 id */
+		$("#selectedAddress").val("${readPostOne.postInfo.address}");
 		var tagListElement = document.getElementById('tagList');
 		var tagValue = "${readPostOne.postTags}";
 		
@@ -120,6 +140,7 @@
 		    var inputHidden = document.createElement('input');
 		    inputHidden.name = "postTags";
 		    inputHidden.value = tagValue;
+		    inputHidden.hidden=true;
 		
 		    var tagElement = document.createElement('div');
 		    tagElement.className = 'tag';
@@ -161,8 +182,71 @@
 			// 이미지 태그를 사진 추가 밑에 추가
 			container.appendChild(inputImage);
 		}
-
+		container.appendChild(document.createElement('br'));
 	}
+	
+
+	/* 주소검색 api */
+	
+function searchAddress(){
+	var parentElement = $('.labels')[0];
+	parentElement.innerHTML='';
+	let key = "29b72f9b60c9876e854ca883b07bc82d";
+	
+	var searching = $("#inputStoreName").val();
+	
+	headers = {
+	"Authorization": "KakaoAK d6dfd391f52c1cbae3bcea85ff0057ef"
+	}
+	
+	
+	$.ajax({
+	url: 'https://dapi.kakao.com/v2/local/search/keyword.json?query='+searching,
+	headers: headers,
+	type: 'get',
+	dataType: 'json',
+	success: function (places) {
+			console.log(places);
+		
+			for(var i=0; i < places.documents.length; i++){
+				var label = document.createElement('label');
+			
+				// 라벨의 id를 설정합니다.
+				label.id = 'label' + i;
+				label.className = 'label';
+				
+				
+				// 라벨의 내용을 설정합니다.
+				label.innerHTML = places.documents[i].address_name+'   '+'( '+places.documents[i].place_name+' )';
+				
+				// 라벨 누를 때 이벤트 추가
+				label.onclick = function (place) {
+				return function () {
+				$('#selectedAddress').val(place.address_name);
+				
+				closeModal();
+				};
+			}(places.documents[i]); // 클로저를 이용하여 현재 반복된 항목의 정보를 전달합니다.
+			
+			parentElement.appendChild(document.createElement('br'));
+			parentElement.appendChild(label);
+			parentElement.appendChild(document.createElement('br'));
+			
+			// 줄 바꿈을 추가하여 가독성을 높입니다.
+			}//for 종료
+		}//success 종료
+	});//ajax 종료
+} 
+	
+function openModal(){
+	$("#modal").show();
+}
+function closeModal(){
+	$("#modal").hide();
+}
+
+	
+	
 	//---------------------------------------------------------------------------
 
  function addImage() {
@@ -185,7 +269,10 @@
             containerDiv.id="image-container";
             containerDiv.classList.add("image-container");
             
+            var newBr = document.createElement("br");
+            
             // 이미지와 버튼을 컨테이너에 추가
+            
             containerDiv.appendChild(newInput);
             containerDiv.appendChild(newIcon);
 
@@ -196,14 +283,14 @@
             };
 
             // 줄 바꿈 태그 생성
-            var newBr = document.createElement("br");
 
             // input과 이미지, br 태그를 컨테이너에 추가
+            
             container.appendChild(containerDiv);
             container.appendChild(newBr);
         
         }
-
+			/* 태그 구현 */
 	
 	function handleKeyPress(event) {
 	    if (event.key === 'Enter') {
@@ -226,6 +313,7 @@
 		    var inputHidden = document.createElement('input');
 		    inputHidden.name = "postTags";
 		    inputHidden.value = tagValue;
+		    inputHidden.hidden = true;
 		
 		    var tagElement = document.createElement('div');
 		    tagElement.className = 'tag';
@@ -247,31 +335,6 @@
 
 	    // 입력창 초기화
 	    inputElement.value = '';
-	}
-	
-	
-	/* 주소검색 api */
-	function sample6_execDaumPostcode() {
-	    new daum.Postcode({
-	        oncomplete: function(data) {
-	            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-
-	            // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-	            // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-	            var addr = ''; // 주소 변수
-	            var extraAddr = ''; // 참고항목 변수
-
-	            //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-	            if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-	                addr = data.roadAddress;
-	            } else { // 사용자가 지번 주소를 선택했을 경우(J)
-	                addr = data.jibunAddress;
-	            } 
-	          
-	            document.getElementById("addressInput").value = addr;
-	      
-	        }
-	    }).open();
 	}
 
 </script>

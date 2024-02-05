@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<spring:eval var="googleKey" expression="@environment.getProperty('google.api.key')" /> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,77 +21,114 @@
 
 <main>
 <div id="wrap" class="section">
-   <h2>컨트롤 위치 설정하기</h2>
-    <p>{@link naver.maps.Position Position}과 스타일({@link naver.maps.MapTypeControl~MapTypeControlStyle MapTypeControlStyle}, {@link naver.maps.ZoomControl~ZoomControlStyle ZoomControlStyle})을 이용하여 컨트롤의 위치와 스타일을 설정하는 예제입니다. </p>
-  
-    <div id="map" style="width:100%;height:400px;"></div>
+	<h2>나의 지도</h2>
+    <p>구글지도</p>
+    <div>
+    	<button id="myMark">나의 마커</button>
+    	<button id="friendMark">친구의 마커</button>
+    </div>
+  	
+    <div id="googleMap" style="width:100%;height:600px;"></div>
     
     <code id="snippet" class="snippet"></code>
 </div>
 </main>
 
-
-
-
-
-<script id="code">
+<script>
 //지도 옵션
-var mapOptions = {
-		mapDataControl: false,
-        zoomControl: true,
-        zoomControlOptions: {
-            style: naver.maps.ZoomControlStyle.LARGE,
-            position: naver.maps.Position.TOP_RIGHT
-        },
-    };
-var map = new naver.maps.Map(document.getElementById('map'), mapOptions);
-
-
-//마커
-var markerList = [];
-var menuLayer = $('<div style="position:absolute;z-index:10000;background-color:#fff;border:solid 1px #333;padding:10px;display:none;"></div>');
-
-map.getPanes().floatPane.appendChild(menuLayer[0]);
-
-
-naver.maps.Event.addListener(map, 'click', function(e) {
-    var marker = new naver.maps.Marker({
-        position: e.coord,
-        map: map
-    });
-
-    markerList.push(marker);
-});
-
-//마커지우기
-naver.maps.Event.addListener(map, 'keydown', function(e) {
-    var keyboardEvent = e.keyboardEvent,
-        keyCode = keyboardEvent.keyCode || keyboardEvent.which;
-
-    var ESC = 27;
-
-    if (keyCode === ESC) {
-        keyboardEvent.preventDefault();
-
-        for (var i=0, ii=markerList.length; i<ii; i++) {
-            markerList[i].setMap(null);
-        }
-
-        markerList = [];
-        menuLayer.hide();
-    }
-});
-
-
-
+function initMap(address) {
+	
+    // Geocoder 객체를 선언
+    let geocoder = new google.maps.Geocoder();
+    let korea = {lat: 35.9078, lng: 127.7669};
     
+ 	// 지도 옵션
+    var mapOptions = {
+        center: korea, // 지도의 중심에 표시할 장소
+        zoom: 7, // 몇 배 확대해서 보여줄 것인지
+        disableDefaultUI:true,
+        zoomControl: true // 지도 확대/축소 가능 여부
+    };
+ 	
+ 	// 지도를 보여줄 div 영역의 id 값과 위에서 지정한 옵션을 map에 등록
+    var map = new google.maps.Map(
+        document.getElementById("googleMap"), mapOptions );
+	
+ 	if(address.length != 0){
+ 		for(let i=0; i<address.length; i++){
+ 	    	geocoder.geocode({ address: address[i] }, (results, status) => {
+ 	            if (status === 'OK') {
+ 	                // 해당 장소의 위도와 경도 가져오기
+ 	                const latitude = results[0].geometry.location.lat();
+ 	                const longitude = results[0].geometry.location.lng();
+ 	                console.log('위도:', latitude);
+ 	                console.log('경도:', longitude);
+
+ 	                // 장소의 위도와 경도 정보를 담은 객체 선언
+ 	                let mylocation = {lat: latitude, lng: longitude};
+ 	     
+ 	                // 지도에 표시할 마커를 생성
+ 	                var marker = new google.maps.Marker({position: mylocation, map: map});
+
+ 	              	// 마커를 클릭했을 때 보여주고 싶은 문구가 있을 경우 추가
+ 	                var infoWindow = new google.maps.InfoWindow({
+ 	                    content: `
+ 	                        <h6>${address}</h6>
+ 	                        <a href="https://google.com/maps/place/${address[i]}" target="_blank">구글 지도에서 보기</a>
+ 	                    `
+ 	            	});
+
+ 	              	// 마커 클릭 이벤트 등록
+ 	                marker.addListener('click', () => {
+ 	                    infoWindow.open(map, marker);
+ 	                });
+ 	         	} else {
+ 	                  console.error('지오코딩 실패:', status);
+ 	            }
+ 	        });
+ 	    }
+ 	}
+}
+
+$("#myMark").on("click", function() {
+	var temp = "myMark";
+	$.ajax({
+		url: 'map/marking', 
+		type: 'POST',
+		data:{
+			marking: temp
+		},
+		success: function(markList){
+			console.log("성공");
+			initMap(markList);
+		},
+		error: function(error){
+			console.log(error)
+		}
+	});
+});
+
+$("#friendMark").on("click", function() {
+	var temp = "friendMark";
+	$.ajax({
+		url: 'map/marking', 
+		type: 'POST',
+		data:{
+			marking: temp
+		},
+		success: function(markList){
+			console.log("성공");
+			initMap(markList);
+		},
+		error: function(error){
+			console.log(error)
+		}
+	});
+});
+
 
 </script>
-
-
-
-
-
+<script src="https://maps.googleapis.com/maps/api/js?key=${googleKey}&callback=initMap"></script>
 
 </body>
 </html>

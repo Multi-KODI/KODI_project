@@ -21,7 +21,7 @@
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=APIKEY&libraries=services,clusterer,drawing"></script>
 <script>
     /* if (${isSession}==false){
-        alert("로그인하세요");
+        alert("Please log in");
         location.href = "/";
   } */
     
@@ -36,10 +36,10 @@
 				<select name="category" id="categoryPost" required>
 					<option value="" selected disabled>Category</option>
 					<!-- Edit 1 (Modified value) PGH-->
-					<option value="Restaurant">Restaurant</option>
-					<option value="Cafe">Cafe</option>
-					<option value="Accommodation">Accommodation</option>
-					<option value="Activities">Activities</option>
+					<option value="맛집">Restaurant</option>
+					<option value="카페">Cafe</option>
+					<option value="숙소">Accommodation</option>
+					<option value="놀거리리">Activities</option>
 					<!-- Edit 1 (End) PGH-->
 				</select>
 				&nbsp;&nbsp;
@@ -84,7 +84,7 @@
 					<div id="modal">
 						<div class="pop">
 							<div class=modal-header>
-								<input id="inputStoreName" placeholder="장소, 주소" type="text" >&nbsp;
+								<input id="inputStoreName" placeholder="Place, Address" type="text" >&nbsp;
 								<button id ="searchAddressBtn" type="button" onclick="searchAddress()">Search</button>&nbsp;
 								<button id ="closeModalBtn" type="button" onclick="closeModal()">Close</button>
 								<div class="labels"></div>

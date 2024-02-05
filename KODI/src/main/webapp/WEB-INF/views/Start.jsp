@@ -140,10 +140,7 @@ $(document).ready(function () {
 
 
 
-	<footer>
-		<img src="/image/icon/logo.png" alt="KoDi"
-			style="height: 30px; width: auto;"> © 2024 KoDi_project
-	</footer>
+<%@ include file="/WEB-INF/views/Footer.jsp" %>
 
 </body>
 </html>

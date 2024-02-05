@@ -166,7 +166,7 @@ margin-left: 10px;
 
 
 
-#selectedAddress{
+#selectedAddressShow{
 	width: 315px;
 	height: 25px;
 	padding: 5px;
@@ -175,7 +175,9 @@ margin-left: 10px;
 	font-size: 15px;
 	font-family: 'NanumSquareNeo';
 }
-
+#selectedAddressReal{
+	display: none;
+}
 
 
 #photoBox {

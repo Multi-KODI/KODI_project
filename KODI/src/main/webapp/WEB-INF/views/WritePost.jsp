@@ -67,7 +67,8 @@
 					<br>
 					
 					
-					<input type="text" id="selectedAddress" name="address" value="" placeholder="가게주소" readonly>&nbsp;
+					<input type="text" id="selectedAddressShow" value="" placeholder="가게주소" readonly >&nbsp;
+					<input type="text" id="selectedAddressReal" name="address" value="" placeholder="가게주소" required>&nbsp;
 					<input type="button" id="addressBtn" onclick="openModal()" value="주소검색">
 					
 					<div id="modal">
@@ -103,7 +104,53 @@
 		</div>
 </body>
 <script>
+//...
 
+	document.addEventListener("DOMContentLoaded", function () {
+		
+	    // 폼이 제출될 때의 이벤트를 처리
+	    document.getElementById("finishBtn").addEventListener("click", function (event) {
+	    
+	        // 주소 입력란의 값을 가져옴
+	        var categoryInput = document.getElementById("categoryPost").value;
+	        var gradeInput = document.getElementById("point").value;
+	        var titleInput = document.getElementById("writePostTitle").value;
+	        var contentInput = document.getElementById("writePostContent").value;
+	        var addressInput = document.getElementById("selectedAddressReal").value;
+	
+	        // 주소가 비어 있는지 확인
+	        if (categoryInput.trim() === "") {
+	            // 주소가 비어 있다면 알림창을 띄움
+	            alert("카테고리를 선택해주세요.");
+	            event.preventDefault();
+	            // 폼 제출을 중지
+	        }else if(gradeInput.trim() === "") {
+	            // 주소가 비어 있다면 알림창을 띄움
+	            alert("평점을 선택해주세요.");
+	            event.preventDefault();
+	            // 폼 제출을 중지
+	        }else if(titleInput.trim() === "") {
+	            // 주소가 비어 있다면 알림창을 띄움
+	            alert("제목을 입력해주세요.");
+	            event.preventDefault();
+	            // 폼 제출을 중지
+	        }else if(contentInput.trim() === "") {
+	            // 주소가 비어 있다면 알림창을 띄움
+	            alert("내용을 입력해주세요.");
+	            event.preventDefault();
+	            // 폼 제출을 중지
+	        }else if(addressInput.trim() === "") {
+	            // 주소가 비어 있다면 알림창을 띄움
+	            alert("주소를 입력해주세요.");
+	            event.preventDefault();
+	            // 폼 제출을 중지
+	        }
+	           
+	        // 주소가 비어 있지 않다면 폼이 계속 제출됨
+	    });
+	
+
+	});
 
 									/* 주소검색 api */
 									
@@ -141,7 +188,8 @@ function searchAddress(){
 	            // 라벨 누를 때 이벤트 추가
 	            label.onclick = function (place) {
 	                return function () {
-	                    $('#selectedAddress').val(place.address_name);
+	                    $('#selectedAddressShow').val(place.address_name);
+	                    $('#selectedAddressReal').val(place.address_name);
 	               
 	                    closeModal();
 	                };

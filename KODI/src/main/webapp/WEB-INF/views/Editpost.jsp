@@ -77,10 +77,10 @@
 					
 					
 					
-					<!-- 수정5 시작(value 속성 추가) PGH -->
-				    <input type="text" id="selectedAddress" name="address" placeholder="가게주소" value="" readonly>&nbsp;
-					<!-- 수정5 종료 PGH -->
-				    <input type="button" id="addressBtn" onclick="openModal()" value="주소검색">
+					<!-- 주소검색창 display: none;인 입력창 추가 -->	
+					<input type="text" id="selectedAddressShow" value="" placeholder="가게주소" readonly >&nbsp;
+					<input type="text" id="selectedAddressReal" name="address" value="" placeholder="가게주소" required>&nbsp;
+					<input type="button" id="addressBtn" onclick="openModal()" value="주소검색">
 					<br><br>
 			<!-- 수정0 종료 PGH -->
 					<div id="modal">
@@ -126,39 +126,41 @@
 		$("#selectedAddress").val("${readPostOne.postInfo.address}");
 		var tagListElement = document.getElementById('tagList');
 		var tagValue = "${readPostOne.postTags}";
-		
-	      tagValue = tagValue.substring(1);
-	      tagValue = tagValue.substring(0, tagValue.length-1);
+		tagValue = tagValue.substring(1);
+	    tagValue = tagValue.substring(0, tagValue.length-1);
+		if(tagValue!==""){
 	      /* 검증 */console.log(tagValue);
 	      /* 검증 */console.log(tagValue.split(", "));
 	      var tagValues = tagValue.split(", ");
 
-		for (var i = 0; i < tagValues.length; i++) {
-		    var tagValue = tagValues[i];
-	//변경------------------------------------------------------------------------ PGH
-		    // 새로운 태그를 생성
-		    var inputHidden = document.createElement('input');
-		    inputHidden.name = "postTags";
-		    inputHidden.value = tagValue;
-		    inputHidden.hidden=true;
-		
-		    var tagElement = document.createElement('div');
-		    tagElement.className = 'tag';
-		    tagElement.textContent = tagValue;
-		
-		    // 태그를 클릭하면 지워지도록 이벤트 핸들러 추가
-		    tagElement.onclick = function (tagDiv, tagInput) {
-		        return function () {
-		            tagListElement.removeChild(tagDiv);
-		            tagInput.parentNode.removeChild(tagInput); // 숨겨진 input 요소도 함께 제거
-		        };
-		    }(tagElement, inputHidden);
-		
-		    // 태그를 목록에 추가
-		    tagListElement.appendChild(tagElement);
-		    tagListElement.appendChild(inputHidden); // 숨겨진 input 요소도 함께 추가
+			for (var i = 0; i < tagValues.length; i++) {
+			    var tagValue = tagValues[i];
+		//변경------------------------------------------------------------------------ PGH
+			    // 새로운 태그를 생성
+			    var inputHidden = document.createElement('input');
+			    inputHidden.name = "postTags";
+			    inputHidden.value = tagValue;
+			    inputHidden.hidden=true;
+			
+			    var tagElement = document.createElement('div');
+			    tagElement.className = 'tag';
+			    tagElement.textContent = tagValue;
+			
+			    // 태그를 클릭하면 지워지도록 이벤트 핸들러 추가
+			    tagElement.onclick = function (tagDiv, tagInput) {
+			        return function () {
+			            tagListElement.removeChild(tagDiv);
+			            tagInput.parentNode.removeChild(tagInput); // 숨겨진 input 요소도 함께 제거
+			        };
+			    }(tagElement, inputHidden);
+			
+			    // 태그를 목록에 추가
+			    tagListElement.appendChild(tagElement);
+			    tagListElement.appendChild(inputHidden); // 숨겨진 input 요소도 함께 추가
+			}
 	//변경 종료-----------------------------------------------------------------------	   
 		}
+	}
 	//추가------------------------------------------------------------------------ PGH
 		var container = document.getElementById("photoBoxs");
 		var imageSrc = "${readPostOne.postImages}";
@@ -183,7 +185,7 @@
 			container.appendChild(inputImage);
 		}
 		container.appendChild(document.createElement('br'));
-	}
+	
 	
 
 	/* 주소검색 api */

@@ -3,7 +3,7 @@
 <%@ include file="/WEB-INF/views/Header.jsp" %>
 <%@ include file="/WEB-INF/views/SearchHeader.jsp" %>
 <!DOCTYPE html>
-<!-- Coding By CodingNepal - youtube.com/codingnepal -->
+
 <html lang="en" dir="ltr">
 <head>
     <title>Planner</title>
@@ -22,71 +22,85 @@
     </script>
 </head>
 <body>
+<main>
 <div class="wrapper">
-      <header>
-        <p class="current-date"></p>
-        <div class="icons">
-          <span id="prev" class="material-symbols-rounded">chevron_left</span>
-          <span id="next" class="material-symbols-rounded">chevron_right</span>
-        </div>
-      </header>
-      <div class="calendar">
-        <ul class="weeks">
-          <li>Sun</li>
-          <li>Mon</li>
-          <li>Tue</li>
-          <li>Wed</li>
-          <li>Thu</li>
-          <li>Fri</li>
-          <li>Sat</li>
-        </ul>
-        <ul class="days"></ul>
-      </div>
-    <div class="modal"></div>
-</div>
-<div id="checklist">
-<h5>체크리스트</h5>
-<button class="checkListInsertBtn" onclick="makeCheckListModal()">추가</button>
-<ul class="checkList"></ul>
-</div>
 
-
-<div id="modal">
-	<div class="pop">
-		<input id="inputCheckList" type="text">
-		<button id="inputCheckListBtn" type="button" onclick="addLi()">입력</button>
-		<button id ="closeCheckkList" type="button" onclick="closeCheckListModal()">닫기</button>
+	<div class='left-side'>
+	    <header>
+	       	<p class="current-date"></p>
+	       	<div class="icons">
+	         	<span id="prev" class="material-symbols-rounded"><img class="arrow" src="/image/icon/arrowleft.png"></span>
+	         	<span id="next" class="material-symbols-rounded"><img class="arrow" src="/image/icon/arrowright.png"></span>
+	       	</div>
+	    </header>
+	    <div class="calendar">
+	       	<ul class="weeks">
+	         	<li>Sun</li>
+	         	<li>Mon</li>
+	         	<li>Tue</li>
+	         	<li>Wed</li>
+	         	<li>Thu</li>
+	         	<li>Fri</li>
+	         	<li>Sat</li>
+	       	</ul>
+	       	<ul class="days"></ul>
+	    </div>
+	   	<div class="modal">
+			<div class="pop-planner">
+			</div>
+		</div>
+	
 	</div>
-</div>
-
-<div id="app">
-<h5>유용한 어플</h5>
-<ul>
-    <li>배달
- 		<ul>
-            <li>배달의민족</li>
-            <li>요기요</li>
-        </ul>   
-    </li>
-    
-    <li>
-        숙소예약
-        <ul>
-            <li>호텔스컴바인</li>
-            <li>야놀자</li>
-            <li>여기어때</li>
-            <li>에어비앤비</li>
-        </ul>
-    </li>
-    <li>교통
+	<div class="right-side">
+		<div id="checklist">
+		<img id="check-image"src='/image/icon/check.png'>
+		<label class='left-side-title'>체크리스트</label>
+		<button class="checkListInsertBtn" onclick="makeCheckListModal()">추가</button>
+		<ul class="checkList"></ul>
+		</div>
+		
+		
+		<div id="modal">
+			<div class="pop">
+				<input id="inputCheckList" type="text">
+				<button id="inputCheckListBtn" type="button" onclick="addLi()">입력</button>
+				<button id ="closeCheckkList" type="button" onclick="closeCheckListModal()">닫기</button>
+			</div>
+		</div>
+		
+		<div id="app">
+		<img id="app-image"src='/image/icon/app.png'>
+		<label class='left-side-title'>유용한 어플</label>
 		<ul>
-	       <li>카카오맵</li>
-	       <li>카카오택시</li>
-	       <li>티머니GO</li>
-	       <li>네이버맵</li>
+		    <li>배달
+		 		<ul>
+		            <li>배달의민족</li>
+		            <li>요기요</li>
+		        </ul>   
+		    </li>
+		    
+		    <li>
+		        숙소예약
+		        <ul>
+		            <li>호텔스컴바인</li>
+		            <li>야놀자</li>
+		            <li>여기어때</li>
+		            <li>에어비앤비</li>
+		        </ul>
+		    </li>
+		    <li>교통
+				<ul>
+			       <li>카카오맵</li>
+			       <li>카카오택시</li>
+			       <li>티머니GO</li>
+			       <li>네이버맵</li>
+				</ul>
+		    </li>
 		</ul>
-    </li>
-</ul>
-</div> 
+		</div> 
+	</div>
+
+</div>
+</main>
 </body>
 </html>

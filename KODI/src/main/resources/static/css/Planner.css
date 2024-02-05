@@ -18,20 +18,33 @@ main {
 
 
 /* 플래너 */
-.wrapper{
-margin-left: 200px;
-  width: 450px;
-  background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.12);
-}
-.wrapper header{
+/* 
+ */
+ 
+.wrapper {
   display: flex;
-  align-items: center;
+  align-items: stretch; /* 또는 다른 수직 정렬 값으로 설정 */
   padding: 25px 30px 10px;
   justify-content: space-between;
+  height: 100%; /* 또는 다른 높이 값으로 설정 */
+}
+ 
+ 
+ .left-side{
+  	width:600px;
+	height: 100%;
+	margin-right: 10px;
+	
+}
+.left-side header{
+  display: flex;
+  align-items: center;
+  padding: 0px 40px 0px 70px;
+  justify-content: space-between;
+   box-shadow: none;
 }
 header .icons{
+	margin-left:70px;
   display: flex;
 }
 header .icons span{
@@ -57,26 +70,6 @@ header .current-date{
   font-weight: 500;
 }
 
-
-
-.modal{
-	height:300px;
-	display:flex;
-	align-items:center;
-	justify-content:center;
-	background-color:white;
-	border-radius:10px;
-	display:none;
-}
-.modalBtn{
-width: 90px;
-  height: 30px;
-  font-weight: 600;
-  cursor: pointer;
-  font-family: 'Noto Sans KR', sans-serif;
-	
-}
-
 .calendar{
   padding: 20px;
 }
@@ -87,7 +80,7 @@ width: 90px;
   text-align: center;
 }
 .calendar .days{
-  margin-bottom: 20px;
+  margin-bottom: 50px;
 }
 .calendar li{
   color: #333;
@@ -128,6 +121,15 @@ width: 90px;
   background: #f2f2f2;
 }
 
+
+
+.right-side{
+	width:500px;
+	height: 100%;
+	margin-top:20px;
+	margin-left:100px;
+	
+}
 /* 체크리스트 */
 #modal {
 	display: none;
@@ -141,7 +143,7 @@ width: 90px;
 }
 
 #modal .pop {
-
+	font-family: 'NanumSquareNeo';
 	position: absolute;
 	left: 50%;
 	top: 50%;
@@ -150,4 +152,104 @@ width: 90px;
 	height: 500px;
 	background: #fff;
 	z-index: 1001;
+}
+
+
+.modal {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.5);
+	z-index: 1000;
+}
+
+.modal .pop-planner {
+    display: flex;
+    flex-wrap: wrap; /* 요소가 가로로 나열되면서 한 줄에 모자란 경우 다음 줄로 넘어갑니다 */
+    font-family: 'NanumSquareNeo';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 900px; /* 너비를 100%로 설정하여 부모 요소에 맞게 조절 */
+	border-radius:30px;
+    height: 300px;
+    overflow-y: scroll;
+    background: #fff;
+    z-index: 1001;
+}
+.scheduleContent{
+	padding: 5px;
+	border: 2px solid #D9D9D9;
+	border-radius: 10px;
+	font-size: 15px;
+	font-family: 'NanumSquareNeo';
+	
+	
+}
+.oneSchedule {
+    width: 28%; /* 한 줄에 5개가 최대로 보이도록 조절 */
+    margin-top: 10px;
+    margin-bottom: 20px;
+    margin-left:30px;
+    box-sizing: border-box;
+    transition: transform 0.3s ease-in-out;
+    background-color: #fff;
+    height: 200px;
+}
+
+.arrow{
+	width:18px;
+	height:18px;
+}
+
+
+.checkListInsertBtn{
+	 height:25px;
+	 border-radius:10px;
+	 background-color: transparent;
+	 border: none;
+	 margin-left:150px;
+	 font-family: 'NanumSquareNeo';
+	 background-color: #6A7EFC;
+	 color: white;
+	 font-size:15px;
+}
+.left-side-title{
+	font-size:20px;
+	font-weight: 600;
+}
+#app-image,#check-image{
+	width:20px;
+	height:20px;
+	padding-top:5px;
+	
+}
+
+#insertBtn{
+	height:25px;
+	 border-radius:10px;
+	 background-color: transparent;
+	 border: none;
+	 font-family: 'NanumSquareNeo';
+	 background-color: #6A7EFC;
+	 color: white;
+	 font-size:15px;
+}
+
+
+#deleteBtn{
+	height:25px;
+	 border-radius:10px;
+	background: transparent;
+  	border: none;
+	 font-family: 'NanumSquareNeo';
+	
+	 font-size:15px;
+}
+li{
+	margin-bottom:10px;
 }

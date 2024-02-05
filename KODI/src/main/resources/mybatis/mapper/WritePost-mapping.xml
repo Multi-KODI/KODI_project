@@ -15,21 +15,17 @@
 	<!-- insert -->
 	<insert id="insertPostInfo" parameterType="hashmap">
 		insert into post(title, content, regdate, address, category, grade, member_idx)
-		values(#{title}, #{content}, #{regdate}, #{address}, #{category}, #{grade}, #{myMemberIdx});
+		values(#{title}, #{content}, now(), #{address}, #{category}, #{grade}, #{myMemberIdx});
 	</insert>
 	
 	<insert id="insertPostTags" parameterType="hashmap">
-		<foreach item="content" index="index" collection="postTags">
-		insert into (content, post_idx)
-		values(#{content}, #{postIdx});
-		</foreach>
+		insert into post_tag(content, post_idx)
+		values(#{postTags}, #{postIdx});
 	</insert>
 	
 	<insert id="insertPostImages" parameterType="hashmap">
-		<foreach item="src" index="index" collection="postImages">
-		insert into (src, post_idx)
-		values(#{src}, #{postIdx});
-		</foreach>
+		insert into post_image(src, post_idx)
+		values(#{postImages}, #{postIdx});
 	</insert>
 	<!-- update -->
 	<!-- delete -->

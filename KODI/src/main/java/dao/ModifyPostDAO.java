@@ -27,9 +27,5 @@ public interface ModifyPostDAO {
 	
 	public int selectImageNum(int postIdx);
 	
-	public void updateImage(HashMap<String, Object> map);
-
-	public void insertImage(HashMap<String, Object> map);
-	
-	public void deleteImage(HashMap<String, Object> map);
+	public void insertImages(HashMap<String, Object> map);
 }

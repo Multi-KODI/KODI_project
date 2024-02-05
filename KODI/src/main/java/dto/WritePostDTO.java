@@ -2,7 +2,7 @@ package dto;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,13 +14,13 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class WritePostDTO {
-   private String title;
-   private String content;
-   private String regdate;
-   private String address;
-   private String category;
-   private double grade;
-   private List<String> postTags;
-   private List<String> postImages;
+	private int postIdx;
+	private String title;
+	private String content;
+	private String address;
+	private String category;
+	private double grade;
+	private List<String> postTags;
+	private MultipartFile imagePost[];
 }
 

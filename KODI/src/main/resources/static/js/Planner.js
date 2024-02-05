@@ -94,18 +94,22 @@ const handleDateSelection = (clickedDate) => {
 
 function makeModal(dateList, schedulelist){
    	document.querySelector('.modal').style.display ='block';
-   	var container = document.querySelector('.modal');
+   	var container = document.querySelector('.pop-planner');
 	deleteAllChildren(container);
 	for (var i = 0; i < dateList.length; i++) {
 		var modalDiv = document.createElement('div');
-		modalDiv.className = 'modalDate' + i;
+		modalDiv.className = 'oneSchedule';
 		modalDiv.innerHTML += dateList[i];
 		dateList[i] = "\'" + dateList[i] + "\'"; 
+		if(schedulelist[i]==null){
+			schedulelist[i]='';
+		}
+		alert(schedulelist[i]);
 		modalDiv.innerHTML +=
-		'<button class="modalBtn" id="insertBtn' + i + '" onclick="saveDiv(' + dateList[i] + ' , ' + i +')">저장</button>'
-		+'<button class="modalBtn" id="deleteBtn' + i + '\" onclick=\"deleteDiv(' + i + ')\">삭제</button>'
-		+'<input type=\'text\' value=\''+schedulelist[i]+'\'></input><br>';
-		document.querySelector('.modal').appendChild(modalDiv);
+		'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="modalBtn" id="insertBtn" onclick="saveDiv(' + dateList[i] + ' , ' + i +')">저장</button>&nbsp;'
+		+'<button class="modalBtn" id="deleteBtn" onclick="deleteDiv(' + i + ')">삭제</button><br>'
+		+'<input class="scheduleContent" value="'+schedulelist[i]+'"></input><br>';
+		document.querySelector('.pop-planner').appendChild(modalDiv);
    }
    
 }
@@ -118,20 +122,23 @@ function deleteAllChildren(element) {
 }
 
 function deleteDiv(index) {
-    var container = document.querySelector('.modal');
+    var container = document.querySelector('.pop-planner');
     
     // 지정된 div 내의 input 요소 가져오기
-    var inputElement = container.children[index].querySelector('input');
+    var inputElement = container.children[index].querySelector('textarea');
     
     // input 요소의 값을 빈 문자열로 설정
-    inputElement.value = "";
+    inputElement.innerHTML = "";
 }
 
 function saveDiv(target, index) {
-    var container = document.querySelector('.modal');
+    var container = document.querySelector('.pop-planner');
     
     // 지정된 div 내의 input 요소 가져오기
     var inputElement = container.children[index].querySelector('input');
+    alert(container.children[index].querySelector('input').value);
+    alert(inputElement.value);
+    
     
     // input 요소의 값을 빈 문자열로 설정
     var date = target;

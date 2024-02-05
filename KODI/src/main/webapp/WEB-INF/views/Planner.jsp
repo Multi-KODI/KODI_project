@@ -3,7 +3,7 @@
 <%@ include file="/WEB-INF/views/Header.jsp" %>
 <%@ include file="/WEB-INF/views/SearchHeader.jsp" %>
 <!DOCTYPE html>
-<!-- Coding By CodingNepal - youtube.com/codingnepal -->
+
 <html lang="en" dir="ltr">
 <head>
     <title>Planner</title>
@@ -15,79 +15,91 @@
     <script src="/js/Planner.js" defer></script>
     <script>
     if (${isSession}==false){
-        alert("로그인하세요");
+        alert("Please log in");
         location.href = "/";
   }
     
     </script>
 </head>
 <body>
+<main>
 <div class="wrapper">
-      <header>
-        <p class="current-date"></p>
-        <div class="icons">
-          <span id="prev" class="material-symbols-rounded">chevron_left</span>
-          <span id="next" class="material-symbols-rounded">chevron_right</span>
-        </div>
-      </header>
-      <div class="calendar">
-        <ul class="weeks">
-          <li>Sun</li>
-          <li>Mon</li>
-          <li>Tue</li>
-          <li>Wed</li>
-          <li>Thu</li>
-          <li>Fri</li>
-          <li>Sat</li>
-        </ul>
-        <ul class="days"></ul>
-      </div>
-    <div class="modal"></div>
-</div>
-<div id="checklist">
-<h5>Checklist</h5>
-<button class="checkListInsertBtn" onclick="makeCheckListModal()">Add</button>
-<ul class="checkList"></ul>
-</div>
-
-
-<div id="modal">
-	<div class="pop">
-		<input id="inputCheckList" type="text">
-		<button id="inputCheckListBtn" type="button" onclick="addLi()">Input</button>
-		<button id ="closeCheckkList" type="button" onclick="closeCheckListModal()">Close</button>
+	<div class='left-side'>
+	    <header>
+	       	<p class="current-date"></p>
+	       	<div class="icons">
+	         	<span id="prev" class="material-symbols-rounded"><img class="arrow" src="/image/icon/arrowleft.png"></span>
+	         	<span id="next" class="material-symbols-rounded"><img class="arrow" src="/image/icon/arrowright.png"></span>
+	       	</div>
+	    </header>
+	    <div class="calendar">
+	       	<ul class="weeks">
+	         	<li>Sun</li>
+	         	<li>Mon</li>
+	         	<li>Tue</li>
+	         	<li>Wed</li>
+	         	<li>Thu</li>
+	         	<li>Fri</li>
+	         	<li>Sat</li>
+	       	</ul>
+	       	<ul class="days"></ul>
+	    </div>
+	   	<div class="modal">
+			<div class="pop-planner">
+			</div>
+		</div>
+	
 	</div>
-</div>
+	<div class="right-side">
+		<div id="checklist">
+		<img id="check-image"src='/image/icon/check.png'>
+		<label class='left-side-title'>Checklist</label>
+		<button class="checkListInsertBtn" onclick="makeCheckListModal()">Add</button>
+		<ul class="checkList"></ul>
+		</div>
+		
+		
+		<div id="modal">
+			<div class="pop">
+				<input id="inputCheckList" type="text">
+				<button id="inputCheckListBtn" type="button" onclick="addLi()">Input</button>
+				<button id ="closeCheckkList" type="button" onclick="closeCheckListModal()">Close</button>
+			</div>
+		</div>
+		
+		<div id="app">
+		<img id="app-image"src='/image/icon/app.png'>
+		<label class='left-side-title'>Useful Apps</label>
+		<ul>
+		    <li>Delivery
+		 		<ul>
+		            <li>Baemin</li>
+		            <li>Yogiyo</li>
+		        </ul>   
+		    </li>
+		    
+		    <li>
+		        Accommodation Booking
+		        <ul>
+		            <li>HotelsCombined</li>
+					<li>Yanolja</li>
+					<li>GC Company</li>
+					<li>Airbnb</li>
+		        </ul>
+		    </li>
+		    <li>Transportation
+				<ul>
+				   <li>KakaoMap</li>
+				   <li>KakaoTaxi</li>
+				   <li>TmoneyGO</li>
+				   <li>NaverMap</li>
+				</ul>
+			</li>
+		</ul>
+		</div> 
+	</div>
 
-<div id="app">
-  <h5>Useful Apps</h5>
-  <ul>
-      <li>Delivery
-          <ul>
-              <li>Baemin</li>
-              <li>Yogiyo</li>
-          </ul>   
-      </li>
-      
-      <li>
-          Accommodation Booking
-          <ul>
-              <li>HotelsCombined</li>
-              <li>Yanolja</li>
-              <li>GC Company</li>
-              <li>Airbnb</li>
-          </ul>
-      </li>
-      <li>Transportation
-          <ul>
-             <li>KakaoMap</li>
-             <li>KakaoTaxi</li>
-             <li>TmoneyGO</li>
-             <li>NaverMap</li>
-          </ul>
-      </li>
-  </ul>
-  
-</div> 
+</div>
+</main>
 </body>
 </html>

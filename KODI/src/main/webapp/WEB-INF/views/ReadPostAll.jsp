@@ -9,7 +9,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="/css/ReadPostAll.css">
-
+<script src="/js/jquery-3.7.1.min.js"></script>
 </head>
 
 <body>
@@ -56,7 +56,7 @@
 if(${isSession} == false) {
     alert("Please log in");
     location.href = "/";
- } 
+ }
 var category = "${category}";
 if(category == "맛집"){
 	$("#food").css("background-color", "#EDF2F6");

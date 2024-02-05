@@ -33,31 +33,31 @@
 <body>
 	<div class="post">
 			<form action="/api/post/issave" method="post" enctype="multipart/form-data">
-				<select name="categoryPost" id="categoryPost" required>
+				<select name="category" id="categoryPost" required>
 				    <option value="" selected disabled>카테고리</option>
-				    <option value="food">맛집</option>
-				    <option value="cafe">카페</option>
-				    <option value="hotel">숙소</option>
-				    <option value="play">놀거리</option>
+				    <option value="맛집">맛집</option>
+				    <option value="카페">카페</option>
+				    <option value="숙소">숙소</option>
+				    <option value="놀거리">놀거리</option>
 				</select>
 				&nbsp;&nbsp;
-				<select name="point" id="point" required>
+				<select name="grade" id="point" required>
 				    <option value="" selected disabled>평점</option>
-				    <option value="one">1</option>
-				    <option value="onePointFive">1.5</option>
-				    <option value="two">2</option>
-				    <option value="twoPointFive">2.5</option>
-				    <option value="three">3</option>
-				    <option value="threePointFive">3.5</option>
-				    <option value="four">4</option>
-				    <option value="fourPointFive">4.5</option>
-				    <option value="five">5</option>
+				    <option value="1.0">1</option>
+				    <option value="1.5">1.5</option>
+				    <option value="2.0">2</option>
+				    <option value="2.5">2.5</option>
+				    <option value="3.0">3</option>
+				    <option value="3.5">3.5</option>
+				    <option value="4.0">4</option>
+				    <option value="4.5">4.5</option>
+				    <option value="5.0">5</option>
 				</select>
 				<br><br>
 				<div>
-					<input type="text" id="writePostTitle" name="writePostTitle" placeholder="제목" required><br><br>
+					<input type="text" id="writePostTitle" name="title" placeholder="제목" required><br><br>
 					<hr><br>
-					<textarea id="writePostContent" name="writePostContent" rows="7" placeholder="내용" required></textarea>
+					<textarea id="writePostContent" name="content" rows="7" placeholder="내용" required></textarea>
 				
 					<br><br>
 				    <input type="text" id="tagInput" placeholder="#해시태그#입력" onkeypress="handleKeyPress(event)">&nbsp;

@@ -24,13 +24,13 @@
                 <div class="logoBtn">
                     <dlv id="friendheader">
                         <img id="logo-icon" src="/image/icon/logo.png">
-                        <h2>친구목록</h2>
+                        <h2>List of friends</h2>
                     </dlv>
 
                     <div class="form-group">
-                        <button id="PairBtn" style="background-color: #999999;color:#ffffff;" data-api="/api/pair">서로친구</button>
-                        <button id="FollowingBtn" data-api="/api/following">내가 추가한 친구</button>
-                        <button id="FollowerBtn" data-api="/api/follower">나를 추가한 친구</button>
+                        <button id="PairBtn" style="background-color: #999999;color:#ffffff;" data-api="/api/pair">Friends</button>
+                        <button id="FollowingBtn" data-api="/api/following">Followings</button>
+                        <button id="FollowerBtn" data-api="/api/follower">Followers</button>
                     </div>
 
                 </div>
@@ -41,10 +41,10 @@
                             <thead>
                                 <tr>
                                     <th>
-                                        <div class="tdDiv">닉네임</div>
+                                        <div class="tdDiv">Nickname</div>
                                     </th>
                                     <th>
-                                        <div class="tdDiv">국적</div>
+                                        <div class="tdDiv">Nationality</div>
                                     </th>
                                    
                                     <th>
@@ -67,7 +67,7 @@
                                         </td>
                                         <td>
                                             <button class="f-Btn" id="f-drawBtn" type="button"
-                                                data-member-idx="${friend.memberIdx}">친구삭제</button>
+                                                data-member-idx="${friend.memberIdx}">Delete a friend</button>
                                         </td>
                                     </tr>
 
@@ -82,7 +82,7 @@
 
 
             </div>
-            <div class="friend-btn"><button type="button" id="closebtn">닫기</button></div>
+            <div class="friend-btn"><button type="button" id="closebtn">Close</button></div>
 
         </div>
 

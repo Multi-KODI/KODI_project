@@ -26,16 +26,16 @@ $(document).ready(function(){
 	        },
 	        type: "post",
 	        success: function(response) {
-	            if (response=="인증코드를 발송했습니다, 이메일을 확인해 주세요") {
+	            if (response=="The verification code has been sent, please check your email") {
 	                alert(response);
-	                $("#confirmCodeForm").html("<input type=\"text\" id=\"inputConfirmCode\" name=\"inputConfirmCode\" placeholder=\"인증코드 입력\" required>&nbsp;" +
+	                $("#confirmCodeForm").html("<input type=\"text\" id=\"inputConfirmCode\" name=\"inputConfirmCode\" placeholder=\"Enter verification code\" required>&nbsp;" +
 	                    "&nbsp;<input type=\"button\" id=\"confirmCodeBtn\" value=\"확인\">");
 	            } else {
-	                alert("이미 사용중인 이메일 입니다.");
+	                alert("This email is already in use.");
 	            }
 	        },
 	        error: function(request, status, error) {
-	            alert("코드: " + request.status + " 메시지: " + request.responseText + " 오류: " + error);
+	            alert("Code: " + request.status + " Message: " + request.responseText + " Error: " + error);
 	        }
 	    });
 	});
@@ -46,11 +46,11 @@ $(document).ready(function(){
 			data:{"inputOtp": $("#inputConfirmCode").val()},
 			type:"post",
 			success: function(response) {
-		        if (response =="이메일이 인증되었습니다") {
-		        	 $("#confirmCodeForm").html("<h4>인증완료되었습니다.</h4>");
+		        if (response =="Your email has been verified") {
+		        	 $("#confirmCodeForm").html("<h4>Verification is complete</h4>");
 		            confirmFlag = true;
 		        } else {
-		            alert("코드를 확인해주세요.");
+		            alert("Please check verificatin number.");
 		        }
 		    },
 		    error: function(xhr, textStatus, errorThrown) {
@@ -73,12 +73,12 @@ $(document).ready(function(){
 			    type:"post",
 			    contentType : "application/json",
 			    success: function(response) {
-			        if (response=="회원등록이 완료되었습니다") {
+			        if (response=="Membership registration is complete") {
 			        	alert(response);
 			            location.href = "login";
 			        } else {
 			            // 회원가입 실패
-			            alert("회원가입 실패하였습니다.");
+			            alert("Registration has failed");
 			        }
 			    },
 			    error: function(xhr, textStatus, errorThrown) {
@@ -88,7 +88,7 @@ $(document).ready(function(){
 
 			}// if
 			else{
-				alert("이메일을 인증이 완료되지 않았습니다.");	
+				alert("Email verification has not been completed.");	
 			}
 		});	//btn
 		 
@@ -114,8 +114,8 @@ $(document).ready(function(){
 	<div id="inner">
 	<img src="/image/icon/friends.png">
 		<form onsubmit="return false;">
-		<h3>이메일</h3>
-	    <input type="text" id="inputEmail" name="inputEmail" placeholder="이메일" required>
+		<h3>Email</h3>
+	    <input type="text" id="inputEmail" name="inputEmail" placeholder="Email" required>
 	    &nbsp;<label>@</label>&nbsp;
 	    <select name="emailLocation" id="emailLocation">
 		    <option value="gmail.com">gmail.com</option>
@@ -126,13 +126,13 @@ $(document).ready(function(){
 	  	<input type="button" id="confirmBtn" value="인증코드"><br>
 	    <div id="confirmCodeForm"></div>
 	    
-	    <h3>비밀번호</h3>
-    	<input type="password" id="inputPassword" name="inputPassword" placeholder="비밀번호" required>
+	    <h3>Password</h3>
+    	<input type="password" id="inputPassword" name="inputPassword" placeholder="Password" required>
     	
-	    <h3>닉네임</h3>
-    	<input type="text" id="inputNickname" name="inputNikename" placeholder="닉네임" required>
+	    <h3>Nickname</h3>
+    	<input type="text" id="inputNickname" name="inputNikename" placeholder="Nickname" required>
     	
-    	<h3>국적</h3>
+    	<h3>Nationality</h3>
     	<select name="nation" id="nation">
     		<option selected disabled>Country</option>
 			<option value="1">Afghanistan</option>

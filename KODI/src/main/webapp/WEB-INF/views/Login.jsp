@@ -31,23 +31,23 @@ $(document).ready(function(){
 	            type: "post",
 	            success: function(response) {
 	               		
-	                    if (response == "로그인에 성공하였습니다") {// 로그인이 성공
+	                    if (response == "Login successful") {// 로그인이 성공
 	                    	location.href = "/api/home";
-	                    } else if(response == "비밀번호를 확인해 주세요") {// 로그인이 실패(비밀번호 잘못입력)
+	                    } else if(response == "Please check the password") {// 로그인이 실패(비밀번호 잘못입력)
 	                    	alert(response);
 	                    	$("#inputPassword").focus();
-	                    }else if(response == "회원이 존재하지 않습니다"){
+	                    }else if(response == "The member does not exist"){
 	                    	alert(response);
 	                    	$("#inputEmail").focus();
-	                    }else if(response == "관리자로 로그인 하였습니다"){
+	                    }else if(response == "Logged in as an administrator"){
 	                    	location.href = "/api/admin/allposts";
 	                    }else{
-	                    	alert("알 수 없는 오류");
+	                    	alert("Unknown Error");
 	                    }
 	                
 	            },
 	            error: function(request, e){
-					console.log("코드: " + request.status + "메시지: " + request.responseText + "오류: " + e);
+					console.log("Code: " + request.status + "Message: " + request.responseText + "Error: " + e);
 				}
 	        }); //ajax
 	    });//btn
@@ -77,11 +77,11 @@ $(document).ready(function(){
 	<div id="inner">
 	<img src="/image/icon/friends.png">
 		<form id="loginForm" method="post">
-			<h3>이메일</h3>
-		    <input type="text" id="inputEmail" name="inputEmail" placeholder="이메일" required><br><br>
+			<h3>Email</h3>
+		    <input type="text" id="inputEmail" name="inputEmail" placeholder="Email" required><br><br>
 		    
-		    <h3>비밀번호</h3>
-		    <input type="password" id="inputPassword" name="inputPassword" placeholder="비밀번호" required><br><br>
+		    <h3>Password</h3>
+		    <input type="password" id="inputPassword" name="inputPassword" placeholder="Password" required><br><br>
 		    
 		    <div id="garoBtns">
 		    	<input type="button" id="loginBtn" class="btn" value="로그인">

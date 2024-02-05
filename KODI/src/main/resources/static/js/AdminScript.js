@@ -3,7 +3,7 @@ $(document).ready(function () {
     $("#postList").on('click', '.deleteBtn', function (e) {
         e.preventDefault();
         
-        if(confirm('이 게시글을 삭제하시겠습니까?')){
+        if(confirm('Would you like to delete this post?')){
 			$.ajax({
             url: '/api/admin/deletepost/' + $(e.target).attr('data-post-idx'),
             dataType: 'json',
@@ -66,7 +66,7 @@ $(document).ready(function () {
 	//전체 회원
     $("#memberList").on('click', '.withdrawBtn', function (e) {
         e.preventDefault();
-        if(confirm('이 회원을 탈퇴 시키겠습니까??')){
+        if(confirm('Do you want to withdraw this member?')){
         $.ajax({
             url: '/api/admin/deletemember/' + $(e.target).attr('data-member-idx'),
             dataType: 'json',

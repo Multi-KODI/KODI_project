@@ -25,13 +25,13 @@
 		
 	<div class="logoBtn">
 		<dlv id="friendheader"> 
-			<img id="logo-icon" src="/image/icon/logo.png"> <h2>친구목록</h2>
+			<img id="logo-icon" src="/image/icon/logo.png"> <h2>List of friends</h2>
 		</dlv>
 		
 		<div class="form-group" >
-			<button id="PairBtn" style="background-color: #999999; color:#ffffff;">서로친구</button>
-			<button id="FollowingBtn">내가 추가한 친구</button>
-			<button id="FollowerBtn">나를 추가한 친구</button>
+			<button id="PairBtn" style="background-color: #999999; color:#ffffff;">Friends</button>
+			<button id="FollowingBtn">Followings</button>
+			<button id="FollowerBtn">Followers</button>
 		</div>
 		
 	</div>
@@ -42,13 +42,13 @@
             <thead>
                 <tr>
                     <th>
-                        <div class="tdDiv">닉네임</div>
+                        <div class="tdDiv">Nickname</div>
                     </th>
                     <th>
-                        <div class="tdDiv">국적</div>
+                        <div class="tdDiv">Nationality</div>
                     </th>
                     <th>
-                        <div class="tdDiv">친구여부</div>
+                        <div class="tdDiv">Friendship status</div>
                     </th>
                     <th>
                         <div class="tdDiv"></div>

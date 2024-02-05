@@ -25,13 +25,13 @@
 							<div class="logoBtn">
 								<dlv id="friendheader">
 									<img id="logo-icon" src="/image/icon/logo.png">
-									<h2>친구목록</h2>
+									<h2>List of friends</h2>
 								</dlv>
 
 								<div class="form-group">
-									<button id="PairBtn">서로친구</button>
-									<button id="FollowingBtn" style="background-color: #999999; color:#ffffff;">내가 추가한 친구</button>
-									<button id="FollowerBtn">나를 추가한 친구</button>
+									<button id="PairBtn">Friends</button>
+									<button id="FollowingBtn" style="background-color: #999999; color:#ffffff;">Followings</button>
+									<button id="FollowerBtn">Followers</button>
 								</div>
 
 							</div>
@@ -42,10 +42,10 @@
 										<thead>
 											<tr>
 												<th>
-													<div class="tdDiv">닉네임</div>
+													<div class="tdDiv">Nickname</div>
 												</th>
 												<th>
-													<div class="tdDiv">국적</div>
+													<div class="tdDiv">Nationality</div>
 												</th>
 
 												<th>
@@ -68,7 +68,7 @@
 													</td>
 													<td>
 														<button class="f-Btn" id="f-cancelBtn" type="button"
-															data-member-idx="${friend.memberIdx}">요청 취소</button>
+															data-member-idx="${friend.memberIdx}">Cancel request</button>
 													</td>
 												</tr>
 											</c:forEach>
@@ -82,7 +82,7 @@
 							</div>
 
 						</div>
-						<div class="friend-btn"><button type="button" id="closebtn">닫기</button></div>
+						<div class="friend-btn"><button type="button" id="closebtn">Close</button></div>
 
 					</div>
 

@@ -33,11 +33,11 @@
     </div>
 
     <div class="mypagebtn-box">
-        <button class="mypagebtn" id="friendbtn">친구목록</button>
+        <button class="mypagebtn" id="friendbtn">List of friends</button>
 
         <div>
-            <button class="mypagebtn" id="writebtn">글작성</button>
-            <button class="mypagebtn" id="modifybtn">정보수정</button>
+            <button class="mypagebtn" id="writebtn">Write a post</button>
+            <button class="mypagebtn" id="modifybtn">Information update</button>
         </div>
 
      </div>
@@ -107,7 +107,7 @@ $(document).ready(function() {
 
 	//정보수정
 	$("#modifybtn").on("click", function() {
-		var userInput = prompt("정보수정을 하려면 비밀번호를 입력하세요");
+		var userInput = prompt("To update your information, please enter your password");
 
 		// 사용자가 "취소"를 눌렀을 때 AJAX 요청을 보내지 않음
 		if (userInput === null) {
@@ -132,10 +132,10 @@ $(document).ready(function() {
 			},
 			error : function(xhr, status, error) {
 				if (xhr.status === 401) {
-					alert("비밀번호가 일치하지 않습니다."); // 비밀번호 불일치 처리
+					alert("Password does not match"); // 비밀번호 불일치 처리
 				} else {
 					console.error("error: " + error);
-					alert("서버 오류가 발생했습니다."); // 서버 오류 처리
+					alert("A server error has occurred"); // 서버 오류 처리
 				}
 			}
 		});

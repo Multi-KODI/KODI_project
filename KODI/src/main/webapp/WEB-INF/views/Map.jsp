@@ -20,18 +20,19 @@
 <%@ include file="/WEB-INF/views/SearchHeader.jsp" %>
 
 <main>
-<div id="wrap" class="section">
-	<h2>나의 지도</h2>
-    <p>구글지도</p>
-    <div>
-    	<button id="myMark">나의 마커</button>
-    	<button id="friendMark">친구의 마커</button>
-    </div>
-  	
-    <div id="googleMap" style="width:100%;height:600px;"></div>
-    
-    <code id="snippet" class="snippet"></code>
-</div>
+	<div id="wrap" class="section">
+		<h2>My Map</h2>
+		<p>Google Maps</p>
+		<div>
+			<button id="myMark">My Marker</button>
+			<button id="friendMark">Friend's Marker</button>
+		</div>
+	  
+		<div id="googleMap" style="width:100%;height:600px;"></div>
+		
+		<code id="snippet" class="snippet"></code>
+	</div>
+	
 </main>
 
 <script>
@@ -74,7 +75,7 @@ function initMap(address) {
  	                var infoWindow = new google.maps.InfoWindow({
  	                    content: `
  	                        <h6>${address}</h6>
- 	                        <a href="https://google.com/maps/place/${address[i]}" target="_blank">구글 지도에서 보기</a>
+ 	                        <a href="https://google.com/maps/place/${address[i]}" target="_blank">View on Google Maps</a>
  	                    `
  	            	});
 

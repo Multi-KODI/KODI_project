@@ -30,8 +30,8 @@
     			<img class="icon" id="chatIcon" src="/image/icon/chat.png">
 			</a>
 
-			<button class="btn" id="mypagenbtn">마이페이지</button>
-			<button class="btn" id="logoutbtn">로그아웃</button>
+			<button class="btn" id="mypagenbtn">My Page</button>
+			<button class="btn" id="logoutbtn">Logout</button>
 			<!-- <div class="language-selection">
 				<select>
 					<option value="ko">한국어</option>
@@ -43,10 +43,10 @@
 </header>
 
 	<div class="menu-content">
-		<a href="/api/posts/food">모든 게시글</a> 
-		<a href="/api/map">지도 서비스</a> 
-		<a href="/api/planner">여행 플래너</a> 
-		<a href="/api/diningcost">지역별 외식비</a>
+		<a href="/api/posts/food">All posts</a> 
+		<a href="/api/map">Map service</a> 
+		<a href="/api/planner">Travel planneer</a> 
+		<a href="/api/diningcost">Dining expenses by region</a>
 	</div>
 	
 	

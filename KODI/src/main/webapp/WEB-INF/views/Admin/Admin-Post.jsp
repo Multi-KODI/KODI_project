@@ -26,8 +26,8 @@
 			</div>
 
 			<div class="end-btn">
-				<button class="btn" id="adminbtn">관리자</button>
-				<button class="btn" id="logoutbtn">로그아웃</button>
+				<button class="btn" id="adminbtn">Admin</button>
+				<button class="btn" id="logoutbtn">Logout</button>
 				<div class="language-selection">
 					<select>
 						<option value="ko">한국어</option>
@@ -39,8 +39,8 @@
 	</header>
 
 	<div class="menu-content">
-		<a href="/api/admin/allposts" id="listallBtn">전체글</a> 
-		<a href="/api/admin/allmembers" id="memberlistBtn">회원목록</a>
+		<a href="/api/admin/allposts" id="listallBtn">All posts</a> 
+		<a href="/api/admin/allmembers" id="memberlistBtn">List of members</a>
 	</div>
 
 <div class="main">
@@ -53,13 +53,13 @@
 		<div class="title">
 
 			<div id="title">
-				<span style="margin-left: 10px;">전체글</span>
+				<span style="margin-left: 10px;">All posts</span>
 				<form action="boardsearchlist">
 					<select id="searchselect" name="search">
-						<option>제목</option>
-						<option>내용</option>
-						<option>작성자</option>
-						<option>모두</option>
+						<option>Title</option>
+						<option>Content</option>
+						<option>Author</option>
+						<option>All</option>
 					</select> <input id="searchinput" name="word">
 					<button type="submit"
 						style="border: none; background: none; cursor: pointer;">
@@ -75,16 +75,16 @@
 				<thead>
 					<tr>
 						<th>
-							<div class="tdDiv">글번호</div>
+							<div class="tdDiv">Post number</div>
 						</th>
 						<th>
-							<div class="tdDiv">작성자(이메일)</div>
+							<div class="tdDiv">Author (Email)</div>
 						</th>
 						<th>
-							<div class="tdDiv">글제목</div>
+							<div class="tdDiv">Title</div>
 						</th>
 						<th>
-							<div class="tdDiv">글내용</div>
+							<div class="tdDiv">Content</div>
 						</th>
 					</tr>
 				</thead>

@@ -15,10 +15,10 @@
 <body>
 <main>
 <div class="categoryBox">
-	<button class="categoryBtn" id="food">맛집</button>
-	<button class="categoryBtn" id="cafe">카페</button>
-	<button class="categoryBtn" id="play">놀거리</button>
-	<button class="categoryBtn" id="hotel">숙소</button>
+	<button class="categoryBtn" id="food">Restaurant</button>
+	<button class="categoryBtn" id="cafe">Cafe</button>
+	<button class="categoryBtn" id="play">Activities</button>
+	<button class="categoryBtn" id="hotel">Accommodation</button>
 </div>
 <div class="container">
 <c:forEach var="post" items="${readPostAll}">
@@ -54,7 +54,7 @@
 </div>
 <script>
 if(${isSession} == false) {
-    alert("로그인하세요");
+    alert("Please log in");
     location.href = "/";
  } 
 var category = "${category}";

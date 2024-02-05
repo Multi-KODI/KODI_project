@@ -24,10 +24,10 @@
 <main>
 
 <div id="hBox">
-    <p><strong><span style="color: #6A7EFC;">${param.question}</span></strong>에 대한 검색결과 입니다.</p>
+    <p><strong><span style="color: #6A7EFC;">Search results for "${param.question}"</span></strong>.</p>
     <div class="hBox2">
-        <div id="hBox3" style="color: #494953">게시글</div>
-        <div id="hBox4" style="color: #E5E1DA">사용자</div>
+        <div id="hBox3" style="color: #E5E1DA">Posts</div>
+        <div id="hBox4" style="color: #494953">Users</div>
     </div>
 </div>
 

@@ -23,23 +23,22 @@
 
 <main>
 <div id="hBox">
-    <p><strong><span style="color: #6A7EFC;">${param.question}</span></strong>에 대한 검색결과 입니다.</p>
+    <p><strong><span style="color: #6A7EFC;">Search results for "${param.question}"</span></strong>.</p>
     <div class="hBox2">
-        <div id="hBox3" style="color: #E5E1DA">게시글</div>
-        <div id="hBox4" style="color: #494953">사용자</div>
+        <div id="hBox3" style="color: #E5E1DA">Posts</div>
+        <div id="hBox4" style="color: #494953">Users</div>
     </div>
 </div>
-
 
 <div class="listBox2">
 <table>
 	<thead>
 		<tr>
 			<th>
-				<div class="tdDiv">닉네임</div>
+				<div class="tdDiv">Nickname</div>
 			</th>
 			<th>
-				<div class="tdDiv">국적</div>
+				<div class="tdDiv">Nationality</div>
 			</th>
 			<th>
 				<div class="tdDiv"></div>
@@ -64,20 +63,20 @@
 				<td class="tdButton">
 					<button class="fBtn" type="button" data-member-idx="${member.memberIdx}">
 						<c:if test="${member.friendState eq '서로 친구'}"> 
-						친구 삭제
+                        Delete friend
 						</c:if>
 						<c:if test="${member.friendState eq '내가 추가한 친구'}"> 
-						요청 취소
+                        Cancel request
 						</c:if>
 						<c:if test="${member.friendState eq '나를 추가한 친구'}"> 
-						수락
+						Accept
 						</c:if>
 						<c:if test="${member.friendState eq '친구 신청 가능'}"> 
-						친구 신청
+                        Friend request
 						</c:if>
 					</button>
 					<c:if test="${member.friendState eq '나를 추가한 친구'}">
-						<button class="fBtn" type="button" data-member-idx="${member.memberIdx}">거절</button>
+						<button class="fBtn" type="button" data-member-idx="${member.memberIdx}">Decline</button>
 					</c:if>
 				</td>
 			</tr>
@@ -115,7 +114,7 @@ $(document).ready(function() {
         
         if(friendState === "친구 신청") {
             // 친구신청
-            if(confirm("친구신청 하시겠습니까?")) {
+            if(confirm("Would you like to send a friend request?")) {
                 $.ajax({
                     url: '/api/search/isClickBtn',
                     type: 'POST',
@@ -130,7 +129,7 @@ $(document).ready(function() {
         }
         else if(friendState === "요청 취소") {
         	//요청 취소
-        	if(confirm("친구신청을 취소하시겠습니까?")) {
+        	if(confirm("Would you like to cancel the friend request?")) {
         		$.ajax({
         			url: '/api/search/isClickBtn',
                     type: 'POST',
@@ -145,7 +144,7 @@ $(document).ready(function() {
         }
         else if(friendState === "수락") {
         	//요청 수락
-        	if(confirm("친구요청을 수락하시겠습니까?")) {
+        	if(confirm("Would you like to accept the friend request?")) {
         		$.ajax({
         			url: '/api/search/isClickBtn',
                     type: 'POST',
@@ -160,7 +159,7 @@ $(document).ready(function() {
         }
         else if(friendState === "거절") {
         	//요청 거절
-			if(confirm("친구요청을 거절하시겠습니까?")) {
+			if(confirm("Would you like to decline the friend request?")) {
         		$.ajax({
         			url: '/api/search/isClickBtn',
                     type: 'POST',
@@ -175,7 +174,7 @@ $(document).ready(function() {
         }
         else if(friendState === "친구 삭제") {
             // 삭제
-            if(confirm("친구삭제를 하시겠습니까?")) {
+            if(confirm("Would you like to delete the friend?")) {
                 $.ajax({
                 	url: '/api/search/isClickBtn',
                     type: 'POST',

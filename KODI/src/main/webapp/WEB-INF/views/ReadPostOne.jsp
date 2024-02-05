@@ -20,7 +20,7 @@
  
 	$(document).ready(function(){
 		if(${isSession} == false) {
-			alert("로그인하세요");
+			alert("Please log in");
 			location.href = "/";
 		} else {
 			showPostData();
@@ -35,7 +35,7 @@
 	
 	function showPostData() {		
 		$("#postTitle").html("${readPostOne.postInfo.title}");
-		$("#grade").html("평점 " + "${readPostOne.postInfo.grade}" + "/5.0");
+		$("#grade").html("Rating " + "${readPostOne.postInfo.grade}" + "/5.0");
 		$("#flag").attr("src", "${readPostOne.flag}");
 		$("#memberName").html("${readPostOne.memberName}");
 		$("#date").html("${readPostOne.postInfo.regdate}");
@@ -72,7 +72,7 @@
 				}
 			},
 			error: function(res, e){
-				alert("코드: " + res.status + "메시지: " + res.responseText + "오류: " + e);
+				alert("Code: " + res.status + "Message: " + res.responseText + "Error: " + e);
 			}
 		});
 		
@@ -101,12 +101,12 @@
 							}
 						},
 						error: function(res, e){
-							alert("코드: " + res.status + "메시지: " + res.responseText + "오류: " + e);
+							alert("Code: " + res.status + "Message: " + res.responseText + "Error: " + e);
 						}
 					});
 				},
 				error: function(res, e){
-					alert("코드: " + res.status + "메시지: " + res.responseText + "오류: " + e);
+					alert("Code: " + res.status + "Message: " + res.responseText + "Error: " + e);
 				}
 			});
 		});
@@ -125,10 +125,10 @@
 				dataType: "json",
 				success: function(response){
 					if(response == 1){
-						alert("이미 마킹 등록하였습니다.");
+						alert("You have already registered the marking");
 						
 						// 마킹 삭제
-						let isDeleteMarking = confirm("마킹 취소하시겠습니까?");
+						let isDeleteMarking = confirm("Would you like to cancel the marking?");
 						
 						if(isDeleteMarking){
 							$.ajax({
@@ -139,17 +139,17 @@
 								dataType: "json",
 								success: function(deleteRes){
 									if(deleteRes == 1){
-										alert("마킹 취소되었습니다.");
+										alert("The marking has been canceled");
 									}
 								},
 								error: function(res, e){
-									alert("코드: " + res.status + "메시지: " + res.responseText + "오류: " + e);
+									alert("Code: " + res.status + "Message: " + res.responseText + "Error: " + e);
 								}
 							});
 						}
 					} else {
 						// 마킹 등록
-						let isMarking = confirm("마킹 등록하시겠습니까?");
+						let isMarking = confirm("Would you like to register the marking?");
 						
 						if(isMarking){
 							$.ajax({
@@ -160,18 +160,18 @@
 								dataType: "json",
 								success: function(insertRes){
 									if(insertRes == 1){
-										alert("마킹 등록되었습니다.");
+										alert("The marking has been registered.");
 									}
 								},
 								error: function(res, e){
-									alert("코드: " + res.status + "메시지: " + res.responseText + "오류: " + e);
+									alert("Code: " + res.status + "Message: " + res.responseText + "Error: " + e);
 								}
 							});
 						};
 					}
 				},
 				error: function(res, e){
-					alert("코드: " + res.status + "메시지: " + res.responseText + "오류: " + e);
+					alert("Code: " + res.status + "Message: " + res.responseText + "Error: " + e);
 				}
 			});
 			
@@ -190,7 +190,7 @@
 			document.execCommand("copy");
 			document.body.removeChild(dummy);
 			
-			alert("해당 URL이 복사되었습니다.");
+			alert("The URL has been copied.");
 		});
 	};
 
@@ -272,22 +272,22 @@
 						if(response == 1){
 							location.reload();
 						}else{
-							alert("댓글 작성실패");
+							alert("Failed to write a comment");
 						}
 					},
 					error: function(request, e){
-						alert("코드: " + request.status + "메시지: " + request.responseText + "오류: " + e);
+						alert("Code: " + request.status + "Message: " + request.responseText + "Error: " + e);
 					}
 				});
 			} else {
-				alert("댓글을 입력해주세요.");
+				alert("Please enter a comment");
 			}
 		});
 	};
 	
 	function deleteCommentBtn(commentIdx, memberIdx) {
 		if(sessionId == ${readPostOne.postInfo.memberIdx} || sessionId == memberIdx){
-			let isDelete = confirm("해당 댓글을 삭제하시겠습니까?");
+			let isDelete = confirm("Would you like to delete this comment?");
 			
 			if (isDelete){
 				$(`#${'${commentIdx}'}`).remove();
@@ -300,25 +300,25 @@
 						location.reload();
 					},
 					error: function(request, e){
-						alert("코드: " + request.status + "메시지: " + request.responseText + "오류: " + e);
+						alert("Code: " + request.status + "Message: " + request.responseText + "Error: " + e);
 					}
 				});
 			};
 		} else{
-			alert("해당 댓글을 삭제할 수 있는 권한이 없습니다.");
+			alert("You do not have permission to delete this comment.");
 		}
 	};
 	
 	function updateDelMenu() {
 		$("#updatePostBtn").on("click", function(){
 			if(sessionId == ${readPostOne.postInfo.memberIdx}){
-				let isUpdate = confirm("해당 게시물을 수정하시겠습니까?");
+				let isUpdate = confirm("Would you like to edit this post?");
             
 				if (isUpdate) {
 					location.href = "/api/post/modify/" + ${readPostOne.postInfo.postIdx};
 				};
 			} else {
-				alert("해당 게시글을 수정할 수 있는 권한이 없습니다.");
+				alert("You do not have permission to edit this post.");
 			}
          
 		});
@@ -327,7 +327,7 @@
 			var data = {postIdx: ${readPostOne.postInfo.postIdx}};
 			
 			if(sessionId == ${readPostOne.postInfo.memberIdx}){
-				let isDelete = confirm("해당 게시물을 삭제하시겠습니까?");
+				let isDelete = confirm("Would you like to delete this post?");
 				
 				if (isDelete) {
 					$.ajax({
@@ -337,16 +337,16 @@
 						dataType: "json",
 						contentType: "application/json",
 						success: function(response){
-							alert("게시물을 삭제하였습니다.");
+							alert("The post has been deleted.");
 							location.href = "/api/post";
 						},
 						error: function(request, e){
-							alert("코드: " + request.status + "메시지: " + request.responseText + "오류: " + e);
+							alert("Code: " + request.status + "Message: " + request.responseText + "Error: " + e);
 						}
 					});
 				};   
 			} else {
-				alert("해당 게시물을 삭제할 수 있는 권한이 없습니다.");
+				alert("You do not have permission to delete this post.");
 			}
 		});
 	};
@@ -368,37 +368,37 @@
 							width="24" height="24"></img>
 					</button>
 					<div class="option">
-						<button class="optionBtn" id="updatePostBtn" value="update">게시글
-							수정</button>
+						<button class="optionBtn" id="updatePostBtn" value="update">Edit Post</button>
 						<hr>
-						<button class="optionBtn" id="deletePostBtn" value="delete">게시글
-							삭제</button>
+						<button class="optionBtn" id="deletePostBtn" value="delete">Delete Post</button>
 					</div>
+
 					<br>
 				</div>
 
-				<h2 id="postTitle">게시글 제목</h2>
+				<h2 id="postTitle">Post Title</h2>
 
 				<div id="postInfo">
-					<p id="grade" style="display: inline;">평점 3.5/5</p>
-					<img id="flag" width=15px height=15px align="center">
-					<p id="memberName" style="display: inline;">작성자</p>
+					<p id="grade" style="display: inline;">Rating 3.5/5</p>
+					<img id="flag" width="15px" height="15px" align="center">
+					<p id="memberName" style="display: inline;">Author</p>
 					<p id="date" style="display: inline;">2023.11.08. 15:48</p>
 				</div>
 
 				<hr width="100%" align="center" />
 
 				<div id="postContent">
-					<p>게시글 내용</p>
+					<p>Post Content</p>
 				</div>
-				
+
 				<div id="postImage"></div>
 
 				<div id="addrDiv">
-					주소
+					Address
 					<p id="addrInfo"></p>
 				</div>
-				<div id="tagDiv">태그</div>
+				<div id="tagDiv">Tags</div>
+
 
 				<!-- 좋아요, 마킹, 공유 -->
 				<div id="btns">
@@ -419,9 +419,9 @@
 			
 			<!-- 댓글 -->
 			<div id="commentInfo">
-				<p>댓글</p>
+				<p>Comments</p>
 				<hr width="100%" align="center">
-				<textarea id="inputComment" rows="5" placeholder="댓글을 입력하세요."></textarea>
+				<textarea id="inputComment" rows="5" placeholder="Enter a comment"></textarea>
 				<br> <input type="button" id="postBtn" value="등록">
 				<div id="showComment"></div>
 			</div>

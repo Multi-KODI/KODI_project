@@ -15,7 +15,7 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	if(${isSession} == false) {
-		alert("로그인하세요");
+		alert("Please log in");
 		location.href = "/";
 	} else {
 		$("#searchBtn").on('click', function(){
@@ -29,7 +29,7 @@ $(document).ready(function(){
 		        	$("#resultTbody").html("<tr><td>"+ response.item + "</td><td>"+response.seoulCost+"</td><td>"+response.busanCost+"</td><td>"+response.daeguCost+"</td><td>"+ response.incheonCost+"</td><td>"+response.gwangjuCost+"</td><td>"+response.daejeonCost+"</td><td>"+response.ulsanCost+"</td><td>"+response.gyeonggiCost+"</td><td>"+response.gangwonCost+"</td><td>"+response.chungbukCost+"</td><td>"+response.chungnamCost+"</td><td>"+response.jeonbukCost+"</td><td>"+response.jeonnamCost+"</td><td>"+response.gyeongbukCost+"</td><td>"+response.gyeongnamCost+"</td><td>"+response.jejuCost+"</td></tr>");
 		        },
 		        error: function(request, e){
-					alert("코드: " + request.status + "메시지: " + request.responseText + "오류: " + e);
+					alert("Code: " + request.status + "Message: " + request.responseText + "Error: " + e);
 				}
 		    }); //ajax
 		});
@@ -41,21 +41,21 @@ $(document).ready(function(){
 <main>
 	<div id="categoryBox" style="display: block">
 		<span id="category">
-			<label>품목</label>&nbsp;&nbsp;
+			<label>Item</label>&nbsp;&nbsp;
 			<select name="foodSelect" id="foodSelect">
-					<option value="김밥" selected disabled>카테고리</option>
-					<option value="김밥">김밥</option>
-					<option value="자장면">자장면</option>
-					<option value="칼국수">칼국수</option>
-					<option value="냉면">냉면</option>
-					<option value="삼겹살 (환산후)">삼겹살(환산후)</option>
-					<option value="삼겹살 (환산전)">삼겹살(환산전)</option>
-					<option value="삼계탕">삼계탕</option>
-					<option value="비빔밥">비빔밥</option>
-					<option value="김치찌개백반">김치찌개백반</option>
+				<option value="김밥" selected disabled>Category</option>
+				<option value="김밥">Kimbap</option>
+				<option value="자장면">Jajangmyeon</option>
+				<option value="칼국수">Kalguksu</option>
+				<option value="냉면">Naengmyeon</option>
+				<option value="삼겹살 (환산후)">Pork Belly (Converted)</option>
+				<option value="삼겹살 (환산전)">Pork Belly (Before Conversion)</option>
+				<option value="삼계탕">Samgyetang</option>
+				<option value="비빔밥">Bibimbap</option>
+				<option value="김치찌개백반">Kimchi Stew and Rice</option>
 			</select>
 		</span> &nbsp;&nbsp;
-		<input type="button" name="searchBtn" id="searchBtn" value="조회">
+		<input type="button" name="searchBtn" id="searchBtn" value="Search">
 	</div>
 	<div id="result">
 		<table id="resultTable">
@@ -64,23 +64,23 @@ $(document).ready(function(){
 					<th colspan="17">2023</th>
 				</tr>
 				<tr>
-					<th>품목</th>
-					<th>서울</th>
-					<th>부산</th>
-					<th>대구</th>
-					<th>인천</th>
-					<th>광주</th>
-					<th>대전</th>
-					<th>울산</th>
-					<th>경기</th>
-					<th>강원</th>
-					<th>충북</th>
-					<th>충남</th>
-					<th>전북</th>
-					<th>전남</th>
-					<th>경북</th>
-					<th>경남</th>
-					<th>제주</th>
+					<th>Item</th>
+					<th>Seoul</th>
+					<th>Busan</th>
+					<th>Daegu</th>
+					<th>Incheon</th>
+					<th>Gwangju</th>
+					<th>Daejeon</th>
+					<th>Ulsan</th>
+					<th>Gyeonggi</th>
+					<th>Gangwon</th>
+					<th>Chungbuk</th>
+					<th>Chungnam</th>
+					<th>Jeonbuk</th>
+					<th>Jeonnam</th>
+					<th>Gyeongbuk</th>
+					<th>Gyeongnam</th>
+					<th>Jeju</th>
 				</tr>
 			</thead>
 			<tbody id="resultTbody">

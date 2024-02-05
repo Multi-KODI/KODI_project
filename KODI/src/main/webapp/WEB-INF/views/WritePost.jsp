@@ -15,7 +15,7 @@
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
     if (${isSession}==false){
-        alert("로그인하세요");
+        alert("Please log in");
         location.href = "/";
   }
     
@@ -25,17 +25,17 @@
 	<div class="post">
 			<form action="/api/post/issave" method="post" enctype="multipart/form-data">
 				<select name="category" id="categoryPost" required>
-				    <option value="" selected disabled>카테고리</option>
+				    <option value="" selected disabled>Categories</option>
 				     <!-- 수정1 시작(value값 수정) PGH-->
-				    <option value="맛집">맛집</option>
-				    <option value="카페">카페</option>
-				    <option value="숙소">숙소</option>
-				    <option value="놀거리">놀거리</option>
+				    <option value="맛집">Restaurants</option>
+				    <option value="카페">Cafe</option>
+				    <option value="숙소">Accomodations</option>
+				    <option value="놀거리">Activities</option>
 				    <!-- 수정1 종료 PGH-->
 				</select>
 				&nbsp;&nbsp;
 				<select name="grade" id="point" required>
-				    <option value="" selected disabled>평점</option>
+				    <option value="" selected disabled>Ratings</option>
 				     <!-- 수정2 시작(value값 수정) PGH-->
 				    <option value="1.0">1</option>
 				    <option value="1.5">1.5</option>
@@ -51,24 +51,24 @@
 				<br><br>
 				<div>
 				<!-- input 태그들에 대해서 name 속성 추가 시작-->
-					<input type="text" id="writePostTitle" name="title" placeholder="제목" required><br><br>
+					<input type="text" id="writePostTitle" name="title" placeholder="Title" required><br><br>
 					<hr><br>
-					<textarea id="writePostContent" name="content" rows="4" placeholder="내용" required></textarea>
+					<textarea id="writePostContent" name="content" rows="4" placeholder="Content" required></textarea>
 				
 					<br><br>
-				    <input type="text" id="tagInput" placeholder="#해시태그#입력" onkeypress="handleKeyPress(event)">
-				    <button type="button" id="tagAddBtn" onclick="addTag()">추가</button>
+				    <input type="text" id="tagInput" placeholder="Hash Tags" onkeypress="handleKeyPress(event)">
+				    <button type="button" id="tagAddBtn" onclick="addTag()">Add</button>
 				
 				    <div id="tagList"></div>
 					<br>
 					
-					<input type="text" id="sample6_address" name="address" placeholder="주소"><br>
+					<input type="text" id="sample6_address" name="address" placeholder="Address"><br>
 					<input type="button" id="addressBtn" onclick="sample6_execDaumPostcode()" value="주소검색"><br>
 					
 					
 					<br><br>
 					
-					<button type="button" id="imageAddBtn" class="btn" onclick="addImage()"><img id="addImageIcon" src="resources/images/search.png">사진첨부</button>
+					<button type="button" id="imageAddBtn" class="btn" onclick="addImage()"><img id="addImageIcon" src="resources/images/search.png">Add a picture</button>
 					
 					<span class="photoBoxs" id= "photoBoxs">	
 						<input type="file" id="photoBox" name="files" accept="image/*" >

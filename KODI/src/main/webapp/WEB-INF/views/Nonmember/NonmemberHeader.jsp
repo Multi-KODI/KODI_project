@@ -21,8 +21,8 @@
 
 			<div class="end-btn">
 
-				<button class="btn" id="registerbtn">회원가입</button>
-				<button class="btn" id="loginbtn">로그인</button>
+				<button class="btn" id="registerbtn">Register</button>
+				<button class="btn" id="loginbtn">Login</button>
 				<!-- <div class="language-selection">
 					<select>
 						<option value="ko">한국어</option>
@@ -34,10 +34,10 @@
 	</header>
 
 	<div class="menu-content">
-		<a href="">모든 게시글</a> 
-		<a href="">지도 서비스</a> 
-		<a href="">여행 플래너</a> 
-		<a href="">지역별 외식비</a>
+		<a href="">All posts</a> 
+		<a href="">Map service</a> 
+		<a href="">Travel planner</a> 
+		<a href="">Dining expenses by region</a>
 	</div>
 	
 	<button id="topBtn">
@@ -54,7 +54,7 @@ $(document).ready(function () {
 	}
 	
 	$("#menubtn").on("click", function () { //메뉴열기
-		alert('로그인 후 이용하실 수 있습니다.');
+		alert('You can use it after logging in');
 		//updateMenuContentPosition();
 	   // $(".menu-content").slideToggle(); 
 	});
@@ -77,7 +77,7 @@ $(document).ready(function () {
     
     
     $("#chat").on("click", function () {
-    	alert('로그인 후 이용하실 수 있습니다.');
+    	alert('You can use it after logging in');
       });
     
     let topBtn = document.getElementById("topBtn");

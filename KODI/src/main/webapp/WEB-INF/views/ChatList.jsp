@@ -21,11 +21,11 @@
 	
 	$(document).ready(function(){
 		if(${isSession} == false) {
-			alert("로그인하세요");
+			alert("Please log in");
 			location.href = "/";
 		} else {
 			if(${verifyMemberIdx} == false){
-				alert("해당 페이지에 접근할 수 없습니다.");
+				alert("Access to the page is not possible");
 				location.href = "/api/home";
 			} else {
 				showData();
@@ -119,7 +119,7 @@
 		$("#searchBtn").on("click", function(){
 			if(sessionId == ${chatListInfo.memberIdx}){
 				if(searchInput.value == ""){
-					alert("검색할 친구를 입력해주세요");
+					alert("Please enter the friend you want to search for");
 				} else {
 					var data = {memberIdx: sessionId, friendName: searchInput.value};
 					
@@ -158,12 +158,12 @@
 							}
 						},
 						error: function(request, e){
-							alert("코드: " + request.status + "메시지: " + request.responseText + "오류: " + e);
+							alert("Code: " + request.status + "Message: " + request.responseText + "Error: " + e);
 						}
 					});
 				}
 			} else {
-				alert("친구 검색할 수 없습니다.");
+				alert("Friend search is not available");
 			}
 		});
 	};
@@ -191,7 +191,7 @@
 								location.href="/api/chatroom/" + response2;
 							},
 							error: function(request, e){
-								alert("코드: " + request.status + "메시지: " + request.responseText + "오류: " + e);
+								alert("Code: " + request.status + "Message: " + request.responseText + "Error: " + e);
 							}
 						});
 					} else { // 채팅방 존재 X
@@ -206,17 +206,17 @@
 								location.href="/api/chatroom/" + response3;
 							},
 							error: function(request, e){
-								alert("코드: " + request.status + "메시지: " + request.responseText + "오류: " + e);
+								alert("Code: " + request.status + "Message: " + request.responseText + "Error: " + e);
 							}
 						});
 					}
 				},
 				error: function(request, e){
-					alert("코드: " + request.status + "메시지: " + request.responseText + "오류: " + e);
+					alert("Code: " + request.status + "Message: " + request.responseText + "Error: " + e);
 				}
 			});
 		} else {
-			alert("해당 채팅방에 입장할 수 없습니다.");
+			alert("Unable to access this chat room");
 		}
 	};
 	
@@ -224,13 +224,13 @@
 		if(sessionId == ${chatListInfo.memberIdx}){
 			location.href="/api/chatroom/" + `${'${chatIdx}'}`;
 		} else {
-			alert("해당 채팅방에 입장할 수 없습니다.");
+			alert("Unable to access this chat room");
 		}
 	};
 	
 	function deleteChatBtn(chatIdx){
 		if(sessionId == ${chatListInfo.memberIdx}){
-			let isDelete = confirm("해당 채팅방을 삭제하시겠습니까?");
+			let isDelete = confirm("Would you like to delete this chat room?");
 			
 			if(isDelete){
 				$(`#${'${chatIdx}'}`).remove();
@@ -243,12 +243,12 @@
 						location.reload();
 					},
 					error: function(request, e){
-						alert("코드: " + request.status + "메시지: " + request.responseText + "오류: " + e);
+						alert("Code: " + request.status + "Message: " + request.responseText + "Error: " + e);
 					}
 				});
 			};
 		} else {
-			alert("해당 채팅방을 삭제할 수 있는 권한이 없습니다.");
+			alert("You do not have permission to delete this chat room");
 		}	
 	};
 	
@@ -256,7 +256,7 @@
 		if(e.keyCode == 13) {
 			if(sessionId == ${chatListInfo.memberIdx}){
 				if(searchInput.value == ""){
-					alert("검색할 친구를 입력해주세요");
+					alert("Please enter the friend you want to search for");
 				} else {
 					var data = {memberIdx: sessionId, friendName: searchInput.value};
 					
@@ -295,12 +295,12 @@
 							}
 						},
 						error: function(request, e){
-							alert("코드: " + request.status + "메시지: " + request.responseText + "오류: " + e);
+							alert("Code: " + request.status + "Message: " + request.responseText + "Error: " + e);
 						}
 					});
 				}
 			} else {
-				alert("친구 검색할 수 없습니다.");
+				alert("Friend search is not available");
 			}
 		};
 	};
@@ -315,10 +315,10 @@
 	<div id="allElement">
 		<div id="searchFriendDiv">
 			<img id="friendIcon" src="/image/icon/friends.png" align="center">
-			<p id="title">친구 검색</p>
+			<p id="title">Searching for friends</p>
 
 			<div id="searchInputDiv">
-				<input id="searchInput" type="search" placeholder="친구 검색" onkeypress="enterKey(event)">
+				<input id="searchInput" type="search" placeholder="Searching for friends" onkeypress="enterKey(event)">
 				<button id="searchBtn" type="button">
 					<img id="searchIcon" src="/image/icon/search.png" align="center">
 				</button>
@@ -329,7 +329,7 @@
 
 		<div id="chatListDiv">
 			<img id="chatListIcon" src="/image/icon/live-chat.png" align="center">
-			<p id="title">채팅방</p>
+			<p id="title">Chatroom</p>
 
 			<div id="chatList"></div>
 		</div>

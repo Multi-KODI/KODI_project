@@ -19,7 +19,7 @@ let sessionId = <%=session.getAttribute("memberIdx")%>;
 
 $(document).ready(function() {
 	if(${isSession} == false) {
-		alert("로그인하세요");
+		alert("Please log in");
 		location.href = "/";
 	} else {
 		$("#menubar1").on("click", function() {
@@ -274,12 +274,12 @@ function webSocket(){
 							$('#allMsgList').scrollTop($('#allMsgList')[0].scrollHeight);
 						},
 						error: function(request, e){
-							alert("코드: " + request.status + "메시지: " + request.responseText + "오류: " + e);
+							alert("Code: " + request.status + "Message: " + request.responseText + "Error: " + e);
 						}
 					});
 				},
 				error: function(request, e){
-					alert("코드: " + request.status + "메시지: " + request.responseText + "오류: " + e);
+					alert("Code: " + request.status + "Message: " + request.responseText + "Error: " + e);
 				}
 			});
 		};
@@ -314,7 +314,7 @@ function webSocket(){
 					console.log("메시지 DB 저장 성공");
 				},
 				error: function(request, e){
-					alert("코드: " + request.status + "메시지: " + request.responseText + "오류: " + e);
+					alert("Code: " + request.status + "Message: " + request.responseText + "Error: " + e);
 				}
 			});
 			console.log("웹소켓 서버에게 송신성공");
@@ -329,32 +329,31 @@ function webSocket(){
 <main>
 
 	<div class="menubox">
-		<div class="menubar" id="menubar1">
-			<img class="menuicon" id="pageicon" src="/image/icon/blank-page.png">
-		</div>
-
-		<div class="menubar" id="menubar2">
-			<img class="menuicon" id="mapicon" src="/image/icon/map.png">
-
-		</div>
-
-		<div class="menubar" id="menubar3">
-			<img class="menuicon" id="palnicon" src="/image/icon/planer.png">
-		</div>
-
-		<div class="menubar" id="menubar4">
-			<img class="menuicon" id="moneyicon" src="/image/icon/money.png">
-		</div>
+	<div class="menubar" id="menubar1">
+	<img class="menuicon" id="pageicon" src="/image/icon/blank-page.png">
 	</div>
+	
+	<div class="menubar" id="menubar2">
+	<img class="menuicon" id="mapicon" src="/image/icon/map.png">
+	</div>
+	
+	<div class="menubar" id="menubar3">
+	<img class="menuicon" id="palnicon" src="/image/icon/planer.png">
+	</div>
+	
+	<div class="menubar" id="menubar4">
+	<img class="menuicon" id="moneyicon" src="/image/icon/money.png">
+	</div>
+</div>
 
-	<div class="guidebox">
+<div class="guidebox">
 		<div class="guide" id="guide1">
-			<div class="guidetitle">🚌 교통 및 이동 수단 안내</div>
+			<div class="guidetitle">🚌 Transportation and Mobility Guide</div>
 
 			<div class="guidetext" id="guidetext1">
 				<ul>
-					<li>버스, 지하철, 기차, 택시 등 다양한 교통수단을 이용할 수 있습니다.</li>
-					<li>대중교통은 지역별로 요금이 다르니 참고 하세요.</li>
+					<li>You can use various modes of transportation such as buses, subways, trains, taxis, etc.</li>
+					<li>Please note that public transportation fares vary by region.</li>
 				</ul>
 			</div>
 
@@ -362,25 +361,25 @@ function webSocket(){
 				<table>
 					<thead>
 						<tr>
-							<th>교통수단</th>
-							<th>결제수단</th>
-							<th>서울</th>
-							<th>광주</th>
-							<th>대구</th>
-							<th>대전</th>
-							<th>부산</th>
-							<th>울산</th>
-							<th>인천</th>
-							<th>강원</th>
-							<th>경기</th>
-							<th>경남</th>
-							<th>경북</th>
-							<th>전남</th>
-							<th>전북</th>
-							<th>충남</th>
-							<th>충북</th>
-							<th>제주</th>
-							<th>세종</th>
+							<th>Transportation</th>
+							<th>Payment Method</th>
+							<th>Seoul</th>
+							<th>Gwangju</th>
+							<th>Daegu</th>
+							<th>Daejeon</th>
+							<th>Busan</th>
+							<th>Ulsan</th>
+							<th>Incheon</th>
+							<th>Gangwon</th>
+							<th>Gyeonggi</th>
+							<th>Gyeongnam</th>
+							<th>Gyeongbuk</th>
+							<th>Jeonnam</th>
+							<th>Jeonbuk</th>
+							<th>Chungnam</th>
+							<th>Chungbuk</th>
+							<th>Jeju</th>
+							<th>Sejong</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -413,48 +412,47 @@ function webSocket(){
 		</div>
 
 		<div class="guide" id="guide2">
-			<div class="guidetitle">🍲 식사 문화와 에티켓</div>
+			<div class="guidetitle">🍲 Dining Culture and Etiquette</div>
 			<div class="guidetext">
 				<ul>
-					<li>숟가락과 젓가락은 밥그릇 옆에 놓습니다. 식사가 끝나면 밥그릇 위에 놓습니다.</li>
-					<li>밥그릇이나 국그릇을 손으로 들고 먹지 않습니다. 국물이 많은 국이나 찌개는 들어서 먹을 수 있습니다.</li>
-					<li>음식을 손으로 집어 먹지 않습니다. 손으로 먹을 수 있는 음식만 가능하며 물티슈로 손을 닦아야 합니다.</li>
-					<li>음식을 씹을 때는 입을 다물고 소리를 내지 않습니다. 음식을 씹는 동안에는 말을 하지 않습니다.</li>
-					<li>식탁에서 턱을 괴지 않습니다. 식탁에서는 바른 자세로 앉아야 합니다.</li>
-					<li>식사 중에는 핸드폰, TV 등을 보지 않습니다. 함께 식사 중인 사람들과 대화를 나누는 것이 좋습니다.</li>
-					<li>어른이 먼저 수저를 드신 후에 식사를 시작하고 속도를 맞춥니다.</li>
+					<li>Please place your spoon and chopsticks beside your rice bowl. After finishing the meal, kindly put them on top of the rice bowl.</li>
+					<li>It is customary not to hold rice or soup bowls in your hands. For soupy dishes, you may lift the bowl for easier consumption.</li>
+					<li>We kindly ask that you refrain from eating food with your hands. Finger foods are an exception, and please use a wet tissue to clean your hands.</li>
+					<li>While chewing your food, please remember to close your mouth and avoid making noise. It's polite not to speak while chewing.</li>
+					<li>When seated at the table, it's considered polite not to rest your chin on your hand. Please maintain a proper posture.</li>
+					<li>During the meal, we suggest refraining from using mobile phones, watching TV, or engaging in other distractions. Engaging in conversation with your dining companions is appreciated.</li>
+					<li>Traditionally, elders start using utensils first, and it's customary to adjust your eating pace to match theirs.</li>
 				</ul>
 			</div>
 		</div>
+		
 
 
 		<div class="guide" id="guide3">
-			<div class="guidetitle">🚨 안전 및 응급 상황 대처</div>
+			<div class="guidetitle">🚨 Safety and Handling Emergencies</div>
 			<div class="guidetext">
 				<ul>
-					<li>경찰서 전화번호는 112입니다.</li>
-					<li>안전신고센터 전화번호는 119입니다.</li>
-					<li>외국인 여행자 보험은 여행 전에 가입하면 여행 중에 안심하고 즐길 수 있습니다. 
-					<a href="https://seoul.sta.or.kr/m/plan/137789/foreign/2">자세한
-							내용은 여기를 참고하세요.</a></li>
-					<li>차량 이용 시 안전벨트를 착용합니다. 음주운전은 절대 하지 않습니다.</li>
-					<li>물놀이 전 준비운동은 필수입니다. 음주, 과식 후 물놀이는 금지입니다.</li>
-					<li>귀중품 및 현금은 몸에 붙이는 보관용 주머니나 가슴에 걸 수 있는
-						가방에 넣어 안전하게 보관합니다.</li>
+					<li>The police emergency number is 112. Please don't hesitate to call if needed.</li>
+					<li>The emergency reporting center number is 119. In case of any safety concerns, reach out immediately.</li>
+					<li>Purchasing travel insurance for foreign travelers before your trip ensures peace of mind during your travels. For more details, please refer to <a href="https://seoul.sta.or.kr/m/plan/137789/foreign/2">this link</a>.</li>
+					<li>When using a vehicle, it's important to wear seat belts for your safety. Never drive under the influence of alcohol.</li>
+					<li>Prior to engaging in water activities, it's advisable to do warm-up exercises. Swimming or water activities after consuming alcohol or overeating are not recommended.</li>
+					<li>Valuables and cash should be securely stored in a pouch or bag that can be worn close to your body for safekeeping.</li>
 				</ul>
 			</div>
 		</div>
+		
 
 	</div>
 
 	<div id="chatTitle">
-		<img id="chatIcon" src="/image/icon/live-chat.png" align="center">실시간 채팅방
+		<img id="chatIcon" src="/image/icon/live-chat.png" align="center">Live Chatroom
 	</div>
 	<div id="allMsgList"></div>
 
 	<div id="sendMsgDiv">
-		<input id="sendMsgInput" type="text" placeholder="메시지를 입력하시오">
-		<button id="sendMsgBtn" type="button">전송</button>
+		<input id="sendMsgInput" type="text" placeholder="Please enter a message">
+		<button id="sendMsgBtn" type="button">Send</button>
 	</div>
 </main>
 </body>

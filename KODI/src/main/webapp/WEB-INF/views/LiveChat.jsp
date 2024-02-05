@@ -21,7 +21,7 @@
 	
 	$(document).ready(function(){
 		if(${isSession} == false) {
-			alert("로그인하세요");
+			alert("Please log in");
 			location.href = "/";
 		} else {
 			verifyMember();			
@@ -39,12 +39,12 @@
 					showData();
 					webSocket();
 			} else {
-					alert("해당 채팅방에 입장할 수 없습니다.");
+					alert("Access to this chat room is not possible.");
 					location.href = "/api/chatlist/" + sessionId;
 				}
 			},
 			error: function(request, e){
-				alert("코드: " + request.status + "메시지: " + request.responseText + "오류: " + e);
+				alert("Code: " + request.status + "Message: " + request.responseText + "Error: " + e);
 			}
 		});
 	};
@@ -279,12 +279,12 @@
 								$('#allMsgList').scrollTop($('#allMsgList')[0].scrollHeight);
 							},
 							error: function(request, e){
-								alert("코드: " + request.status + "메시지: " + request.responseText + "오류: " + e);
+								alert("Code: " + request.status + "Message: " + request.responseText + "Error: " + e);
 							}
 						});
 					},
 					error: function(request, e){
-						alert("코드: " + request.status + "메시지: " + request.responseText + "오류: " + e);
+						alert("Code: " + request.status + "Message: " + request.responseText + "Error: " + e);
 					}
 				});
 			};
@@ -329,7 +329,7 @@
 						console.log("메시지 DB 저장 성공");
 					},
 					error: function(request, e){
-						alert("코드: " + request.status + "메시지: " + request.responseText + "오류: " + e);
+						alert("Code: " + request.status + "Message: " + request.responseText + "Error: " + e);
 					}
 				});
 				console.log("웹소켓 서버에게 송신성공");
@@ -345,14 +345,14 @@
 
 	<button id="exitChat" type="button">
 		<img id="exitIcon" src="/image/icon/exit-chat.png" align="center">
-		<p id="exitMsg">뒤로 가기</p>
+		<p id="exitMsg">Go back</p>
 	</button>
 
 	<div id="allMsgList"></div>
 
 	<div id="sendMsgDiv">
-		<input id="sendMsgInput" type="text" placeholder="메시지를 입력하시오">
-		<button id="sendMsgBtn" type="button">전송</button>
+		<input id="sendMsgInput" type="text" placeholder="Please enter a message">
+		<button id="sendMsgBtn" type="button">Send</button>
 	</div>
 </body>
 </html>

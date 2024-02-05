@@ -56,7 +56,7 @@ $(document).ready(function () {
 	//서로친구 삭제
 	$("#friendList1").on('click', '#f-drawBtn', function (e) {
 		e.preventDefault();
-		if (confirm('이 친구를 삭제하겠습니까?')) {
+		if (confirm('Do you want to delete this friend?')) {
 			$.ajax({
 				url: '/api/pair/delete/' + $(e.target).attr('data-member-idx'),
 				dataType: 'json',
@@ -92,7 +92,7 @@ $(document).ready(function () {
 	//친구요청 취소
 	$("#friendList2").on('click', '#f-cancelBtn', function (e) {
 		e.preventDefault();
-		if (confirm('친구요청을 취소하시겠습니까?')) {
+		if (confirm('Do you want to cancel the friend request?')) {
 			$.ajax({
 				url: '/api/following/delete/' + $(e.target).attr('data-member-idx'),
 				dataType: 'json',
@@ -128,7 +128,7 @@ $(document).ready(function () {
 
 	// 나를 추가한 유저 삭제
 	$("#friendList3").on('click', '#f-removeBtn', function (e) {
-		if (confirm('친구요청을 거절하시겠습니까?')) {
+		if (confirm('Do you want to reject the friend request?')) {
 			$.ajax({
 				url: '/api/follower/delete/' + $(e.target).attr('data-member-idx'),
 				dataType: 'json',
@@ -165,7 +165,7 @@ $(document).ready(function () {
 
 	// 나를 추가한 유저 수락
 	$("#friendList3").on('click', '#f-acceptBtn', function (e) {
-		if (confirm('친구요청을 수락하시겠습니까?')) {
+		if (confirm('Do you want to accept the friend request?')) {
 			$.ajax({
 				url: '/api/follower/accept/' + $(e.target).attr('data-member-idx'),
 				dataType: 'json',

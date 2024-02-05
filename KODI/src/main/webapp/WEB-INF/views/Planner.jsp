@@ -45,8 +45,8 @@
     <div class="modal"></div>
 </div>
 <div id="checklist">
-<h5>체크리스트</h5>
-<button class="checkListInsertBtn" onclick="makeCheckListModal()">추가</button>
+<h5>Checklist</h5>
+<button class="checkListInsertBtn" onclick="makeCheckListModal()">Add</button>
 <ul class="checkList"></ul>
 </div>
 
@@ -54,39 +54,40 @@
 <div id="modal">
 	<div class="pop">
 		<input id="inputCheckList" type="text">
-		<button id="inputCheckListBtn" type="button" onclick="addLi()">입력</button>
-		<button id ="closeCheckkList" type="button" onclick="closeCheckListModal()">닫기</button>
+		<button id="inputCheckListBtn" type="button" onclick="addLi()">Input</button>
+		<button id ="closeCheckkList" type="button" onclick="closeCheckListModal()">Close</button>
 	</div>
 </div>
 
 <div id="app">
-<h5>유용한 어플</h5>
-<ul>
-    <li>배달
- 		<ul>
-            <li>배달의민족</li>
-            <li>요기요</li>
-        </ul>   
-    </li>
-    
-    <li>
-        숙소예약
-        <ul>
-            <li>호텔스컴바인</li>
-            <li>야놀자</li>
-            <li>여기어때</li>
-            <li>에어비앤비</li>
-        </ul>
-    </li>
-    <li>교통
-		<ul>
-	       <li>카카오맵</li>
-	       <li>카카오택시</li>
-	       <li>티머니GO</li>
-	       <li>네이버맵</li>
-		</ul>
-    </li>
-</ul>
+  <h5>Useful Apps</h5>
+  <ul>
+      <li>Delivery
+          <ul>
+              <li>Baemin</li>
+              <li>Yogiyo</li>
+          </ul>   
+      </li>
+      
+      <li>
+          Accommodation Booking
+          <ul>
+              <li>HotelsCombined</li>
+              <li>Yanolja</li>
+              <li>GC Company</li>
+              <li>Airbnb</li>
+          </ul>
+      </li>
+      <li>Transportation
+          <ul>
+             <li>KakaoMap</li>
+             <li>KakaoTaxi</li>
+             <li>TmoneyGO</li>
+             <li>NaverMap</li>
+          </ul>
+      </li>
+  </ul>
+  
 </div> 
 </body>
 </html>

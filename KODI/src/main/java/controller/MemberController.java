@@ -80,7 +80,7 @@ public class MemberController {
 		MemberDTO existingMember = memberService.findMemberByEmail(email);
 		// 중복 유저 확인
 		if (existingMember != null) {
-			return "중복된 유저가 있습니다";
+			return "There is a duplicate user";
 		}
 
 		// OTP 생성
@@ -94,7 +94,7 @@ public class MemberController {
 		String subject = "Email Verfication";
 		String body = "Your verification OPT is " + otp;
 		emailService.sendEmail(email, subject, body);
-		return "인증코드를 발송했습니다, 이메일을 확인해 주세요";
+		return "The verification code has been sent, please check your email";
 	}
 
 	/**
@@ -113,9 +113,9 @@ public class MemberController {
 		// 사용자가 입력한 OTP와 세션의 OTP 비교
 		if (sessionOtp.equals(inputOtp)) {
 			session.removeAttribute("otp");
-			return "이메일이 인증되었습니다";
+			return "Your email has been verified";
 		}
-		return "OTP 번호가 일치하지 않습니다.";
+		return "OTP number does not match";
 	}
 
 	/**
@@ -133,9 +133,9 @@ public class MemberController {
 		// 기존에 멤버가 없을 때 회원등록
 		if (findedMember == null) {
 			memberService.registerMember(memberDTO);
-			return "회원등록이 완료되었습니다";
+			return "Membership registration is complete";
 		}
-		return "중복된 회원이 있습니다";
+		return "There is a duplicate user";
 	}
 
 	/**
@@ -154,7 +154,7 @@ public class MemberController {
 		
 		if (findedMember == null) {
 			// 회원이 없는 경우
-			return "회원이 존재하지 않습니다";
+			return "The member does not exist";
 		}
 		// 아이디가 존재하고, 비밀번호가 일치하는 경우
 		if (memberDTO.getPw().equals(findedMember.getPw())) {
@@ -163,11 +163,11 @@ public class MemberController {
 			String memberIdx = String.valueOf(memberIdxInteger);
 			session.setAttribute("memberIdx", memberIdx);
 			if(adminService.validateAdmin(session)){
-				return "관리자로 로그인 하였습니다";
+				return "Logged in as an administrator";
 			}
-			return "로그인에 성공하였습니다";
+			return "Login successful";
 		}
-		return "비밀번호를 확인해 주세요";
+		return "Please check the password";
 	}
 
 	/**

@@ -25,10 +25,10 @@
     <div class="input-box">
         <div id="search-box">
             <select id="searchfilter" name="filter">
-                <option value="게시글">게시글</option>
-                <option value="사용자">사용자</option>
+                <option value="게시글">Posts</option>
+                <option value="사용자">Users</option>
             </select>
-            <input id="searchinput" name="question" placeholder="검색어 입력">
+            <input id="searchinput" name="question" placeholder="Enter your search term">
 
             <button id="searchbtn" type="submit">
                 <img id="searchicon" src="/image/icon/search.png">

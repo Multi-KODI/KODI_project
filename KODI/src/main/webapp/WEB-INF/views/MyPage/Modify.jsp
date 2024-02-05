@@ -114,7 +114,7 @@ $(document).ready(function() {
 	        contentType: 'application/json',
 	        data: JSON.stringify(memberDTO),
 	        success: function(response) {
-	            alert("It has been modified");
+	            alert("Your information has been modified");
 	            $(".modal_background1").fadeOut();
 	        },
 	        error: function(error) {

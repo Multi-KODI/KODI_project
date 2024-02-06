@@ -29,6 +29,7 @@ if (${isSession}==false){
 
 </head>
 <body>
+<main>
 	<div class="post">
 			<form action="/api/post/issave" method="post" enctype="multipart/form-data">
 				<select name="category" id="categoryPost" required>
@@ -100,6 +101,7 @@ if (${isSession}==false){
 			</form>
 	
 		</div>
+</main>
 </body>
 <script>
 //...

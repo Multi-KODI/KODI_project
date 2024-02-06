@@ -29,6 +29,7 @@ if (${isSession}==false){
 </head>
 
 <body>
+<main>
 	<div class="post">
 		<!-- 수정0 action속성 추가, name 속성 추가 및 변경 PGH -->
 			<form action="/api/post/isupdate" id="wirtePostForm" method="post" enctype="multipart/form-data">
@@ -111,6 +112,7 @@ if (${isSession}==false){
 				</div>
 			</form>
 		</div>
+</main>
 </body>
 <script>
 

@@ -12,14 +12,14 @@
 	<link
 	href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css"
 	rel="stylesheet">
-    <script src="/js/Planner.js" defer></script>
-    <script>
-    if (${isSession}==false){
-        alert("로그인하세요");
-        location.href = "/";
-  }
-    
-    </script>
+    <script src="/js/jquery-3.7.1.min.js"></script>
+	<script src="/js/Planner.js" defer></script> 
+<script>
+/* if (${isSession}==false){
+   	alert("로그인하세요");
+   	location.href = "/";
+} */
+</script>
 </head>
 <body>
 <main>
@@ -46,8 +46,11 @@
 	       	<ul class="days"></ul>
 	    </div>
 	   	<div class="modal">
+	   		<div class="pop-modal">
+				<button type="button" class="Btn" id="closePlannerModal" onclick="closePlannerModal()"><img id="closePlannerModalIcon" src="/image/icon/x.png"></button><br>
 			<div class="pop-planner">
 			</div>
+	   		</div>
 		</div>
 	
 	</div>
@@ -62,9 +65,9 @@
 		
 		<div id="modal">
 			<div class="pop">
-				<input id="inputCheckList" type="text">
-				<button id="inputCheckListBtn" type="button" onclick="addLi()">입력</button>
-				<button id ="closeCheckkList" type="button" onclick="closeCheckListModal()">닫기</button>
+				<input id="inputCheckList" type="text"><br><br>
+				<button class="Btn" id="inputCheckListBtn" type="button" onclick="addLi()">입력</button>
+				<button class="Btn" id ="closeCheckkList" type="button" onclick="closeCheckListModal()">닫기</button><br>
 			</div>
 		</div>
 		

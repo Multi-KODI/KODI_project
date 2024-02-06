@@ -1,6 +1,5 @@
 package service;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -9,7 +8,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import dao.ModifyPostDAO;
-import dto.ReadPostOneDTO;
 import dto.WritePostDTO;
 
 @Service("modifypostservice")
@@ -80,8 +78,14 @@ public class ModifyPostService {
 		String updateTags;
 		Integer deleteTags;
 		
+		//tags.size null인 경우 0으로 변환
+		int tagsSize = 0;
+		if(tags != null) {
+			tagsSize = tags.size();
+		}
+		
 		//새로 저장할 태그 수(tags.size)와 기존에 저장되어있는 태그 수(tagsNum)를 비교
-		if(tags.size() > tagsNum) { //새로 저장할 태그가 더 많은 경우
+		if(tagsSize > tagsNum) { //새로 저장할 태그가 더 많은 경우
 			//기존의 태그에는 update
 			for(int i=0; i<tagsNum; i++) {
 				updateTags = tags.get(i);
@@ -91,7 +95,7 @@ public class ModifyPostService {
 				dao.updateTag(map);
 			}
 			//추가된 태그에는 insert
-			for(int i=tagsNum; i<tags.size(); i++) {
+			for(int i=tagsNum; i<tagsSize; i++) {
 				insertTags = tags.get(i);
 				map.clear();
 				map.put("postIdx", postIdx);
@@ -99,7 +103,7 @@ public class ModifyPostService {
 				dao.insertTag(map);
 			} 
 		}
-		else if(tags.size() == tagsNum){ //새로 저장할 태그와 기존의 태그의 수가 같은 경우
+		else if(tagsSize == tagsNum && tagsSize != 0){ //새로 저장할 태그와 기존의 태그의 수가 같은 경우
 			//기존의 태그와 수가 같으므로 update
 			for(int i=0; i<tagsNum; i++) {
 				updateTags = tags.get(i);
@@ -113,7 +117,7 @@ public class ModifyPostService {
 		}
 		else {
 			//기존의 태그에는 update
-			for(int i=0; i<tags.size(); i++) {
+			for(int i=0; i<tagsSize; i++) {
 				updateTags = tags.get(i);
 				map.clear();
 				map.put("tagIdxs", tagIdxs.get(i));
@@ -121,13 +125,21 @@ public class ModifyPostService {
 				dao.updateTag(map);
 			}
 			//남은 태그에는 delete
-			for(int i=tags.size(); i<tagsNum; i++) {
+			for(int i=tagsSize; i<tagsNum; i++) {
 				deleteTags = tagIdxs.get(i); 
 				map.clear();
 				map.put("deleteTags", deleteTags);
 				dao.deleteTag(map);
 			}
 		}
+	}
+	
+	public void deleteImageSrc(int postIdx, String imageSrc) {
+		HashMap<String, Object> map = new HashMap<>();
+		
+		map.put("postIdx", postIdx);
+		map.put("imageSrc", imageSrc);
+		dao.deleteImageSrc(map);
 	}
 	
 }

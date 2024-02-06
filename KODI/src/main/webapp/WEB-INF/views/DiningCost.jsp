@@ -19,19 +19,43 @@ $(document).ready(function(){
 		location.href = "/";
 	} else {
 		$("#searchBtn").on('click', function(){
-			$.ajax({
-		        url: "/api/diningcost",
-		        data: {
-		            "item": $("#foodSelect").val()
-		        },
-		        type: "post",
-		        success: function(response) {
-		        	$("#resultTbody").html("<tr><td>"+ response.item + "</td><td>"+response.seoulCost+"</td><td>"+response.busanCost+"</td><td>"+response.daeguCost+"</td><td>"+ response.incheonCost+"</td><td>"+response.gwangjuCost+"</td><td>"+response.daejeonCost+"</td><td>"+response.ulsanCost+"</td><td>"+response.gyeonggiCost+"</td><td>"+response.gangwonCost+"</td><td>"+response.chungbukCost+"</td><td>"+response.chungnamCost+"</td><td>"+response.jeonbukCost+"</td><td>"+response.jeonnamCost+"</td><td>"+response.gyeongbukCost+"</td><td>"+response.gyeongnamCost+"</td><td>"+response.jejuCost+"</td></tr>");
-		        },
-		        error: function(request, e){
-					alert("코드: " + request.status + "메시지: " + request.responseText + "오류: " + e);
-				}
-		    }); //ajax
+			if($("#foodSelect").val() == "전체"){
+				$("#resultTbody").empty();
+				<c:forEach var="item" items="${list}">
+					$("#resultTbody").append(
+						"<tr><td>" + "${item.item}" + "</td>" +
+						"<td>" + ${item.seoulCost} + "</td>" +
+						"<td>" + ${item.busanCost} + "</td>" +
+						"<td>" + ${item.daeguCost} + "</td>" +
+						"<td>" + ${item.incheonCost} + "</td>" +
+						"<td>" + ${item.gwangjuCost} + "</td>" +
+						"<td>" + ${item.daejeonCost} + "</td>" +
+						"<td>" + ${item.ulsanCost} + "</td>" +
+						"<td>" + ${item.gyeonggiCost} + "</td>" +
+						"<td>" + ${item.gangwonCost} + "</td>" +
+						"<td>" + ${item.chungbukCost} + "</td>" +
+						"<td>" + ${item.chungnamCost} + "</td>" +
+						"<td>" + ${item.jeonbukCost} + "</td>" +
+						"<td>" + ${item.jeonnamCost} + "</td>" +
+						"<td>" + ${item.gyeongbukCost} + "</td>" +
+						"<td>" + ${item.gyeongnamCost} + "</td>" +
+						"<td>" + ${item.jejuCost} + "</td></tr>");
+				</c:forEach>
+			} else {
+				$.ajax({
+			        url: "/api/diningcost",
+			        data: {
+			            "item": $("#foodSelect").val()
+			        },
+			        type: "post",
+			        success: function(response) {
+			        	$("#resultTbody").html("<tr><td>"+ response.item + "</td><td>"+response.seoulCost+"</td><td>"+response.busanCost+"</td><td>"+response.daeguCost+"</td><td>"+ response.incheonCost+"</td><td>"+response.gwangjuCost+"</td><td>"+response.daejeonCost+"</td><td>"+response.ulsanCost+"</td><td>"+response.gyeonggiCost+"</td><td>"+response.gangwonCost+"</td><td>"+response.chungbukCost+"</td><td>"+response.chungnamCost+"</td><td>"+response.jeonbukCost+"</td><td>"+response.jeonnamCost+"</td><td>"+response.gyeongbukCost+"</td><td>"+response.gyeongnamCost+"</td><td>"+response.jejuCost+"</td></tr>");
+			        },
+			        error: function(request, e){
+						alert("코드: " + request.status + "메시지: " + request.responseText + "오류: " + e);
+					}
+			    }); //ajax
+			}
 		});
 	}
 })
@@ -43,7 +67,8 @@ $(document).ready(function(){
 		<span id="category">
 			<label>품목</label>&nbsp;&nbsp;
 			<select name="foodSelect" id="foodSelect">
-					<option value="김밥" selected disabled>카테고리</option>
+					<option value="카테고리" selected disabled>카테고리</option>
+					<option value="전체">전체</option>
 					<option value="김밥">김밥</option>
 					<option value="자장면">자장면</option>
 					<option value="칼국수">칼국수</option>

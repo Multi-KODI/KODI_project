@@ -20,12 +20,12 @@
 <!-- services와 clusterer, drawing 라이브러리 불러오기 -->
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=APIKEY&libraries=services,clusterer,drawing"></script>
 <script>
-    /* if (${isSession}==false){
-        alert("로그인하세요");
-        location.href = "/";
-  } */
+if (${isSession}==false){
+	alert("로그인하세요");
+	location.href = "/";
+}
     
-    </script>
+</script>
 </head>
 
 <body>
@@ -123,7 +123,7 @@
 		$("#writePostTitle").attr("value", "${readPostOne.postInfo.title}");
 		$("#writePostContent").val("${readPostOne.postInfo.content}");
 		/* 은선 수정 id */
-		$("#selectedAddress").val("${readPostOne.postInfo.address}");
+		$("#selectedAddressShow").val("${readPostOne.postInfo.address}");
 		var tagListElement = document.getElementById('tagList');
 		var tagValue = "${readPostOne.postTags}";
 		tagValue = tagValue.substring(1);
@@ -224,9 +224,9 @@ function searchAddress(){
 				// 라벨 누를 때 이벤트 추가
 				label.onclick = function (place) {
 				return function () {
-				$('#selectedAddress').val(place.address_name);
-				
-				closeModal();
+				 	$('#selectedAddressShow').val(place.address_name);
+                 	$('#selectedAddressReal').val(place.address_name);
+					closeModal();
 				};
 			}(places.documents[i]); // 클로저를 이용하여 현재 반복된 항목의 정보를 전달합니다.
 			

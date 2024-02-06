@@ -54,7 +54,7 @@
 
 			<div id="title">
 				<span style="margin-left: 10px;">전체글</span>
-				<form action="api/admin/search">
+				<form action="/api/adminsearch">
 					<select id="searchselect" name="filter">
 						<option value="게시글">게시글</option>
 					</select> <input id="searchinput" name="question">

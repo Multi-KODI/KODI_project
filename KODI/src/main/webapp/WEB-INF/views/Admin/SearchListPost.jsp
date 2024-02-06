@@ -54,7 +54,7 @@
 
 			<div id="title">
 				<span style="margin-left: 10px;">전체글</span>
-				<form action="/adminsearch" method="get">
+				<form action="/api/adminsearch">
 					<select id="searchselect" name="filter">
 						<option value="게시글">게시글</option>
 					</select> <input id="searchinput" name="question">
@@ -86,31 +86,30 @@
 				<tbody id="postList">
 					<c:forEach var="post" items="${readPostAll}">
 						<tr>
-							<!-- 해결해야 하는 부분 -->
-							<!-- <td>
+							<td>
 								<div class="tdDiv">
 									<c:forEach var="member" items="${members}">
-										<c:if test="${post.memberIdx eq member.memberIdx}">
+										<c:if test="${post.postInfo.memberIdx eq member.memberIdx}">
 														${member.email}</c:if>
 									</c:forEach>
 								</div>
-							</td> -->
+							</td>
 							
 							<td>
 								<div class="tdDiv">${post.postInfo.title}</div>
 							</td>
 							
 							<td>
-								<div class="tdDiv">${fn:substring(post.postInfo.content, 0, 20)}${post.content.length() > 20 ? '...' :
+								<div class="tdDiv">${fn:substring(post.postInfo.content, 0, 20)}${post.postInfo.content.length() > 20 ? '...' :
 												''}</div>
 							</td>
 							
 							<td>
-								<a class="viewBtn" data-post-idx="${post.postIdx}" href="/api/post/${post.postIdx}">보기</a>
+								<a class="viewBtn" data-post-idx="${post.postInfo.postIdx}" href="/api/post/${post.postInfo.postIdx}">보기</a>
 							</td>
 							
 							<td>
-								<a class="deleteBtn" data-post-idx="${post.postIdx}" href="/api/admin/deletepost/${post.postIdx}">삭제</a>
+								<a class="deleteBtn" data-post-idx="${post.postInfo.postIdx}" href="/api/admin/deletepost/${post.postInfo.postIdx}">삭제</a>
 							</td>
 						</tr>
 						
@@ -122,21 +121,6 @@
 			<button id="topBtn">
 				<img src="/image/icon/topicon.png"> 
 			</button>
-			
-			<!--  <div id="pagination">
-				    <c:if test="${currentPage > 1}">
-				        <button class="pageBtn" onclick="loadPage(${currentPage - 1})">이전</button>
-				    </c:if>
-				
-				    <c:forEach var="pageNum" begin="1" end="${totalPages}">
-				        <button class="pageBtn ${pageNum == currentPage ? 'selected' : ''}" onclick="loadPage(${pageNum})">${pageNum}</button>
-				    </c:forEach>
-				
-				    <c:if test="${currentPage < totalPages}">
-				        <button class="pageBtn" onclick="loadPage(${currentPage + 1})">다음</button>
-			    </c:if>
-			</div> -->
-
 		</div>
 
 

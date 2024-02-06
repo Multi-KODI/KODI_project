@@ -63,4 +63,9 @@
 		delete from checklist
 		where list_idx = #{listIdx};
 	</delete>
+	
+	<delete id="deleteSchedule" parameterType="int">
+		delete from plan
+		where plan_idx = #{planIdx};
+	</delete>
 </mapper>

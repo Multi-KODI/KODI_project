@@ -32,8 +32,14 @@ public class PlannerController {
 	
 	//view 출력
 	@GetMapping("/planner")
-	public ModelAndView viewPlanner() {
+	public ModelAndView viewPlanner(HttpSession session) {
 		ModelAndView mv = new ModelAndView();
+		
+		if(session.getAttribute("memberIdx") == null) {
+        	mv.addObject("isSession", false);
+		} else {
+        	mv.addObject("isSession", true);
+		}
 		
 		mv.setViewName("Planner");
 
@@ -45,8 +51,7 @@ public class PlannerController {
 	@ResponseBody
 	public List[] selectChecklist(HttpSession session) {
 		//세션 받아서 int 타입으로 변환
-		//String sessionIdx = (String)session.getAttribute("memberIdx");
-		String sessionIdx = "1";
+		String sessionIdx = (String)session.getAttribute("memberIdx");
 		Integer memberIdx = Integer.parseInt(sessionIdx);
 			
 		//체크리스트 호출
@@ -69,8 +74,7 @@ public class PlannerController {
 			@RequestParam("day2") String day2,
 			HttpSession session) throws ParseException {
 		//세션 받아서 int 타입으로 변환
-		//String sessionIdx = (String)session.getAttribute("memberIdx");
-		String sessionIdx = "1";
+		String sessionIdx = (String)session.getAttribute("memberIdx");
 		Integer memberIdx = Integer.parseInt(sessionIdx);
 		
 		//포멧터
@@ -110,8 +114,7 @@ public class PlannerController {
 	@PostMapping("/planner/checklist/issave")
 	public void isSaveChecklist(@RequestParam("content") String content, HttpSession session) {
 		//세션 받아서 int 타입으로 변환
-		/* String sessionIdx = (String)session.getAttribute("memberIdx"); */
-		String sessionIdx = "1";
+		String sessionIdx = (String)session.getAttribute("memberIdx");
 		Integer memberIdx = Integer.parseInt(sessionIdx);
 		
 		service.insertChecklist(content, memberIdx);
@@ -126,11 +129,12 @@ public class PlannerController {
 	
 	//스케줄 저장
 	@PostMapping("/planner/schedule/issave")
-	public void isSaveSchedule(@RequestParam("content") String content, @RequestParam("date") String date, 
+	public void isSaveSchedule(
+			@RequestParam("content") String content, 
+			@RequestParam("date") String date, 
 			HttpSession session) {
 		//세션 받아서 int 타입으로 변환
-		//String sessionIdx = (String)session.getAttribute("memberIdx");
-		String sessionIdx = "1";
+		String sessionIdx = (String)session.getAttribute("memberIdx");
 		Integer memberIdx = Integer.parseInt(sessionIdx);
 		
 		//현재 날짜에 저장된 스케줄이 있는지 확인(해당 plan_idx 확인)
@@ -141,6 +145,19 @@ public class PlannerController {
 		}
 		else { //저장된 schedule가 없는 경우 insert
 			service.insertSchedule(content, date, memberIdx);
+		}
+	}
+	
+	@PostMapping("/planner/schedule/isdelete")
+	public void isDeleteSchedule(@RequestParam("date") String date, HttpSession session) {
+		//세션 받아서 int 타입으로 변환
+		Integer memberIdx = Integer.parseInt((String)session.getAttribute("memberIdx"));
+		
+		//삭제 요청 날짜에 저장된 스케줄이 있는지 확인(해당 plan_idx)
+		Integer isSave = service.selectScheduleIsSave(memberIdx, date);
+		if(isSave == null) isSave = 0;
+		if(isSave > 0) { //삭제 가능
+			service.deleteSchedule(isSave);
 		}
 	}
 	

@@ -90,10 +90,12 @@
 											</td>
 
 											<td>
-												<div class="tdDiv">
+												<div class="tdDiv" style="display: flex; align-items: center;">
 													<c:forEach var="flag" items="${flags}">
 														<c:if test="${member.flagIdx eq flag.flagIdx}">
-															${flag.country}</c:if>
+															<img style="width: 16px; height: 16px; margin-right: 3px;" src="${flag.src}">
+															${flag.country}
+														</c:if>
 													</c:forEach>
 												</div>
 											</td>

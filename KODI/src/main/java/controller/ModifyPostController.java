@@ -11,15 +11,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import dto.ReadPostOneDTO;
 import dto.WritePostDTO;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import service.ModifyPostService;
 import service.ReadPostOneService;
@@ -38,11 +37,17 @@ public class ModifyPostController {
 	
 	//게시물 수정 페이지
 	@GetMapping("/post/modify/{postIdx}")
-	public ModelAndView modifyPost(@PathVariable("postIdx") int postIdx) {
+	public ModelAndView modifyPost(@PathVariable("postIdx") int postIdx, HttpSession session) {
 		//게시물 하나에 대한 데이터
 		ReadPostOneDTO readPostOne = oneservice.getReadPostOne(postIdx);
 		
 		ModelAndView mv = new ModelAndView();
+		
+		if(session.getAttribute("memberIdx") == null) {
+        	mv.addObject("isSession", false);
+		} else {
+        	mv.addObject("isSession", true);
+		}
 		
 		mv.addObject("readPostOne", readPostOne);
 		mv.setViewName("Editpost");
@@ -52,7 +57,9 @@ public class ModifyPostController {
 	
 	//작성완료 클릭
 	@PostMapping("/post/isupdate")
-	public void isUpdate(WritePostDTO writePostDTO, HttpSession session) 
+	public String isUpdate(WritePostDTO writePostDTO, 
+			HttpSession session,
+			HttpServletRequest request) 
 			throws IllegalStateException, IOException {
 		//세션 받아서 int 타입으로 변환
 		String sessionIdx = (String)session.getAttribute("memberIdx");
@@ -66,6 +73,10 @@ public class ModifyPostController {
 		String fileDir = "C:/FullStack/파이널 프로젝트/git/KODI_project/KODI/src/main/resources/static/image/db/";
 		String imagePath = "";
 		
+//		File dirFile = new File(fileDir);
+//		File[] fileList = dirFile.listFiles();
+//		System.out.println(fileList.toString());
+		
 		//파일이 있는 경우에만 저장(사진첨부를 눌러서 파일 선택이 생성된 경우)
 		if(file != null) {
 			for(MultipartFile data : file) {
@@ -77,12 +88,20 @@ public class ModifyPostController {
 				}
 			}
 		}
-		
 		modifyservice.updatePost(writePostDTO, fileName, myMemberIdx);
+		
+		String referer = request.getHeader("Referer");
+		
+		return "redirect:" + referer;
 	}
 	
 	//현재 DB에 있는 이미지 삭제
-	public void isDeleteImage(@RequestParam("imageSrc") String imageSrc) {
+	@PostMapping("/post/image/isdelete")
+	public void isDeleteImage(
+			@RequestParam("imageSrc") String imageSrc, 
+			@RequestParam("postIdx") int postIdx) {
+		
+		modifyservice.deleteImageSrc(postIdx, imageSrc);
 		
 	}
 	

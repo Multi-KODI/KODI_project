@@ -59,11 +59,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where tag_idx = #{deleteTags};
 	</delete>
 	
-	<delete id="deleteImage" parameterType="hashmap">
-		<foreach item="imageIdxs" index="index" collection="deleteTags">
+	<delete id="deleteImageSrc" parameterType="hashmap">
 		delete from post_image
-		where image_idx = #{imageIdxs};
-		</foreach>
+		where post_idx = #{postIdx} and src = #{imageSrc};
 	</delete>
 	
 </mapper>

@@ -231,7 +231,9 @@ function addImage() {
             // 이미지와 버튼을 감싸는 컨테이너 생성
             var containerDiv = document.createElement("div");
             containerDiv.id="image-container";
+            containerDiv.style.marginBottom = '10px';
             containerDiv.classList.add("image-container");
+
             
             var newBr = document.createElement("br");
             

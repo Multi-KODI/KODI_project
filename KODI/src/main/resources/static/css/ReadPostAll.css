@@ -79,7 +79,9 @@ main {
 #title {
   margin-top: 10px;
 }
-
+.post-link{
+	cursor: pointer;
+}
 #flagImage{
 margin-top: 12px;
   width: 20px;

@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/Header.jsp" %>
 <%@ include file="/WEB-INF/views/SearchHeader.jsp" %>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<spring:eval var="kakaoKey" expression="@environment.getProperty('kakao.api.key')" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,7 +15,6 @@
 	rel="stylesheet">
 <script src="/js/jquery-3.7.1.min.js"></script>
 
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=29b72f9b60c9876e854ca883b07bc82d"></script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=APIKEY&libraries=LIBRARY"></script>
 <!-- services 라이브러리 불러오기 -->
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=APIKEY&libraries=services"></script>
@@ -24,11 +25,12 @@ if (${isSession}==false){
 	alert("로그인하세요");
 	location.href = "/";
 }
-    
+   
 </script>
 </head>
 
 <body>
+<main>
 	<div class="post">
 		<!-- 수정0 action속성 추가, name 속성 추가 및 변경 PGH -->
 			<form action="/api/post/isupdate" id="wirtePostForm" method="post" enctype="multipart/form-data">
@@ -111,6 +113,7 @@ if (${isSession}==false){
 				</div>
 			</form>
 		</div>
+</main>
 </body>
 <script>
 
@@ -170,35 +173,89 @@ if (${isSession}==false){
 		var imageSrcs = imageSrc.split(", ");
 		/* 검증 */console.log(imageSrcs);
 		
-		for(var i=0; i<imageSrcs.length; i++) {
-			var imageSrc = "/image/db/" + imageSrcs[i];
-			// 새로운 이미지 태그를 생성(db에 저장되어 있는 이미지를 보여주기 위해)
-			var inputImage = document.createElement("img");
-			inputImage.type = "image";
-			inputImage.name = "alreadySaveImage";
-			inputImage.id = "myImage";
-			inputImage.src = imageSrc;
-			inputImage.width = "200";
-			inputImage.height = "200";
-			
-			// 이미지 태그를 사진 추가 밑에 추가
-			container.appendChild(inputImage);
+		for (var i = 0; i < imageSrcs.length; i++) {
+		    var imageSrc = "/image/db/" + imageSrcs[i];
+
+		    // 이미지 생성
+		    var inputImage = document.createElement("img");
+		    inputImage.type = "image";
+		    inputImage.name = "alreadySaveImage";
+		    inputImage.src = imageSrc;
+		    inputImage.width = "200";
+		    inputImage.height = "200";
+
+		    // 삭제 버튼 생성
+		    var deleteImageBtn = document.createElement("button");
+		    var btnIndex = i; // Save the index for later use
+		    deleteImageBtn.type = "button";
+		    deleteImageBtn.id = "deleteBtn_" + btnIndex;
+		    deleteImageBtn.innerHTML = '<img id="deleteImageIcon" src="/image/icon/x.png">';
+		    deleteImageBtn.style.backgroundColor = "transparent"; // 배경색 없애기
+		    deleteImageBtn.style.border = "none"; 
+		    // 버튼 onclick 속성 정의
+		    deleteImageBtn.onclick = function () {
+		        deleteImageFunction(btnIndex, imageSrc);
+		    };
+
+		    // 이미지, 버튼 담는 부모 div 생성
+		    var imageContainer = document.createElement("div");
+
+		    
+		    imageContainer.appendChild(inputImage);
+		    imageContainer.appendChild(deleteImageBtn);
+		    //이미지, 버튼 한 쌍 담은 div를 부모 div에 추가
+		    container.appendChild(imageContainer);
 		}
 		container.appendChild(document.createElement('br'));
-	
-	
+		
+function deleteImageFunction(index, imageSrc) {
+	var containerToDelete = document.getElementById("deleteBtn_" + index);
+
+    if (containerToDelete) {
+        containerToDelete.parentNode.removeChild(containerToDelete);
+      
+    }
+console.log("Delete image with source: " + imageSrc);
+   	$.ajax({
+  		url:"/api/post/schedule/isdelete",
+  		type:'post',
+  		data:{ 
+  			imageSrc:imageSrc,
+ 		},   
+		error : function(error) {  
+       		console.log(error);
+		}
+     
+  	});
+}
+
+
+function deleteImageFunction(imageSrc) {
+    console.log("Delete image with source: " + imageSrc);
+    $.ajax({
+	  	url:"/api/post/schedule/isdelete",
+	  	type:'post',
+	  	data:{ 
+	  		imageSrc:imageSrc,
+	 	},   
+		error : function(error) {  
+        	console.log(error);
+		}
+      
+   });
+}	
 
 	/* 주소검색 api */
 	
 function searchAddress(){
 	var parentElement = $('.labels')[0];
 	parentElement.innerHTML='';
-	let key = "29b72f9b60c9876e854ca883b07bc82d";
+
 	
 	var searching = $("#inputStoreName").val();
 	
 	headers = {
-	"Authorization": "KakaoAK d6dfd391f52c1cbae3bcea85ff0057ef"
+	"Authorization": "KakaoAK "+'${kakaoKey}'
 	}
 	
 	
@@ -269,6 +326,7 @@ function closeModal(){
             // 이미지와 버튼을 감싸는 컨테이너 생성
             var containerDiv = document.createElement("div");
             containerDiv.id="image-container";
+            containerDiv.style.marginBottom = '10px';
             containerDiv.classList.add("image-container");
             
             var newBr = document.createElement("br");

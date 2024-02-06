@@ -17,14 +17,6 @@ $(document).ready(function () {
                         if (response.postDTO[i].memberIdx === response.memberDTO[j].memberIdx) {
                             result +=
                                 '<tr>'+
-                                
-                                '<td>' +
-                                    '<div class="tdDiv">' + 
-                                        response.postDTO[i].postIdx + 
-                                    '</div>' +
-                                '</td>' +
-                                
-                                
                                 '<td>' +
                                     '<div class="tdDiv">' + 
                                         response.memberDTO[j].email + 
@@ -80,12 +72,6 @@ $(document).ready(function () {
                         if (response.memberDTO[i].flagIdx === response.flagDTO[j].flagIdx) {
                             result +=
                                 '<tr>'+
-                                '<td>' +
-                                    '<div class="tdDiv">' + 
-                                        response.memberDTO[i].memberIdx + 
-                                    '</div>' +
-                                '</td>' +
-                                
                                 '<td>' +
                                     '<div class="tdDiv">' + 
                                         response.memberDTO[i].email + 

@@ -53,14 +53,11 @@
 		<div class="title">
 
 			<div id="title">
-				<span style="margin-left: 10px;">전체글</span>
-				<form action="boardsearchlist">
-					<select id="searchselect" name="search">
-						<option>제목</option>
-						<option>내용</option>
-						<option>작성자</option>
-						<option>모두</option>
-					</select> <input id="searchinput" name="word">
+				<span style="margin-left: 10px;">전체 회원</span>
+				<form action="api/admin/search">
+					<select id="searchselect" name="filter">
+						<option value="사용자">사용자</option>
+					</select> <input id="searchinput" name="question">
 					<button type="submit"
 						style="border: none; background: none; cursor: pointer;">
 						<img src="/image/icon/search.png"
@@ -74,9 +71,6 @@
 			<table>
 				<thead>
 					<tr>
-						<th>
-							<div class="tdDiv">가입번호</div>
-						</th>
 						<th>
 							<div class="tdDiv">이메일</div>
 						</th>
@@ -93,10 +87,6 @@
 					<c:forEach var="member" items="${members}">
 						<tr>
 							<td>
-								<div class="tdDiv">${member.memberIdx}</div>
-							</td>
-							
-							<td>
 								<div class="tdDiv">${member.email}</div>
 							</td>
 							
@@ -108,7 +98,7 @@
 								<div class="tdDiv">
 									<c:forEach var="flag" items="${flags}">
 										<c:if test="${member.flagIdx eq flag.flagIdx}">
-														${flag.country}</c:if>
+											${flag.country}</c:if>
 									</c:forEach>
 								</div>
 							</td>

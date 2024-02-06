@@ -171,8 +171,6 @@ main {
     justify-content: center;
 }
 
-
-
 @media all and (max-width:479px){
 .mypagebtn {
 	font-size:0.6em;

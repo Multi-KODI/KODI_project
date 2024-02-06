@@ -1,12 +1,15 @@
 package controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -15,10 +18,14 @@ import dto.MemberDTO;
 import dto.MemberFlagDTO;
 import dto.PostDTO;
 import dto.PostMemberDTO;
+import dto.ReadMemberAllDTO;
+import dto.ReadPostAllDTO;
 import jakarta.servlet.http.HttpSession;
 import service.AdminService;
 import service.MemberService;
 import service.MyPageService;
+import service.SearchMemberListService;
+import service.SearchPostListService;
 
 @Controller
 @RequestMapping("/api/admin")
@@ -39,6 +46,14 @@ public class AdminController {
 
 	@Autowired
 	private MyPageService myPageService;
+
+	@Autowired
+	@Qualifier("searchpostlistservice")
+	SearchPostListService postservice;
+
+	@Autowired
+	@Qualifier("searchmemberlistservice")
+	SearchMemberListService memberservice;
 
 	/**
 	 * 전체 유저 조회
@@ -102,7 +117,7 @@ public class AdminController {
 		}
 		List<MemberDTO> members = memberService.findAllMembers();
 		List<FlagDTO> flags = myPageService.allFlags();
-		MemberFlagDTO memberFlag = new MemberFlagDTO(members,flags);
+		MemberFlagDTO memberFlag = new MemberFlagDTO(members, flags);
 		return memberFlag;
 	}
 
@@ -124,10 +139,8 @@ public class AdminController {
 		}
 		List<PostDTO> posts = adminService.findAllPosts();
 		List<MemberDTO> members = memberService.findAllMembers();
-		PostMemberDTO postMember = new PostMemberDTO(posts,members);
+		PostMemberDTO postMember = new PostMemberDTO(posts, members);
 		return postMember;
 
 	}
-
-	
 }

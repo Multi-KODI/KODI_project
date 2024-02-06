@@ -54,13 +54,10 @@
 
 			<div id="title">
 				<span style="margin-left: 10px;">전체글</span>
-				<form action="boardsearchlist">
-					<select id="searchselect" name="search">
-						<option>제목</option>
-						<option>내용</option>
-						<option>작성자</option>
-						<option>모두</option>
-					</select> <input id="searchinput" name="word">
+				<form action="api/admin/search">
+					<select id="searchselect" name="filter">
+						<option value="게시글">게시글</option>
+					</select> <input id="searchinput" name="question">
 					<button type="submit"
 						style="border: none; background: none; cursor: pointer;">
 						<img src="/image/icon/search.png"
@@ -74,9 +71,6 @@
 			<table>
 				<thead>
 					<tr>
-						<th>
-							<div class="tdDiv">글번호</div>
-						</th>
 						<th>
 							<div class="tdDiv">작성자(이메일)</div>
 						</th>
@@ -92,10 +86,6 @@
 				<tbody id="postList">
 					<c:forEach var="post" items="${posts}">
 						<tr>
-							<td>
-								<div class="tdDiv">${post.postIdx}</div>
-							</td>
-						
 							<td>
 								<div class="tdDiv">
 									<c:forEach var="member" items="${members}">

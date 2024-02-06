@@ -21,13 +21,11 @@
 <!-- services와 clusterer, drawing 라이브러리 불러오기 -->
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=APIKEY&libraries=services,clusterer,drawing"></script>
 <script>
-    /* if (${isSession}==false){
-        alert("로그인하세요");
-        location.href = "/";
-  }
-     */
-    </script>
-    
+if (${isSession}==false){
+	alert("로그인하세요");
+	location.href = "/";
+}
+</script>
 
 </head>
 <body>
@@ -276,6 +274,7 @@ function addImage() {
 
 	        // 새로운 태그를 생성
 	        var inputHidden = document.createElement('input');
+	        inputHidden.hidden = true;
 	        inputHidden.name = "postTags";
 	        inputHidden.value = tagValue;
 

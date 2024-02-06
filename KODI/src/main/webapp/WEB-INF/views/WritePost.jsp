@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/Header.jsp" %>
 <%@ include file="/WEB-INF/views/SearchHeader.jsp" %>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<spring:eval var="kakaoKey" expression="@environment.getProperty('kakao.api.key')" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,7 +16,6 @@
 <script src="/js/jquery-3.7.1.min.js"></script>
 
 
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=29b72f9b60c9876e854ca883b07bc82d"></script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=APIKEY&libraries=LIBRARY"></script>
 <!-- services 라이브러리 불러오기 -->
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=APIKEY&libraries=services"></script>
@@ -157,12 +158,11 @@ if (${isSession}==false){
 function searchAddress(){
 	var parentElement = $('.labels')[0];
 	parentElement.innerHTML='';
-	let key = "29b72f9b60c9876e854ca883b07bc82d";
 	
 	var searching = $("#inputStoreName").val();
 	
 	headers = {
-	  "Authorization": "KakaoAK d6dfd391f52c1cbae3bcea85ff0057ef"
+	  "Authorization": "KakaoAK "+'${kakaoKey}'
 	}
 
 

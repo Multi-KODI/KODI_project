@@ -77,6 +77,13 @@
 
 <script>
 $(document).ready(function() {
+	if(${isSession} == false) {
+	      alert("로그인하세요");
+	      location.href = "/";
+	   } 
+	else{
+	
+	
     var randomImages = ["/image/db/ex.jpg", "/image/db/ex2.jpg", "/image/db/ex3.jpg"];
 
     function getRandomImage() {
@@ -150,7 +157,7 @@ $(document).ready(function() {
 		}
 		window.location.href = "/api/post/" + postIdx;
 	});
-
+	}
 });//ready
 </script>
 

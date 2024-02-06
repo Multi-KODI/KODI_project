@@ -163,27 +163,40 @@ public class MyPageController {
 	 */
 	@GetMapping("/mypage")
 	public ModelAndView readMyPosts(HttpSession session) {
-		ModelAndView mv = new ModelAndView();
-		// 세션에 바운딩된 유저아이디를 받아옴
-		Integer memberIdx = Integer.parseInt((String) session.getAttribute("memberIdx"));
+	    ModelAndView mv = new ModelAndView();
+	    String memberIdStr = (String) session.getAttribute("memberIdx");
 
-		// 세션에 유저아이디가 있고, 실제로 DB에 존재하는 경우
-		if (memberIdx != null && memberService.findMemberByIdx(memberIdx) != null) {
-			// 나의 전체글 가져오기
-			List<PostDTO> posts = myPageService.readMyPosts(memberIdx);
-			if (posts != null) {
-				mv.addObject("posts", posts);
-			}
-			List<PostImageDTO> images = myPageService.allImages();
-			mv.addObject("images", images);
-			mv.setViewName("/MyPage/MyPage");
-			return mv;
+	    if (memberIdStr != null) {
+	        try {
+	            Integer memberIdx = Integer.parseInt(memberIdStr);
+	            MemberDTO member = memberService.findMemberByIdx(memberIdx);
+	            if (member != null) {
+	                // 나의 전체글 가져오기
+	                List<PostDTO> posts = myPageService.readMyPosts(memberIdx);
+	                if (posts != null) {
+	                    mv.addObject("posts", posts);
+	                }
+	                List<PostImageDTO> images = myPageService.allImages();
+	                mv.addObject("images", images);
+	                mv.addObject("isSession", true);
+	            } else {
+	                // 세션에는 사용자 아이디가 있지만, DB에서 해당 회원 정보가 없는 경우
+	                mv.addObject("isSession", false);
+	            }
+	        } catch (NumberFormatException e) {
+	            // 세션에 저장된 사용자 아이디가 정수로 파싱할 수 없는 형태인 경우
+	            mv.addObject("isSession", false);
+	        }
+	    } else {
+	        // 세션에 사용자 아이디가 없는 경우
+	        mv.addObject("isSession", false);
+	    }
 
-			// 로그인이 안돼어 있거나 회원이 존재하지 않는 경우
-		} else {
-			return null;
-		}
+	    mv.setViewName("/MyPage/MyPage");
+	    return mv;
 	}
+
+
 
 	/**
 	 * 나를 추가한 친구

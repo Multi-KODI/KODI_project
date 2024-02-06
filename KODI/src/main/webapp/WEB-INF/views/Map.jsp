@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <spring:eval var="googleKey" expression="@environment.getProperty('google.api.key')" /> 
 <!DOCTYPE html>
 <html>
@@ -81,7 +83,7 @@ function initMap(addresses, zoomLevel) {
             }
         });
     });
-}
+};
 
 
 
@@ -125,7 +127,10 @@ $("#friendMark").on("click", function() {
         }
     });
 });
+
+
 }
+     
 }); //ready
 </script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=${googleKey}&callback=initMap"></script>

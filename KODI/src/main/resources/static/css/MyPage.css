@@ -171,6 +171,25 @@ main {
     justify-content: center;
 }
 
+.second-title {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%); 
+	width: 100%;
+	height : 100%;
+	background-color: rgba(0, 0, 0, 0.1);
+	color: black;
+	padding: 10px;
+	box-sizing: border-box;
+	opacity: 1;
+	transition: opacity 0.3s ease;
+	text-align: center; 
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
 @media all and (max-width:479px){
 .mypagebtn {
 	font-size:0.6em;

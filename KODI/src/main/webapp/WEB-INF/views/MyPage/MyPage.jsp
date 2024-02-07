@@ -58,7 +58,7 @@
 						</c:if>
 						<c:if test="${not hasImage}">
 							<div class="image-container">
-									<div class="image-title">${post.title}</div>
+									<div class="second-title">${post.title}</div>
 									<img class="random-image" src="/image/ex.jpg">
 							</div>
 					</c:if>

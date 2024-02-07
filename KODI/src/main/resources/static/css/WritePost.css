@@ -118,10 +118,17 @@ hr {
 }
 
 #image-container img {
-	width: 10px; /* 이미지의 너비 조절 */
-	height: 10px; /* 이미지의 높이 조절 */
+	width: 15px; /* 이미지의 너비 조절 */
+	height: 15px; /* 이미지의 높이 조절 */
 	margin-right: 5px; /* 이미지와 텍스트 사이 간격 조절 */
 	vertical-align: middle; /* 이미지를 텍스트의 중앙에 위치시킴 */
+}
+
+#deleteImageIcon{
+	width: 15px; /* 이미지의 너비 조절 */
+	height: 15px; /* 이미지의 높이 조절 */
+	margin-right: 20px; /* 이미지와 텍스트 사이 간격 조절 */
+	margin-bottom: 185px;
 }
 #tagInput {
     width: 355px;
@@ -221,6 +228,7 @@ background-color: #EDF2F6;
   justify-content: center;
   font-family: 'NanumSquareNeo';
   font-size: 15px;
+  margin-bottom: 10px;
 }
 
 #addImageIcon {
@@ -254,5 +262,5 @@ font-family: 'NanumSquareNeo';
 }
 #garo_btns{
 	
-	margin-left:30%;
+	margin-left:25%;
 }

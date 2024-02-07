@@ -98,4 +98,8 @@ public class PlannerService {
 		dao.insertSchedule(map);
 	}
 	
+	public void deleteSchedule(int planIdx) {
+		//기존의 스케줄 삭제하기
+		dao.deleteSchedule(planIdx);
+	}
 }

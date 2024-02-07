@@ -9,8 +9,8 @@ let date = new Date(),
 
 let selectedDates = [];
 
-const months = ["1월", "2월", "3월", "4월", "5월", "6월", "7월",
-  "8월", "9월", "10월", "11월", "12월"];
+const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul",
+  "Aug", "Sep", "Oct", "Nov", "Dec"];
 
 const renderCalendar = () => {
   	let firstDayofMonth = new Date(currYear, currMonth, 1).getDay(),
@@ -32,16 +32,32 @@ const renderCalendar = () => {
   for (let i = lastDayofMonth; i < 6; i++) {
     liTag += `<li class="inactive">${i - lastDayofMonth + 1}</li>`;
   }
-  currentDate.innerText = `${currYear}년 ${months[currMonth]}`;
+  currentDate.innerText = `${currYear} ${months[currMonth]}`;
   daysTag.innerHTML = liTag;
+  
+  
+  /*수정 선택된 날짜에 배경색*/
+  document.querySelectorAll('.days li').forEach(day => {
+  day.addEventListener('click', () => {
+    const clickedDate = day.getAttribute('data-date');
+    handleDateSelection(clickedDate);
 
-  // 각 날짜에 클릭 이벤트 리스너 추가
+    // 클릭된 날짜에 대한 스타일 처리
+    document.querySelectorAll('.days li').forEach(dayElement => {
+      dayElement.classList.remove('selected');
+    });
+
+    day.classList.add('selected');
+  });
+});
+
+  /*// 각 날짜에 클릭 이벤트 리스너 추가
   document.querySelectorAll('.days li').forEach(day => {
     day.addEventListener('click', () => {
       const clickedDate = day.getAttribute('data-date');
       handleDateSelection(clickedDate);
     });
-  });
+  });*/
 }
 
 const modal = document.querySelector(".modal");
@@ -95,7 +111,7 @@ const handleDateSelection = (clickedDate) => {
 function makeModal(dateList, schedulelist){
    	document.querySelector('.modal').style.display ='block';
    	var container = document.querySelector('.pop-planner');
-	deleteAllChildren(container);
+	removeOneScheduleElements(container);
 	for (var i = 0; i < dateList.length; i++) {
 		var modalDiv = document.createElement('div');
 		modalDiv.className = 'oneSchedule';
@@ -104,15 +120,28 @@ function makeModal(dateList, schedulelist){
 		if(schedulelist[i]==null){
 			schedulelist[i]='';
 		}
-		alert(schedulelist[i]);
+		
 		modalDiv.innerHTML +=
 		'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="modalBtn" id="insertBtn" onclick="saveDiv(' + dateList[i] + ' , ' + i +')">저장</button>&nbsp;'
-		+'<button class="modalBtn" id="deleteBtn" onclick="deleteDiv(' + i + ')">삭제</button><br>'
-		+'<input class="scheduleContent" value="'+schedulelist[i]+'"></input><br>';
+		+'<button class="modalBtn" id="deleteBtn" onclick="deleteDiv(' + i+','+dateList[i] + ')">삭제</button><br>'
+		+'<textarea class="scheduleContent" cols="25" rows="7">'+schedulelist[i]+'</textarea><br>';
+		/*+'<input class="scheduleContent" value="'+schedulelist[i]+'"></input><br>';*/
+		var modalBr = document.createElement('br');
+		modalBr.className = 'oneSchedule';
+		document.querySelector('.pop-planner').appendChild(modalBr);
 		document.querySelector('.pop-planner').appendChild(modalDiv);
    }
    
 }
+function removeOneScheduleElements(container) {
+    var oneScheduleElements = container.getElementsByClassName('oneSchedule');
+    if (oneScheduleElements.length > 0) {
+        while (oneScheduleElements.length > 0) {
+            oneScheduleElements[0].parentNode.removeChild(oneScheduleElements[0]);
+        }
+    }
+}
+
 
 function deleteAllChildren(element) {
     // element의 모든 자식을 삭제
@@ -121,7 +150,7 @@ function deleteAllChildren(element) {
     }
 }
 
-function deleteDiv(index) {
+function deleteDiv(index, date) {
     var container = document.querySelector('.pop-planner');
     
     // 지정된 div 내의 input 요소 가져오기
@@ -129,15 +158,31 @@ function deleteDiv(index) {
     
     // input 요소의 값을 빈 문자열로 설정
     inputElement.innerHTML = "";
+    $.ajax({
+	  	url:"/api/planner/schedule/isdelete",
+	  	type:'post',
+	  	data:{ 
+	     	date:date,
+	 	},   
+		error : function(error) {  
+        	console.log(error);
+		}
+      
+   });
+    
+    
 }
 
 function saveDiv(target, index) {
     var container = document.querySelector('.pop-planner');
     
+    var inputElement = container.children[index].querySelector('textarea');
+ 
+
     // 지정된 div 내의 input 요소 가져오기
-    var inputElement = container.children[index].querySelector('input');
+  /*  var inputElement = container.children[index].querySelector('input');
     alert(container.children[index].querySelector('input').value);
-    alert(inputElement.value);
+    alert(inputElement.value);*/
     
     
     // input 요소의 값을 빈 문자열로 설정
@@ -187,6 +232,14 @@ prevNextIcon.forEach(icon => {
   });
 });
 
+function closePlannerModal(){
+	$(".modal").hide();
+	
+	document.querySelectorAll('.days li').forEach(dayElement => {
+    dayElement.classList.remove('selected');
+  });
+}
+
 
 											/*체크리스트 구현*/
 loadCheckList();
@@ -204,44 +257,71 @@ function loadCheckList(){
                 }
             });
 }
-function makeCheckList(checkList, idxList){
-	document.querySelector('.checkList').innerHTML="";
-	for (var i = 0; i < idxList.length; i++) {
-		var oneLi = document.createElement('li');
-		oneLi.className = "'"+idxList[i]+"'";
-		oneLi.innerHTML = checkList[i];
-		document.querySelector('.checkList').appendChild(oneLi);
-		oneLi.setAttribute('onclick', 'deleteLi('+idxList[i]+')');
-   }
+function makeCheckList(checkList, idxList) {
+    var checkListContainer = document.querySelector('.checkList');
+    checkListContainer.innerHTML = "";
+
+    for (var i = 0; i < idxList.length; i++) {
+        var listItemContainer = document.createElement('div'); // 각 쌍을 감싸는 div
+        listItemContainer.style.display = "block"; // 인라인 블록으로 배치
+
+        var oneLi = document.createElement('li');
+        oneLi.className = "'"+idxList[i]+"'";
+        oneLi.innerHTML = checkList[i];
+        oneLi.style.display = "inline-block"; // 인라인 블록으로 배치
+        oneLi.style.marginRight = "100px"; // 필요에 따라 마진 조절
+        listItemContainer.appendChild(oneLi);
+
+        var oneLiDelete = document.createElement('img');
+        oneLiDelete.className = "'"+idxList[i]+"'";
+        oneLiDelete.src = '/image/icon/x.png';
+        oneLiDelete.width = 10;
+        oneLiDelete.height = 10;
+        oneLiDelete.style.cursor = "pointer";
+        oneLiDelete.style.verticalAlign = "middle"; // 이미지를 수직 가운데 정렬
+        listItemContainer.appendChild(oneLiDelete);
 	
+
+        checkListContainer.appendChild(listItemContainer);
+
+       
+        oneLiDelete.setAttribute('onclick', 'deleteLi(' + idxList[i] + ')');
+    }
 }
+
 function deleteLi(idx) {
-	var targetClassName = "'"+idx+"'";
+    var targetClassName = "'" + idx + "'";
     var container = document.querySelector('.checkList');
-    var liElements = container.getElementsByTagName('li');
-	for (var i = liElements.length - 1; i >= 0; i--) {
-    	var currentLi = liElements[i];
-	    // 특정 클래스를 가진 <li> 요소인지 확인
-	    if (currentLi.className === targetClassName) {
-	        currentLi.remove();
-    	}
-	}
-    
+    var listItemContainers = container.getElementsByTagName('div');
+
+    for (var i = listItemContainers.length - 1; i >= 0; i--) {
+        var currentContainer = listItemContainers[i];
+        var currentLi = currentContainer.getElementsByTagName('li')[0];
+        var currentImg = currentContainer.getElementsByTagName('img')[0];
+
+        // 특정 클래스를 가진 <li> 요소인지 확인
+        if (currentLi.className === targetClassName) {
+            currentContainer.remove();
+        }
+    }
+
+    // 나머지 코드는 그대로 둡니다.
     $.ajax({
-		url: "/api/planner/checklist/isdelete",
-		data:{
-			listIdx: idx
-		},
-		type:"post",
-		success: function(){
-		},
-		error: function(e){
-			console.log(e);
-		},
-		
-	});
-    
+        url: "/api/planner/checklist/isdelete",
+        data: {
+            listIdx: idx
+        },
+        type: "post",
+        success: function () {},
+        error: function (e) {
+            console.log(e);
+        },
+    });
 }
+
+
+
+
 function makeCheckListModal(){
 	$("#modal").show();
 }

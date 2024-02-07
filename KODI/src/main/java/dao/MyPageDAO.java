@@ -6,7 +6,6 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 import dto.FlagDTO;
-import dto.FriendDTO;
 import dto.MemberDTO;
 import dto.PostDTO;
 import dto.PostImageDTO;

@@ -160,8 +160,8 @@ $(document).ready(function(){
     	<input type="text" id="inputNickname" name="inputNikename" placeholder="닉네임" required>
     	
     	<h3>국적</h3>
-    	<select name="nation" id="nation">
-    		<option selected disabled>Country</option>
+    	<select name="nation" id="nation" required>
+    		<option value="" selected disabled>Country</option>
 			<option value="1">Afghanistan</option>
 			<option value="2">Albania</option>
 			<option value="3">Algeria</option>
@@ -363,7 +363,7 @@ $(document).ready(function(){
     		<input type="submit" id="joinBtn" class="btn" value="회원가입">
     		&nbsp;&nbsp;|&nbsp;&nbsp;
     		<input type="button" id="loginBtn" class="btn" value="로그인">
-		</form>	
 		</div>
+		</form>	
 </body>
 </html>

@@ -17,14 +17,6 @@ $(document).ready(function () {
                         if (response.postDTO[i].memberIdx === response.memberDTO[j].memberIdx) {
                             result +=
                                 '<tr>'+
-                                
-                                '<td>' +
-                                    '<div class="tdDiv">' + 
-                                        response.postDTO[i].postIdx + 
-                                    '</div>' +
-                                '</td>' +
-                                
-                                
                                 '<td>' +
                                     '<div class="tdDiv">' + 
                                         response.memberDTO[j].email + 
@@ -82,12 +74,6 @@ $(document).ready(function () {
                                 '<tr>'+
                                 '<td>' +
                                     '<div class="tdDiv">' + 
-                                        response.memberDTO[i].memberIdx + 
-                                    '</div>' +
-                                '</td>' +
-                                
-                                '<td>' +
-                                    '<div class="tdDiv">' + 
                                         response.memberDTO[i].email + 
                                     '</div>' +
                                 '</td>' +
@@ -97,7 +83,7 @@ $(document).ready(function () {
                                     '</div>' +
                                 '</td>' +
                                 '<td>' +
-                                '   <div class="tdDiv">' + 
+                                '   <div class="tdDiv" style="display: flex; align-items: center;">' +      '<img style="width: 16px; height: 16px; margin-right: 3px;" src="'+response.flagDTO[j].src+'"></img>' + 
                                         response.flagDTO[j].country + 
                                     '</div>' +
                                 '</td>' +

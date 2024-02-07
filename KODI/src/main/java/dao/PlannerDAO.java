@@ -56,4 +56,8 @@ public interface PlannerDAO {
 	//@param hashmap
 	public void insertSchedule(HashMap<String, Object> map);
 	
+	//나의 스케줄 삭제
+	//@param planIdx
+	public void deleteSchedule(int planIdx);
+	
 }

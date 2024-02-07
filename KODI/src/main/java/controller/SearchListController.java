@@ -32,20 +32,6 @@ public class SearchListController {
 	@Qualifier("searchmemberlistservice")
 	SearchMemberListService memberservice;
 
-    @GetMapping("/search")
-    public ModelAndView searchList(
-        @RequestParam String filter,
-        @RequestParam String question,
-        HttpSession session
-    ) {
-        ModelAndView mv = new ModelAndView();
-        
-        if(session.getAttribute("memberIdx") == null) {
-        	mv.addObject("isSession", false);
-		} else {
-        	mv.addObject("isSession", true);
-		}
-
 	@GetMapping("/search")
 	public ModelAndView searchList(
 			@RequestParam String filter,
@@ -53,7 +39,12 @@ public class SearchListController {
 			HttpSession session) {
 		ModelAndView mv = new ModelAndView();
 
-		// sql문에서 like 조건에 해당하는 형태로 만들기 위해
+		if (session.getAttribute("memberIdx") == null) {
+			mv.addObject("isSession", false);
+		} else {
+			mv.addObject("isSession", true);
+		}
+
 		question = "%" + question + "%";
 
 		// filter에 따른 구분(게시글인지 사용자인지)

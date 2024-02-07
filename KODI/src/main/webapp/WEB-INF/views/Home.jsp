@@ -457,5 +457,7 @@ function webSocket(){
 		<button id="sendMsgBtn" type="button">전송</button>
 	</div>
 </main>
+
+<%@ include file="/WEB-INF/views/Footer.jsp" %>
 </body>
 </html>

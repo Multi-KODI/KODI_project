@@ -150,16 +150,6 @@ select{
    font-weight: bold;
 }
 
-/*footer*/
-footer {
-   margin-top: 100px;
-   margin-bottom: 50px;
-   text-align: center;
-   font-weight: bold;
-}
-
-
-
 
 
 @media all and (max-width:479px){

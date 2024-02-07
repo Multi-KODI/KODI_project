@@ -16,7 +16,9 @@ main {
    padding-bottom: 20px;
 }
 
-
+.Btn{
+	cursor: pointer;
+}
 /* 플래너 */
 /* 
  */
@@ -130,7 +132,7 @@ header .current-date{
 	margin-left:100px;
 	
 }
-/* 체크리스트 */
+/* 체크리스트 모달창 */
 #modal {
 	display: none;
 	position: fixed;
@@ -148,13 +150,45 @@ header .current-date{
 	left: 50%;
 	top: 50%;
 	transform: translate(-50%, -50%);
-	width: 500px;
-	height: 500px;
+	width: 300px;
+	height: 150px;
 	background: #fff;
 	z-index: 1001;
+	border-radius:20px;
 }
 
-
+#inputCheckList{
+	margin-top:15%;
+	margin-left:15%;
+	width: 200px;
+	height: 30px;
+	padding: 3px;
+	border: 2px solid #D9D9D9;
+	border-radius: 5px;
+	font-size: 20px;
+	font-family: 'NanumSquareNeo';
+}
+#inputCheckListBtn{
+	margin-left:35%;
+	width:50px;
+	height:28px;
+	border-radius:10px;
+	background-color: transparent;
+	border: none;
+	font-family: 'NanumSquareNeo';
+	background-color: #6A7EFC;
+	color: white;
+	font-size:15px;
+}
+#closeCheckkList{
+	height:25px;
+	border-radius:10px;
+	background: transparent;
+  	border: none;
+	font-family: 'NanumSquareNeo';
+	font-size:15px;	
+}
+/*플래너 모달창 */
 .modal {
 	display: none;
 	position: fixed;
@@ -166,22 +200,50 @@ header .current-date{
 	z-index: 1000;
 }
 
+
 .modal .pop-planner {
     display: flex;
-    flex-wrap: wrap; /* 요소가 가로로 나열되면서 한 줄에 모자란 경우 다음 줄로 넘어갑니다 */
+    flex-wrap: wrap;
     font-family: 'NanumSquareNeo';
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    width: 900px; /* 너비를 100%로 설정하여 부모 요소에 맞게 조절 */
+    width: 900px;
 	border-radius:30px;
     height: 300px;
     overflow-y: scroll;
     background: #fff;
     z-index: 1001;
 }
+.modal .pop-modal {
+    font-family: 'NanumSquareNeo';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 900px;
+	border-radius:30px;
+    height: 400px;
+    background: #fff;
+    z-index: 1002;
+}
+
+#closePlannerModal {
+  display: block; /* 또는 다른 원하는 display 속성으로 변경 */
+  margin-top:2%;
+  margin-left:95%;
+  background-color: transparent;
+	 border: none;
+  
+}
+#closePlannerModalIcon{
+	width:15px;
+	height:17px;
+	
+}
 .scheduleContent{
+	margin-top:5%;
 	padding: 5px;
 	border: 2px solid #D9D9D9;
 	border-radius: 10px;
@@ -205,10 +267,16 @@ header .current-date{
 	width:18px;
 	height:18px;
 }
-
+li.selected {
+	
+  	background-color: #6A7EFC; /* 선택된 날짜의 배경색을 여기에 지정하세요 */
+ 	/* 동그랗게 만들기 위한 스타일 */
+  	color: #fff; /* 선택된 날짜의 텍스트 색상을 여기에 지정하세요 */
+}
 
 .checkListInsertBtn{
-	 height:25px;
+	 width:50px;
+	 height:28px;
 	 border-radius:10px;
 	 background-color: transparent;
 	 border: none;
@@ -217,6 +285,7 @@ header .current-date{
 	 background-color: #6A7EFC;
 	 color: white;
 	 font-size:15px;
+	 cursor: pointer;
 }
 .left-side-title{
 	font-size:20px;
@@ -230,14 +299,14 @@ header .current-date{
 }
 
 #insertBtn{
-	height:25px;
+	 height:25px;
 	 border-radius:10px;
-	 background-color: transparent;
 	 border: none;
 	 font-family: 'NanumSquareNeo';
 	 background-color: #6A7EFC;
 	 color: white;
 	 font-size:15px;
+	 cursor: pointer;
 }
 
 
@@ -246,9 +315,9 @@ header .current-date{
 	 border-radius:10px;
 	background: transparent;
   	border: none;
-	 font-family: 'NanumSquareNeo';
-	
-	 font-size:15px;
+	font-family: 'NanumSquareNeo';
+	font-size:15px;
+	cursor: pointer;
 }
 li{
 	margin-bottom:10px;

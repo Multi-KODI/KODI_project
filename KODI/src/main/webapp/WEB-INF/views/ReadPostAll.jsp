@@ -25,15 +25,30 @@
 <div class="listBox">
  	<div class="contentBox">
 		<div id="image">
-			<a href="/api/post/${post.postInfo.postIdx}" class="post-link">
+			<c:choose>
+                <c:when test="${not empty post.postImage}">
+                    <a href="/api/post/${post.postInfo.postIdx}" class="post-link">
+                        <img src="/image/db/${post.postImage}">
+                    </a>
+                </c:when>
+                <c:otherwise>
+                    <a href="/api/post/${post.postInfo.postIdx}" class="post-link">
+                        <img src="/image/db/noImage.png">
+                    </a>
+                    
+                </c:otherwise>
+            </c:choose>
+			<%-- <a href="/api/post/${post.postInfo.postIdx}" class="post-link">
       			<img src="/image/db/${post.postImage}">
-			</a>
+			</a> --%>
      	</div>
      	<div class="firstLine">
      	<div id="title">
-	 		<a href="/api/post/${post.postInfo.postIdx}" class="post-link" data-title="${post.postInfo.title}" data-content="${post.postInfo.content}">
+     	<!-- 제목 a태그 대신 label로 수정 -->
+	 		<%-- <a href="/api/post/${post.postInfo.postIdx}" class="post-link" data-title="${post.postInfo.title}" data-content="${post.postInfo.content}">
 		    	${post.postInfo.title}
-		 	</a>
+		 	</a> --%>
+		 	<label class="post-link" data-title="${post.postInfo.title}" data-content="${post.postInfo.content}" onclick="window.location.href = '/api/post/${post.postInfo.postIdx}';">${post.postInfo.title}</label>
       	</div>
       	<div id="rightSide">
 				<img id="flagImage" src="${post.flag}">
@@ -53,10 +68,10 @@
 </c:forEach>
 </div>
 <script>
-if(${isSession} == false) {
+/* if(${isSession} == false) {
     alert("로그인하세요");
     location.href = "/";
- }
+ } */
 var category = "${category}";
 if(category == "맛집"){
 	$("#food").css("background-color", "#EDF2F6");
@@ -82,15 +97,6 @@ $("#play").on("click", function(){
 
 $("#hotel").on("click", function(){
 	location.href = "/api/posts/hotel";
-	/* $.ajax({
-		url:"post/category",
-		data:{
-			category:"숙소"
-		},
-		type:"post",
-		success: function(){},
-		error: function(){}
-	}); */
 });
 
 </script>

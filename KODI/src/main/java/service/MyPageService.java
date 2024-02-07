@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import dao.MyPageDAO;
 import dto.FlagDTO;
-import dto.FriendDTO;
 import dto.MemberDTO;
 import dto.PostDTO;
 import dto.PostImageDTO;

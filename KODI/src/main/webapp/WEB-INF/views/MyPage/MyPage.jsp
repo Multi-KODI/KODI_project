@@ -56,13 +56,14 @@
 				                <p class="title">${post.title}</p>
 				            </div>
 						</c:if>
-					</c:forEach>
-					<c:if test="${not hasImage}">
-						<div class="image-container">
-			                <div class="image-title">${post.title}</div>
-			                <img class="random-image" src="/image/db/ex.jpg">
-			            </div>
+						<c:if test="${not hasImage}">
+							<div class="image-container">
+									<div class="second-title">${post.title}</div>
+									<img class="random-image" src="/image/ex.jpg">
+							</div>
 					</c:if>
+					</c:forEach>
+					
 				</div>
 			</c:forEach>
 		</div>
@@ -78,8 +79,8 @@
 <script>
 $(document).ready(function() {
 	if(${isSession} == false) {
-	      alert("로그인하세요");
-	      location.href = "/";
+	      alert("로그인 후 이용하세요");
+	      location.href = "/api/login";
 	   } 
 	else{
 	

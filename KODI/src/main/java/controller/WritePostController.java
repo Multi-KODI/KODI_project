@@ -27,8 +27,14 @@ public class WritePostController {
 	WritePostService writeservice;
 	
 	@GetMapping("/post/write")
-	public ModelAndView writePost() {
+	public ModelAndView writePost(HttpSession session) {
 		ModelAndView mv = new ModelAndView();
+		
+		if(session.getAttribute("memberIdx") == null) {
+        	mv.addObject("isSession", false);
+		} else {
+        	mv.addObject("isSession", true);
+		}
 		
 		mv.setViewName("WritePost");
 		
@@ -37,7 +43,7 @@ public class WritePostController {
 	
 	//게시물 작성 페이지
 	@PostMapping("/post/issave")
-	public void isWrite(WritePostDTO writePostDTO, HttpSession session) 
+	public String isWrite(WritePostDTO writePostDTO, HttpSession session) 
 			throws IllegalStateException, IOException {
 		//세션 받아서 int 타입으로 변환
 		String sessionIdx = (String)session.getAttribute("memberIdx");
@@ -64,7 +70,7 @@ public class WritePostController {
 		}
 		writeservice.insertPost(writePostDTO, fileName, myMemberIdx);
 		
-//		return "게시물이 성공적으로 작성되었습니다.";
+		return "redirect:/api/mypage";
 	}
 	
 }

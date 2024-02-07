@@ -32,8 +32,19 @@ public class SearchListController {
 	@Qualifier("searchmemberlistservice")
 	SearchMemberListService memberservice;
 
-	@Autowired
-	private MemberService memberService;
+    @GetMapping("/search")
+    public ModelAndView searchList(
+        @RequestParam String filter,
+        @RequestParam String question,
+        HttpSession session
+    ) {
+        ModelAndView mv = new ModelAndView();
+        
+        if(session.getAttribute("memberIdx") == null) {
+        	mv.addObject("isSession", false);
+		} else {
+        	mv.addObject("isSession", true);
+		}
 
 	@GetMapping("/search")
 	public ModelAndView searchList(

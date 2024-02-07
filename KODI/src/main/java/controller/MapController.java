@@ -25,10 +25,15 @@ public class MapController {
 	MapService service;
 	
 	@GetMapping("/map")
-	public ModelAndView myMap() {
-		
-		
+	public ModelAndView myMap(HttpSession session) {
 		ModelAndView mv = new ModelAndView();
+		//session 유지 되고 있는지 검증
+		if(session.getAttribute("memberIdx") == null) {
+        	mv.addObject("isSession", false);
+		} else {
+        	mv.addObject("isSession", true);
+		}
+		
 		mv.setViewName("Map");
 		return mv; 
 	}

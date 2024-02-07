@@ -78,8 +78,8 @@
 <script>
 $(document).ready(function() {
 	if(${isSession} == false) {
-	      alert("로그인하세요");
-	      location.href = "/";
+	      alert("로그인 후 이용하세요");
+	      location.href = "/api/login";
 	   } 
 	else{
 	

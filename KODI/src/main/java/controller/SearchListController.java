@@ -32,6 +32,9 @@ public class SearchListController {
 	@Qualifier("searchmemberlistservice")
 	SearchMemberListService memberservice;
 
+	@Autowired
+	MemberService service;
+
 	@GetMapping("/search")
 	public ModelAndView searchList(
 			@RequestParam String filter,
@@ -123,7 +126,7 @@ public class SearchListController {
 
 		// filter에 따른 구분(게시글인지 사용자인지)
 		if (filter.equals("게시글")) {
-			List<MemberDTO> members = memberService.findAllMembers();
+			List<MemberDTO> members = service.findAllMembers();
 			mv.addObject("members", members);
 			// question에 해당하는 게시글 idx 받아오기
 			List<Integer> readPostAllIdx = postservice.getReadPostAllIdx(question);
@@ -139,7 +142,7 @@ public class SearchListController {
 			mv.setViewName("/Admin/SearchListPost");
 
 		} else if (filter.equals("사용자")) {
-			List<MemberDTO> members = memberService.findAllMembers();
+			List<MemberDTO> members = service.findAllMembers();
 			mv.addObject("members", members);
 			// question에 해당하는 사용자 idx 받아오기
 			List<Integer> readMemberAllIdx = memberservice.getReadMemberAllIdx(question);

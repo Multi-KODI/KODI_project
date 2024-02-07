@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import dto.ReadPostAllDTO;
+import jakarta.servlet.http.HttpSession;
 import service.ReadPostAllService;
 
 @Controller
@@ -27,7 +28,7 @@ public class ReadPostAllController {
 	 * 게시글 idx, 제목, 이미지, 유저닉네임, 추천수, 위치(주소), 태그, 국기
 	 */
 	@GetMapping("/posts/{category}")
-	public ModelAndView readPostAll(@PathVariable("category") String category) {
+	public ModelAndView readPostAll(@PathVariable("category") String category, HttpSession session) {
 		if(category.equals("food")) {
 			category = "맛집";
 		}
@@ -50,6 +51,12 @@ public class ReadPostAllController {
 		}
 		
 		ModelAndView mv = new ModelAndView();
+		//session이 유지 되고 있는지 확인
+		if(session.getAttribute("memberIdx") == null) {
+        	mv.addObject("isSession", false);
+		} else {
+        	mv.addObject("isSession", true);
+		}
 		mv.addObject("readPostAll", readPostAll);
 		mv.addObject("category", category);
 		mv.setViewName("ReadPostAll");

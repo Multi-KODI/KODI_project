@@ -37,6 +37,12 @@ public class SearchListController {
         HttpSession session
     ) {
         ModelAndView mv = new ModelAndView();
+        
+        if(session.getAttribute("memberIdx") == null) {
+        	mv.addObject("isSession", false);
+		} else {
+        	mv.addObject("isSession", true);
+		}
 
         // sql문에서 like 조건에 해당하는 형태로 만들기 위해
         question = "%" + question + "%";

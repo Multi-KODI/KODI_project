@@ -20,6 +20,11 @@ public interface SearchMemberListDAO {
 	//@return 멤버 이름
 	public String selectMemberName(int memberIdx);
 	
+	//조회한 memberIdx에 대한 멤버 이름 조회
+	//@param memberIdx
+	//@return 멤버 이메일
+	public String selectMemberEmail(int memberIdx);
+	
 	//조회한 memberIdx에 대한 flag_idx 조회
 	//@param memberIdx
 	//@return flag_idx
@@ -61,6 +66,8 @@ public interface SearchMemberListDAO {
 	//친구 요청 수락
 	//@param memberIdx, friendMemberIdx
 	public void updateFriendRequest(int memberIdx, int friendMemberIdx);
+
+	
 	
 	
 }

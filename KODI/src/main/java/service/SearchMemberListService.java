@@ -27,8 +27,9 @@ public class SearchMemberListService {
 	
 	//멤버 하나에 대한 필요 정보 조회
 	public ReadMemberAllDTO getReadMemberAll(int memberIdx, int myMemberIdx) {
-		//멤버 이름 조회
+		//멤버 이름,이메일 조회
 		String memberName = dao.selectMemberName(memberIdx);
+		String email = dao.selectMemberEmail(memberIdx);
 		
 		//해당 멤버의 flag_idx 조회
 		int flagIdx = dao.selectFlagIdx(memberIdx);
@@ -71,7 +72,7 @@ public class SearchMemberListService {
 			friendState = "친구 신청 가능";
 		}
 		
-		return new ReadMemberAllDTO(memberIdx, memberName, country, friendState, flag);
+		return new ReadMemberAllDTO(memberIdx, memberName, email,country, friendState, flag);
 	}
 	
 	public void deleteFriend(int memberIdx, int friendMemberIdx) {

@@ -17,6 +17,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where member_idx = #{memberIdx};
 	</select>
 	
+	<select id="selectMemberEmail" resultType="String" parameterType="int">
+		select email as Email
+		from members
+		where member_idx = #{memberIdx};
+	</select>
+	
+	
 	<select id="selectFlagIdx" resultType="int" parameterType="int">
 		select flag_idx as flagIdx
 		from members

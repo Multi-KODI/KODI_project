@@ -66,26 +66,30 @@ public class SearchListController {
 			mv.setViewName("/SearchList/SearchListPost");
 
 		} else if (filter.equals("사용자")) {
-			// question에 해당하는 사용자 idx 받아오기
-			List<Integer> readMemberAllIdx = memberservice.getReadMemberAllIdx(question);
+		    // question에 해당하는 사용자 idx 받아오기
+		    List<Integer> readMemberAllIdx = memberservice.getReadMemberAllIdx(question);
 
-			// 세션에서 나의 member_idx 받아오기
-			String sessionIdx = (String) session.getAttribute("memberIdx");
-			Integer memberIdx = Integer.parseInt(sessionIdx);
+		    // 세션에서 나의 member_idx 받아오기
+		    String sessionIdx = (String) session.getAttribute("memberIdx");
+		    Integer memberIdx = Integer.parseInt(sessionIdx);
 
-			if (memberIdx != null) {
-				List<ReadMemberAllDTO> readMemberAll = new ArrayList<ReadMemberAllDTO>();
-				for (int i = 0; i < readMemberAllIdx.size(); i++) {
-					// 나에 대한 검색은 제외
-					if (readMemberAllIdx.get(i) != memberIdx) {
-						ReadMemberAllDTO readMemberAllone = memberservice.getReadMemberAll(readMemberAllIdx.get(i), memberIdx);
-						readMemberAll.add(readMemberAllone);
-					}
-				}
-				mv.addObject("readMemberAll", readMemberAll);
-				mv.setViewName("/SearchList/SearchListMember");
-			}
+		    if (memberIdx != null) {
+		        List<ReadMemberAllDTO> readMemberAll = new ArrayList<ReadMemberAllDTO>();
+		        for (int i = 0; i < readMemberAllIdx.size(); i++) {
+		            int idx = readMemberAllIdx.get(i);
+		            // 나에 대한 검색은 제외하고, admin을 포함하는 이메일도 제외
+		            if (idx != memberIdx) {
+		                ReadMemberAllDTO readMemberAllone = memberservice.getReadMemberAll(idx, memberIdx);
+		                if (!readMemberAllone.getEmail().contains("admin")) {
+		                    readMemberAll.add(readMemberAllone);
+		                }
+		            }
+		        }
+		        mv.addObject("readMemberAll", readMemberAll);
+		        mv.setViewName("/SearchList/SearchListMember");
+		    }
 		}
+
 
 		return mv;
 	}

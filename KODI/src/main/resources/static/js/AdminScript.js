@@ -83,7 +83,7 @@ $(document).ready(function () {
                                     '</div>' +
                                 '</td>' +
                                 '<td>' +
-                                '   <div class="tdDiv">' + 
+                                '   <div class="tdDiv" style="display: flex; align-items: center;">' +      '<img style="width: 16px; height: 16px; margin-right: 3px;" src="'+response.flagDTO[j].src+'"></img>' + 
                                         response.flagDTO[j].country + 
                                     '</div>' +
                                 '</td>' +

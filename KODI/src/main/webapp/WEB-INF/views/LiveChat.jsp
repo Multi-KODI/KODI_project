@@ -133,7 +133,7 @@
 			};
 			
 			if('${one.chatMsgDTO.content}'.length >= 100) {
-				oneMsg.innerHTML += "<br><br><br><br><br>";
+				oneMsg.innerHTML += "<br><br><br><br>";
 			};
 			
 			oneMsg.appendChild(regdate);
@@ -150,8 +150,8 @@
 		let websocket = null;
 		
 		if(websocket == null){
-			//websocket = new WebSocket("ws://localhost:7777/chatroom");
-			websocket = new WebSocket("ws://192.168.0.13:7777/chatroom"); // 추후 ncp 배포 공인 IP로 변경
+			websocket = new WebSocket("ws://localhost:7777/chatroom");
+			//websocket = new WebSocket("ws://192.168.0.13:7777/chatroom"); // 추후 ncp 배포 공인 IP로 변경
 			
 			websocket.onopen = function() {
 				console.log("웹소켓 연결성공");
@@ -267,7 +267,7 @@
 								};
 								
 								if(translatemsg.length >= 100) {
-									oneMsg.innerHTML += "<br><br><br><br><br>";
+									oneMsg.innerHTML += "<br><br><br><br>";
 								};
 								
 								oneMsg.appendChild(regdate);
@@ -313,26 +313,30 @@
 			if(sendMsgInput.value == ""){
 				$("#sendMsgBtn").attr("disabled", false);
 			} else {
-				let sendData = [sendMsgInput.value, sessionId, ${chatIdx}];
-				websocket.send(sendData);
-				
-				var data = {memberIdx: sessionId, chatIdx: ${chatIdx}, content: sendMsgInput.value};
+				if(sendMsgInput.value.length > 100) {
+					alert("100자 이하로 작성해주세요");
+				} else {
+					let sendData = [sendMsgInput.value, sessionId, ${chatIdx}];
+					websocket.send(sendData);
+					
+					var data = {memberIdx: sessionId, chatIdx: ${chatIdx}, content: sendMsgInput.value};
 
-				$.ajax({
-					url: "/api/chatroom/savemsg",
-					data: JSON.stringify(data),
-					type: "post",
-					contentType: "application/json",
-					dataType: "json",
-					success: function(response){
-						sendMsgInput.value = "";
-						console.log("메시지 DB 저장 성공");
-					},
-					error: function(request, e){
-						alert("코드: " + request.status + "메시지: " + request.responseText + "오류: " + e);
-					}
-				});
-				console.log("웹소켓 서버에게 송신성공");
+					$.ajax({
+						url: "/api/chatroom/savemsg",
+						data: JSON.stringify(data),
+						type: "post",
+						contentType: "application/json",
+						dataType: "json",
+						success: function(response){
+							sendMsgInput.value = "";
+							console.log("메시지 DB 저장 성공");
+						},
+						error: function(request, e){
+							alert("코드: " + request.status + "메시지: " + request.responseText + "오류: " + e);
+						}
+					});
+					console.log("웹소켓 서버에게 송신성공");
+				}
 			};
 		};
 	};

@@ -90,6 +90,7 @@
 	background-color: white;
 	font-family: 'NanumSquareNeo';
 	display: flex;
+	cursor: pointer;
 }
 
 #exitIcon {

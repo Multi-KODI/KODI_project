@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import dto.MemberDTO;
@@ -68,6 +69,10 @@ public class SearchListController {
 		} else if (filter.equals("사용자")) {
 			// question에 해당하는 사용자 idx 받아오기
 			List<Integer> readMemberAllIdx = memberservice.getReadMemberAllIdx(question);
+			
+			// 관리자에 해당하는 사용자 idx 받아오기(관리자는 탐색에서 제외하기 위해)
+			String admin = "%@admin%";
+			List<Integer> readAdminAllIdx = memberservice.getReadAdminAllIdx(admin);
 
 			// 세션에서 나의 member_idx 받아오기
 			String sessionIdx = (String) session.getAttribute("memberIdx");
@@ -77,7 +82,7 @@ public class SearchListController {
 				List<ReadMemberAllDTO> readMemberAll = new ArrayList<ReadMemberAllDTO>();
 				for (int i = 0; i < readMemberAllIdx.size(); i++) {
 					// 나에 대한 검색은 제외
-					if (readMemberAllIdx.get(i) != memberIdx) {
+					if (readMemberAllIdx.get(i) != memberIdx && !readAdminAllIdx.contains(readMemberAllIdx.get(i))) {
 						ReadMemberAllDTO readMemberAllone = memberservice.getReadMemberAll(readMemberAllIdx.get(i), memberIdx);
 						readMemberAll.add(readMemberAllone);
 					}
@@ -92,26 +97,38 @@ public class SearchListController {
 
 	// 친구 관련 버튼(친추 or 친추취소 or 친추수락) 클릭시
 	@PostMapping("/search/isClickBtn")
-	public void isClickFriend(
+	@ResponseBody
+	public String isClickFriend(
 			@RequestParam("clickState") String clickState,
 			@RequestParam("friendMemberIdx") int friendMemberIdx,
 			HttpSession session) {
 		// 세션에서 나의 member_idx 받아오기
 		String sessionIdx = (String) session.getAttribute("memberIdx");
 		Integer memberIdx = Integer.parseInt(sessionIdx);
-
+		
 		// 버튼 상태에 따라 구분
+		String status = "";
+		String clickstate = ""; //친구 삭제, 요청 취소, 거절에 대한 구분을 위한 상태 메세지 전송용 변수
 		if (clickState.equals("친구 삭제")) { // 친구인 상태
-			memberservice.deleteFriend(memberIdx, friendMemberIdx);
-		} else if (clickState.equals("친구 신청")) { // 친구신청이 가능한 상태
-			memberservice.insertFriendRequest(memberIdx, friendMemberIdx);
-		} else if (clickState.equals("요청 취소")) { // 친구 요청을 한 상태
-			memberservice.deleteFriend(memberIdx, friendMemberIdx);
-		} else if (clickState.equals("수락")) { // 친구 요청을 받은 상태
-			memberservice.updateFriendRequest(memberIdx, friendMemberIdx);
-		} else if (clickState.equals("거절")) { // 친구 요청을 받은 상태
-			memberservice.deleteFriend(memberIdx, friendMemberIdx);
+			clickstate = "친구 삭제";
+			status = memberservice.deleteFriend(memberIdx, friendMemberIdx, clickstate);
+		} 
+		else if (clickState.equals("친구 신청")) { // 친구신청이 가능한 상태
+			status = memberservice.insertFriendRequest(memberIdx, friendMemberIdx);
+		} 
+		else if (clickState.equals("요청 취소")) { // 친구 요청을 한 상태
+			clickstate = "요청 취소";
+			status = memberservice.deleteFriend(memberIdx, friendMemberIdx, clickstate);
+		} 
+		else if (clickState.equals("수락")) { // 친구 요청을 받은 상태
+			status = memberservice.updateFriendRequest(memberIdx, friendMemberIdx);
+		} 
+		else if (clickState.equals("거절")) { // 친구 요청을 받은 상태
+			clickstate = "거절";
+			status = memberservice.deleteFriend(memberIdx, friendMemberIdx, clickstate);
 		}
+		
+		return status;
 	}
 
 	@GetMapping("/adminsearch")

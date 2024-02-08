@@ -123,6 +123,9 @@ $(document).ready(function() {
                     	clickState: friendState,
                     	friendMemberIdx: memberId
                     },
+                    success: function(response){
+                    	alert(response);
+                    },
                     error: function(xhr, status, error) {
                     }
                 });
@@ -137,6 +140,9 @@ $(document).ready(function() {
                     data:{
                     	clickState: friendState,
                     	friendMemberIdx: memberId
+                    },
+                    success: function(response){
+                    	alert(response);
                     },
                     error: function(xhr, status, error) {
                     }
@@ -153,6 +159,9 @@ $(document).ready(function() {
                     	clickState: friendState,
                     	friendMemberIdx: memberId
                     },
+                    success: function(response){
+                    	alert(response);
+                    },
                     error: function(xhr, status, error) {
                     }
         		});
@@ -168,6 +177,9 @@ $(document).ready(function() {
                     	clickState: friendState,
                     	friendMemberIdx: memberId
                     },
+                    success: function(response){
+                    	alert(response);
+                    },
                     error: function(xhr, status, error) {
                     }
         		});
@@ -182,6 +194,9 @@ $(document).ready(function() {
                     data:{
                     	friendMemberIdx: memberId,
                     	clickState: friendState
+                    },
+                    success: function(response){
+                    	alert(response);
                     },
                     error: function(xhr, status, error) {
                     }

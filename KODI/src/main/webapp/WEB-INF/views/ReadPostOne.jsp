@@ -42,7 +42,7 @@
 		$("#postContent").html("${readPostOne.postInfo.content}" + "<br><br>");
 
 		<c:forEach items="${readPostOne.postImages}" var="image">
-			 $("#postImage").append("<img id='postImg' src='/image/db/" + "${image}" + "' width=200px height=200px>&nbsp;");		
+			 $("#postImage").append("<img id='postImg' src='/image/db/" + "${image}" + "'display= inline-block width=40% height=40% object-fit=contain align=center>&nbsp;");		
 		</c:forEach>
 		
 		$("#addrInfo").html("${readPostOne.postInfo.address}");

@@ -71,7 +71,7 @@ function initMap(addresses, zoomLevel) {
                         content: 
                         `
                         <div style="font-family: 'NanumSquareNeo';  ">
-                        ` + address + `
+                        ` + address + ` <br><br>
                         <a href="https://google.com/maps/place/` + address + `" target="_blank">구글 지도에서 보기</a>
                         `
                     });

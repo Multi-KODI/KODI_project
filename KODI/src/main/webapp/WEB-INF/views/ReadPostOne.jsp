@@ -338,7 +338,13 @@
 						contentType: "application/json",
 						success: function(response){
 							alert("게시물을 삭제하였습니다.");
-							location.href = "/api/post";
+							var referrer = document.referrer;
+							if(referrer == "http://localhost:7777/api/mypage"){
+								location.href = "/api/mypage";
+							}
+							else {
+								location.href = "/api/posts/food";
+							}
 						},
 						error: function(request, e){
 							alert("코드: " + request.status + "메시지: " + request.responseText + "오류: " + e);

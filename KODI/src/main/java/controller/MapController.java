@@ -41,7 +41,6 @@ public class MapController {
 	@PostMapping("/map/marking")
 	@ResponseBody
 	public List<String> selectMarking(@RequestParam("marking") String marking, HttpSession session) {
-		System.out.println(marking);
 		//세션 받아서 int 타입으로 변환
 		String sessionIdx = (String)session.getAttribute("memberIdx");
 		Integer myMemberIdx = Integer.parseInt(sessionIdx);
@@ -81,8 +80,6 @@ public class MapController {
 				markList.add(address);
 			}
 		}
-		
-		System.out.println(markList.toString());
 		
 		return markList;
 	}

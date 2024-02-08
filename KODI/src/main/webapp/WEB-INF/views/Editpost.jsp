@@ -70,7 +70,7 @@ if (${isSession}==false){
 				
 					<br><br>
 					<!-- 수정4 시작(value 속성 추가) PGH -->
-				    <input type="text" id="tagInput" placeholder="#해시태그#입력" value="" onkeypress="handleKeyPress(event)">
+				    <input type="text" id="tagInput" placeholder="#해시태그#입력" value="" onkeypress="handleKeyPress(event)">&nbsp;
 					<!-- 수정4 종료 PGH -->
 				    <button type="button" id="tagAddBtn" onclick="addTag()">추가</button>
 				
@@ -80,9 +80,9 @@ if (${isSession}==false){
 					
 					
 					<!-- 주소검색창 display: none;인 입력창 추가 -->	
-					<input type="text" id="selectedAddressShow" value="" placeholder="가게주소" readonly >&nbsp;
-					<input type="text" id="selectedAddressReal" name="address" value="" placeholder="가게주소" required>&nbsp;
-					<input type="button" id="addressBtn" onclick="openModal()" value="주소검색">
+					<input type="text" id="selectedAddressShow" value="" placeholder="가게주소" readonly >
+					<input type="text" id="selectedAddressReal" name="address" value="" placeholder="가게주소" required>
+					&nbsp;<input type="button" id="addressBtn" onclick="openModal()" value="주소검색">
 					<br><br>
 			<!-- 수정0 종료 PGH -->
 					<div id="modal">
@@ -100,14 +100,14 @@ if (${isSession}==false){
 					<button type="button" id="imageAddBtn" class="btn" onclick="addImage()"><img id="addImageIcon" src="/image/icon/fileupload.png">&nbsp;사진추가</button><br>
 					
 					<span class="photoBoxs" id= "photoBoxs">	
-						<input type="file" id="photoBox" name="files" accept="image/*" >
+						<!-- <input type="file" id="photoBox" name="files" accept="image/*" > -->
 					</span>
 					
 					<br><br>
 					<div id="garo_btns">
 			    		<input type="submit" id="finishBtn" class="btn" value="작성완료">
 			    		&nbsp;&nbsp;&nbsp;&nbsp;
-			    		<input type="button" id="cancelBtn" class="btn" value="취소">
+			    		<input type="button" id="cancelBtn" class="btn" onclick = "cancelMove()" value="취소">
 					</div>
 
 				</div>
@@ -125,8 +125,10 @@ if (${isSession}==false){
 		$("#point").val("${readPostOne.postInfo.grade}").attr("selected", "selected");
 		$("#writePostTitle").attr("value", "${readPostOne.postInfo.title}");
 		$("#writePostContent").val("${readPostOne.postInfo.content}");
+		
 		/* 은선 수정 id */
 		$("#selectedAddressShow").val("${readPostOne.postInfo.address}");
+		$("#selectedAddressReal").val("${readPostOne.postInfo.address}");
 		var tagListElement = document.getElementById('tagList');
 		var tagValue = "${readPostOne.postTags}";
 		tagValue = tagValue.substring(1);
@@ -166,27 +168,42 @@ if (${isSession}==false){
 	}
 	//추가------------------------------------------------------------------------ PGH
 		var container = document.getElementById("photoBoxs");
+		var oldcontainer = document.createElement("div");
+        oldcontainer.className="oldcontainer";
+	
+		var postIdx = "${readPostOne.postInfo.postIdx}";
+/* 		var imageName="${readPostOne.postImages}"; */
 		var imageSrc = "${readPostOne.postImages}";
 		imageSrc = imageSrc.substring(1);
 		imageSrc = imageSrc.substring(0, imageSrc.length-1);
 		/* 검증 */console.log(imageSrc);
+		
 		var imageSrcs = imageSrc.split(", ");
 		/* 검증 */console.log(imageSrcs);
 		
-		for (var i = 0; i < imageSrcs.length; i++) {
-		    var imageSrc = "/image/db/" + imageSrcs[i];
+		var imageSrcsLength = imageSrcs.length;
+		if(imageSrcs == ""){
+			imageSrcsLength = 0;
+		}
 
+		
+		for (var i = 0; i < imageSrcsLength; i++) {
+			var btnIndex = i;
+			var imageName = imageSrcs[i];
+		    var imageSrc = "/image/db/" + imageSrcs[i];
 		    // 이미지 생성
 		    var inputImage = document.createElement("img");
 		    inputImage.type = "image";
 		    inputImage.name = "alreadySaveImage";
+		    inputImage.id = "alreadySaveImage"+ btnIndex;
 		    inputImage.src = imageSrc;
 		    inputImage.width = "200";
 		    inputImage.height = "200";
+		    
 
 		    // 삭제 버튼 생성
-		    var deleteImageBtn = document.createElement("button");
-		    var btnIndex = i; // Save the index for later use
+		   var deleteImageBtn = document.createElement("button");
+		     // Save the index for later use
 		    deleteImageBtn.type = "button";
 		    deleteImageBtn.id = "deleteBtn_" + btnIndex;
 		    deleteImageBtn.innerHTML = '<img id="deleteImageIcon" src="/image/icon/x.png">';
@@ -194,56 +211,43 @@ if (${isSession}==false){
 		    deleteImageBtn.style.border = "none"; 
 		    // 버튼 onclick 속성 정의
 		    deleteImageBtn.onclick = function () {
-		        deleteImageFunction(btnIndex, imageSrc);
+		        deleteImageFunction(this.id, imageName, postIdx);
 		    };
 
 		    // 이미지, 버튼 담는 부모 div 생성
 		    var imageContainer = document.createElement("div");
-
-		    
+		    imageContainer.className="imageContainer";
 		    imageContainer.appendChild(inputImage);
 		    imageContainer.appendChild(deleteImageBtn);
 		    //이미지, 버튼 한 쌍 담은 div를 부모 div에 추가
-		    container.appendChild(imageContainer);
+		    oldcontainer.appendChild(imageContainer);
+		    container.appendChild(oldcontainer);
 		}
-		container.appendChild(document.createElement('br'));
 		
-function deleteImageFunction(index, imageSrc) {
-	var containerToDelete = document.getElementById("deleteBtn_" + index);
+		
+	function deleteImageFunction(index, imageName, postIdx) {
+	    var containerToDelete = document.getElementById(index);
+	   console.log(containerToDelete.parentNode.tagName +":"+index);
+	    containerToDelete.parentNode.remove();
+	   
 
-    if (containerToDelete) {
-        containerToDelete.parentNode.removeChild(containerToDelete);
-      
-    }
-console.log("Delete image with source: " + imageSrc);
-   	$.ajax({
-  		url:"/api/post/schedule/isdelete",
-  		type:'post',
-  		data:{ 
-  			imageSrc:imageSrc,
- 		},   
-		error : function(error) {  
-       		console.log(error);
-		}
-     
-  	});
-}
+	    console.log("Delete image with imageName: " + imageName);
+	    console.log("Delete image with postIdx: " + postIdx);
+	    
+	    $.ajax({
+	        url: "/api/post/image/isdelete",
+	        type: 'post',
+	        data: {
+	            imageSrc: imageName,
+	            postIdx: postIdx
+	        },
+	        success:function(){},
+	        error: function (error) {
+	            console.log(error);
+	        }
+	    });
+	}
 
-
-function deleteImageFunction(imageSrc) {
-    console.log("Delete image with source: " + imageSrc);
-    $.ajax({
-	  	url:"/api/post/schedule/isdelete",
-	  	type:'post',
-	  	data:{ 
-	  		imageSrc:imageSrc,
-	 	},   
-		error : function(error) {  
-        	console.log(error);
-		}
-      
-   });
-}	
 
 	/* 주소검색 api */
 	
@@ -281,8 +285,8 @@ function searchAddress(){
 				// 라벨 누를 때 이벤트 추가
 				label.onclick = function (place) {
 				return function () {
-				 	$('#selectedAddressShow').val(place.address_name);
-                 	$('#selectedAddressReal').val(place.address_name);
+				 	$('#selectedAddressShow').val(place.address_name+" "+place.place_name);
+                 	$('#selectedAddressReal').val(place.address_name+" "+place.place_name);
 					closeModal();
 				};
 			}(places.documents[i]); // 클로저를 이용하여 현재 반복된 항목의 정보를 전달합니다.
@@ -310,6 +314,9 @@ function closeModal(){
 
  function addImage() {
             var container = document.getElementById("photoBoxs");
+            var newcontainer = document.createElement("div");
+            newcontainer.className="newcontainer";
+            
             // 새로운 파일 첨부 input 태그 생성
             var newInput = document.createElement("input");
             newInput.type = "file";
@@ -338,16 +345,17 @@ function closeModal(){
 
             // 클릭한 이미지를 포함한 부모 요소를 삭제
             newIcon.onclick = function () {
-                container.removeChild(containerDiv);
-                container.removeChild(newBr);
+                newcontainer.removeChild(containerDiv);
+                newcontainer.removeChild(newBr);
             };
 
             // 줄 바꿈 태그 생성
 
             // input과 이미지, br 태그를 컨테이너에 추가
             
-            container.appendChild(containerDiv);
-            container.appendChild(newBr);
+            newcontainer.appendChild(containerDiv);
+            newcontainer.appendChild(newBr);
+            container.appendChild(newcontainer);
         
         }
 			/* 태그 구현 */
@@ -396,6 +404,8 @@ function closeModal(){
 	    // 입력창 초기화
 	    inputElement.value = '';
 	}
-
+	function cancelMove(){
+		location.href="/api/post/"+"${readPostOne.postInfo.postIdx}";
+	}
 </script>
 </html>

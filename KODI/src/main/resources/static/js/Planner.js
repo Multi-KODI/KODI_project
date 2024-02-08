@@ -65,10 +65,13 @@ let map = null //controller에서 받아오기
 
 const handleDateSelection = (clickedDate) => {
   // 두 날짜가 이미 선택되어 있다면 선택을 초기화
-  if (selectedDates.length === 2) {
+  if (selectedDates.length === 2 || 
+      (selectedDates.length === 1 && clickedDate < selectedDates[0])) {
     selectedDates = [];
-  }
-
+    document.querySelectorAll('.days li.selected').forEach(dayElement => {
+      dayElement.classList.remove('selected');
+    });
+}
   // 클릭한 날짜를 선택 목록에 추가
   selectedDates.push(clickedDate);
 
@@ -102,15 +105,21 @@ const handleDateSelection = (clickedDate) => {
       
       
    });
-    console.log('선택된 날짜 사이의 모든 날짜:', dateRange);
-    
-    
+    console.log('선택된 날짜 사이의 모든 날짜:', dateRange); 
   }
+    if (selectedDates.length === 2 && clickedDate < selectedDates[0]) {
+    document.querySelectorAll('.days li.selected').forEach(dayElement => {
+      dayElement.classList.remove('selected');
+    });
+    selectedDates = [];
+  }
+  
 }
 
 function makeModal(dateList, schedulelist){
    	document.querySelector('.modal').style.display ='block';
    	var container = document.querySelector('.pop-planner');
+   	/*var container = document.querySelector('.pop-modal');*/
 	removeOneScheduleElements(container);
 	for (var i = 0; i < dateList.length; i++) {
 		var modalDiv = document.createElement('div');
@@ -125,13 +134,9 @@ function makeModal(dateList, schedulelist){
 		'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="modalBtn" id="insertBtn" onclick="saveDiv(' + dateList[i] + ' , ' + i +')">저장</button>&nbsp;'
 		+'<button class="modalBtn" id="deleteBtn" onclick="deleteDiv(' + i+','+dateList[i] + ')">삭제</button><br>'
 		+'<textarea class="scheduleContent" cols="25" rows="7">'+schedulelist[i]+'</textarea><br>';
-		/*+'<input class="scheduleContent" value="'+schedulelist[i]+'"></input><br>';*/
-		var modalBr = document.createElement('br');
-		modalBr.className = 'oneSchedule';
-		document.querySelector('.pop-planner').appendChild(modalBr);
+
 		document.querySelector('.pop-planner').appendChild(modalDiv);
-   }
-   
+   } 
 }
 function removeOneScheduleElements(container) {
     var oneScheduleElements = container.getElementsByClassName('oneSchedule');
@@ -152,54 +157,66 @@ function deleteAllChildren(element) {
 
 function deleteDiv(index, date) {
     var container = document.querySelector('.pop-planner');
-    
+    console.log(container.tagName);
+    console.log(container.children.length +":" + index);
+    console.log(container.children[index]);
     // 지정된 div 내의 input 요소 가져오기
     var inputElement = container.children[index].querySelector('textarea');
+    inputElement.value="";
+    console.log(inputElement);
     
-    // input 요소의 값을 빈 문자열로 설정
-    inputElement.innerHTML = "";
     $.ajax({
 	  	url:"/api/planner/schedule/isdelete",
 	  	type:'post',
 	  	data:{ 
 	     	date:date,
-	 	},   
+	 	},
+	 	success: function(){
+			 
+		 },
 		error : function(error) {  
         	console.log(error);
 		}
       
    });
+   alert("삭제되었습니다");
     
     
 }
 
 function saveDiv(target, index) {
-    var container = document.querySelector('.pop-planner');
+    /*var container = document.querySelector('.pop-modal');*/
+	var container = document.querySelector('.pop-planner');
     
-    var inputElement = container.children[index].querySelector('textarea');
+ var inputElement = container.children[index].querySelector('textarea');
  
 
-    // 지정된 div 내의 input 요소 가져오기
-  /*  var inputElement = container.children[index].querySelector('input');
+ /*   // 지정된 div 내의 input 요소 가져오기
+   var inputElement = container.children[index].querySelector('input');
     alert(container.children[index].querySelector('input').value);
     alert(inputElement.value);*/
     
     
     // input 요소의 값을 빈 문자열로 설정
     var date = target;
-    var content=inputElement.value;
+    console.log(inputElement);
+  	var content=inputElement.value;
     $.ajax({
 	  	url:"/api/planner/schedule/issave",
 	  	type:'post',
 	  	data:{ 
 	     	date:date,
 	     	content:content
-	 	},   
+	 	},
+	 	success: function(){
+			 
+		 }, 
 		error : function(error) {  
         	console.log(error);
 		}
       
    });
+   alert("저장되었습니다");
 }
 
 const getDateRange = (start, end) => {

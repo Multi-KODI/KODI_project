@@ -15,10 +15,11 @@
     <script src="/js/jquery-3.7.1.min.js"></script>
 	<script src="/js/Planner.js" defer></script> 
 <script>
-/* if (${isSession}==false){
+if (${isSession}==false){
    	alert("로그인하세요");
    	location.href = "/";
-} */
+}
+
 </script>
 </head>
 <body>

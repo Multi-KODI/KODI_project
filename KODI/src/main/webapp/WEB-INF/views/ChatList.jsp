@@ -28,15 +28,18 @@
 				alert("해당 페이지에 접근할 수 없습니다.");
 				location.href = "/api/home";
 			} else {
-				showData();
+				showFriendData();
+				showListData();
 				searchFriend();
-			}	
+			}
 		}
 	});
 	
-	function showData(){
+	function showFriendData(){
 		// 전체 친구 리스트
 		let friendList = document.getElementById("friendList");
+		
+		friendList.innerHTML = "";
 
 		let oneFriend;
 		let chatBtn;
@@ -60,7 +63,9 @@
 			
 			friendList.appendChild(oneFriend);
 		</c:forEach>
-		
+	};
+	
+	function showListData(){
 		// 전체 채팅방 리스트
 		let chatList = document.getElementById("chatList");
 
@@ -118,8 +123,8 @@
 
 		$("#searchBtn").on("click", function(){
 			if(sessionId == ${chatListInfo.memberIdx}){
-				if(searchInput.value == ""){
-					alert("검색할 친구를 입력해주세요");
+				if(searchInput.value == ""){					
+					showFriendData();
 				} else {
 					var data = {memberIdx: sessionId, friendName: searchInput.value};
 					
@@ -136,6 +141,16 @@
 							
 							let oneFriend;
 							let chatBtn;
+							
+							if(response.length == 0) {
+								oneFriend = document.createElement("div");
+								oneFriend.setAttribute("style", "padding-top: 5px; padding-left: 5px; padding-right: 5px;");
+								oneFriend.innerHTML += "검색어에 해당하는 친구가 존재하지 않습니다.";
+								
+								oneFriend.innerHTML += "<hr>";
+								
+								friendList.appendChild(oneFriend);
+							}
 							
 							for (var i = 0; i < response.length; i++) {
 								oneFriend = document.createElement("div");
@@ -255,8 +270,8 @@
 	function enterKey(e){
 		if(e.keyCode == 13) {
 			if(sessionId == ${chatListInfo.memberIdx}){
-				if(searchInput.value == ""){
-					alert("검색할 친구를 입력해주세요");
+				if(searchInput.value == ""){					
+					showFriendData();
 				} else {
 					var data = {memberIdx: sessionId, friendName: searchInput.value};
 					
@@ -273,6 +288,16 @@
 							
 							let oneFriend;
 							let chatBtn;
+							
+							if(response.length == 0) {
+								oneFriend = document.createElement("div");
+								oneFriend.setAttribute("style", "padding-top: 5px; padding-left: 5px; padding-right: 5px;");
+								oneFriend.innerHTML += "검색어에 해당하는 친구가 존재하지 않습니다.";
+								
+								oneFriend.innerHTML += "<hr>";
+								
+								friendList.appendChild(oneFriend);
+							}
 							
 							for (var i = 0; i < response.length; i++) {
 								oneFriend = document.createElement("div");

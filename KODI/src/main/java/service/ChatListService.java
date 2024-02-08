@@ -35,7 +35,7 @@ public class ChatListService {
 		List<ChatListFriendDTO> chatListFriendDTO = new ArrayList<>();
 				
 		for (Integer friendIdx : allFriendMemberIdx) {
-			HashMap<String, Integer> map = new HashMap<String, Integer>();
+			HashMap<String, Object> map = new HashMap<String, Object>();
 
 			map.put("friendIdx", friendIdx);
 			map.put("memberIdx", memberIdx);
@@ -156,12 +156,27 @@ public class ChatListService {
 	 * @return 친구 정보
 	 */
 	public List<ChatListFriendDTO> searchFriend(int memberIdx, String friendName) {
+		List<ChatListFriendDTO> chatListFriend = new ArrayList<>();
+
 		HashMap<String, Object> map = new HashMap<String, Object>();
 
 		map.put("friendName", friendName);
 		map.put("memberIdx", memberIdx);
 		
-		return dao.selectFriendInfo(map);
+		List<ChatListFriendDTO> friendList = dao.selectFriendInfo(map);
+		
+		for (ChatListFriendDTO chatListFriendDTO : friendList) {
+			map.put("friendIdx", chatListFriendDTO.getFriendMemberIdx());
+			
+			if(dao.searchFriendByFriendIdx(map) == 1){
+				String friendMemberName = dao.selectFriendMemberName(chatListFriendDTO.getFriendMemberIdx());
+
+				ChatListFriendDTO friendInfo = new ChatListFriendDTO(chatListFriendDTO.getFriendMemberIdx(), friendMemberName);
+				chatListFriend.add(friendInfo);
+			}
+		}
+		
+		return chatListFriend;
 	}
 
 	/**

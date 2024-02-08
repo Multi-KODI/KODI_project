@@ -90,15 +90,16 @@ public class ModifyPostController {
 		}
 		modifyservice.updatePost(writePostDTO, fileName, myMemberIdx);
 		
-		String referer = request.getHeader("Referer");
+		//상세 게시글로 돌아가기 위한 게시글 idx
+		int postIdx = writePostDTO.getPostIdx();
 		
-		return "redirect:" + referer;
+		return "redirect:/api/post/" + postIdx;
 	}
 	
 	//현재 DB에 있는 이미지 삭제
 	@PostMapping("/post/image/isdelete")
 	public void isDeleteImage(
-			@RequestParam("imageSrc") String imageSrc, 
+			@RequestParam("imageSrc") String imageSrc,
 			@RequestParam("postIdx") int postIdx) {
 		
 		modifyservice.deleteImageSrc(postIdx, imageSrc);

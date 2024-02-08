@@ -56,7 +56,7 @@ $(document).ready(function () {
 	//서로친구 삭제
 	$("#friendList1").on('click', '#f-drawBtn', function (e) {
 		e.preventDefault();
-		if (confirm('이 친구를 삭제하겠습니까?')) {
+		if (confirm('해당 친구를 삭제하겠습니까?')) {
 			$.ajax({
 				url: '/api/pair/delete/' + $(e.target).attr('data-member-idx'),
 				dataType: 'json',

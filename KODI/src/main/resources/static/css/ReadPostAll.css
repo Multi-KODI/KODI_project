@@ -7,7 +7,7 @@ body {
 .container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  
 }
 main {
    max-width: 1200px;

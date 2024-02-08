@@ -75,7 +75,7 @@ $(document).ready(function(){
 			    success: function(response) {
 			        if (response=="회원등록이 완료되었습니다") {
 			        	alert(response);
-			            location.href = "login";
+			            location.href = "/api/login";
 			        } else {
 			            // 회원가입 실패
 			            alert("회원가입 실패하였습니다.");

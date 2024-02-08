@@ -53,6 +53,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where friend_idx = #{friendIdx};
 	</select>
 	
+	<select id="selectAdminAllIdx" resultType="int" parameterType="String">
+		select member_idx
+		from members
+		where email like #{admin};
+	</select>
+	
 	<!-- insert -->
 	<insert id="insertFriendRequest" parameterType="hashmap">
 		insert into friend(friend_member_idx, is_friend, member_idx)

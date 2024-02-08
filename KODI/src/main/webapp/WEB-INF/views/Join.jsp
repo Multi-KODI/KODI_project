@@ -76,9 +76,13 @@ $(document).ready(function(){
 			        if (response=="회원등록이 완료되었습니다") {
 			        	alert(response);
 			            location.href = "/api/login";
-			        } else {
+			        } 
+							else if (response=="중복된 이름입니다"){
+								alert("중복된 이름입니다");
+							}
+							else {
 			            // 회원가입 실패
-			            alert("회원가입 실패하였습니다.");
+			            alert("회원가입에 실패하였습니다");
 			        }
 			    },
 			    error: function(xhr, textStatus, errorThrown) {

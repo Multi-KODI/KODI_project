@@ -45,4 +45,8 @@ public class MemberService {
 	public void updateMemberInfo(MemberDTO memberDTO) {
 		memberDAO.updateMemberInfo(memberDTO);
 	}
+
+	public String findMemberName(String memberName) {
+		return memberDAO.findMemberName(memberName);
+	}
 }

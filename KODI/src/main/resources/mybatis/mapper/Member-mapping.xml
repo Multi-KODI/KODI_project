@@ -11,6 +11,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				FROM members
 				WHERE email=#{email}
 	</select>
+
+	<select id="findMemberName" resultType="String" parameterType="String">
+				SELECT member_name AS memberName FROM members
+				WHERE member_name = #{memberName}
+	</select>
 	<select id="findMemberByIdx" resultType="memberdto" parameterType="int">
         SELECT member_idx AS memberIdx, email, pw, member_name AS memberName, flag_idx AS flagIdx
 				FROM members

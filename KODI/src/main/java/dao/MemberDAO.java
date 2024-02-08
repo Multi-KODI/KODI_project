@@ -27,4 +27,7 @@ public interface MemberDAO {
 
 	//전체 회원 조회
 	List<MemberDTO> findAllMembers();
+	
+	//유저 이름 조회
+  String findMemberName(String memberName);
 }

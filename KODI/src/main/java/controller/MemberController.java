@@ -130,6 +130,12 @@ public class MemberController {
 	public String registerMember(@RequestBody MemberDTO memberDTO, HttpSession session) {
 		MemberDTO findedMember = memberService.findMemberByEmail(memberDTO.getEmail());
 
+		String findedMemberName = memberService.findMemberName(memberDTO.getMemberName());
+
+		if(findedMemberName != null){
+			return "중복된 이름입니다";
+		}
+		
 		// 기존에 멤버가 없을 때 회원등록
 		if (findedMember == null) {
 			memberService.registerMember(memberDTO);

@@ -115,6 +115,20 @@ public class SearchMemberListService {
 			return "친구 요청을 거절하였습니다.";
 		}
 	}
+
+	public void delete_Friend(int memberIdx, int friendMemberIdx) {
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		//나의 member_idx = member_idx / 상대의 member_idx = friend_member_idx
+		map.put("friendMemberIdx", friendMemberIdx);
+		map.put("memberIdx", memberIdx);
+		dao.deleteFriend(map);
+		
+		//나의 member_idx = friend_member_idx / 상대의 member_idx = member_idx
+		map.clear();
+		map.put("friendMemberIdx", memberIdx);
+		map.put("memberIdx", friendMemberIdx);
+		dao.deleteFriend(map);
+	}
 	
 	//친구가 아닌 사용자에게 친구 요청하기
 	public String insertFriendRequest(int memberIdx, int friendMemberIdx) {

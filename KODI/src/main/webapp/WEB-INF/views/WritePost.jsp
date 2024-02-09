@@ -67,20 +67,11 @@ if (${isSession}==false){
 					<br>
 					
 					
-					<input type="text" id="selectedAddressShow" value="" placeholder="가게주소" readonly >&nbsp;
-					<input type="text" id="selectedAddressReal" name="address" value="" placeholder="가게주소" required>&nbsp;
-					<input type="button" id="addressBtn" onclick="openModal()" value="주소검색">
+					<input type="text" id="selectedAddressShow" value="" placeholder="가게주소" readonly >
+					<input type="text" id="selectedAddressReal" name="address" value="" placeholder="가게주소" required>
+					&nbsp;<input type="button" id="addressBtn" onclick="openModal()" value="주소검색">
 					
-					<div id="modal">
-						<div class="pop">
-							<div class=modal-header>
-								<input id="inputStoreName" placeholder="장소, 주소" type="text" >&nbsp;
-								<button id ="searchAddressBtn" type="button" onclick="searchAddress()">검색</button>&nbsp;
-								<button id ="closeModalBtn" type="button" onclick="closeModal()">창닫기</button>
-								<div class="labels"></div>
-							</div>
-						</div>
-					</div>
+					
 					
 					<br><br>
 					
@@ -94,19 +85,32 @@ if (${isSession}==false){
 					<div id="garo_btns">
 			    		<input type="submit" id="finishBtn" class="btn" value="작성완료">
 			    		&nbsp;&nbsp;&nbsp;&nbsp;
-			    		<input type="button" id="cancelBtn" class="btn" value="취소">
+			    		<input type="button" id="cancelBtn" class="btn" onclick = "cancelMove()" value="취소">
 
 					</div>
 
 				</div>
 			</form>
-	
+			
+			
+					<div id="modal">
+						<div class="pop">
+							<div class=modal-header>
+								<input id="inputStoreName" placeholder="장소, 주소" type="text" >&nbsp;
+								<button id ="searchAddressBtn" type="button" onclick="searchAddress()">검색</button>&nbsp;
+								<button id ="closeModalBtn" type="button" onclick="closeModal()">창닫기</button>
+								<div class="labels"></div>
+							</div>
+						</div>
+					</div>
 		</div>
 </main>
 </body>
 <script>
 //...
-
+	function cancelMove(){
+		location.href="/api/mypage";
+	}
 	document.addEventListener("DOMContentLoaded", function () {
 		
 	    // 폼이 제출될 때의 이벤트를 처리
@@ -188,8 +192,8 @@ function searchAddress(){
 	            // 라벨 누를 때 이벤트 추가
 	            label.onclick = function (place) {
 	                return function () {
-	                    $('#selectedAddressShow').val(place.address_name);
-	                    $('#selectedAddressReal').val(place.address_name);
+	                	$('#selectedAddressShow').val(place.address_name+" "+place.place_name);
+	                 	$('#selectedAddressReal').val(place.address_name+" "+place.place_name);
 	               
 	                    closeModal();
 	                };
@@ -302,6 +306,7 @@ function addImage() {
 	    // 입력창 초기화
 	    inputElement.value = '';
 	}
+	
 
 	
 	

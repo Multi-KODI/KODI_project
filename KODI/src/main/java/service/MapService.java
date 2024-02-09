@@ -37,10 +37,10 @@ public class MapService {
 		List<Integer> realFriend = new ArrayList<Integer>();
 		
 		for(Integer idx : friendIdxs) {
-			//member_idx가 친구의 idx인 것들의 is_friend의 값
+			//member_idx가 친구의 idx이면서 friend_member_idx가 나의 idx인 것들의 is_friend의 값
 			boolean isFriend = dao.selectIsFriend(idx, myMemberIdx);
 			//isFriend가 true(1)인 경우
-			if(isFriend = true) {
+			if(isFriend == true) {
 				//서로 친구인 친구의 member_idx값을 저장
 				realFriend.add(idx);
 			}

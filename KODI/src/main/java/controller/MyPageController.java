@@ -252,7 +252,7 @@ public class MyPageController {
 	@ResponseBody
 	public List<ReadMemberAllDTO> pairDelete(@PathVariable Integer memberIdx, HttpSession session) {
 		Integer member_Idx = Integer.parseInt((String) session.getAttribute("memberIdx"));
-		searchService.deleteFriend(member_Idx, memberIdx);
+		searchService.delete_Friend(member_Idx, memberIdx);
 		return getFriendList(session, "서로 친구");
 	}
 
@@ -266,7 +266,7 @@ public class MyPageController {
 	@ResponseBody
 	public List<ReadMemberAllDTO> deleteFollowing(@PathVariable Integer memberIdx, HttpSession session) {
 		Integer member_Idx = Integer.parseInt((String) session.getAttribute("memberIdx"));
-		searchService.deleteFriend(member_Idx, memberIdx);
+		searchService.delete_Friend(member_Idx, memberIdx);
 		return getFriendList(session, "내가 추가한 친구");
 	}
 
@@ -294,7 +294,7 @@ public class MyPageController {
 	@ResponseBody
 	public List<ReadMemberAllDTO> deleteFollower(@PathVariable Integer memberIdx, HttpSession session) {
 		Integer member_Idx = Integer.parseInt((String) session.getAttribute("memberIdx"));
-		searchService.deleteFriend(member_Idx, memberIdx);
+		searchService.delete_Friend(member_Idx, memberIdx);
 		return getFriendList(session, "나를 추가한 친구");
 	}
 

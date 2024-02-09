@@ -1,5 +1,6 @@
 package service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -27,9 +28,8 @@ public class SearchMemberListService {
 	
 	//멤버 하나에 대한 필요 정보 조회
 	public ReadMemberAllDTO getReadMemberAll(int memberIdx, int myMemberIdx) {
-		//멤버 이름,이메일 조회
+		//멤버 이름 조회
 		String memberName = dao.selectMemberName(memberIdx);
-		String email = dao.selectMemberEmail(memberIdx);
 		
 		//해당 멤버의 flag_idx 조회
 		int flagIdx = dao.selectFlagIdx(memberIdx);
@@ -72,10 +72,51 @@ public class SearchMemberListService {
 			friendState = "친구 신청 가능";
 		}
 		
-		return new ReadMemberAllDTO(memberIdx, memberName, email,country, friendState, flag);
+		return new ReadMemberAllDTO(memberIdx, memberName, country, friendState, flag);
 	}
 	
-	public void deleteFriend(int memberIdx, int friendMemberIdx) {
+	public String deleteFriend(int memberIdx, int friendMemberIdx, String clickstate) {
+		//친구 신청을 한 상태인지 확인하기
+		List<Integer> friendIdxs = new ArrayList<>();
+		friendIdxs.add(dao.selectFriendIdx(memberIdx, friendMemberIdx));
+		friendIdxs.add(dao.selectFriendIdx(friendMemberIdx, memberIdx));
+		
+		if(friendIdxs.get(0) == null && friendIdxs.get(1) == null) {
+			if(clickstate.equals("친구 삭제")) {
+				return "이미 친구 삭제가 완료된 대상입니다.";
+			}
+			if(clickstate.equals("요청 취소")) {
+				return "이미 친구 요청 취소한 대상입니다.";
+			}
+			else {
+				return "이미 요청을 거절한 대상입니다.";
+			}
+		}
+		
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		//나의 member_idx = member_idx / 상대의 member_idx = friend_member_idx
+		map.put("friendMemberIdx", friendMemberIdx);
+		map.put("memberIdx", memberIdx);
+		dao.deleteFriend(map);
+		
+		//나의 member_idx = friend_member_idx / 상대의 member_idx = member_idx
+		map.clear();
+		map.put("friendMemberIdx", memberIdx);
+		map.put("memberIdx", friendMemberIdx);
+		dao.deleteFriend(map);
+		
+		if(clickstate.equals("친구 삭제")) {
+			return "친구 삭제를 완료하였습니다.";
+		}
+		if(clickstate.equals("요청 취소")) {
+			return "친구 요청을 취소하였습니다.";
+		}
+		else {
+			return "친구 요청을 거절하였습니다.";
+		}
+	}
+
+	public void delete_Friend(int memberIdx, int friendMemberIdx) {
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
 		//나의 member_idx = member_idx / 상대의 member_idx = friend_member_idx
 		map.put("friendMemberIdx", friendMemberIdx);
@@ -90,7 +131,15 @@ public class SearchMemberListService {
 	}
 	
 	//친구가 아닌 사용자에게 친구 요청하기
-	public void insertFriendRequest(int memberIdx, int friendMemberIdx) {
+	public String insertFriendRequest(int memberIdx, int friendMemberIdx) {
+		//친구 신청을 한 상태인지 확인하기
+		List<Integer> friendIdxs = new ArrayList<>();
+		friendIdxs.add(dao.selectFriendIdx(memberIdx, friendMemberIdx));
+		friendIdxs.add(dao.selectFriendIdx(friendMemberIdx, memberIdx));
+		
+		if(friendIdxs.get(0) != null && friendIdxs.get(1) != null) {
+			return "이미 친구신청을 한 상태입니다.";
+		}
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		//나의 member_idx = member_idx / 상대의 member_idx = friend_member_idx
 		boolean isFriend = true;
@@ -105,11 +154,34 @@ public class SearchMemberListService {
 		map.put("isFriend", isFriend);
 		map.put("memberIdx", friendMemberIdx);
 		dao.insertFriendRequest(map);
+		
+		return "친구신청을 완료하였습니다.";
 	}
 	
 	//내가 받은 친구 요청 수락하기
-	public void updateFriendRequest(int memberIdx, int friendMemberIdx) {
+	public String updateFriendRequest(int memberIdx, int friendMemberIdx) {
+		//변경된 사항이 없는지 검증을 위한 friend_idx 추출
+		Integer friendIdx = dao.selectFriendIdx(memberIdx, friendMemberIdx);
+		boolean isFriend = false;
+		if(friendIdx == null) {
+			return "이미 친구 요청을 거절하셨습니다.";
+		}
+		else {
+			isFriend = dao.selectIsFriend(friendIdx);
+		}
+		
+		//요청받은 is_friend의 값이 true인 경우
+		if(isFriend) {
+			return "이미 친구 요청을 수락하셨습니다.";
+		}
+		
 		dao.updateFriendRequest(memberIdx, friendMemberIdx);
+		return "친구 요청을 수락하셨습니다.";
+	}
+	
+	//관리자 계정 탐색
+	public List<Integer> getReadAdminAllIdx(String admin) {
+		return dao.selectAdminAllIdx(admin);
 	}
 	
 }

@@ -17,13 +17,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where member_idx = #{memberIdx};
 	</select>
 	
-	<select id="selectMemberEmail" resultType="String" parameterType="int">
-		select email as Email
-		from members
-		where member_idx = #{memberIdx};
-	</select>
-	
-	
 	<select id="selectFlagIdx" resultType="int" parameterType="int">
 		select flag_idx as flagIdx
 		from members
@@ -58,6 +51,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select is_friend as isFriend
 		from friend
 		where friend_idx = #{friendIdx};
+	</select>
+	
+	<select id="selectAdminAllIdx" resultType="int" parameterType="String">
+		select member_idx
+		from members
+		where email like #{admin};
 	</select>
 	
 	<!-- insert -->

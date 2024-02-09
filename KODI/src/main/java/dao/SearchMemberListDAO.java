@@ -20,11 +20,6 @@ public interface SearchMemberListDAO {
 	//@return 멤버 이름
 	public String selectMemberName(int memberIdx);
 	
-	//조회한 memberIdx에 대한 멤버 이름 조회
-	//@param memberIdx
-	//@return 멤버 이메일
-	public String selectMemberEmail(int memberIdx);
-	
 	//조회한 memberIdx에 대한 flag_idx 조회
 	//@param memberIdx
 	//@return flag_idx
@@ -48,7 +43,7 @@ public interface SearchMemberListDAO {
 	//memberIdx1은 member_idx를 의미하고 memberIdx2는 friend_member_idx를 의미한다.
 	//@param myMemberIdx, friendMemberIdx
 	//@return friend_idx
-	public int selectFriendIdx(int memberIdx1, int memberIdx2);
+	public Integer selectFriendIdx(int memberIdx1, int memberIdx2);
 	
 	//friendIdx인 칼럼의 is_friend값 조회
 	//@param friendIdx
@@ -66,8 +61,9 @@ public interface SearchMemberListDAO {
 	//친구 요청 수락
 	//@param memberIdx, friendMemberIdx
 	public void updateFriendRequest(int memberIdx, int friendMemberIdx);
-
 	
-	
-	
+	//관리자 계정 탐색
+	//@param admin("%@admin%")
+	//@return 관리자들 idx
+	public List<Integer> selectAdminAllIdx(String admin);
 }

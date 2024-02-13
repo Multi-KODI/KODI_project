@@ -86,7 +86,7 @@
 											</td>
 
 											<td>
-												<div class="tdDiv">${member.memberName}</div>
+												<div class="tdDiv" id="nameBox">${member.memberName}</div>
 											</td>
 
 											<td>

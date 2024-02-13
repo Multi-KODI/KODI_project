@@ -52,6 +52,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			join members m on m.member_idx = f.friend_member_idx
 		where f.member_idx = #{memberIdx} and f.is_friend IS TRUE and m.member_name like concat('%', #{friendName}, '%')
 	</select>
+	<select id="searchFriendByFriendIdx" resultType="int" parameterType="hashmap">
+		select is_friend from friend where friend_member_idx = #{memberIdx} and member_idx = #{friendIdx};
+	</select>
 	
 	<!-- insert -->
 	<insert id="insertChat" parameterType="hashmap">

@@ -50,10 +50,10 @@
 						<div class="title">
 
 							<div id="title">
-								<span style="margin-left: 10px;">전체 회원</span>
+								<span style="margin-left: 10px;" id="memberTitle">전체 회원</span>
 								<form action="/api/adminsearch">
 									<select id="searchselect" name="filter">
-										<option value="사용자">사용자</option>
+										<option value="사용자" id="memberValue">사용자</option>
 									</select> <input id="searchinput" name="question">
 									<button type="submit" style="border: none; background: none; cursor: pointer;">
 										<img src="/image/icon/search.png" style="margin-right: 10px; height: 20px; width: 20px;">
@@ -67,13 +67,13 @@
 								<thead>
 									<tr>
 										<th>
-											<div class="tdDiv">이메일</div>
+											<div class="tdDiv" id="email">이메일</div>
 										</th>
 										<th>
-											<div class="tdDiv">닉네임</div>
+											<div class="tdDiv" id="nickName">닉네임</div>
 										</th>
 										<th>
-											<div class="tdDiv">국적</div>
+											<div class="tdDiv" id="nationality">국적</div>
 										</th>
 									</tr>
 								</thead>

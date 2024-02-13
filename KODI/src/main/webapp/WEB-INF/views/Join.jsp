@@ -16,6 +16,39 @@
 		<script>
 			$(document).ready(function () {
 
+				let language = <%=session.getAttribute("joinLanguage")%>;
+
+				if(language.value == "ko") {
+					$("#languageSelect").val("ko").prop("selected", true);
+				} else {
+					$("#languageSelect").val("en").prop("selected", true);
+					$("#email").text("Email");
+					$("#inputEmail").attr("placeholder", "Email");
+					$("#pw").text("Password");
+					$("#inputPassword").attr("placeholder", "Password");
+					$("#nickname").text("Nickname");
+					$("#inputNickname").attr("placeholder", "Nickname");
+					$("#country").text("Country");
+					$("#loginBtn").val("Login");
+					$("#joinBtn").val("Join");
+					$("#confirmBtn").val("Confirm");
+					$("#confirmBtn").attr("style", "width: 80px;");
+				}
+				
+				$("#languageSelect").change(function() {
+					$.ajax({
+						url: "/api/header/joinlanguage",
+						data: {"language": $("#languageSelect").val()},
+						type: "post",
+						success: function(response){
+							location.reload();
+						},
+						error: function(request, e){
+							alert("코드: " + request.status + "메시지: " + request.responseText + "오류: " + e);
+						}
+					});
+			    });
+				
 				// URL에서 전달된 이메일 값을 가져옴
 				var urlParams = new URLSearchParams(window.location.search);
 				var email = urlParams.get('email');
@@ -165,8 +198,8 @@
 			<div class="header-container">
 
 				<select id="languageSelect">
-					<option value="ko">한국어</option>
-					<option value="en">English</option>
+					<option id="ko" value="ko">한국어</option>
+					<option id="en" value="en">English</option>
 				</select>
 				<a href="/api/nonhome" id="logo"><img id="logoImage" src="/image/icon/logo.png"></a>
 			</div>
@@ -175,7 +208,7 @@
 			<img src="/image/icon/friends.png">
 			<!-- onsubmit="return false;" -->
 			<form id="joinForm">
-				<h3>이메일</h3>
+				<h3 id="email">이메일</h3>
 				<input type="text" id="inputEmail" name="inputEmail" placeholder="이메일" required>
 				&nbsp;<label id='emailLabel'>@</label>&nbsp;
 				<select name="emailLocation" id="emailLocation">
@@ -187,13 +220,13 @@
 				<input type="button" id="confirmBtn" value="인증코드"><br>
 				<div id="confirmCodeForm"></div>
 
-				<h3>비밀번호</h3>
+				<h3 id="pw">비밀번호</h3>
 				<input type="password" id="inputPassword" name="inputPassword" placeholder="비밀번호" required>
 
-				<h3>닉네임</h3>
+				<h3 id="nickname">닉네임</h3>
 				<input type="text" id="inputNickname" name="inputNikename" placeholder="닉네임" required>
 
-				<h3>국적</h3>
+				<h3 id="country">국적</h3>
 				<select name="nation" id="nation" required>
 					<option value="" selected disabled>Country</option>
 					<option value="1">Afghanistan</option>

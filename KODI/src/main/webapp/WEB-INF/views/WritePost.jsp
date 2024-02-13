@@ -158,6 +158,14 @@ if (${isSession}==false){
 	});
 
 									/* 주소검색 api */
+document.getElementById("inputStoreName").addEventListener("keypress", function(event) {
+       // 엔터키를 눌렀을 때
+       if (event.key === "Enter") {
+           // 주소 검색 함수 호출
+           searchAddress();
+       }
+   });
+									
 									
 function searchAddress(){
 	var parentElement = $('.labels')[0];
@@ -186,6 +194,7 @@ function searchAddress(){
 	            label.className = 'label';
 	            
 	            
+	            
 	            // 라벨의 내용을 설정합니다.
 	            label.innerHTML = places.documents[i].address_name+'   '+'( '+places.documents[i].place_name+' )';
 	        	
@@ -194,7 +203,8 @@ function searchAddress(){
 	                return function () {
 	                	$('#selectedAddressShow').val(place.address_name+" "+place.place_name);
 	                 	$('#selectedAddressReal').val(place.address_name+" "+place.place_name);
-	               
+	               		$('#inputStoreName').val('');
+	               		$('.label').remove();
 	                    closeModal();
 	                };
 	            }(places.documents[i]); // 클로저를 이용하여 현재 반복된 항목의 정보를 전달합니다.
@@ -213,21 +223,35 @@ function searchAddress(){
 									
 function openModal(){
 	$("#modal").show();
+	/*  모달창 스크롤 수정*/
+	document.getElementById("modal").scrollTop = 0;
+	
 }
 function closeModal(){
+	document.getElementById("modal").scrollTop = 0;
 	$("#modal").hide();
+	
 }
 
 							/* 파일첨부 */
+							
+var i = 0;
 function addImage() {
             var container = document.getElementById("photoBoxs");
             // 새로운 파일 첨부 input 태그 생성
             var newInput = document.createElement("input");
+            var idx=i;
             newInput.type = "file";
             newInput.name = "imagePost";	//변경 PGH
-            newInput.id = "files";
+            newInput.id = "files"+idx;
             newInput.accept = "image/*";
-
+            newInput.addEventListener("change", function() {
+                
+                checkFileNameLength(idx);
+            });
+            
+            i+=1;
+            
             // 새로운 이미지 아이콘 생성
             var newIcon = document.createElement("img");
             newIcon.src = "/image/icon/x.png";  // 이미지 소스 경로에 실제 이미지 파일 경로를 지정해야 합니다.
@@ -263,49 +287,62 @@ function addImage() {
             container.appendChild(newBr);
         
         }
+function checkFileNameLength(idx) {
+    var fileInput = document.getElementById('files'+idx);
+    console.log(fileInput);
+    console.log(fileInput.files[0].name);
+    var fileName = fileInput.files[0].name;
+    
+    if (fileName.length > 100) {
+        alert("파일 이름이 너무 깁니다. 100자 이하로 입력해주세요.");
+        // 파일 선택 취소
+        fileInput.value = '';
+    }
+}							
+/* 태그 추가 */
 	
-	function handleKeyPress(event) {
-	    if (event.key === 'Enter') {
-	        event.preventDefault();
-	        addTag();
-	    }
-	}
+function handleKeyPress(event) {
+    if (event.key === 'Enter') {
+        event.preventDefault();
+        addTag();
+    }
+}
 	
-	function addTag() {
-	    var inputElement = document.getElementById('tagInput');
-	    var tagListElement = document.getElementById('tagList');
+function addTag() {
+    var inputElement = document.getElementById('tagInput');
+    var tagListElement = document.getElementById('tagList');
 
-	    var tagValues = inputElement.value.trim().split(/#| /).filter(Boolean);
+    var tagValues = inputElement.value.trim().split(/#| /).filter(Boolean);
 
-	    for (var i = 0; i < tagValues.length; i++) {
-	        var tagValue = tagValues[i];
+    for (var i = 0; i < tagValues.length; i++) {
+        var tagValue = tagValues[i];
 
-	        // 새로운 태그를 생성
-	        var inputHidden = document.createElement('input');
-	        inputHidden.hidden = true;
-	        inputHidden.name = "postTags";
-	        inputHidden.value = tagValue;
+        // 새로운 태그를 생성
+        var inputHidden = document.createElement('input');
+        inputHidden.hidden = true;
+        inputHidden.name = "postTags";
+        inputHidden.value = tagValue;
 
-	        var tagElement = document.createElement('div');
-	        tagElement.className = 'tag';
-	        tagElement.textContent = tagValue;
+        var tagElement = document.createElement('div');
+        tagElement.className = 'tag';
+        tagElement.textContent = tagValue;
 
-	        // 태그를 클릭하면 지워지도록 이벤트 핸들러 추가
-	        tagElement.onclick = function (tagDiv, tagInput) {
-	            return function () {
-	                tagListElement.removeChild(tagDiv);
-	                tagInput.parentNode.removeChild(tagInput); // 숨겨진 input 요소도 함께 제거
-	            };
-	        }(tagElement, inputHidden);
+        // 태그를 클릭하면 지워지도록 이벤트 핸들러 추가
+        tagElement.onclick = function (tagDiv, tagInput) {
+            return function () {
+                tagListElement.removeChild(tagDiv);
+                tagInput.parentNode.removeChild(tagInput); // 숨겨진 input 요소도 함께 제거
+            };
+        }(tagElement, inputHidden);
 
-	        // 태그를 목록에 추가
-	        tagListElement.appendChild(tagElement);
-	        tagListElement.appendChild(inputHidden); // 숨겨진 input 요소도 함께 추가
-	    }
+        // 태그를 목록에 추가
+        tagListElement.appendChild(tagElement);
+        tagListElement.appendChild(inputHidden); // 숨겨진 input 요소도 함께 추가
+    }
 
-	    // 입력창 초기화
-	    inputElement.value = '';
-	}
+    // 입력창 초기화
+    inputElement.value = '';
+}
 	
 
 	

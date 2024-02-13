@@ -29,6 +29,7 @@
 				data: {"language": $("#selectLanguage").val()},
 				type: "post",
 				success: function(response){
+					location.reload();
 				},
 				error: function(request, e){
 					alert("코드: " + request.status + "메시지: " + request.responseText + "오류: " + e);

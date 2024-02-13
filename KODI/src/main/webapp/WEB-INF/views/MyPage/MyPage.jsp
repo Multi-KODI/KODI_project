@@ -164,5 +164,5 @@ $(document).ready(function() {
 
 
 </body>
-
+<%@ include file="/WEB-INF/views/Footer.jsp" %>
 </html>

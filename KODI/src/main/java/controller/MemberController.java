@@ -187,6 +187,7 @@ public class MemberController {
 	    // 로그인 상태일 때
 	    if (session.getAttribute("memberIdx") != null) {
 	        session.removeAttribute("memberIdx");
+	    	session.removeAttribute("language");
 	    }
 	    response.sendRedirect("/");
 	}

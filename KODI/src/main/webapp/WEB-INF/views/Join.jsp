@@ -40,31 +40,49 @@ $(document).ready(function(){
 	}
 
 
-
+	/* 수정 시작 1*/
+	document.getElementById('joinForm').addEventListener('submit', function(event) {
+	  	var password = document.getElementById('inputPassword');
+	  	var nickname = document.getElementById('inputNickname');
+	  	if (password.value.length > 20 || password.value.length < 8) { // 예를 들어 최대 100자로 제한
+	    	alert('비밀번호는 8자리 이상 20자리 이내로 입력해주세요');
+	    	event.preventDefault(); // 제출을 막음
+	  	}else if (nickname.value.length > 20) { // 예를 들어 최대 100자로 제한
+			alert('닉네임은 20자리 이내로 입력해주세요');
+		    event.preventDefault(); // 제출을 막음
+		}
+	});
+	/* 수정 끝 */	
 	
 	
 	let confirmFlag = false;
 	
 	$("#confirmBtn").on('click', function(){
-	    $.ajax({
-	        url: "/api/email",
-	        data: {
-	            'email': $("#inputEmail").val() + "@" + $("#emailLocation").val()
-	        },
-	        type: "post",
-	        success: function(response) {
-	            if (response=="인증코드를 발송했습니다, 이메일을 확인해 주세요") {
-	                alert(response);
-	                $("#confirmCodeForm").html("<input type=\"text\" id=\"inputConfirmCode\" name=\"inputConfirmCode\" placeholder=\"인증코드 입력\" required>&nbsp;" +
-	                    "&nbsp;<input type=\"button\" id=\"confirmCodeBtn\" value=\"확인\">");
-	            } else {
-	                alert("이미 사용중인 이메일 입니다.");
-	            }
-	        },
-	        error: function(request, status, error) {
-	            alert("코드: " + request.status + " 메시지: " + request.responseText + " 오류: " + error);
-	        }
-	    });
+		/* 수정 시작2 */
+		if($("#inputEmail").val()===""){
+			alert("이메일을 입력해주세요");
+			
+		}else{
+		    $.ajax({
+		        url: "/api/email",
+		        data: {
+		            'email': $("#inputEmail").val() + "@" + $("#emailLocation").val()
+		        },
+		        type: "post",
+		        success: function(response) {
+		            if (response=="인증코드를 발송했습니다, 이메일을 확인해 주세요") {
+		                alert(response);
+		                $("#confirmCodeForm").html("<input type=\"text\" id=\"inputConfirmCode\" name=\"inputConfirmCode\" placeholder=\"인증코드 입력\" required>&nbsp;" +
+		                    "&nbsp;<input type=\"button\" id=\"confirmCodeBtn\" value=\"확인\">");
+		            } else {
+		                alert("이미 사용중인 이메일 입니다.");
+		            }
+		        },
+		        error: function(request, status, error) {
+		            alert("코드: " + request.status + " 메시지: " + request.responseText + " 오류: " + error);
+		        }
+		    });
+		}
 	});
 	
  	$("#confirmCodeForm").on('click', "#confirmCodeBtn", function(){
@@ -75,6 +93,10 @@ $(document).ready(function(){
 			success: function(response) {
 		        if (response =="이메일이 인증되었습니다") {
 		        	 $("#confirmCodeForm").html("<h4>인증완료되었습니다.</h4>");
+		        	 $('#inputEmail').hide();
+		        	 $("#confirmBtn").hide();
+		        	 $("#emailLabel").hide();
+		        	 $("#emailLocation").hide();
 		            confirmFlag = true;
 		        } else {
 		            alert("코드를 확인해주세요.");
@@ -144,10 +166,10 @@ $(document).ready(function(){
 </header>
 	<div id="inner">
 	<img src="/image/icon/friends.png">
-		<form onsubmit="return false;">
+		<form onsubmit="return false;" id="joinForm">
 		<h3>이메일</h3>
 	    <input type="text" id="inputEmail" name="inputEmail" placeholder="이메일" required>
-	    &nbsp;<label>@</label>&nbsp;
+	    &nbsp;<label id='emailLabel'>@</label>&nbsp;
 	    <select name="emailLocation" id="emailLocation">
 		    <option value="gmail.com">gmail.com</option>
 		    <option value="naver.com" >naver.com</option>

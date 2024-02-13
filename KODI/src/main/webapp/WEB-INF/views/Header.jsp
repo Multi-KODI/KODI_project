@@ -21,6 +21,8 @@
 			$("#selectLanguage").val("ko").prop("selected", true);
 		} else {
 			$("#selectLanguage").val("en").prop("selected", true);
+			$("#mypagenbtn").text("MyPage");
+			$("#logoutbtn").text("Logout");
 		}
 		
 		$("#selectLanguage").change(function() {

@@ -9,9 +9,36 @@
 
 <link rel="stylesheet" href="/css/Login.css">
 <script src="/js/jquery-3.7.1.min.js"></script>
-<title>로그인</title>
+<title>KODI</title>
 <script>
 $(document).ready(function(){
+	let language = <%=session.getAttribute("loginLanguage")%>;
+
+	if(language.value == "ko") {
+		$("#languageSelect").val("ko").prop("selected", true);
+	} else {
+		$("#languageSelect").val("en").prop("selected", true);
+		$("#email").text("Email");
+		$("#inputEmail").attr("placeholder", "Email");
+		$("#pw").text("Password");
+		$("#inputPassword").attr("placeholder", "Password");
+		$("#loginBtn").val("Login");
+		$("#joinBtn").val("Join");
+	}
+	
+	$("#languageSelect").change(function() {
+		$.ajax({
+			url: "/api/header/loginlanguage",
+			data: {"language": $("#languageSelect").val()},
+			type: "post",
+			success: function(response){
+				location.reload();
+			},
+			error: function(request, e){
+				alert("코드: " + request.status + "메시지: " + request.responseText + "오류: " + e);
+			}
+		});
+    });
 	
 	document.getElementById('loginForm').addEventListener('submit', function(event) {
 	  	var email = document.getElementById('inputEmail');
@@ -24,9 +51,6 @@ $(document).ready(function(){
 	$("#inputPassword").on('click', function(){
 		$("#inputPassword").val("");
 	});
-	
-	
-	
 	
 	$(document).ready(function() {
 	    $("#loginBtn").on('click', function(){
@@ -143,8 +167,8 @@ $(document).ready(function(){
 	<div class="header-container">
 	
 				<select id="languageSelect">
-					<option value="ko">한국어</option>
-					<option value="en">English</option>
+					<option id="ko" value="ko">한국어</option>
+					<option id="en" value="en">English</option>
 				</select>
 				<a href="nonhome" id = "logo"><img id="logoImage" src="/image/icon/logo.png" ></a>
 			
@@ -153,10 +177,10 @@ $(document).ready(function(){
 	<div id="inner">
 	<img src="/image/icon/friends.png">
 		<form id="loginForm" method="post">
-			<h3>이메일</h3>
+			<h3 id="email">이메일</h3>
 		    <input type="text" id="inputEmail" name="inputEmail" placeholder="이메일" required><br><br>
 		    
-		    <h3>비밀번호</h3>
+		    <h3 id="pw">비밀번호</h3>
 		    <input type="password" id="inputPassword" name="inputPassword" placeholder="비밀번호" required><br><br>
 		    
 		    <div id="garoBtns">

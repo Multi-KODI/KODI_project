@@ -23,6 +23,10 @@
 			$("#selectLanguage").val("en").prop("selected", true);
 			$("#mypagenbtn").text("MyPage");
 			$("#logoutbtn").text("Logout");
+			$("#allPost").text("All post");
+			$("#map").text("Map service");
+			$("#planner").text("Planner");
+			$("#diningCost").text("Diningcost");
 		}
 		
 		$("#selectLanguage").change(function() {
@@ -38,7 +42,6 @@
 				}
 			});
 	    });
-		
 	});
 </script>
 
@@ -72,8 +75,8 @@
 	</header>
 
 	<div class="menu-content">
-		<a href="/api/posts/food">모든 게시글</a> <a href="/api/map">지도 서비스</a> <a
-			href="/api/planner">여행 플래너</a> <a href="/api/diningcost">지역별 외식비</a>
+		<a href="/api/posts/food" id="allPost">모든 게시글</a> <a href="/api/map" id="map">지도 서비스</a> <a
+			href="/api/planner" id="planner">여행 플래너</a> <a href="/api/diningcost" id="diningCost">지역별 외식비</a>
 	</div>
 
 

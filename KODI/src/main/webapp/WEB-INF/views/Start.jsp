@@ -13,21 +13,38 @@
 <title>start</title>
 
 <script>
-$(document).ready(function () {
-   	$("#loginbtn").on("click",function(){
-   		window.location.href = "/api/login";
-   	});
-   
-   	$(".joinbtn").on("click",function(){
-   		window.location.href = "/api/join";
-  	});
-   	//email입력창에 넣은 값 가져오게 하기???ㅜㅜ
-   
-   	$(".nonjoinbtn").on("click",function(){
-      	window.location.href = "/api/nonhome";
-   	});
-});
+$(document).ready(function() {
+	$("#loginbtn").on("click", function() {
+		window.location.href = "/api/login";
+	});
 
+	$("#joinbtn").on("click",function() {
+		var email = $(".join-input input[type='text']").val(); 
+		var domain = $(".join-input select[name='emailLocation']").val(); 
+
+		if (email&& email.indexOf('@') !== -1) {
+			window.location.href = "/api/join?email="+ email;
+		} else {
+			window.location.href = "/api/join?email="+ email;
+		}
+	});
+
+	$("#joinbtn2").on("click",function() {
+		var email = $(".page3 .join-input input[type='text']").val(); 
+		var domain = $(".page3 .join-input select[name='emailLocation']").val(); 
+
+		if (email&& email.indexOf('@') !== -1) {
+			window.location.href = "/api/join?email="+ email;
+		} else {
+			window.location.href = "/api/join?email="+ email;
+		}
+	});
+
+	$(".nonjoinbtn").on("click", function() {
+		window.location.href = "/api/nonhome";
+	});
+
+});
 </script>
 </head>
 

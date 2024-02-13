@@ -16,6 +16,33 @@
 <script>
 $(document).ready(function(){
 	
+	// URL에서 전달된 이메일 값을 가져옴
+	var urlParams = new URLSearchParams(window.location.search);
+	var email = urlParams.get('email');
+
+	$("#inputEmail").val(email);
+
+	if (email && email.indexOf('@') !== -1) {
+	    // "@" 기호가 포함되어 있으면 도메인 값 추출
+	    var domain = email.split('@')[1];
+	    
+	    //도메인 값에 따라 select 태그에서 옵션을 선택
+	    if ($("#emailLocation option[value='" + domain + "']").length > 0) {
+	        $("#emailLocation").val(domain);
+	    } else {
+	        $("#emailLocation").val($("#emailLocation option:first").val());
+	    }
+
+	    // "@" 기호가 포함되어 있으면 이메일 주소만 설정
+	    $("#inputEmail").val(email.split('@')[0]);
+	} else {
+	    $("#emailLocation").val($("#emailLocation option:first").val());
+	}
+
+
+
+	
+	
 	let confirmFlag = false;
 	
 	$("#confirmBtn").on('click', function(){

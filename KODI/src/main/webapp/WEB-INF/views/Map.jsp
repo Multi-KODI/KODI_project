@@ -66,6 +66,9 @@ function initMap(addresses, zoomLevel, postIdx) {
 	                let marker = new google.maps.Marker({ position: location, map: map });
 	                bounds.extend(marker.getPosition());
 	                
+	                // 주소 형태 변경
+	                let newAddress = address.replaceAll(" ", "+");
+	                
 	          		// 마커를 클릭했을 때 보여주고 싶은 문구가 있을 경우 추가
 	                marker.addListener('click', function() {
 	                    let infoWindow = new google.maps.InfoWindow({
@@ -73,7 +76,7 @@ function initMap(addresses, zoomLevel, postIdx) {
 	                        `
 	                        <div style="font-family: 'NanumSquareNeo';  ">
 	                        ` + address + ` <br><br>
-	                        <a href="https://google.com/maps/place/` + address + `" target="_blank">구글 지도에서 보기</a> 
+	                        <a href="https://google.com/maps/search/` + newAddress + `" target="_blank">구글 지도에서 보기</a> 
 	                        &nbsp&nbsp&nbsp
 	                        <button class="deleteMark" type="button" value="` + postIdx[index] + `" onClick="delMark(this.value);">
 	                        마킹 삭제
@@ -119,6 +122,9 @@ function initMap2(addresses, zoomLevel) {
 	                let marker = new google.maps.Marker({ position: location, map: map });
 	                bounds.extend(marker.getPosition());
 	                
+	             	// 주소 형태 변경
+	                let newAddress = address.replaceAll(" ", "+");
+	                
 	          		// 마커를 클릭했을 때 보여주고 싶은 문구가 있을 경우 추가
 	                marker.addListener('click', function() {
 	                    let infoWindow = new google.maps.InfoWindow({
@@ -126,7 +132,7 @@ function initMap2(addresses, zoomLevel) {
 	                        `
 	                        <div style="font-family: 'NanumSquareNeo';  ">
 	                        ` + address + ` <br><br>
-	                        <a href="https://google.com/maps/place/` + address + `" target="_blank">구글 지도에서 보기</a> 
+	                        <a href="https://google.com/maps/search/` + address + `" target="_blank">구글 지도에서 보기</a> 
 	                        `
 	                    });
 	                    infoWindow.open(map, marker);

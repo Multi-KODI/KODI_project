@@ -18,12 +18,24 @@
 
 <script>
 	let sessionId = <%=session.getAttribute("memberIdx")%>;
-	
+
 	$(document).ready(function(){
+		let language = <%=session.getAttribute("language")%>;
+
 		if(${isSession} == false) {
-			alert("로그인하세요");
+			if(language.value == "en") {
+				alert("Please login");
+			} else {
+				alert("로그인하세요");
+			}
 			location.href = "/";
 		} else {
+			if(language.value == "en") {
+				$("#exitMsg").text("Go back");
+				$("#sendMsgInput").attr("placeholder", "Please enter your message");
+				$("#sendMsgBtn").text("Send");
+			}
+			
 			verifyMember();			
 		}
 	});

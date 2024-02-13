@@ -16,7 +16,7 @@
 <script>
 	$(document).ready(function(){
 		let language = <%=session.getAttribute("language")%>;
-		
+
 		if(language.value == "ko") {
 			$("#selectLanguage").val("ko").prop("selected", true);
 		} else {

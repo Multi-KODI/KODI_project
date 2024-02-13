@@ -30,14 +30,14 @@ header {
 .menu {
   justify-content: flex-start;
   cursor: pointer;
-  margin-left: 50px;
+  margin-left: 2%;
 }
 .end-btn {
   display: flex;
   align-items: center;
   justify-content: flex-end;
   text-align: center;
-  margin-right: 50px
+  margin-right: 2%;
 }
 
 .end-btn a{
@@ -68,7 +68,7 @@ header {
   font-family: 'NanumSquareNeo';
   padding: 4px;
   border-radius: 8px;
-  margin-right: 50px;
+  margin-right: 3%;
 }
 
 .menu-content {
@@ -152,7 +152,7 @@ header {
 }
 
 .end-btn{
-	margin-right: 0;
+	margin-right: 5px;
 }
 
 .icon{

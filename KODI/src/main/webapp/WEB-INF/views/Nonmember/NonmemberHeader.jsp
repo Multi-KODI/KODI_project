@@ -23,12 +23,12 @@
 
 				<button class="btn" id="registerbtn">회원가입</button>
 				<button class="btn" id="loginbtn">로그인</button>
-				<!-- <div class="language-selection">
+				<div class="language-selection">
 					<select>
 						<option value="ko">한국어</option>
 						<option value="en">English</option>
 					</select>
-				</div> -->
+				</div>
 			</div>
 		</div>
 	</header>

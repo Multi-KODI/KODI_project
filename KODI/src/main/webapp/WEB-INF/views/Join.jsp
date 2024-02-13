@@ -6,9 +6,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link
+<!-- <link
 	href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css"
-	rel="stylesheet">
+	rel="stylesheet"> -->
 <link rel="stylesheet" href="/css/Join.css">
 <script src="/js/jquery-3.7.1.min.js"></script>
 <title>회원가입</title>
@@ -38,21 +38,6 @@ $(document).ready(function(){
 	} else {
 	    $("#emailLocation").val($("#emailLocation option:first").val());
 	}
-
-
-	/* 수정 시작 1*/
-	document.getElementById('joinForm').addEventListener('submit', function(event) {
-	  	var password = document.getElementById('inputPassword');
-	  	var nickname = document.getElementById('inputNickname');
-	  	if (password.value.length > 20 || password.value.length < 8) { // 예를 들어 최대 100자로 제한
-	    	alert('비밀번호는 8자리 이상 20자리 이내로 입력해주세요');
-	    	event.preventDefault(); // 제출을 막음
-	  	}else if (nickname.value.length > 20) { // 예를 들어 최대 100자로 제한
-			alert('닉네임은 20자리 이내로 입력해주세요');
-		    event.preventDefault(); // 제출을 막음
-		}
-	});
-	/* 수정 끝 */	
 	
 	
 	let confirmFlag = false;
@@ -92,7 +77,7 @@ $(document).ready(function(){
 			type:"post",
 			success: function(response) {
 		        if (response =="이메일이 인증되었습니다") {
-		        	 $("#confirmCodeForm").html("<h4>인증완료되었습니다.</h4>");
+		        	 $("#confirmCodeForm").html("<label id='labelEmail'>"+$('#inputEmail').val()+"@"+$("#emailLocation").val()+"</label><br><br><h4>인증완료되었습니다.</h4>");
 		        	 $('#inputEmail').hide();
 		        	 $("#confirmBtn").hide();
 		        	 $("#emailLabel").hide();
@@ -109,6 +94,7 @@ $(document).ready(function(){
 	});	//btn
 	
 	$("#joinBtn").on('click', function(){
+		
 		var dto = {
 	        "email": $("#inputEmail").val() + "@" + $("#emailLocation").val(),
 	        "pw": $("#inputPassword").val(),
@@ -116,38 +102,51 @@ $(document).ready(function(){
 	        "flagIdx": $("#nation").val()
 	    };
 		if(confirmFlag == true){
-			$.ajax({
-			    url:"/api/join",
-			    data:  JSON.stringify(dto),
-			    type:"post",
-			    contentType : "application/json",
-			    success: function(response) {
-			        if (response=="회원등록이 완료되었습니다") {
-			        	alert(response);
-			            location.href = "/api/login";
-			        } 
-							else if (response=="중복된 이름입니다"){
-								alert("중복된 이름입니다");
-							}
-							else {
-			            // 회원가입 실패
-			            alert("회원가입에 실패하였습니다");
-			        }
-			    },
-			    error: function(xhr, textStatus, errorThrown) {
-			        console.error("Error during login:", textStatus, errorThrown);
-			    }
-			});//ajax
-
-			}// if
-			else{
-				alert("이메일을 인증이 완료되지 않았습니다.");	
+			
+			var password = document.getElementById('inputPassword');
+		  	var nickname = document.getElementById('inputNickname');
+			console.log(password.value+":"+nickname.value+":"+confirmFlag);		
+		  	if (password.value.length > 20 || password.value.length < 8) { // 예를 들어 최대 100자로 제한
+		    	alert('비밀번호는 8자리 이상 20자리 이내로 입력해주세요');
+		    	event.preventDefault(); // 제출을 막음
+		    	console.log(password.value);
+		  	}else if (nickname.value.length > 20) { // 예를 들어 최대 100자로 제한
+				alert('닉네임은 20자리 이내로 입력해주세요');
+			    event.preventDefault(); // 제출을 막음
+			    console.log(nickname.value);
+			}else{
+				console.log(nickname.value+":"+password.value);
+				$.ajax({
+				    url:"/api/join",
+				    data:  JSON.stringify(dto),
+				    type:"post",
+				    contentType : "application/json",
+				    success: function(response) {
+				        if (response=="회원등록이 완료되었습니다") {
+				        	alert(response);
+				           // location.href = "/api/login";
+				        }else if (response=="중복된 이름입니다"){
+							alert("중복된 이름입니다");
+						}else {
+				            // 회원가입 실패
+				            alert("회원가입에 실패하였습니다");
+				        }
+				    },
+				    error: function(xhr, textStatus, errorThrown) {
+				        console.error("Error during login:", textStatus, errorThrown);
+				    }
+				});//ajax
+	
+				}// else
 			}
-		});	//btn
+		//else{
+		//	alert("이메일을 인증이 완료되지 않았습니다.");	
+		//}
+	});	//btn
 		 
-		$("#loginBtn").on('click', function(){
-			location.href = "login";	
-		});	//btn
+	$("#loginBtn").on('click', function(){
+		location.href = "login";	
+	});	//btn
 		
 });	//ready
 
@@ -166,7 +165,8 @@ $(document).ready(function(){
 </header>
 	<div id="inner">
 	<img src="/image/icon/friends.png">
-		<form onsubmit="return false;" id="joinForm">
+	<!-- onsubmit="return false;" -->
+		<form id="joinForm">
 		<h3>이메일</h3>
 	    <input type="text" id="inputEmail" name="inputEmail" placeholder="이메일" required>
 	    &nbsp;<label id='emailLabel'>@</label>&nbsp;

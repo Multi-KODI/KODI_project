@@ -13,13 +13,88 @@
 <script>
 $(document).ready(function(){
 	
+	document.getElementById('loginForm').addEventListener('submit', function(event) {
+	  	var email = document.getElementById('inputEmail');
+	  	if (email.value.length==0) { // 예를 들어 최대 100자로 제한
+	    	alert('아이디를 입력해주세요');
+	    	event.preventDefault(); // 제출을 막음
+	  	}
+	});
 	
 	$("#inputPassword").on('click', function(){
 		$("#inputPassword").val("");
 	});
 	
-	 $("#loginBtn").on('click', function(){
-		 var data = {
+	
+	
+	
+	$(document).ready(function() {
+	    $("#loginBtn").on('click', function(){
+	        login();
+	    });
+
+	    $("#inputPassword").keypress(function(event) {
+	        if (event.which === 13) { // 엔터 키를 눌렀을 때
+	            login();
+	        }
+	    });
+
+	    $("#inputEmail").keypress(function(event) {
+	        if (event.which === 13) { // 엔터 키를 눌렀을 때
+	            login();
+	        }
+	    });
+
+	    function login() {
+	    	/* 수정1 입력란 비었을 경우 */
+	        if($("#inputEmail").val()==""){
+	            alert("이메일을 입력해주세요");
+	        } else if($("#inputPassword").val()==""){
+	            alert("비밀번호를 입력해주세요");
+	        } else {
+	            var data = {
+	                email: $("#inputEmail").val(),
+	                pw: $("#inputPassword").val()
+	            };
+
+	            $.ajax({
+	                url: "/api/login",
+	                data: JSON.stringify(data),
+	                contentType : 'application/json; charset=utf-8',
+	                type: "post",
+	                success: function(response) {
+	                    if (response == "로그인에 성공하였습니다") {
+	                        location.href = "/api/home";
+	                    } else if(response == "비밀번호를 확인해 주세요") {
+	                        alert(response);
+	                        $("#inputPassword").focus();
+	                    } else if(response == "회원이 존재하지 않습니다"){
+	                        alert(response);
+	                        $("#inputEmail").focus();
+	                    } else if(response == "관리자로 로그인 하였습니다"){
+	                        location.href = "/api/admin/allposts";
+	                    } else {
+	                        alert("알 수 없는 오류");
+	                    }
+	                },
+	                error: function(request, e){
+	                    console.log("코드: " + request.status + "메시지: " + request.responseText + "오류: " + e);
+	                }
+	            }); //ajax
+	        }
+	    }
+	});
+
+	/* 수정2 엔터키로 로그인 */
+	/*  $("#loginBtn").on('click', function(){
+		 
+		 if($("#inputEmail").val()==""){
+			 alert("이메일을 입력해주세요");
+		 }else if($("#inputPassword").val()==""){
+			 alert("비밀번호를 입력해주세요");
+		 }else{
+			 
+		 	var data = {
 					email: $("#inputEmail").val(),
 		            pw: $("#inputPassword").val()
 		            };
@@ -50,7 +125,8 @@ $(document).ready(function(){
 					console.log("코드: " + request.status + "메시지: " + request.responseText + "오류: " + e);
 				}
 	        }); //ajax
-	    });//btn
+		 }
+	});//btn */
 	
 	
 	$("#joinBtn").on('click', function(){

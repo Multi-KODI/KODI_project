@@ -22,7 +22,7 @@
 <main>
     <div id="wrap" class="section">
         <div class="titleBox">
-            🗺️
+            
         </div>
 
         <div class="btnBox">
@@ -75,7 +75,7 @@ function initMap(addresses, zoomLevel, postIdx) {
 	                        content: 
 	                        `
 	                        <div style="font-family: 'NanumSquareNeo';  ">
-	                        주소: ` + address + ` <br><br>
+	                        ` + address + ` <br><br>
 	                        <a href="https://google.com/maps/search/` + newAddress + `" target="_blank">구글 지도에서 보기</a> 
 	                        &nbsp&nbsp&nbsp
 	                        <button class="deleteMark" type="button" value="` + postIdx[index] + `" onClick="delMark(this.value);">
@@ -130,8 +130,8 @@ function initMap2(addresses, zoomLevel) {
 	                    let infoWindow = new google.maps.InfoWindow({
 	                        content: 
 	                        `
-	                        <div style="font-family: 'NanumSquareNeo';  ">
-	                        주소: ` + address + ` <br><br>
+	                        <div id="address-text" style="font-family: 'NanumSquareNeo';","font-size: 1.2em;">
+	                        ` + address + ` <br><br></div>
 	                        <a href="https://google.com/maps/search/` + address + `" target="_blank">구글 지도에서 보기</a> 
 	                        `
 	                    });
@@ -191,6 +191,8 @@ $(document).ready(function() {
 	if(language.value == "en") {
 		$("#myMark").text("My Marking");
 		$("#friendMark").text("Friend Marking");
+		$(".mapBtn").attr("style", "width:110px;")
+		
 	}
 	
 	if (${isSession} == false) {

@@ -17,7 +17,6 @@ main {
 
 .mapBtn {
 	font-family: 'NanumSquareNeo';
-	max-width: 80px;
 	width: 80px;
 	justify-content: center;
 	text-align: center;
@@ -39,6 +38,28 @@ main {
 	display: flex;
 }
 
+.deleteMark{
+	font-family: 'NanumSquareNeo';
+	max-width: 80px;
+	width: 70px;
+	justify-content: center;
+	text-align: center;
+	box-sizing: border-box;
+	padding: 5px;
+	border: none;
+	cursor: pointer;
+	border-radius: 8px;
+	background-color: #EDF2F6;
+	margin-right: 5px;
+	font-size: 0.8em;
+}
+
+.deleteMark:hover{
+	background-color: #FF5656;
+	color: #ffffff;
+	
+}
+
 .titleBox {
 	font-size : 1.2em;
 	display : flex;
@@ -57,8 +78,6 @@ main {
 	margin-top: 2%;
 	outline: none;
 }
-
-
 
 
 

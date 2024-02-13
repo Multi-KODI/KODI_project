@@ -23,7 +23,8 @@ main {
 .hBox2{
 	display:flex;
 	align-items: center;
-	margin-right: 5%;
+	margin-right: 2%;
+	
 }
 
 #hBox3, #hBox4{
@@ -152,8 +153,6 @@ main {
 
 
 
-
-
 .tdDiv {
 	margin-top: 20px;
 	margin-left: 50px;
@@ -177,9 +176,6 @@ tr {
 	
 }
 
-.fBtn{
-	margin-left: 5px;
-}
 
 @media all and (max-width:479px) {
 	.listBox {

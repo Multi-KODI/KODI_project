@@ -229,7 +229,7 @@
 				deleteBtn.setAttribute("type", "button");
 				deleteBtn.setAttribute("id", "deleteBtn");
 				deleteBtn.setAttribute("value", "삭제");
-				deleteBtn.setAttribute("style", "display: inline; border:none; background-color:#EDF2F6; color:grey; float:right;");
+				deleteBtn.setAttribute("style", "font-family: 'NanumSquareNeo'; cursor: pointer; display: inline; border:none; background-color:#EDF2F6; color:grey; float:right;");
 				deleteBtn.setAttribute("onclick", `deleteCommentBtn(${one.commentIdx}, ${one.memberIdx})`);
 								
 				comment.appendChild(commentMemberName);
@@ -369,16 +369,18 @@
 			<div id="postAllInfo">
 				<!-- 게시물 정보 -->
 				<div class="moreHoriz">
-					<button class="moreHorizBtn">
+					<button class="moreHorizBtn" style="cursor: pointer">
 						<img class="moreHorizImg" src="/image/icon/more_horiz.svg"
 							width="24" height="24"></img>
 					</button>
 					<div class="option">
-						<button class="optionBtn" id="updatePostBtn" value="update">게시글
-							수정</button>
+						<button class="optionBtn" id="updatePostBtn" value="update">
+							게시글 수정
+						</button>
 						<hr>
-						<button class="optionBtn" id="deletePostBtn" value="delete">게시글
-							삭제</button>
+						<button class="optionBtn" id="deletePostBtn" value="delete">
+							게시글 삭제
+						</button>
 					</div>
 					<br>
 				</div>

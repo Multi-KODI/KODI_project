@@ -2,6 +2,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -47,9 +49,14 @@
                         ${post.postInfo.content}
                     </a>
                 </div>
-                <div class="tagBox">
-                    ${post.postTags}
-                </div>
+				<div class="tagBox">
+				    <c:forEach var="tag" items="${fn:split(fn:replace(fn:replace(post.postTags, '[', ''), ']', ''), ',')}">
+				        <span class="tag">${tag}</span>
+				    </c:forEach>
+				</div>
+
+
+
                 <div class="nameBox">
                     <div id="memberName" style="display: flex; align-items: center; justify-content: center;">
                     <img style="width: 16px; height: 16px; margin-right: 3px;" src="${post.flag}">
@@ -92,15 +99,16 @@ function() {
         memberNameDiv.html(randomEmoji + ' ' + memberName);
     }); */
 	
-	$(".tagBox").each(
-			function() {
-				var tags = $(this).text();
-				var updatedTags = tags.replace(/\[(.*?)\]/g,
-						'<span class="tag">$1</span>');
-				$(this).html(updatedTags);
-			});
-	
-    // 게시글
+	/* 	$(".tagBox").each(
+				function() {
+					var tags = $(this).text();
+					var updatedTags = tags.replace(/\[(.*?)\]/g,
+							'<span class="tag">$1</span>');
+					$(this).html(updatedTags);
+				});
+		
+	 */    
+ 	// 게시글
     $("#hBox3").on("click", function() {
         var question = encodeURIComponent("${param.question}");
         window.location.href = '/api/search?filter=%EA%B2%8C%EC%8B%9C%EA%B8%80&question=' + question;

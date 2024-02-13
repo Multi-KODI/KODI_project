@@ -106,9 +106,7 @@
 							
 							<td>
 								<a class="viewBtn" data-post-idx="${post.postIdx}" href="/api/post/${post.postIdx}">보기</a>
-							</td>
 							
-							<td>
 								<a class="deleteBtn" data-post-idx="${post.postIdx}" href="/api/admin/deletepost/${post.postIdx}">삭제</a>
 							</td>
 						</tr>

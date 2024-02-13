@@ -122,9 +122,10 @@ $(document).ready(function () {
 
      $("#logoutbtn").on("click", function () {
          if (confirm("로그아웃 하시겠습니까?")) {
-             window.location.href = "/";
-         } else {
-         }
+	        $.post("/api/logout", function(response) {
+	            window.location.href = "/";
+	        });
+	    }
      });
      
      let topBtn = document.getElementById("topBtn");

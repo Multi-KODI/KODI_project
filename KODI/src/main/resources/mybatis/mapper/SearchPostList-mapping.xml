@@ -12,7 +12,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="selectTagPostIdx" resultType="int" parameterType="String">
-		select post_idx as postIdx
+		select distinct post_idx as postIdx
 		from post_tag
 		where content like #{question};
 	</select>

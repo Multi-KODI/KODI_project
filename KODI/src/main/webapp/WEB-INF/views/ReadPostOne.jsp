@@ -23,7 +23,11 @@
 		language = <%=session.getAttribute("language")%>;
 
 		if(${isSession} == false) {
-			alert("로그인하세요");
+			if(language.value == "en") {
+				alert("Please login");
+			} else {
+				alert("로그인하세요");
+			}
 			location.href = "/";
 		} else {
 			if(language.value == "en") {

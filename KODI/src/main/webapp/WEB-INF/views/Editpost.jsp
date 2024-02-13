@@ -25,7 +25,6 @@ if (${isSession}==false){
 	alert("로그인하세요");
 	location.href = "/";
 }
-   
 </script>
 </head>
 
@@ -85,16 +84,7 @@ if (${isSession}==false){
 					&nbsp;<input type="button" id="addressBtn" onclick="openModal()" value="주소검색">
 					<br><br>
 			<!-- 수정0 종료 PGH -->
-					<div id="modal">
-						<div class="pop">
-							<div class=modal-header>
-								<input id="inputStoreName" placeholder="장소, 주소" type="text" >&nbsp;
-								<button id ="searchAddressBtn" type="button" onclick="searchAddress()">검색</button>&nbsp;
-								<button id ="closeModalBtn" type="button" onclick="closeModal()">창닫기</button>
-								<div class="labels"></div>
-							</div>
-						</div>
-					</div>
+					
 			
 					
 					<button type="button" id="imageAddBtn" class="btn" onclick="addImage()"><img id="addImageIcon" src="/image/icon/fileupload.png">&nbsp;사진추가</button><br>
@@ -112,9 +102,20 @@ if (${isSession}==false){
 
 				</div>
 			</form>
+			<div id="modal">
+				<div class="pop">
+					<div class=modal-header>
+						<input id="inputStoreName" placeholder="장소, 주소" type="text" >&nbsp;
+						<button id ="searchAddressBtn" type="button" onclick="searchAddress()">검색</button>&nbsp;
+						<button id ="closeModalBtn" type="button" onclick="closeModal()">창닫기</button>
+						<div class="labels"></div>
+					</div>
+				</div>
+			</div>
 		</div>
 </main>
 </body>
+<%@ include file="/WEB-INF/views/Footer.jsp" %>
 <script>
 
 	showPostData();
@@ -250,7 +251,15 @@ if (${isSession}==false){
 
 
 	/* 주소검색 api */
-	
+
+document.getElementById("inputStoreName").addEventListener("keypress", function(event) {
+       // 엔터키를 눌렀을 때
+       if (event.key === "Enter") {
+           // 주소 검색 함수 호출
+           searchAddress();
+       }
+   });	
+
 function searchAddress(){
 	var parentElement = $('.labels')[0];
 	parentElement.innerHTML='';
@@ -287,7 +296,12 @@ function searchAddress(){
 				return function () {
 				 	$('#selectedAddressShow').val(place.address_name+" "+place.place_name);
                  	$('#selectedAddressReal').val(place.address_name+" "+place.place_name);
-					closeModal();
+                 	$('#inputStoreName').val('');
+               		
+               		//$('.labels').hide();
+               		$('.labels').remove();
+                 	
+                 	closeModal();
 				};
 			}(places.documents[i]); // 클로저를 이용하여 현재 반복된 항목의 정보를 전달합니다.
 			
@@ -305,13 +319,15 @@ function openModal(){
 	$("#modal").show();
 }
 function closeModal(){
+	document.getElementById("modal").scrollTop = 0;
 	$("#modal").hide();
 }
 
 	
 	
 	//---------------------------------------------------------------------------
-
+	
+var i = 0;
  function addImage() {
             var container = document.getElementById("photoBoxs");
             var newcontainer = document.createElement("div");
@@ -319,11 +335,17 @@ function closeModal(){
             
             // 새로운 파일 첨부 input 태그 생성
             var newInput = document.createElement("input");
+            var idx=i;
             newInput.type = "file";
-            newInput.name = "imagePost";	//변경 PGH
-            newInput.id = "files";
+            newInput.name = "imagePost";//변경 PGH
+            newInput.id = "files"+idx;
             newInput.accept = "image/*";
-
+			newInput.addEventListener("change", function(){
+                checkFileNameLength(idx);
+            });
+			
+			i+=1;
+			
             // 새로운 이미지 아이콘 생성
             var newIcon = document.createElement("img");
             newIcon.src = "/image/icon/x.png";  // 이미지 소스 경로에 실제 이미지 파일 경로를 지정해야 합니다.
@@ -358,54 +380,67 @@ function closeModal(){
             container.appendChild(newcontainer);
         
         }
-			/* 태그 구현 */
-	
-	function handleKeyPress(event) {
-	    if (event.key === 'Enter') {
-	        event.preventDefault();
-	        addTag();
+ 
+ function checkFileNameLength(idx) {
+	    var fileInput = document.getElementById('files'+idx);
+	    console.log(fileInput);
+	    console.log(fileInput.files[0].name);
+	    var fileName = fileInput.files[0].name;
+	    
+	    if (fileName.length > 100) {
+	        alert("파일 이름이 너무 깁니다. 100자 이하로 입력해주세요.");
+	        // 파일 선택 취소
+	        fileInput.value = '';
 	    }
 	}
+/* 태그 구현 */
 	
-	function addTag() {
-	    var inputElement = document.getElementById('tagInput');
-	    var tagListElement = document.getElementById('tagList');
+function handleKeyPress(event) {
+    if (event.key === 'Enter') {
+        event.preventDefault();
+        addTag();
+    }
+}
+	
+function addTag() {
+    var inputElement = document.getElementById('tagInput');
+    var tagListElement = document.getElementById('tagList');
 
-	    var tagValues = inputElement.value.trim().split(/#| /).filter(Boolean);
+    var tagValues = inputElement.value.trim().split(/#| /).filter(Boolean);
 
-	    for (var i = 0; i < tagValues.length; i++) {
-	        var tagValue = tagValues[i];
+    for (var i = 0; i < tagValues.length; i++) {
+        var tagValue = tagValues[i];
 
-		//변경------------------------------------------------------------------------ PGH
-	     	// 새로운 태그를 생성
-		    var inputHidden = document.createElement('input');
-		    inputHidden.name = "postTags";
-		    inputHidden.value = tagValue;
-		    inputHidden.hidden = true;
-		
-		    var tagElement = document.createElement('div');
-		    tagElement.className = 'tag';
-		    tagElement.textContent = tagValue;
-		
-		    // 태그를 클릭하면 지워지도록 이벤트 핸들러 추가
-		    tagElement.onclick = function (tagDiv, tagInput) {
-		        return function () {
-		            tagListElement.removeChild(tagDiv);
-		            tagInput.parentNode.removeChild(tagInput); // 숨겨진 input 요소도 함께 제거
-		        };
-		    }(tagElement, inputHidden);
-		
-		    // 태그를 목록에 추가
-		    tagListElement.appendChild(tagElement);
-		    tagListElement.appendChild(inputHidden); // 숨겨진 input 요소도 함께 추가
-		//변경 종료-----------------------------------------------------------------------	
-		}
-
-	    // 입력창 초기화
-	    inputElement.value = '';
+	//변경------------------------------------------------------------------------ PGH
+     	// 새로운 태그를 생성
+	    var inputHidden = document.createElement('input');
+	    inputHidden.name = "postTags";
+	    inputHidden.value = tagValue;
+	    inputHidden.hidden = true;
+	
+	    var tagElement = document.createElement('div');
+	    tagElement.className = 'tag';
+	    tagElement.textContent = tagValue;
+	
+	    // 태그를 클릭하면 지워지도록 이벤트 핸들러 추가
+	    tagElement.onclick = function (tagDiv, tagInput) {
+	        return function () {
+	            tagListElement.removeChild(tagDiv);
+	            tagInput.parentNode.removeChild(tagInput); // 숨겨진 input 요소도 함께 제거
+	        };
+	    }(tagElement, inputHidden);
+	
+	    // 태그를 목록에 추가
+	    tagListElement.appendChild(tagElement);
+	    tagListElement.appendChild(inputHidden); // 숨겨진 input 요소도 함께 추가
+	//변경 종료-----------------------------------------------------------------------	
 	}
-	function cancelMove(){
-		location.href="/api/post/"+"${readPostOne.postInfo.postIdx}";
-	}
+
+    // 입력창 초기화
+    inputElement.value = '';
+}
+function cancelMove(){
+	location.href="/api/post/"+"${readPostOne.postInfo.postIdx}";
+}
 </script>
 </html>

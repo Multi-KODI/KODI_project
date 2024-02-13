@@ -10,44 +10,69 @@
 	href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css"
 	rel="stylesheet">
 <script src="/js/jquery-3.7.1.min.js"></script>
-<title>start</title>
+<title>KODI</title>
 
 <script>
-$(document).ready(function() {
-	$("#loginbtn").on("click", function() {
-		window.location.href = "/api/login";
-	});
+	$(document).ready(function() {
+		let language = <%=session.getAttribute("startLanguage")%>;
 
-	$("#joinbtn").on("click",function() {
-		var email = $(".join-input input[type='text']").val(); 
-		var domain = $(".join-input select[name='emailLocation']").val(); 
-
-		if (email&& email.indexOf('@') !== -1) {
-			window.location.href = "/api/join?email="+ email;
+		if(language.value == "ko") {
+			$("#selectLanguage").val("ko").prop("selected", true);
 		} else {
-			window.location.href = "/api/join?email="+ email;
+			$("#selectLanguage").val("en").prop("selected", true);
+			$("#loginbtn").text("Login");
+			$("#joinbtn").text("Join");
+			$("#nonjoinbtn").text("Nonmember");
+			$("#nonjoinbtn").attr("style", "width:120px;")
 		}
+		
+		$("#selectLanguage").change(function() {
+			$.ajax({
+				url: "/api/header/startlanguage",
+				data: {"language": $("#selectLanguage").val()},
+				type: "post",
+				success: function(response){
+					location.reload();
+				},
+				error: function(request, e){
+					alert("코드: " + request.status + "메시지: " + request.responseText + "오류: " + e);
+				}
+			});
+	    });
+		
+		$("#loginbtn").on("click", function() {
+			window.location.href = "/api/login";
+		});
+	
+		$("#joinbtn").on("click",function() {
+			var email = $(".join-input input[type='text']").val(); 
+			var domain = $(".join-input select[name='emailLocation']").val(); 
+	
+			if (email&& email.indexOf('@') !== -1) {
+				window.location.href = "/api/join?email="+ email;
+			} else {
+				window.location.href = "/api/join?email="+ email;
+			}
+		});
+	
+		$("#joinbtn2").on("click",function() {
+			var email = $(".page3 .join-input input[type='text']").val(); 
+			var domain = $(".page3 .join-input select[name='emailLocation']").val(); 
+	
+			if (email&& email.indexOf('@') !== -1) {
+				window.location.href = "/api/join?email="+ email;
+			} else {
+				window.location.href = "/api/join?email="+ email;
+			}
+		});
+	
+		$(".nonjoinbtn").on("click", function() {
+			window.location.href = "/api/nonhome";
+		});
 	});
 
-	$("#joinbtn2").on("click",function() {
-		var email = $(".page3 .join-input input[type='text']").val(); 
-		var domain = $(".page3 .join-input select[name='emailLocation']").val(); 
-
-		if (email&& email.indexOf('@') !== -1) {
-			window.location.href = "/api/join?email="+ email;
-		} else {
-			window.location.href = "/api/join?email="+ email;
-		}
-	});
-
-	$(".nonjoinbtn").on("click", function() {
-		window.location.href = "/api/nonhome";
-	});
-
-});
 </script>
 </head>
-
 
 
 <body>
@@ -58,9 +83,9 @@ $(document).ready(function() {
 				<button id="loginbtn">로그인</button>
 			</div>
 			<div class="language-selection">
-				<select>
-					<option value="ko">ko</option>
-					<option value="en">en</option>
+				<select id="selectLanguage">
+					<option id="ko" value="ko">한국어</option>
+					<option id="en" value="en">English</option>
 				</select>
 			</div>
 		</div>

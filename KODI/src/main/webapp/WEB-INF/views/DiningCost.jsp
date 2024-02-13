@@ -17,6 +17,11 @@
 	let language = <%=session.getAttribute("language")%>;
 	
 	$(document).ready(function(){
+		if(${isSession} == false) {
+			alert("Please login");
+			location.href = "/";
+		}
+		
 		if(language.value == "ko") {
 			koVersion();
 		} else {

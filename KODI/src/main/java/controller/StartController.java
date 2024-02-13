@@ -14,6 +14,12 @@ public class StartController {
     public ModelAndView start(HttpSession session) {
         ModelAndView mv = new ModelAndView();
         
+    	session.setAttribute("nonLanguage", "ko");
+    	
+        if(session.getAttribute("startLanguage") == null) {
+        	session.setAttribute("startLanguage", "ko");
+        } 
+        
         // 세션값 여부
         if(session.getAttribute("memberIdx") != null) {
             mv.addObject("isSession", true);
@@ -26,7 +32,7 @@ public class StartController {
     }
     
     /**
-     * 언어 변경 API
+     * 회원 언어 변경 API
      * @param session
      * @param language
      */
@@ -34,5 +40,49 @@ public class StartController {
     @ResponseBody
     public void languageFunc(HttpSession session, String language) {
     	session.setAttribute("language", language);
+    }
+    
+    /**
+     * 비회원 언어 변경 API
+     * @param session
+     * @param language
+     */
+    @PostMapping("/api/header/nonlanguage")
+    @ResponseBody
+    public void nonLanguageFunc(HttpSession session, String language) {
+    	session.setAttribute("nonLanguage", language);
+    }
+    
+    /**
+     * 시작 페이지 언어 변경 API
+     * @param session
+     * @param language
+     */
+    @PostMapping("/api/header/startlanguage")
+    @ResponseBody
+    public void startLanguageFunc(HttpSession session, String language) {
+    	session.setAttribute("startLanguage", language);
+    }
+    
+    /**
+     * 로그인 언어 변경 API
+     * @param session
+     * @param language
+     */
+    @PostMapping("/api/header/loginlanguage")
+    @ResponseBody
+    public void loginLanguageFunc(HttpSession session, String language) {
+    	session.setAttribute("loginLanguage", language);
+    }
+    
+    /**
+     * 회원가입 언어 변경 API
+     * @param session
+     * @param language
+     */
+    @PostMapping("/api/header/joinlanguage")
+    @ResponseBody
+    public void joinLanguageFunc(HttpSession session, String language) {
+    	session.setAttribute("joinLanguage", language);
     }
 }

@@ -9,8 +9,37 @@
 	href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css"
 	rel="stylesheet">
 <script src="/js/jquery-3.7.1.min.js"></script>
-<title></title>
+<title>KODI</title>
 </head>
+
+<script>	
+	$(document).ready(function(){
+		let language = <%= session.getAttribute("nonLanguage")%>;
+
+		if(language.value == "ko") {
+			$("#selectLanguage").val("ko").prop("selected", true);
+		} else {
+			$("#selectLanguage").val("en").prop("selected", true);
+			$("#registerbtn").text("Register");
+			$("#loginbtn").text("Login");
+		}
+		
+		$("#selectLanguage").change(function() {
+			$.ajax({
+				url: "/api/header/nonlanguage",
+				data: {"language": $("#selectLanguage").val()},
+				type: "post",
+				success: function(response){
+					location.reload();
+				},
+				error: function(request, e){
+					alert("코드: " + request.status + "메시지: " + request.responseText + "오류: " + e);
+				}
+			});
+	    });
+		
+	});
+</script>
 
 <body>
 	<header>
@@ -24,9 +53,9 @@
 				<button class="btn" id="registerbtn">회원가입</button>
 				<button class="btn" id="loginbtn">로그인</button>
 				<div class="language-selection">
-					<select>
-						<option value="ko">한국어</option>
-						<option value="en">English</option>
+					<select id="selectLanguage">
+						<option id="ko" value="ko">한국어</option>
+						<option id="en" value="en">English</option>
 					</select>
 				</div>
 			</div>

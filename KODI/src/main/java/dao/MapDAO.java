@@ -27,4 +27,7 @@ public interface MapDAO {
 	//
 	public List<Integer> selectFriendPostIdx(int memberIdx);
 	
+	//
+	public void deleteMarkingInfo(int memberIdx, int postIdx);
+	
 }

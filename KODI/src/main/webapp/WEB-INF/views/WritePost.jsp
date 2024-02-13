@@ -34,15 +34,15 @@ if (${isSession}==false){
 	<div class="post">
 			<form action="/api/post/issave" method="post" enctype="multipart/form-data">
 				<select name="category" id="categoryPost" required>
-				    <option value="" selected disabled>카테고리</option>
-				    <option value="맛집">맛집</option>
-				    <option value="카페">카페</option>
-				    <option value="숙소">숙소</option>
-				    <option value="놀거리">놀거리</option>
+				    <option id="cate0" value="" selected disabled>카테고리</option>
+				    <option id="cate1" value="맛집">맛집</option>
+				    <option id="cate2" value="카페">카페</option>
+				    <option id="cate3" value="숙소">숙소</option>
+				    <option id="cate4" value="놀거리">놀거리</option>
 				</select>
 				&nbsp;&nbsp;
 				<select name="grade" id="point" required>
-				    <option value="" selected disabled>평점</option>
+				    <option id="point0" value="" selected disabled>평점</option>
 				    <option value="1.0">1</option>
 				    <option value="1.5">1.5</option>
 				    <option value="2.0">2</option>
@@ -107,6 +107,27 @@ if (${isSession}==false){
 </main>
 </body>
 <script>
+$(document).ready(function() {
+	let language = <%=session.getAttribute("language")%>;
+	
+	if(language.value == "en") {
+		$("#cate0").text("Category");
+		$("#cate1").text("Food");
+		$("#cate2").text("Cafe");
+		$("#cate3").text("Hotel");
+		$("#cate4").text("Play");
+		$("#point0").text("Point");
+		$("#writePostTitle").attr("placeholder", "Title");
+		$("#writePostContent").attr("placeholder", "Content");
+		$("#tagInput").attr("placeholder", "#Hashtag#Input");
+		$("#tagAddBtn").text("To Add");
+		$("#selectedAddressShow").attr("placeholder", "Address");
+		$("#addressBtn").val("Look Up");
+		$("#imageAddBtn").html(`<img id="addImageIcon" src="/image/icon/fileupload.png">&nbsp;Image Attached</button>`);
+		$("#finishBtn").val("Completed");
+		$("#cancelBtn").val("Cancel");
+	}
+});
 //...
 	function cancelMove(){
 		location.href="/api/mypage";

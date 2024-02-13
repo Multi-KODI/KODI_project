@@ -186,10 +186,17 @@ function myMark() {
 
 
 $(document).ready(function() {
-     if (${isSession} == false) {
+	let language = <%=session.getAttribute("language")%>;
+	
+	if(language.value == "en") {
+		$("#myMark").text("My Marking");
+		$("#friendMark").text("Friend Marking");
+	}
+	
+	if (${isSession} == false) {
             alert("로그인하세요");
             location.href = "/";
-        } else {
+	} else {
         	
 	$("#myMark").on("click", myMark);
 	

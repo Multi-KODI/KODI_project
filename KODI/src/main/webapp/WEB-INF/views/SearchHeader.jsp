@@ -25,8 +25,8 @@
     <div class="input-box">
         <div id="search-box">
             <select id="searchfilter" name="filter">
-                <option value="게시글">게시글</option>
-                <option value="사용자">사용자</option>
+                <option id="filter1" value="게시글">게시글</option>
+                <option id="filter2" value="사용자">사용자</option>
             </select>
             <input id="searchinput" name="question" placeholder="검색어 입력">
 
@@ -42,7 +42,17 @@
 
 </div>
 <!-- main -->
-
+<script>
+$(document).ready(function() {
+	let language = <%=session.getAttribute("language")%>;
+	
+	if(language.value == "en") {
+		$("#filter1").text("Post");
+		$("#filter2").text("User");
+		$("#searchinput").attr('placeholder', 'Please enter your keyword(s) to search.');
+	}
+});
+</script>
 
 
 </body>

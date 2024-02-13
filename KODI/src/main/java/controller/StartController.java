@@ -25,6 +25,11 @@ public class StartController {
         return mv;
     }
     
+    /**
+     * 언어 변경 API
+     * @param session
+     * @param language
+     */
     @PostMapping("/api/header/language")
     @ResponseBody
     public void languageFunc(HttpSession session, String language) {

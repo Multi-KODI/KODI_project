@@ -66,14 +66,17 @@ function initMap(addresses, zoomLevel, postIdx) {
 	                let marker = new google.maps.Marker({ position: location, map: map });
 	                bounds.extend(marker.getPosition());
 	                
+	                // 주소 형태 변경
+	                let newAddress = address.replaceAll(" ", "+");
+	                
 	          		// 마커를 클릭했을 때 보여주고 싶은 문구가 있을 경우 추가
 	                marker.addListener('click', function() {
 	                    let infoWindow = new google.maps.InfoWindow({
 	                        content: 
 	                        `
 	                        <div style="font-family: 'NanumSquareNeo';  ">
-	                        ` + address + ` <br><br>
-	                        <a href="https://google.com/maps/place/` + address + `" target="_blank">구글 지도에서 보기</a> 
+	                        주소: ` + address + ` <br><br>
+	                        <a href="https://google.com/maps/search/` + newAddress + `" target="_blank">구글 지도에서 보기</a> 
 	                        &nbsp&nbsp&nbsp
 	                        <button class="deleteMark" type="button" value="` + postIdx[index] + `" onClick="delMark(this.value);">
 	                        마킹 삭제
@@ -119,14 +122,17 @@ function initMap2(addresses, zoomLevel) {
 	                let marker = new google.maps.Marker({ position: location, map: map });
 	                bounds.extend(marker.getPosition());
 	                
+	             	// 주소 형태 변경
+	                let newAddress = address.replaceAll(" ", "+");
+	                
 	          		// 마커를 클릭했을 때 보여주고 싶은 문구가 있을 경우 추가
 	                marker.addListener('click', function() {
 	                    let infoWindow = new google.maps.InfoWindow({
 	                        content: 
 	                        `
 	                        <div style="font-family: 'NanumSquareNeo';  ">
-	                        ` + address + ` <br><br>
-	                        <a href="https://google.com/maps/place/` + address + `" target="_blank">구글 지도에서 보기</a> 
+	                        주소: ` + address + ` <br><br>
+	                        <a href="https://google.com/maps/search/` + address + `" target="_blank">구글 지도에서 보기</a> 
 	                        `
 	                    });
 	                    infoWindow.open(map, marker);
@@ -142,19 +148,21 @@ function initMap2(addresses, zoomLevel) {
 
 function delMark(idx) {
 	var postIdx = idx;
-	$.ajax({
-		url: 'map/marking/delete',
-		type: 'POST',
-		data: {
-			postIdx: postIdx
-		},
-		success: function(){
-			myMark();
-		},
-		error: function(error){
-			console.log(error);
-		}
-	});
+	if(confirm("해당 마커를 삭제하시겠습니까?")){
+		$.ajax({
+			url: 'map/marking/delete',
+			type: 'POST',
+			data: {
+				postIdx: postIdx
+			},
+			success: function(){
+				myMark();
+			},
+			error: function(error){
+				console.log(error);
+			}
+		});
+	}
 }
 
 function myMark() {
@@ -167,7 +175,6 @@ function myMark() {
         },
         success: function(map){
             console.log("성공");
-            console.log(map.markList);
             initMap(map.markList, 10, map.postIdx);
         },
         error: function(error){

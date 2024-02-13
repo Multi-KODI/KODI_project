@@ -58,7 +58,7 @@ if (${isSession}==false){
 	<div class="right-side">
 		<div id="checklist">
 		<img id="check-image"src='/image/icon/check.png'>
-		<label class='left-side-title'>체크리스트</label>
+		<label class='left-side-title' id="left-side1">체크리스트</label>
 		<button class="checkListInsertBtn" onclick="makeCheckListModal()">추가</button>
 		<ul class="checkList"></ul>
 		</div>
@@ -74,17 +74,16 @@ if (${isSession}==false){
 		
 		<div id="app">
 		<img id="app-image"src='/image/icon/app.png'>
-		<label class='left-side-title'>유용한 어플</label>
+		<label class='left-side-title' id="left-side2">유용한 어플</label>
 		<ul>
-		    <li>배달
+		    <li id="ap1">배달
 		 		<ul>
 		            <li>배달의민족</li>
 		            <li>요기요</li>
 		        </ul>   
 		    </li>
 		    
-		    <li>
-		        숙소예약
+		    <li id="ap2">숙소예약
 		        <ul>
 		            <li>호텔스컴바인</li>
 		            <li>야놀자</li>
@@ -92,7 +91,8 @@ if (${isSession}==false){
 		            <li>에어비앤비</li>
 		        </ul>
 		    </li>
-		    <li>교통
+		    
+		    <li id="ap3">교통
 				<ul>
 			       <li>카카오맵</li>
 			       <li>카카오택시</li>
@@ -106,5 +106,34 @@ if (${isSession}==false){
 
 </div>
 </main>
+<script>
+$(document).ready(function() {
+	let language = <%=session.getAttribute("language")%>;
+	
+	if(language.value == "en") {
+		$("#left-side1").text("Checklist");
+		$("#left-side2").text("Useful Applications");
+		$("#ap1").html(`Delivery
+			<ul>
+	            <li>배달의민족</li>
+	            <li>요기요</li>
+	        </ul> `);
+		$("#ap2").html(`Hotel Reservation
+			<ul>
+	            <li>호텔스컴바인</li>
+	            <li>야놀자</li>
+	            <li>여기어때</li>
+	            <li>에어비앤비</li>
+	        </ul> `);
+		$("#ap3").html(`Transportation
+			<ul>
+		       <li>카카오맵</li>
+		       <li>카카오택시</li>
+		       <li>티머니GO</li>
+		       <li>네이버맵</li>
+			</ul> `);
+	}
+});
+</script>
 </body>
 </html>

@@ -31,14 +31,14 @@ public interface ChatListDAO {
 	 * @param map
 	 * @return 나의 친구신청 여부(1|0)
 	 */
-	int selectIsFriendByMe(HashMap<String, Integer> map);
+	int selectIsFriendByMe(HashMap<String, Object> map);
 
 	/**
 	 * 친구가 나를 추가했는지 여부
 	 * @param map
 	 * @return 친구의 친구신청 여부(1|0)
 	 */
-	int selectIsFriendByOther(HashMap<String, Integer> map);
+	int selectIsFriendByOther(HashMap<String, Object> map);
 
 	/**
 	 * 채팅방 리스트 조회
@@ -124,5 +124,12 @@ public interface ChatListDAO {
 	 * @return 삭제 여부(1|0)
 	 */
 	int deleteChat(int chatIdx);
+
+	/**
+	 * 검색한 친구 리스트 검색
+	 * @param friendMemberIdx
+	 * @return 검색한 친구 리스트
+	 */
+	int searchFriendByFriendIdx(HashMap<String, Object> map);
 
 }

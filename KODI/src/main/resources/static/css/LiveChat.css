@@ -90,6 +90,7 @@
 	background-color: white;
 	font-family: 'NanumSquareNeo';
 	display: flex;
+	cursor: pointer;
 }
 
 #exitIcon {
@@ -149,6 +150,7 @@
 	border-radius: 10px;
 	padding: 10px 15px;
 	margin-right: 10px;
+	font-family: 'NanumSquareNeo';
 }
 
 #sendMsgBtn {

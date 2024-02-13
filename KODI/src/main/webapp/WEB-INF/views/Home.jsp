@@ -148,8 +148,8 @@ function webSocket(){
 	websocket = null;
 
 	if(websocket == null){
-		//websocket = new WebSocket("ws://localhost:7777/home");
-		websocket = new WebSocket("ws://192.168.0.13:7777/home"); // 추후 ncp 배포 공인 IP로 변경
+		websocket = new WebSocket("ws://localhost:7777/home");
+		//websocket = new WebSocket("ws://192.168.0.13:7777/home"); // 추후 ncp 배포 공인 IP로 변경
 		
 		websocket.onopen = function(){console.log("웹소켓 연결성공");};
 		websocket.onclose = function(){console.log("웹소켓 해제성공");};
@@ -302,22 +302,26 @@ function webSocket(){
 		if(sendMsgInput.value == ""){
 			$("#sendMsgBtn").attr("disabled", false);
 		} else {
-			let sendData = [sendMsgInput.value, sessionId];
-			websocket.send(sendData);
-			
-			$.ajax({
-				url: "/api/home/savemsg",
-				data: {"memberIdx": sessionId, "content": sendMsgInput.value},
-				type: "post",
-				success: function(response){
-					sendMsgInput.value = "";
-					console.log("메시지 DB 저장 성공");
-				},
-				error: function(request, e){
-					alert("코드: " + request.status + "메시지: " + request.responseText + "오류: " + e);
-				}
-			});
-			console.log("웹소켓 서버에게 송신성공");
+			if(sendMsgInput.value.length > 100) {
+				alert("100자 이하로 작성해주세요");
+			} else {
+				let sendData = [sendMsgInput.value, sessionId];
+				websocket.send(sendData);
+				
+				$.ajax({
+					url: "/api/home/savemsg",
+					data: {"memberIdx": sessionId, "content": sendMsgInput.value},
+					type: "post",
+					success: function(response){
+						sendMsgInput.value = "";
+						console.log("메시지 DB 저장 성공");
+					},
+					error: function(request, e){
+						alert("코드: " + request.status + "메시지: " + request.responseText + "오류: " + e);
+					}
+				});
+				console.log("웹소켓 서버에게 송신성공");
+			}
 		};
 	};
 };

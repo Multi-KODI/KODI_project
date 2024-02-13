@@ -74,4 +74,15 @@ public class StartController {
     public void loginLanguageFunc(HttpSession session, String language) {
     	session.setAttribute("loginLanguage", language);
     }
+    
+    /**
+     * 회원가입 언어 변경 API
+     * @param session
+     * @param language
+     */
+    @PostMapping("/api/header/joinlanguage")
+    @ResponseBody
+    public void joinLanguageFunc(HttpSession session, String language) {
+    	session.setAttribute("joinLanguage", language);
+    }
 }

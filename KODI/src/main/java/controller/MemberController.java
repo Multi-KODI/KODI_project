@@ -50,9 +50,14 @@ public class MemberController {
 	 * @return
 	 */
 	@GetMapping("/join")
-	public ModelAndView registerMember() {
+	public ModelAndView registerMember(HttpSession session) {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("Join");
+		
+		if(session.getAttribute("joinLanguage") == null) {
+	    	session.setAttribute("joinLanguage", "ko");
+        } 
+		
 		return mv;
 	}
 
@@ -66,7 +71,7 @@ public class MemberController {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("Login");
 		
-		if(session.getAttribute("startLanguage") == null) {
+		if(session.getAttribute("loginLanguage") == null) {
 	    	session.setAttribute("loginLanguage", "ko");
         } 
 

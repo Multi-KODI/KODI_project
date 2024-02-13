@@ -6,7 +6,7 @@
 
 	<head>
 		<meta charset="UTF-8">
-		 <link
+		<link
 	href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css"
 	rel="stylesheet">
 		<link rel="stylesheet" href="/css/Join.css">
@@ -134,29 +134,20 @@
 						"memberName": $("#inputNickname").val(),
 						"flagIdx": $("#nation").val()
 					};
-					var password = document.getElementById('inputPassword');
-					var nickname = document.getElementById('inputNickname');
-					var nation = document.getElementById('nation');
-					console.log(password.value + ":" + nickname.value + ":" + confirmFlag);
-					if (confirmFlag == false) {
-						alert("이메일을 인증이 완료되지 않았습니다.");	
-					}else if (password.value.length > 20 || password.value.length < 8) { // 예를 들어 최대 100자로 제한
-						alert('비밀번호는 8자리 이상 20자리 이내로 입력해주세요');
-						/* event.preventDefault(); // 제출을 막음 */
-						console.log(password.value);
-					}else if (nickname.value.length ==0) { // 예를 들어 최대 100자로 제한
-						alert('닉네임을 입력해주세요');
-						/* event.preventDefault(); // 제출을 막음 */
-						
-					}else if (nickname.value.length > 20) { // 예를 들어 최대 100자로 제한
-						alert('닉네임은 20자리 이내로 입력해주세요');
-						/* event.preventDefault(); // 제출을 막음 */
-						console.log(nickname.value);
-					} else if (nation.value=='') { // 예를 들어 최대 100자로 제한
-						alert('국적을 선택해주세요');
-						/* event.preventDefault(); // 제출을 막음 */
-						console.log(nickname.value);
-					} else {
+					if (confirmFlag == true) {
+
+						var password = document.getElementById('inputPassword');
+						var nickname = document.getElementById('inputNickname');
+						console.log(password.value + ":" + nickname.value + ":" + confirmFlag);
+						if (password.value.length > 20 || password.value.length < 8) { // 예를 들어 최대 100자로 제한
+							alert('비밀번호는 8자리 이상 20자리 이내로 입력해주세요');
+							event.preventDefault(); // 제출을 막음
+							console.log(password.value);
+						} else if (nickname.value.length > 20) { // 예를 들어 최대 100자로 제한
+							alert('닉네임은 20자리 이내로 입력해주세요');
+							event.preventDefault(); // 제출을 막음
+							console.log(nickname.value);
+						} else {
 							console.log(nickname.value + ":" + password.value);
 							$.ajax({
 								url: "/api/join",
@@ -166,7 +157,7 @@
 								success: function (response) {
 									if (response == "회원등록이 완료되었습니다") {
 										alert(response);
-										location.href = "/api/login";
+										// location.href = "/api/login";
 									} else if (response == "사용 중인 닉네임입니다") {
 										alert("사용 중인 닉네임입니다");
 									} else if (response == "이미 회원가입이 완료된 유저입니다") {
@@ -179,10 +170,14 @@
 								error: function (xhr, textStatus, errorThrown) {
 									console.error("Error during login:", textStatus, errorThrown);
 								}
-							});//ajax end
-					} //else end
-				
-				});	//btn end
+							});//ajax
+
+						}// else
+					}
+					//else{
+					//	alert("이메일을 인증이 완료되지 않았습니다.");	
+					//}
+				});	//btn
 
 				$("#loginBtn").on('click', function () {
 					location.href = "login";
@@ -427,7 +422,7 @@
 				</select><br><br>
 
 				<div id="garoBtns">
-					<input type="button" id="joinBtn" class="btn" value="회원가입">
+					<input type="submit" id="joinBtn" class="btn" value="회원가입">
 					&nbsp;&nbsp;|&nbsp;&nbsp;
 					<input type="button" id="loginBtn" class="btn" value="로그인">
 				</div>

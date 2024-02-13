@@ -133,7 +133,7 @@ public class MemberController {
 		String findedMemberName = memberService.findMemberName(memberDTO.getMemberName());
 
 		if(findedMemberName != null){
-			return "중복된 이름입니다";
+			return "사용 중인 닉네임입니다";
 		}
 		
 		// 기존에 멤버가 없을 때 회원등록
@@ -141,7 +141,7 @@ public class MemberController {
 			memberService.registerMember(memberDTO);
 			return "회원등록이 완료되었습니다";
 		}
-		return "중복된 회원이 있습니다";
+		return "이미 회원가입이 완료된 유저입니다";
 	}
 
 	/**

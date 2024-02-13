@@ -38,4 +38,8 @@
 	<!-- insert -->
 	<!-- update -->
 	<!-- delete -->
+	<delete id="deleteMarkingInfo" parameterType="int">
+		delete from marking_info
+		where member_idx = #{memberIdx} and post_idx = #{postIdx};
+	</delete>
 </mapper>

@@ -54,6 +54,10 @@ public class MapService {
 		return postIdxs;
 	}
 	
+	public void deleteMarking(int memberIdx, int postIdx) {
+		dao.deleteMarkingInfo(memberIdx, postIdx);
+	}
+	
 	
 	
 }

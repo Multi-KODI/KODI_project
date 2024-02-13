@@ -25,7 +25,7 @@
 							<div class="logoBtn">
 								<dlv id="friendheader">
 									<img id="logo-icon" src="/image/icon/logo.png">
-									<h2>친구목록</h2>
+									<h2 id="listTitle">친구목록</h2>
 								</dlv>
 
 								<div class="form-group">
@@ -42,10 +42,10 @@
 										<thead>
 											<tr>
 												<th>
-													<div class="tdDiv">닉네임</div>
+													<div class="tdDiv" id="nickName">닉네임</div>
 												</th>
 												<th>
-													<div class="tdDiv">국적</div>
+													<div class="tdDiv" id="nationality">국적</div>
 												</th>
 
 												<th>
@@ -67,7 +67,7 @@
 														</div>
 													</td>
 													<td>
-														<button class="f-Btn" id="f-cancelBtn" type="button"
+														<button class="f-Btn f-cancelBtn" id="f-cancelBtn" type="button"
 															data-member-idx="${friend.memberIdx}">요청 취소</button>
 													</td>
 												</tr>
@@ -88,12 +88,21 @@
 
 
 				</div>
+				<script>
+					$(document).ready(function () {
+						let language = "<%= session.getAttribute("language") %>";
+						let koLanguage = language === "ko";
 
-
-
-
-
-
+						$("#listTitle").html(koLanguage ? "친구목록" : "Friends List");
+						$("#nickName").html(koLanguage ? "닉네임" : "Nickname");
+						$("#nationality").html(koLanguage ? "국적" : "Nationality");
+						$("#closebtn").html(koLanguage ? "닫기" : "close");
+						$("#PairBtn").html(koLanguage ? "서로친구" : "Friends");
+						$("#FollowingBtn").html(koLanguage ? "내가 추가한 친구" : "Followings");
+						$("#FollowerBtn").html(koLanguage ? "나를 추가한 친구" : "Followers");
+						$(".f-cancelBtn").html(koLanguage ? "요청 취소" : "Cancel");
+					});//ready
+				</script>
 				<script src="/js/FriendScript.js"></script>
 
 			</body>

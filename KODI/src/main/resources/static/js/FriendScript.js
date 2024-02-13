@@ -1,5 +1,4 @@
 $(document).ready(function () {
-
 	//닫기버튼
 	$("#closebtn").on("click", function () {
 		$(".modal_background2").fadeOut();
@@ -49,9 +48,6 @@ $(document).ready(function () {
 			}
 		});
 	});
-
-
-
 
 	//서로친구 삭제
 	$("#friendList1").on('click', '#f-drawBtn', function (e) {

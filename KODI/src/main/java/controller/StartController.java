@@ -2,6 +2,8 @@ package controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import jakarta.servlet.http.HttpSession;
@@ -21,5 +23,11 @@ public class StartController {
             mv.setViewName("Start");
         }
         return mv;
+    }
+    
+    @PostMapping("/api/header/language")
+    @ResponseBody
+    public void languageFunc(HttpSession session, String language) {
+    	session.setAttribute("language", language);
     }
 }

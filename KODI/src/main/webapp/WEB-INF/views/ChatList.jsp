@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!-- 헤더 -->
+<%@ include file="/WEB-INF/views/Header.jsp"%>
+<%@ include file="/WEB-INF/views/SearchHeader.jsp"%>
 
 <!DOCTYPE html>
 <html>
@@ -16,18 +19,33 @@
 
 </head>
 
-<script>
+<script type="text/javascript">
 	let sessionId = <%=session.getAttribute("memberIdx")%>;
+	let language = <%=session.getAttribute("language")%>;
 	
 	$(document).ready(function(){
 		if(${isSession} == false) {
-			alert("로그인하세요");
+			if(language.value == "en") {
+				alert("Please login");
+			} else {
+				alert("로그인하세요");
+			}
 			location.href = "/";
 		} else {
 			if(${verifyMemberIdx} == false){
-				alert("해당 페이지에 접근할 수 없습니다.");
+				if(language.value == "en") {
+					alert("You cannot access that page");
+				} else {
+					alert("해당 페이지에 접근할 수 없습니다");
+				}
 				location.href = "/api/home";
-			} else {
+			} else {		
+				if(language.value == "en") {
+					$("#title").text("Search friend");
+					$("#searchInput").attr("placeholder", "Search friend");
+					$(".chatTitle").text("Chatroom");
+				}
+				
 				showFriendData();
 				showListData();
 				searchFriend();
@@ -53,8 +71,13 @@
 			chatBtn = document.createElement("input");
 			chatBtn.setAttribute("type", "button");
 			chatBtn.setAttribute("id", "chatBtn");
-			chatBtn.setAttribute("value", "채팅");
-			chatBtn.setAttribute("style", "display: inline-block; padding: 2px; border:none; border-radius: 5px; background-color:#EDF2F6; color:gray; width: 50px; float:right; cursor: pointer; font-family: 'NanumSquareNeo';");
+			if(language.value == "en") {
+				chatBtn.setAttribute("value", "Chatting");
+				chatBtn.setAttribute("style", "display: inline-block; padding: 2px; border:none; border-radius: 5px; background-color:#EDF2F6; color:gray; width: 80px; float:right; cursor: pointer; font-family: 'NanumSquareNeo';");	
+			} else {
+				chatBtn.setAttribute("value", "채팅");
+				chatBtn.setAttribute("style", "display: inline-block; padding: 2px; border:none; border-radius: 5px; background-color:#EDF2F6; color:gray; width: 50px; float:right; cursor: pointer; font-family: 'NanumSquareNeo';");				
+			}
 			chatBtn.setAttribute("onclick", `clickChatBtn(${one.friendMemberIdx})`);
 			
 			oneFriend.appendChild(chatBtn);
@@ -104,7 +127,11 @@
 			deleteChat = document.createElement("input");
 			deleteChat.setAttribute("type", "button");
 			deleteChat.setAttribute("id", "deleteChat");
-			deleteChat.setAttribute("value", "삭제");
+			if(language.value == "en") {
+				deleteChat.setAttribute("value", "Delete");
+			} else {
+				deleteChat.setAttribute("value", "삭제");
+			}
 			deleteChat.setAttribute("style", "display: inline-block; cursor: pointer; margin-left: 10px; background-color: #EDF2F6; border: 2px solid #EDF2F6; border-radius: 5px; width: 60px; height: 30px; color: gray; font-family: 'NanumSquareNeo';");
 			deleteChat.setAttribute("onclick", `deleteChatBtn(${one.chatIdx})`);
 			
@@ -145,8 +172,13 @@
 							if(response.length == 0) {
 								oneFriend = document.createElement("div");
 								oneFriend.setAttribute("style", "padding-top: 5px; padding-left: 5px; padding-right: 5px;");
-								oneFriend.innerHTML += "검색어에 해당하는 친구가 존재하지 않습니다.";
 								
+								if(language.value == "en") {
+									oneFriend.innerHTML += "There are no friends matching your search term";
+								} else {
+									oneFriend.innerHTML += "검색어에 해당하는 친구가 존재하지 않습니다";
+								}
+																
 								oneFriend.innerHTML += "<hr>";
 								
 								friendList.appendChild(oneFriend);
@@ -161,8 +193,15 @@
 								chatBtn = document.createElement("input");
 								chatBtn.setAttribute("type", "button");
 								chatBtn.setAttribute("id", "chatBtn");
-								chatBtn.setAttribute("value", "채팅");
-								chatBtn.setAttribute("style", "display: inline-block; border:none; border-radius: 5px; background-color:#EDF2F6; color:gray; width: 50px; float:right; cursor: pointer;");
+								
+								if(language.value == "en") {
+									chatBtn.setAttribute("value", "Chatting");
+									chatBtn.setAttribute("style", "display: inline-block; padding: 2px; border:none; border-radius: 5px; background-color:#EDF2F6; color:gray; width: 80px; float:right; cursor: pointer; font-family: 'NanumSquareNeo';");	
+								} else {
+									chatBtn.setAttribute("value", "채팅");
+									chatBtn.setAttribute("style", "display: inline-block; padding: 2px; border:none; border-radius: 5px; background-color:#EDF2F6; color:gray; width: 50px; float:right; cursor: pointer; font-family: 'NanumSquareNeo';");				
+								}
+								
 								chatBtn.setAttribute("onclick", `clickChatBtn(${"${response[i].friendMemberIdx}"})`);
 								
 								oneFriend.appendChild(chatBtn);
@@ -178,7 +217,11 @@
 					});
 				}
 			} else {
-				alert("친구 검색할 수 없습니다.");
+				if(language.value == "en") {
+					alert("Can't search for friends");
+				} else {
+					alert("친구 검색할 수 없습니다");
+				}
 			}
 		});
 	};
@@ -231,7 +274,11 @@
 				}
 			});
 		} else {
-			alert("해당 채팅방에 입장할 수 없습니다.");
+			if(language.value == "en") {
+				alert("You cannot enter the chat room");
+			} else {
+				alert("해당 채팅방에 입장할 수 없습니다");
+			}
 		}
 	};
 	
@@ -239,13 +286,23 @@
 		if(sessionId == ${chatListInfo.memberIdx}){
 			location.href="/api/chatroom/" + `${'${chatIdx}'}`;
 		} else {
-			alert("해당 채팅방에 입장할 수 없습니다.");
+			if(language.value == "en") {
+				alert("You cannot enter the chat room");
+			} else {
+				alert("해당 채팅방에 입장할 수 없습니다");
+			}
 		}
 	};
 	
 	function deleteChatBtn(chatIdx){
 		if(sessionId == ${chatListInfo.memberIdx}){
-			let isDelete = confirm("해당 채팅방을 삭제하시겠습니까?");
+			let isDelete;
+			
+			if(language.value == "en") {
+				isDelete = confirm("Do you want to delete this chat room?");
+			} else {
+				isDelete = confirm("해당 채팅방을 삭제하시겠습니까?");
+			}
 			
 			if(isDelete){
 				$(`#${'${chatIdx}'}`).remove();
@@ -263,7 +320,11 @@
 				});
 			};
 		} else {
-			alert("해당 채팅방을 삭제할 수 있는 권한이 없습니다.");
+			if(language.value == "en") {
+				alert("You do not have permission to delete this chat room");
+			} else {
+				alert("해당 채팅방을 삭제할 수 있는 권한이 없습니다");
+			}
 		}	
 	};
 	
@@ -292,7 +353,12 @@
 							if(response.length == 0) {
 								oneFriend = document.createElement("div");
 								oneFriend.setAttribute("style", "padding-top: 5px; padding-left: 5px; padding-right: 5px;");
-								oneFriend.innerHTML += "검색어에 해당하는 친구가 존재하지 않습니다.";
+								
+								if(language.value == "en") {
+									oneFriend.innerHTML += "There are no friends matching your search term";
+								} else {
+									oneFriend.innerHTML += "검색어에 해당하는 친구가 존재하지 않습니다";
+								}
 								
 								oneFriend.innerHTML += "<hr>";
 								
@@ -325,43 +391,46 @@
 					});
 				}
 			} else {
-				alert("친구 검색할 수 없습니다.");
+				if(language.value == "en") {
+					alert("Can't search for friends");
+				} else {
+					alert("친구 검색할 수 없습니다");
+				}
 			}
 		};
 	};
 </script>
 
 <body>
-	<!-- 헤더 -->
-	<%@ include file="/WEB-INF/views/Header.jsp"%>
-	<%@ include file="/WEB-INF/views/SearchHeader.jsp"%>
 
-<main>
-	<div id="allElement">
-		<div id="searchFriendDiv">
-			<img id="friendIcon" src="/image/icon/friends.png" align="center">
-			<p id="title">친구 검색</p>
+	<main>
+		<div id="allElement">
+			<div id="searchFriendDiv">
+				<img id="friendIcon" src="/image/icon/friends.png" align="center">
+				<p id="title">친구 검색</p>
 
-			<div id="searchInputDiv">
-				<input id="searchInput" type="search" placeholder="친구 검색" onkeypress="enterKey(event)">
-				<button id="searchBtn" type="button">
-					<img id="searchIcon" src="/image/icon/search.png" align="center">
-				</button>
+				<div id="searchInputDiv">
+					<input id="searchInput" type="search" placeholder="친구 검색"
+						onkeypress="enterKey(event)">
+					<button id="searchBtn" type="button">
+						<img id="searchIcon" src="/image/icon/search.png" align="center">
+					</button>
+				</div>
+
+				<div id="friendList"></div>
 			</div>
 
-			<div id="friendList"></div>
-		</div>
+			<div id="chatListDiv">
+				<img id="chatListIcon" src="/image/icon/live-chat.png"
+					align="center">
+				<p class="chatTitle" id="title">채팅방</p>
 
-		<div id="chatListDiv">
-			<img id="chatListIcon" src="/image/icon/live-chat.png" align="center">
-			<p id="title">채팅방</p>
-
-			<div id="chatList"></div>
+				<div id="chatList"></div>
+			</div>
 		</div>
-	</div>
-</main>
+	</main>
 </body>
 
-<%@ include file="/WEB-INF/views/Footer.jsp" %>
+<%@ include file="/WEB-INF/views/Footer.jsp"%>
 
 </html>

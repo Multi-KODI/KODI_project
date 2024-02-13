@@ -17,25 +17,50 @@
 
 <script>
 	let sessionId = <%=session.getAttribute("memberIdx")%>;
- 
+	let language;
+	
 	$(document).ready(function(){
+		language = <%=session.getAttribute("language")%>;
+
 		if(${isSession} == false) {
-			alert("로그인하세요");
+			if(language.value == "en") {
+				alert("Please login");
+			} else {
+				alert("로그인하세요");
+			}
 			location.href = "/";
 		} else {
+			if(language.value == "en") {
+				$("#updatePostBtn").text("Edit post");
+				$("#deletePostBtn").text("Delete post");
+				$("#grade").html("Grade ");
+				$("#addrDiv").text("Address");
+				
+				let addrDiv = document.getElementById("addrDiv");
+				let addrInfo = document.createElement("p");
+				addrInfo.setAttribute("id", "addrInfo");
+				
+				addrDiv.appendChild(addrInfo);
+				
+				$("#tagDiv").text("Tag");
+				$("#commentText").text("Comment");
+				$("#inputComment").attr("placeholder", "Please enter your comment");
+				$("#postBtn").val("Write");
+			};
+			
 			showPostData();
 			likeBtnClick();
 			markingBtnClick();
 			shareBtnClick();
 			showComments();
 			addComment();
-			updateDelMenu();	
+			updateDelMenu();
 		}
 	});
 	
 	function showPostData() {		
 		$("#postTitle").html("${readPostOne.postInfo.title}");
-		$("#grade").html("평점 " + "${readPostOne.postInfo.grade}" + "/5.0");
+		$("#grade").append("${readPostOne.postInfo.grade}" + "/5.0");
 		$("#flag").attr("src", "${readPostOne.flag}");
 		$("#memberName").html("${readPostOne.memberName}");
 		$("#date").html("${readPostOne.postInfo.regdate}");
@@ -45,7 +70,7 @@
 			 $("#postImage").append("<img id='postImg' src='/image/db/" + "${image}" + "'display= inline-block width=40% height=40% object-fit=contain align=center>&nbsp;");		
 		</c:forEach>
 		
-		$("#addrInfo").html("${readPostOne.postInfo.address}");
+		$("#addrInfo").append("${readPostOne.postInfo.address}");
 
 		<c:forEach items="${readPostOne.postTags}" var="tag">
 			$("#tagDiv").append("<div style=\" display: inline; border: 2px solid #FF5656; background-color: #FF5656; border-radius: 10px; color: white; padding-left: 10px; padding-right: 10px; margin-left: 10px;\">" + "${tag}" + "</div>");
@@ -125,11 +150,16 @@
 				dataType: "json",
 				success: function(response){
 					if(response == 1){
-						alert("이미 마킹 등록하였습니다.");
+						let isDeleteMarking;
 						
-						// 마킹 삭제
-						let isDeleteMarking = confirm("마킹 취소하시겠습니까?");
-						
+						if(language.value == "en") {
+							alert("Marking has already been registered");
+							isDeleteMarking = confirm("Are you sure you want to cancel marking?");
+						} else {
+							alert("이미 마킹 등록하였습니다");		
+							isDeleteMarking = confirm("마킹 취소하시겠습니까?");
+						}
+												
 						if(isDeleteMarking){
 							$.ajax({
 								url: "/api/post/deletemarking",
@@ -139,7 +169,11 @@
 								dataType: "json",
 								success: function(deleteRes){
 									if(deleteRes == 1){
-										alert("마킹 취소되었습니다.");
+										if(language.value == "en") {
+											alert("Marking has been canceled");
+										} else {
+											alert("마킹 취소되었습니다");
+										}
 									}
 								},
 								error: function(res, e){
@@ -149,7 +183,13 @@
 						}
 					} else {
 						// 마킹 등록
-						let isMarking = confirm("마킹 등록하시겠습니까?");
+						let isMarking;
+						
+						if(language.value == "en") {
+							isMarking = confirm("Would you like to register marking?");
+						} else {
+							isMarking = confirm("마킹 등록하시겠습니까?");
+						}
 						
 						if(isMarking){
 							$.ajax({
@@ -160,7 +200,11 @@
 								dataType: "json",
 								success: function(insertRes){
 									if(insertRes == 1){
-										alert("마킹 등록되었습니다.");
+										if(language.value == "en") {
+											alert("Marking has been registered");
+										} else {
+											alert("마킹 등록되었습니다");
+										}
 									}
 								},
 								error: function(res, e){
@@ -190,7 +234,11 @@
 			document.execCommand("copy");
 			document.body.removeChild(dummy);
 			
-			alert("해당 URL이 복사되었습니다.");
+			if(language.value == "en") {
+				alert("That URL has been copied");
+			} else {
+				alert("해당 URL이 복사되었습니다");
+			}
 		});
 	};
 
@@ -228,7 +276,13 @@
 				deleteBtn = document.createElement("input");
 				deleteBtn.setAttribute("type", "button");
 				deleteBtn.setAttribute("id", "deleteBtn");
-				deleteBtn.setAttribute("value", "삭제");
+				
+				if(language.value == "en") {
+					deleteBtn.setAttribute("value", "Delete");					
+				} else {
+					deleteBtn.setAttribute("value", "삭제");					
+				}
+				
 				deleteBtn.setAttribute("style", "font-family: 'NanumSquareNeo'; cursor: pointer; display: inline; border:none; background-color:#EDF2F6; color:grey; float:right;");
 				deleteBtn.setAttribute("onclick", `deleteCommentBtn(${one.commentIdx}, ${one.memberIdx})`);
 								
@@ -272,7 +326,11 @@
 						if(response == 1){
 							location.reload();
 						}else{
-							alert("댓글 작성실패");
+							if(language.value == "en") {
+								alert("Failed to write comment");
+							} else {
+								alert("댓글 작성실패");
+							}
 						}
 					},
 					error: function(request, e){
@@ -280,14 +338,24 @@
 					}
 				});
 			} else {
-				alert("댓글을 입력해주세요.");
+				if(language.value == "en") {
+					alert("Please enter a comment");
+				} else {
+					alert("댓글을 입력해주세요");
+				}
 			}
 		});
 	};
 	
 	function deleteCommentBtn(commentIdx, memberIdx) {
 		if(sessionId == ${readPostOne.postInfo.memberIdx} || sessionId == memberIdx){
-			let isDelete = confirm("해당 댓글을 삭제하시겠습니까?");
+			let isDelete;
+			
+			if(language.value == "en") {
+				isDelete = confirm("Are you sure you want to delete this comment?");
+			} else {
+				isDelete = confirm("해당 댓글을 삭제하시겠습니까?");
+			}
 			
 			if (isDelete){
 				$(`#${'${commentIdx}'}`).remove();
@@ -305,20 +373,33 @@
 				});
 			};
 		} else{
-			alert("해당 댓글을 삭제할 수 있는 권한이 없습니다.");
+			if(language.value == "en") {
+				alert("You do not have permission to delete this comment");
+			} else {
+				alert("해당 댓글을 삭제할 수 있는 권한이 없습니다");
+			}
 		}
 	};
 	
 	function updateDelMenu() {
 		$("#updatePostBtn").on("click", function(){
 			if(sessionId == ${readPostOne.postInfo.memberIdx}){
-				let isUpdate = confirm("해당 게시물을 수정하시겠습니까?");
-            
+				let isUpdate;
+				if(language.value == "en") {
+					isUpdate = confirm("Would you like to edit this post?");
+				} else {
+					isUpdate = confirm("해당 게시물을 수정하시겠습니까?");
+				}
+				
 				if (isUpdate) {
 					location.href = "/api/post/modify/" + ${readPostOne.postInfo.postIdx};
 				};
 			} else {
-				alert("해당 게시글을 수정할 수 있는 권한이 없습니다.");
+				if(language.value == "en") {
+					alert("You do not have permission to edit this post");
+				} else {
+					alert("해당 게시글을 수정할 수 있는 권한이 없습니다");
+				}
 			}
          
 		});
@@ -327,7 +408,13 @@
 			var data = {postIdx: ${readPostOne.postInfo.postIdx}};
 			
 			if(sessionId == ${readPostOne.postInfo.memberIdx}){
-				let isDelete = confirm("해당 게시물을 삭제하시겠습니까?");
+				let isDelete;
+				
+				if(language.value == "en") {
+					isDelete = confirm("Are you sure you want to delete that post?");
+				} else {
+					isDelete = confirm("해당 게시물을 삭제하시겠습니까?");
+				}
 				
 				if (isDelete) {
 					$.ajax({
@@ -337,7 +424,12 @@
 						dataType: "json",
 						contentType: "application/json",
 						success: function(response){
-							alert("게시물을 삭제하였습니다.");
+							if(language.value == "en") {
+								alert("The post has been deleted");
+							} else {
+								alert("게시물을 삭제하였습니다");
+							}
+
 							var referrer = document.referrer;
 							if(referrer == "http://localhost:7777/api/mypage"){
 								location.href = "/api/mypage";
@@ -352,11 +444,14 @@
 					});
 				};   
 			} else {
-				alert("해당 게시물을 삭제할 수 있는 권한이 없습니다.");
+				if(language.value == "en") {
+					alert("You do not have permission to delete this post");
+				} else {
+					alert("해당 게시물을 삭제할 수 있는 권한이 없습니다");
+				}
 			}
 		});
 	};
-	
 	
 </script>
 
@@ -388,7 +483,7 @@
 				<h2 id="postTitle">게시글 제목</h2>
 
 				<div id="postInfo">
-					<p id="grade" style="display: inline;">평점 3.5/5</p>
+					<p id="grade" style="display: inline;">평점 </p>
 					<img id="flag" width=15px height=15px align="center">
 					<p id="memberName" style="display: inline;">작성자</p>
 					<p id="date" style="display: inline;">2023.11.08. 15:48</p>
@@ -403,8 +498,7 @@
 				<div id="postImage"></div>
 
 				<div id="addrDiv">
-					주소
-					<p id="addrInfo"></p>
+					주소 <p id="addrInfo"></p>
 				</div>
 				<div id="tagDiv">태그</div>
 
@@ -427,7 +521,7 @@
 			
 			<!-- 댓글 -->
 			<div id="commentInfo">
-				<p>댓글</p>
+				<p id="commentText">댓글</p>
 				<hr width="100%" align="center">
 				<textarea id="inputComment" rows="5" placeholder="댓글을 입력하세요."></textarea>
 				<br> <input type="button" id="postBtn" value="등록">

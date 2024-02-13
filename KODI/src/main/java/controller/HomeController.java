@@ -46,7 +46,7 @@ public class HomeController {
 		
 		int memberIdx;
 		ModelAndView mv = new ModelAndView();
-
+		
 		if(session.getAttribute("memberIdx") == null) {
         	mv.addObject("isSession", false);
 		} else {

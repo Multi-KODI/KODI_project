@@ -168,6 +168,7 @@ public class MemberController {
 			Integer memberIdxInteger = findedMember.getMemberIdx();
 			String memberIdx = String.valueOf(memberIdxInteger);
 			session.setAttribute("memberIdx", memberIdx);
+	    	session.setAttribute("language", "ko");
 			if(adminService.validateAdmin(session)){
 				return "관리자로 로그인 하였습니다";
 			}

@@ -359,4 +359,7 @@
 		<button id="sendMsgBtn" type="button">전송</button>
 	</div>
 </body>
+
+<%@ include file="/WEB-INF/views/Footer.jsp" %>
+
 </html>

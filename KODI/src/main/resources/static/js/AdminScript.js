@@ -1,9 +1,15 @@
 $(document).ready(function () {
 	//전체 게시글
+    let language = "<%= session.getAttribute("language") %>";
+    let koLanguage = language === "ko";
+    $("#adminbtn").text(koLanguage ? "관리자" : "Admin");
+    $("#logoutbtn").text(koLanguage ? "로그아웃" : "Logout");
+    $("#listallBtn").text(koLanguage ? "전체글" : "Posts");
+    $("#memberlistBtn").text(koLanguage ? "회원목록" : "Users");
     $("#postList").on('click', '.deleteBtn', function (e) {
         e.preventDefault();
         
-        if(confirm('이 게시글을 삭제하시겠습니까?')){
+        if(confirm(koLanguage ? "이 게시글을 삭제하시겠습니까?" : "Do you want to delete this post?")){
 			$.ajax({
             url: '/api/admin/deletepost/' + $(e.target).attr('data-post-idx'),
             dataType: 'json',
@@ -58,7 +64,7 @@ $(document).ready(function () {
 	//전체 회원
     $("#memberList").on('click', '.withdrawBtn', function (e) {
         e.preventDefault();
-        if(confirm('이 회원을 탈퇴 시키겠습니까??')){
+        if(confirm(koLanguage ? "이 회원을 탈퇴시키겠습니까?" : "Do you want to withdraw this user?")){
         $.ajax({
             url: '/api/admin/deletemember/' + $(e.target).attr('data-member-idx'),
             dataType: 'json',
@@ -121,7 +127,7 @@ $(document).ready(function () {
      });
 
      $("#logoutbtn").on("click", function () {
-         if (confirm("로그아웃 하시겠습니까?")) {
+         if (confirm(koLanguage ? "로그아웃 하시겠습니까?" : "Do you want to log out?")) {
 	        $.post("/api/logout", function(response) {
 	            window.location.href = "/";
 	        });

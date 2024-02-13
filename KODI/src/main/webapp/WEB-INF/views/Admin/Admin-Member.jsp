@@ -113,26 +113,7 @@
 							<button id="topBtn">
 								<img src="/image/icon/topicon.png">
 							</button>
-
-
-							<!--<div id="pagination">
-			<div id="pagination">
-			    <c:if test="${currentPage > 1}">
-			        <button class="pageBtn" onclick="loadPage(${currentPage - 1})">이전</button>
-			    </c:if>
-			
-			    <c:forEach var="pageNum" begin="1" end="${totalPages}">
-			        <button class="pageBtn ${pageNum == currentPage ? 'selected' : ''}" onclick="loadPage(${pageNum})">${pageNum}</button>
-			    </c:forEach>
-			
-			    <c:if test="${currentPage < totalPages}">
-			        <button class="pageBtn" onclick="loadPage(${currentPage + 1})">다음</button>
-		    </c:if>
-			</div>
-		</div> -->
-
 						</div>
-
 
 					</div>
 				</div>

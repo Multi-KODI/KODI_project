@@ -61,7 +61,7 @@
             let language = "<%= session.getAttribute("language") %>";
             let koLanguage = language === "ko";
 
-            $("#friendbtn").text(koLanguage ? "친구목록" : "Friends List");
+            $("#friendbtn").text(koLanguage ? "친구목록" : "Friends");
             $("#writebtn").text(koLanguage ? "글작성" : "Post");
             $("#modifybtn").text(koLanguage ? "정보수정" : "Modify");
 

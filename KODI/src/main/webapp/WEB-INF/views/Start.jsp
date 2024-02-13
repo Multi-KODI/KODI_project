@@ -59,8 +59,8 @@ $(document).ready(function() {
 			</div>
 			<div class="language-selection">
 				<select>
-					<option value="ko">한국어</option>
-					<option value="en">English</option>
+					<option value="ko">ko</option>
+					<option value="en">en</option>
 				</select>
 			</div>
 		</div>

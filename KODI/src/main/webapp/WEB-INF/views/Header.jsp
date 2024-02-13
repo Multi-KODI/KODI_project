@@ -32,12 +32,12 @@
 
 			<button class="btn" id="mypagenbtn">마이페이지</button>
 			<button class="btn" id="logoutbtn">로그아웃</button>
-			<!-- <div class="language-selection">
+			<div class="language-selection">
 				<select>
-					<option value="ko">한국어</option>
-					<option value="en">English</option>
+					<option value="ko">ko</option>
+					<option value="en">en</option>
 				</select>
-			</div> -->
+			</div> 
 		</div>
 	</div>
 </header>

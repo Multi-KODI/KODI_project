@@ -62,9 +62,14 @@ public class MemberController {
 	 * @return
 	 */
 	@GetMapping("/login")
-	public ModelAndView loginMember() {
+	public ModelAndView loginMember(HttpSession session) {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("Login");
+		
+		if(session.getAttribute("startLanguage") == null) {
+	    	session.setAttribute("loginLanguage", "ko");
+        } 
+
 		return mv;
 	}
 

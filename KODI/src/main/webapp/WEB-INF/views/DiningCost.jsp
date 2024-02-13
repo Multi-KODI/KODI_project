@@ -135,4 +135,7 @@ $(document).ready(function(){
 	</div>
 </main>
 </body>
+
+<%@ include file="/WEB-INF/views/Footer.jsp" %>
+
 </html>

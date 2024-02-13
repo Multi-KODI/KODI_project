@@ -31,13 +31,13 @@ header {
 .menu {
   justify-content: flex-start;
   cursor: pointer;
-  margin-left: 50px;
+  margin-left: 2%;
 }
 .end-btn {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  margin-right: 50px
+  margin-right: 2%;
 }
 
 .btn{
@@ -61,7 +61,7 @@ header {
   font-family: 'NanumSquareNeo';
   padding: 4px;
   border-radius: 8px;
-  margin-right: 50px;
+  margin-right: 2%;
 }
 
 .menu-content {
@@ -139,7 +139,7 @@ header {
 }
 
 .menu{
-	margin-left: 5px;
+	margin-left: 1%;
 }
 
 .menu-content a {
@@ -147,7 +147,7 @@ header {
 }
 
 .end-btn{
-	margin-right: 0;
+	margin-right: 1%;
 }
 
 .icon{

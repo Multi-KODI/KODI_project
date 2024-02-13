@@ -38,7 +38,7 @@
 
 <script>
 // 지도 옵션
-function initMap(addresses, zoomLevel) {
+function initMap(addresses, zoomLevel, postIdx) {
 	// Geocoder 객체를 선언
     let geocoder = new google.maps.Geocoder();
     let korea = {lat: 35.9078, lng: 127.7669};
@@ -51,39 +51,130 @@ function initMap(addresses, zoomLevel) {
         zoomControl: true
     };
 	
- // 지도를 보여줄 div 영역의 id 값과 위에서 지정한 옵션을 map에 등록
+ 	// 지도를 보여줄 div 영역의 id 값과 위에서 지정한 옵션을 map에 등록
     let map = new google.maps.Map(document.getElementById("googleMap"), mapOptions);
     let bounds = new google.maps.LatLngBounds();
 
-    addresses.forEach(function(address) {
-        geocoder.geocode({ address: address }, function(results, status) {
-            if (status === 'OK') {
-            	// 해당 장소의 위도와 경도 가져오기
-                let location = results[0].geometry.location;
-            	
-             	// 지도에 표시할 마커를 생성
-                let marker = new google.maps.Marker({ position: location, map: map });
-                bounds.extend(marker.getPosition());
-                
-          		// 마커를 클릭했을 때 보여주고 싶은 문구가 있을 경우 추가
-                marker.addListener('click', function() {
-                    let infoWindow = new google.maps.InfoWindow({
-                        content: 
-                        `
-                        <div style="font-family: 'NanumSquareNeo';  ">
-                        ` + address + ` <br><br>
-                        <a href="https://google.com/maps/place/` + address + `" target="_blank">구글 지도에서 보기</a>
-                        `
-                    });
-                    infoWindow.open(map, marker);
-                });
-                map.fitBounds(bounds);
-            } else {
-                console.error('지오코딩 실패:', status);
-            }
-        });
-    });
+    if(addresses) {
+	    addresses.forEach(function(address, index) {
+	        geocoder.geocode({ address: address }, function(results, status) {
+	            if (status === 'OK') {
+	            	// 해당 장소의 위도와 경도 가져오기
+	                let location = results[0].geometry.location;
+	            	
+	             	// 지도에 표시할 마커를 생성
+	                let marker = new google.maps.Marker({ position: location, map: map });
+	                bounds.extend(marker.getPosition());
+	                
+	          		// 마커를 클릭했을 때 보여주고 싶은 문구가 있을 경우 추가
+	                marker.addListener('click', function() {
+	                    let infoWindow = new google.maps.InfoWindow({
+	                        content: 
+	                        `
+	                        <div style="font-family: 'NanumSquareNeo';  ">
+	                        ` + address + ` <br><br>
+	                        <a href="https://google.com/maps/place/` + address + `" target="_blank">구글 지도에서 보기</a> 
+	                        &nbsp&nbsp&nbsp
+	                        <button class="deleteMark" type="button" value="` + postIdx[index] + `" onClick="delMark(this.value);">
+	                        마킹 삭제
+	                        </button> 
+	                        `
+	                    });
+	                    infoWindow.open(map, marker);
+	                });
+	                map.fitBounds(bounds);
+	            } else {
+	                console.error('지오코딩 실패:', status);
+	            }
+	        });
+	    });//forEach
+    }//if
 };
+
+function initMap2(addresses, zoomLevel) {
+	// Geocoder 객체를 선언
+    let geocoder = new google.maps.Geocoder();
+    let korea = {lat: 35.9078, lng: 127.7669};
+    
+	// 지도 옵션
+    let mapOptions = {
+        center: korea,
+        zoom: zoomLevel || 7,
+        disableDefaultUI: true,
+        zoomControl: true
+    };
+	
+ 	// 지도를 보여줄 div 영역의 id 값과 위에서 지정한 옵션을 map에 등록
+    let map = new google.maps.Map(document.getElementById("googleMap"), mapOptions);
+    let bounds = new google.maps.LatLngBounds();
+
+    if(addresses) {
+	    addresses.forEach(function(address) {
+	        geocoder.geocode({ address: address }, function(results, status) {
+	            if (status === 'OK') {
+	            	// 해당 장소의 위도와 경도 가져오기
+	                let location = results[0].geometry.location;
+	            	
+	             	// 지도에 표시할 마커를 생성
+	                let marker = new google.maps.Marker({ position: location, map: map });
+	                bounds.extend(marker.getPosition());
+	                
+	          		// 마커를 클릭했을 때 보여주고 싶은 문구가 있을 경우 추가
+	                marker.addListener('click', function() {
+	                    let infoWindow = new google.maps.InfoWindow({
+	                        content: 
+	                        `
+	                        <div style="font-family: 'NanumSquareNeo';  ">
+	                        ` + address + ` <br><br>
+	                        <a href="https://google.com/maps/place/` + address + `" target="_blank">구글 지도에서 보기</a> 
+	                        `
+	                    });
+	                    infoWindow.open(map, marker);
+	                });
+	                map.fitBounds(bounds);
+	            } else {
+	                console.error('지오코딩 실패:', status);
+	            }
+	        });
+	    });//forEach
+    }//if
+};
+
+function delMark(idx) {
+	var postIdx = idx;
+	$.ajax({
+		url: 'map/marking/delete',
+		type: 'POST',
+		data: {
+			postIdx: postIdx
+		},
+		success: function(){
+			myMark();
+		},
+		error: function(error){
+			console.log(error);
+		}
+	});
+}
+
+function myMark() {
+    var temp = "myMark";
+    $.ajax({
+        url: 'map/marking', 
+        type: 'POST',
+        data:{
+            marking: temp
+        },
+        success: function(map){
+            console.log("성공");
+            console.log(map.markList);
+            initMap(map.markList, 10, map.postIdx);
+        },
+        error: function(error){
+            console.log(error)
+        }
+    });
+}
 
 
 
@@ -92,44 +183,29 @@ $(document).ready(function() {
             alert("로그인하세요");
             location.href = "/";
         } else {
-$("#myMark").on("click", function() {
-    var temp = "myMark";
-    $.ajax({
-        url: 'map/marking', 
-        type: 'POST',
-        data:{
-            marking: temp
-        },
-        success: function(markList){
-            console.log("성공");
-            initMap(markList, 10);
-        },
-        error: function(error){
-            console.log(error)
-        }
-    });
-});
+        	
+	$("#myMark").on("click", myMark);
+	
+	$("#friendMark").on("click", function() {
+	    var temp = "friendMark";
+	    $.ajax({
+	        url: 'map/marking', 
+	        type: 'POST',
+	        data:{
+	            marking: temp
+	        },
+	        success: function(map){
+	            console.log("성공");
+	            initMap2(map.markList, 10);
+	        },
+	        error: function(error){
+	            console.log(error)
+	        }
+	    });
+	});
+	
 
-$("#friendMark").on("click", function() {
-    var temp = "friendMark";
-    $.ajax({
-        url: 'map/marking', 
-        type: 'POST',
-        data:{
-            marking: temp
-        },
-        success: function(markList){
-            console.log("성공");
-            initMap(markList,10);
-        },
-        error: function(error){
-            console.log(error)
-        }
-    });
-});
-
-
-}
+}//if-else
      
 }); //ready
 </script>

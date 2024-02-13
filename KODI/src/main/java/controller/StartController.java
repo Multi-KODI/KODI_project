@@ -8,11 +8,18 @@ import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class StartController {
-	@GetMapping("/")
+    @GetMapping("/")
     public ModelAndView start(HttpSession session) {
         ModelAndView mv = new ModelAndView();
         
-        mv.setViewName("Start");
+        // 세션값 여부
+        if(session.getAttribute("memberIdx") != null) {
+            mv.addObject("isSession", true);
+            mv.setViewName("redirect:/api/home");
+        } else {
+            mv.addObject("isSession", false);
+            mv.setViewName("Start");
+        }
         return mv;
     }
 }

@@ -16,7 +16,11 @@ main {
    padding-bottom: 20px;
 }
 
-
+.alreadySaveImage{
+	
+	width:200px;
+	height:200px;
+}
 #modal {
 	display: none;
 	position: fixed;
@@ -84,7 +88,7 @@ background-color: #EDF2F6;
 }
 .post{
 	margin-top: 3%;
-	margin-left: 30%;
+	margin-left: 25%;
 	margin-bottom: 10%;
 }
 hr {
@@ -215,6 +219,15 @@ background-color: #EDF2F6;
   cursor: pointer;
    box-shadow: 0 2px 2px gray, 0 2px 2px #D9D9D9;
 }
+
+#photoBoxs .oldcontainer{
+	display: flex;
+  flex-wrap: wrap;
+}
+.oldcontainer.imageContainer{
+	 width: 30%; 
+}
+
 #imageAddBtn {
   width: 100px;
   height: 30px;

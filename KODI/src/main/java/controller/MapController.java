@@ -1,7 +1,9 @@
 package controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -40,12 +42,17 @@ public class MapController {
 	
 	@PostMapping("/map/marking")
 	@ResponseBody
-	public List<String> selectMarking(@RequestParam("marking") String marking, HttpSession session) {
+	public Map<String, Object> selectMarking(
+			@RequestParam("marking") String marking, 
+			HttpSession session) {
 		//세션 받아서 int 타입으로 변환
 		String sessionIdx = (String)session.getAttribute("memberIdx");
 		Integer myMemberIdx = Integer.parseInt(sessionIdx);
-		List<String> markList = new ArrayList<String>();
 		
+		List<String> markList = new ArrayList<String>(); //게시글들 주소 저장
+		Map<String, Object> map = new HashMap<>();
+		
+		//나의 마커 선택한 경우
 		if(marking.equals("myMark")) {
 			//내가 저장한 게시글들의 idx
 			List<Integer> myPostIdxs = service.selectMyPostIdx(myMemberIdx);
@@ -55,9 +62,12 @@ public class MapController {
 				String address = service.selectPostAddress(data);
 				markList.add(address);
 			}
+			
+			map.put("postIdx", myPostIdxs);
+			map.put("markList", markList);
 		}
-		
-		if(marking.equals("friendMark")) {
+		//친구들의 마커 선택한 경우
+		else if(marking.equals("friendMark")) {
 			//나의 친구들(서로 친구)의 idx
 			List<Integer> myFriendsIdx = service.selectMyFriendIdx(myMemberIdx);
 			
@@ -73,15 +83,30 @@ public class MapController {
 					}
 				}
 			}
+			map.put("postIdx", friendsPostIdx);
 			
 			//저장된 게시글들의 idx를 기반으로 주소 가져오기
 			for(Integer post : friendsPostIdx) {
 				String address = service.selectPostAddress(post);
 				markList.add(address);
 			}
+			map.put("markList", markList);
 		}
 		
-		return markList;
+		return map;
+	}
+	
+	@PostMapping("/map/marking/delete")
+	@ResponseBody
+	public void deleteMarking(
+			@RequestParam("postIdx") int postIdx, 
+			HttpSession session) {
+		//세션 받아서 int타입으로 변환
+		Integer myMemberIdx = Integer.parseInt((String)session.getAttribute("memberIdx"));
+		/* 검증 */System.out.println(postIdx);
+		
+		service.deleteMarking(myMemberIdx, postIdx);
+		System.out.println("삭제 성공");
 	}
 
 }

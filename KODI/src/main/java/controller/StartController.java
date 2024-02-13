@@ -15,6 +15,9 @@ public class StartController {
         ModelAndView mv = new ModelAndView();
         
     	session.setAttribute("nonLanguage", "ko");
+        if(session.getAttribute("startLanguage") == null) {
+        	session.setAttribute("startLanguage", "ko");
+        } 
         
         // 세션값 여부
         if(session.getAttribute("memberIdx") != null) {
@@ -47,5 +50,16 @@ public class StartController {
     @ResponseBody
     public void nonLanguageFunc(HttpSession session, String language) {
     	session.setAttribute("nonLanguage", language);
+    }
+    
+    /**
+     * 시작 페이지 언어 변경 API
+     * @param session
+     * @param language
+     */
+    @PostMapping("/api/header/startlanguage")
+    @ResponseBody
+    public void startLanguageFunc(HttpSession session, String language) {
+    	session.setAttribute("startLanguage", language);
     }
 }

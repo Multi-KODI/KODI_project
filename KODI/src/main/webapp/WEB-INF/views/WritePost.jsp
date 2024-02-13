@@ -365,7 +365,9 @@ function addTag() {
     inputElement.value = '';
 }
 	
-
+function cancelMove(){
+	location.href="/api/post/"+"${readPostOne.postInfo.postIdx}";
+}
 	
 	
      

@@ -75,7 +75,7 @@ function initMap(addresses, zoomLevel, postIdx) {
 	                        content: 
 	                        `
 	                        <div style="font-family: 'NanumSquareNeo';  ">
-	                        ` + address + ` <br><br>
+	                        주소: ` + address + ` <br><br>
 	                        <a href="https://google.com/maps/search/` + newAddress + `" target="_blank">구글 지도에서 보기</a> 
 	                        &nbsp&nbsp&nbsp
 	                        <button class="deleteMark" type="button" value="` + postIdx[index] + `" onClick="delMark(this.value);">
@@ -131,7 +131,7 @@ function initMap2(addresses, zoomLevel) {
 	                        content: 
 	                        `
 	                        <div style="font-family: 'NanumSquareNeo';  ">
-	                        ` + address + ` <br><br>
+	                        주소: ` + address + ` <br><br>
 	                        <a href="https://google.com/maps/search/` + address + `" target="_blank">구글 지도에서 보기</a> 
 	                        `
 	                    });
@@ -148,19 +148,21 @@ function initMap2(addresses, zoomLevel) {
 
 function delMark(idx) {
 	var postIdx = idx;
-	$.ajax({
-		url: 'map/marking/delete',
-		type: 'POST',
-		data: {
-			postIdx: postIdx
-		},
-		success: function(){
-			myMark();
-		},
-		error: function(error){
-			console.log(error);
-		}
-	});
+	if(confirm("해당 마커를 삭제하시겠습니까?")){
+		$.ajax({
+			url: 'map/marking/delete',
+			type: 'POST',
+			data: {
+				postIdx: postIdx
+			},
+			success: function(){
+				myMark();
+			},
+			error: function(error){
+				console.log(error);
+			}
+		});
+	}
 }
 
 function myMark() {
@@ -173,7 +175,6 @@ function myMark() {
         },
         success: function(map){
             console.log("성공");
-            console.log(map.markList);
             initMap(map.markList, 10, map.postIdx);
         },
         error: function(error){

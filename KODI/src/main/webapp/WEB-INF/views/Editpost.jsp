@@ -387,8 +387,8 @@ var i = 0;
 	    console.log(fileInput.files[0].name);
 	    var fileName = fileInput.files[0].name;
 	    
-	    if (fileName.length > 5) {
-	        alert("파일 이름이 너무 깁니다. 5자 이하로 입력해주세요.");
+	    if (fileName.length > 100) {
+	        alert("파일 이름이 너무 깁니다. 100자 이하로 입력해주세요.");
 	        // 파일 선택 취소
 	        fileInput.value = '';
 	    }

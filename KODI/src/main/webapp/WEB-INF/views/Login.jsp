@@ -10,7 +10,7 @@
 
 <link rel="stylesheet" href="/css/Login.css">
 <script src="/js/jquery-3.7.1.min.js"></script>
-<title>KODI</title>
+<title>KoDi</title>
 <script>
 $(document).ready(function(){
 	let language = <%=session.getAttribute("loginLanguage")%>;

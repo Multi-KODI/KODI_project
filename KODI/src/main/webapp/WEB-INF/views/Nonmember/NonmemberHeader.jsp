@@ -95,7 +95,7 @@ $(document).ready(function () {
 
 	});
 	
-	$("#registerbtn").on("click", function (event) {
+	$("#joinbtn").on("click", function (event) {
 		window.location.href = "/api/join";
 	});
 

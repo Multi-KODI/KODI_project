@@ -144,30 +144,57 @@ $(document).ready(function() {
 	        var contentInput = document.getElementById("writePostContent").value;
 	        var addressInput = document.getElementById("selectedAddressReal").value;
 	
+	        let language = <%=session.getAttribute("language")%>;
+	    	
 	        // 주소가 비어 있는지 확인
 	        if (categoryInput.trim() === "") {
 	            // 주소가 비어 있다면 알림창을 띄움
-	            alert("카테고리를 선택해주세요.");
+	            if(language.value == "en") {
+	            	alert("Please choose a category");
+	            }
+	            else {
+		            alert("카테고리를 선택해주세요.");
+	            }
 	            event.preventDefault();
 	            // 폼 제출을 중지
 	        }else if(gradeInput.trim() === "") {
 	            // 주소가 비어 있다면 알림창을 띄움
-	            alert("평점을 선택해주세요.");
+	            if(language.value == "en") {
+	            	alert("Please choose a point");
+	            }
+	            else {
+		            alert("평점을 선택해주세요.");
+	            }
 	            event.preventDefault();
 	            // 폼 제출을 중지
 	        }else if(titleInput.trim() === "") {
 	            // 주소가 비어 있다면 알림창을 띄움
-	            alert("제목을 입력해주세요.");
+	            if(language.value == "en") {
+	            	alert("Please enter the title");
+	            }
+	            else {
+		            alert("제목을 입력해주세요.");
+	            }
 	            event.preventDefault();
 	            // 폼 제출을 중지
 	        }else if(contentInput.trim() === "") {
 	            // 주소가 비어 있다면 알림창을 띄움
-	            alert("내용을 입력해주세요.");
+	            if(language.value == "en") {
+	            	alert("Please enter the content");
+	            }
+	            else {
+		            alert("내용을 입력해주세요.");
+	            }
 	            event.preventDefault();
 	            // 폼 제출을 중지
 	        }else if(addressInput.trim() === "") {
 	            // 주소가 비어 있다면 알림창을 띄움
-	            alert("주소를 입력해주세요.");
+	            if(language.value == "en") {
+	            	alert("Please enter the address");
+	            }
+	            else {
+		            alert("주소를 입력해주세요.");
+	            }
 	            event.preventDefault();
 	            // 폼 제출을 중지
 	        }

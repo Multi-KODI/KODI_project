@@ -6,17 +6,17 @@
 
 <html lang="en" dir="ltr">
 <head>
-    <title>Planner</title>
-    <link rel="stylesheet" href="/css/Planner.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link
-	href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css"
-	rel="stylesheet">
-    <script src="/js/jquery-3.7.1.min.js"></script>
+<title>Planner</title>
+<link rel="stylesheet" href="/css/Planner.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link
+href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css"
+rel="stylesheet">
+<script src="/js/jquery-3.7.1.min.js"></script>
 <script type="text/javascript" th:inline="javascript">
 let language = <%=session.getAttribute("language")%>;
 </script>
-	<script src="/js/Planner.js" defer></script> 
+<script src="/js/Planner.js" defer></script> 
 <script>
 if (${isSession}==false){
    	alert("로그인하세요");
@@ -118,23 +118,26 @@ $(document).ready(function() {
 		$("#left-side2").text("Useful Applications");
 		$("#ap1").html(`Delivery
 			<ul>
-	            <li>배달의민족</li>
-	            <li>요기요</li>
+	            <li>Baedal Minjok</li>
+	            <li>Yogiyo</li>
 	        </ul> `);
 		$("#ap2").html(`Hotel Reservation
 			<ul>
-	            <li>호텔스컴바인</li>
-	            <li>야놀자</li>
+	            <li>Hotelscombined</li>
+	            <li>Ya NolJa</li>
 	            <li>여기어때</li>
-	            <li>에어비앤비</li>
+	            <li>Airbnb</li>
 	        </ul> `);
 		$("#ap3").html(`Transportation
 			<ul>
-		       <li>카카오맵</li>
-		       <li>카카오택시</li>
-		       <li>티머니GO</li>
-		       <li>네이버맵</li>
+		       <li>Kakao Map</li>
+		       <li>Kakao taxi</li>
+		       <li>TmoneyGO</li>
+		       <li>Naver Map</li>
 			</ul> `);
+		$(".checkListInsertBtn").text("Add");
+		$("#inputCheckListBtn").text("Input");
+		$("#closeCheckkList").text("Close");
 	}
 });
 </script>

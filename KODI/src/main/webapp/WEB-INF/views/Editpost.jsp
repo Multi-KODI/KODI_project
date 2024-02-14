@@ -126,19 +126,19 @@ if(language.value == "en") {
 
 	
 function enVersion(){
-	$('#categoryOpt').html('category');
-	$('#foodOpt').html('restaurant');
-	$('#cafeOpt').html('cafe');
-	$('#hotelOpt').html('hotel');
-	$('#playOpt').html('play');
-	$('#pointOpt').html('grade');
+	$('#categoryOpt').html('Category');
+	$('#foodOpt').html('Restaurant');
+	$('#cafeOpt').html('Cafe');
+	$('#hotelOpt').html('Hotel');
+	$('#playOpt').html('Play');
+	$('#pointOpt').html('Rating');
+	document.getElementById('writePostTitle').placeholder = 'Title';
+	document.getElementById('writePostContent').placeholder = 'Content';
+	document.getElementById('tagInput').placeholder = '#Hash#Tag';
+	document.getElementById('writePostTitle').placeholder = 'Title';
 	document.getElementById('writePostTitle').placeholder = 'title';
-	document.getElementById('writePostContent').placeholder = 'content';
-	document.getElementById('tagInput').placeholder = '#hash#tag';
-	document.getElementById('writePostTitle').placeholder = 'title';
-	document.getElementById('writePostTitle').placeholder = 'title';
-	$('#tagAddBtn').html('Add');
-	document.getElementById('selectedAddressShow').placeholder = 'store address';
+	$('#tagAddBtn').html('To Add');
+	document.getElementById('selectedAddressShow').placeholder = 'Address';
 	$("#addressBtn").val("Look Up");
 	$("#imageAddBtn").html(`<img id="addImageIcon" src="/image/icon/fileupload.png">&nbsp;Image Attached</button>`);
 	document.getElementById('finishBtn').value = 'Completed';

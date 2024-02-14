@@ -28,7 +28,7 @@
 		} else {
 			if(language.value == "en") {
 				$("#exitMsg").text("Go back");
-				$("#sendMsgInput").attr("placeholder", "Please enter your message");
+				$("#sendMsgInput").attr("placeholder", "Enter your message");
 				$("#sendMsgBtn").text("Send");
 			}
 			

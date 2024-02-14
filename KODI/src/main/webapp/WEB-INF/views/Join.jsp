@@ -18,6 +18,7 @@
 			$(document).ready(function () {
 
 				let language = <%=session.getAttribute("joinLanguage")%>;
+				let koLanguage = language === "ko";
 
 				if(language.value == "ko") {
 					$("#languageSelect").val("ko").prop("selected", true);
@@ -79,7 +80,7 @@
 				$("#confirmBtn").on('click', function () {
 					/* 수정 시작2 */
 					if ($("#inputEmail").val() === "") {
-						alert("이메일을 입력해주세요");
+						alert(koLanguage ? "이메일을 입력해주세요" : "Please type your email.");
 
 					} else {
 						$.ajax({
@@ -90,11 +91,11 @@
 							type: "post",
 							success: function (response) {
 								if (response == "인증코드를 발송했습니다, 이메일을 확인해 주세요") {
-									alert(response);
-									$("#confirmCodeForm").html("<input type=\"text\" id=\"inputConfirmCode\" name=\"inputConfirmCode\" placeholder=\"인증코드 입력\" required>&nbsp;" +
-										"&nbsp;<input type=\"button\" id=\"confirmCodeBtn\" value=\"확인\">");
+									alert(koLanguage ? "인증코드를 발송했습니다, 이메일을 확인해 주세요." : "Verification code has been sent. Please check your email.");
+									$("#confirmCodeForm").html("<input type=\"text\" id=\"inputConfirmCode\" name=\"inputConfirmCode\" placeholder=\""+(koLanguage ? "인증코드 입력" : "Enter verification code")+ "\" required>&nbsp;" +
+										"&nbsp;<input type=\"button\" id=\"confirmCodeBtn\" value=\""+(koLanguage ? "확인" : "Verify")+"\">");
 								} else {
-									alert("이미 사용중인 이메일 입니다.");
+									alert((koLanguage ? "이미 사용중인 이메일입니다." : "This email is already in use."));
 								}
 							},
 							error: function (request, status, error) {
@@ -111,14 +112,14 @@
 						type: "post",
 						success: function (response) {
 							if (response == "이메일이 인증되었습니다") {
-								$("#confirmCodeForm").html("<label id='labelEmail'>" + $('#inputEmail').val() + "@" + $("#emailLocation").val() + "</label><br><br><h4>인증완료되었습니다.</h4>");
+								$("#confirmCodeForm").html("<label id='labelEmail'>" + $('#inputEmail').val() + "@" + $("#emailLocation").val() + '"</label><br><br><h4>'+((koLanguage ? "인증완료 되었습니다." : "Your email is verified."))+'</h4>"');
 								$('#inputEmail').hide();
 								$("#confirmBtn").hide();
 								$("#emailLabel").hide();
 								$("#emailLocation").hide();
 								confirmFlag = true;
 							} else {
-								alert("코드를 확인해주세요.");
+								alert((koLanguage ? "코드를 확인해주세요." : "The verification code is incorrect."));
 							}
 						},
 						error: function (xhr, textStatus, errorThrown) {
@@ -141,11 +142,11 @@
 						var nickname = document.getElementById('inputNickname');
 						console.log(password.value + ":" + nickname.value + ":" + confirmFlag);
 						if (password.value.length > 20 || password.value.length < 8) { // 예를 들어 최대 100자로 제한
-							alert('비밀번호는 8자리 이상 20자리 이내로 입력해주세요');
+							alert((koLanguage ? "비밀번호는 8자리 이상 20자리 이내로 입력해주세요" : "Password should be in 8-20 characters."));
 							event.preventDefault(); // 제출을 막음
 							console.log(password.value);
 						} else if (nickname.value.length > 20) { // 예를 들어 최대 100자로 제한
-							alert('닉네임은 20자리 이내로 입력해주세요');
+							alert((koLanguage ? "닉네임은 20자리 이내로 입력해주세요" : "Nickname should be in 20 characters."));
 							event.preventDefault(); // 제출을 막음
 							console.log(nickname.value);
 						} else {
@@ -157,15 +158,15 @@
 								contentType: "application/json",
 								success: function (response) {
 									if (response == "회원등록이 완료되었습니다") {
-										alert(response);
+										alert((koLanguage ? "회원등록이 완료되었습니다" : "Registered successfully"));
 										// location.href = "/api/login";
 									} else if (response == "사용 중인 닉네임입니다") {
-										alert("사용 중인 닉네임입니다");
+										alert((koLanguage ? "사용 중인 닉네임입니다" : "This nickname is already in use."));
 									} else if (response == "이미 회원가입이 완료된 유저입니다") {
-										alert("이미 회원가입이 완료된 유저입니다");
+										alert((koLanguage ? "이미 회원가입이 완료된 유저입니다" : "This user is already registered."));
 									} else {
 										// 회원가입 실패
-										alert("회원가입을 실패했습니다");
+										alert((koLanguage ? "회원가입을 실패하였습니다." : "Registeration failed."));
 									}
 								},
 								error: function (xhr, textStatus, errorThrown) {

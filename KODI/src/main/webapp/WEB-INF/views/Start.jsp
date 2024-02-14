@@ -10,7 +10,7 @@
 	href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css"
 	rel="stylesheet">
 <script src="/js/jquery-3.7.1.min.js"></script>
-<title>KODI</title>
+<title>KoDi</title>
 
 <script>
 	$(document).ready(function() {
@@ -51,9 +51,10 @@
             $(".page3 .joinbtn").text("Join");
             $(".page3 .nonjoinbtn").text("Nonmember");
             $(".page3 .nonjoinbtn").attr("style", "width:120px;")
-			
-			
-			
+            
+            $(".imgbox1 img").attr("src", "/image/page11.png");
+            $(".imgbox2 img").attr("src", "/image/page22.png");
+            $(".imgbox3 img").attr("src", "/image/page33.png");
 		}
 		
 		$("#selectLanguage").change(function() {
@@ -146,14 +147,14 @@
 				한눈에 지역별 게시글 수, 친구의 마킹으로<br> 추천 핫플을 확인하세요!<br>
 			</p>
 		</div>
-		<div class="imgbox">
-			<img src="/image/page1.jpg">
+		<div class="imgbox1">
+			<img src="/image/page1.png">
 		</div>
 	</div>
 
 	<div class="page1-box">
-		<div class="imgbox">
-			<img src="/image/page2.jpg">
+		<div class="imgbox2">
+			<img src="/image/page2.png">
 		</div>
 		<div class="textbox">
 			<p id="title2">📱 커뮤니티로 소통하기</p>
@@ -171,8 +172,8 @@
 				여행 일정, 체크리스트,예산 등을<br> 손쉽게 관리하세요.<br>
 			</p>
 		</div>
-		<div class="imgbox">
-			<img src="/image/page3.jpg">
+		<div class="imgbox3">
+			<img src="/image/page3.png">
 		</div>
 	</div>
 
@@ -209,8 +210,6 @@
 			<button class="nonjoinbtn" id="nonjoinbtn2">비회원</button>
 		</div>
 	</div>
-
-
 
 <%@ include file="/WEB-INF/views/Footer.jsp" %>
 

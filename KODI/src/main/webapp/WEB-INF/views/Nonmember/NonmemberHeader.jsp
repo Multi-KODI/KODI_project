@@ -20,7 +20,7 @@
 			$("#selectLanguage").val("ko").prop("selected", true);
 		} else {
 			$("#selectLanguage").val("en").prop("selected", true);
-			$("#registerbtn").text("Join");
+			$("#joinbtn").text("Join");
 			$("#loginbtn").text("Login");
 		}
 		
@@ -50,7 +50,7 @@
 
 			<div class="end-btn">
 
-				<button class="btn" id="registerbtn">회원가입</button>
+				<button class="btn" id="joinbtn">회원가입</button>
 				<button class="btn" id="loginbtn">로그인</button>
 				<div class="language-selection">
 					<select id="selectLanguage">

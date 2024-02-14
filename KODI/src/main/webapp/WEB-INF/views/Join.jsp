@@ -18,7 +18,8 @@
 			$(document).ready(function () {
 
 				let language = <%=session.getAttribute("joinLanguage")%>;
-				let koLanguage = language === "ko";
+				let value = language.value;
+				let koLanguage = value === "ko";
 
 				if(language.value == "ko") {
 					$("#languageSelect").val("ko").prop("selected", true);

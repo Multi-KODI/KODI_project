@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!-- 헤더 -->
+<%@ include file="/WEB-INF/views/Header.jsp"%>
+<%@ include file="/WEB-INF/views/SearchHeader.jsp"%>
 
 <!DOCTYPE html>
 <html>
@@ -356,10 +359,6 @@
 </script>
 
 <body>
-	<!-- 헤더 -->
-	<%@ include file="/WEB-INF/views/Header.jsp"%>
-	<%@ include file="/WEB-INF/views/SearchHeader.jsp"%>
-
 	<button id="exitChat" type="button">
 		<img id="exitIcon" src="/image/icon/exit-chat.png" align="center">
 		<p id="exitMsg">뒤로 가기</p>

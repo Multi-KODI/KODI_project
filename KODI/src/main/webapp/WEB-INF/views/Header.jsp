@@ -8,7 +8,7 @@
 			<link rel="stylesheet" href="/css/Header.css">
 			<link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css" rel="stylesheet">
 			<script src="/js/jquery-3.7.1.min.js"></script>
-			<title></title>
+			<title>KoDi</title>
 		</head>
 
 		<script>

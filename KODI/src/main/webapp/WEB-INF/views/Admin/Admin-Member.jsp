@@ -160,6 +160,11 @@
 						$("#nickName").html(koLanguage ? "닉네임" : "Nickname");
 						$("#nationality").html(koLanguage ? "국적" : "Nationality");
 						$(".withdrawBtn").html(koLanguage ? "탈퇴" : "Withdraw");
+						
+						if(language == "en") {
+							$(".withdrawBtn").attr("style", "width: 80px;")							
+						}
+						
 						//전체 회원
 						$("#memberList").on('click', '.withdrawBtn', function (e) {
 							e.preventDefault();

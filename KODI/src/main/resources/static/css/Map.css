@@ -38,6 +38,9 @@ main {
 	display: flex;
 }
 
+
+
+
 .deleteMark{
 	font-family: 'NanumSquareNeo';
 	max-width: 80px;
@@ -79,8 +82,13 @@ main {
 	outline: none;
 }
 
+a {
+    color: #6A7EFC;
+}
 
-
+a:active {
+    color: green; 
+}
 
 @media all and (max-width:479px){
 	

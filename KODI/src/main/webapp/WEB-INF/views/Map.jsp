@@ -13,7 +13,7 @@
 <script src="/js/jquery-3.7.1.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=ao70uqkz7f"></script>
-<title>map</title>
+<title>KoDi</title>
 </head>
 <body>
 <%@ include file="/WEB-INF/views/Header.jsp" %>
@@ -22,7 +22,7 @@
 <main>
     <div id="wrap" class="section">
         <div class="titleBox">
-            🗺️
+            
         </div>
 
         <div class="btnBox">
@@ -77,13 +77,13 @@ function initMap(addresses, zoomLevel, postIdx) {
 		                    infoWindow = new google.maps.InfoWindow({
 	                    		content: 
 	   	                        `
-	   	                        <div style="font-family: 'NanumSquareNeo';  ">
-	   	                        Address: ` + address + ` <br><br>
+	   	                        <div style="font-family: 'NanumSquareNeo';  "><strong>
+	   	                        ` + address + ` </strong><br><br>👉🏻
 	   	                        <a href="https://google.com/maps/search/` + address + `" target="_blank">View on google map</a> 
 	   	                    	&nbsp&nbsp&nbsp
 		                        <button class="deleteMark" type="button" value="` + postIdx[index] + `" onClick="delMark(this.value);">
 		                        Delete marking
-		                        </button>
+		                        </button></div>
 	   	                        `
 			                });
 	                   	}
@@ -91,13 +91,13 @@ function initMap(addresses, zoomLevel, postIdx) {
 		                    infoWindow = new google.maps.InfoWindow({
 		                        content: 
 		                        `
-		                        <div style="font-family: 'NanumSquareNeo';  ">
-		                        주소: ` + address + ` <br><br>
+		                        <div style="font-family: 'NanumSquareNeo';  "><strong>
+		                        ` + address + ` </strong><br><br>👉🏻
 		                        <a href="https://google.com/maps/search/` + address + `" target="_blank">구글 지도에서 보기</a> 
 		                        &nbsp&nbsp&nbsp
 		                        <button class="deleteMark" type="button" value="` + postIdx[index] + `" onClick="delMark(this.value);">
 		                        마킹 삭제
-		                        </button>
+		                        </button></div>
 		                        `
 			                });
                     	}
@@ -151,9 +151,9 @@ function initMap2(addresses, zoomLevel) {
 		                    infoWindow = new google.maps.InfoWindow({
 	                    		content: 
 	   	                        `
-	   	                        <div style="font-family: 'NanumSquareNeo';  ">
-	   	                        Address: ` + address + ` <br><br>
-	   	                        <a href="https://google.com/maps/search/` + address + `" target="_blank">View on google map</a> 
+	   	                        <div style="font-family: 'NanumSquareNeo';  "><strong>
+	   	                        ` + address + ` </strong><br><br>👉🏻
+	   	                        <a href="https://google.com/maps/search/` + address + `" target="_blank">View on google map</a></div> 
 	   	                        `
 			                });
 	                   	}
@@ -161,9 +161,9 @@ function initMap2(addresses, zoomLevel) {
 		                    infoWindow = new google.maps.InfoWindow({
 		                        content: 
 		                        `
-		                        <div style="font-family: 'NanumSquareNeo';  ">
-		                        주소: ` + address + ` <br><br>
-		                        <a href="https://google.com/maps/search/` + address + `" target="_blank">구글 지도에서 보기</a> 
+		                        <div style="font-family: 'NanumSquareNeo';  "><strong>
+		                        ` + address + ` </strong><br><br>👉🏻
+		                        <a href="https://google.com/maps/search/` + address + `" target="_blank">구글 지도에서 보기</a></div> 
 		                        `
 			                });
                     	}
@@ -244,6 +244,7 @@ $(document).ready(function() {
 	if(language.value == "en") {
 		$("#myMark").text("My Marking");
 		$("#friendMark").text("Friend Marking");
+		$(".mapBtn").attr("style", "width:110px;")
 	}
 	
 	if (${isSession} == false) {

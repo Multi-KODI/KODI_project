@@ -516,31 +516,7 @@ function webSocket(){
 
 							</tr>
 						</thead>
-						<tbody id="resultTbody">
-							<c:forEach var="vehicle" items="${vehicleList}">
-								<tr>
-									<td>${vehicle.vehicleType}</td>
-									<td>${vehicle.paymentType}</td>
-									<td>${vehicle.seoulCost == 0 ? '-' : vehicle.seoulCost}</td>
-									<td>${vehicle.gwangjuCost == 0 ? '-' : vehicle.gwangjuCost}</td>
-									<td>${vehicle.daeguCost == 0 ? '-' : vehicle.daeguCost}</td>
-									<td>${vehicle.daejeonCost == 0 ? '-' : vehicle.daejeonCost}</td>
-									<td>${vehicle.busanCost == 0 ? '-' : vehicle.busanCost}</td>
-									<td>${vehicle.ulsanCost == 0 ? '-' : vehicle.ulsanCost}</td>
-									<td>${vehicle.incheonCost == 0 ? '-' : vehicle.incheonCost}</td>
-									<td>${vehicle.gangwonCost == 0 ? '-' : vehicle.gangwonCost}</td>
-									<td>${vehicle.gyeonggiCost == 0 ? '-' : vehicle.gyeonggiCost}</td>
-									<td>${vehicle.gyeongnamCost == 0 ? '-' : vehicle.gyeongnamCost}</td>
-									<td>${vehicle.gyeongbukCost == 0 ? '-' : vehicle.gyeongbukCost}</td>
-									<td>${vehicle.jeonnamCost == 0 ? '-' : vehicle.jeonnamCost}</td>
-									<td>${vehicle.jeonbukCost == 0 ? '-' : vehicle.jeonbukCost}</td>
-									<td>${vehicle.chungnamCost == 0 ? '-' : vehicle.chungnamCost}</td>
-									<td>${vehicle.chungbukCost == 0 ? '-' : vehicle.chungbukCost}</td>
-									<td>${vehicle.jejuCost == 0 ? '-' : vehicle.jejuCost}</td>
-									<td>${vehicle.sejongCost == 0 ? '-' : vehicle.sejongCost}</td>
-								</tr>
-							</c:forEach>
-						</tbody>
+						<tbody id="resultTbody"></tbody>
 					</table>
 				</div>
 			</div>

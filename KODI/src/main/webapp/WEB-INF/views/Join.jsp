@@ -12,7 +12,7 @@
 	rel="stylesheet">
 		<link rel="stylesheet" href="/css/Join.css">
 		<script src="/js/jquery-3.7.1.min.js"></script>
-		<title>회원가입</title>
+		<title>KODI</title>
 
 		<script>
 			$(document).ready(function () {

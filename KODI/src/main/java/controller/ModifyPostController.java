@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -56,6 +57,10 @@ public class ModifyPostController {
 		return mv;
 	}
 	
+	//파일 경로
+	@Value("${my.file.dir}")
+	private String myDir;
+	
 	//작성완료 클릭
 	@PostMapping("/post/isupdate")
 	public String isUpdate(WritePostDTO writePostDTO, 
@@ -71,7 +76,7 @@ public class ModifyPostController {
 		//받아온 파일들 저장
 		MultipartFile file[] = writePostDTO.getImagePost();
 		//이미지 파일들 로컬에 저장
-		String fileDir = "C:/FullStack/파이널 프로젝트/git/KODI_project/KODI/src/main/resources/static/image/db/";
+		String fileDir = myDir + "/KODI_project/KODI/src/main/resources/static/image/db/";
 		String imagePath = "";
 		
 		//이미지 저장하는 파일 경로에 있는 이미지 이름들 읽어오기
@@ -97,12 +102,9 @@ public class ModifyPostController {
 						break;
 					}
 					fileonename = "(" + temp + ")" + fileonename;
-					System.out.println("루프:"+fileonename);
 				}
 				//파일 선택에 파일이 들어가 있는 경우
 				if(!data.getOriginalFilename().equals("")) {
-					/* 검증 */System.out.println(fileonename);
-					/* 검증 */System.out.println(imagePath);
 					fileName.add(fileonename);
 					data.transferTo(new File(imagePath));
 				}

@@ -14,6 +14,7 @@
 <script>
 $(document).ready(function(){
 	let language = <%=session.getAttribute("loginLanguage")%>;
+	let koLanguage = language === "ko";
 
 	if(language.value == "ko") {
 		$("#languageSelect").val("ko").prop("selected", true);
@@ -44,7 +45,7 @@ $(document).ready(function(){
 	document.getElementById('loginForm').addEventListener('submit', function(event) {
 	  	var email = document.getElementById('inputEmail');
 	  	if (email.value.length==0) { // 예를 들어 최대 100자로 제한
-	    	alert('아이디를 입력해주세요');
+	    	alert(koLanguage ? "아이디를 입력해주세요" : "Please enter your id.");
 	    	event.preventDefault(); // 제출을 막음
 	  	}
 	});
@@ -73,9 +74,9 @@ $(document).ready(function(){
 	    function login() {
 	    	/* 수정1 입력란 비었을 경우 */
 	        if($("#inputEmail").val()==""){
-	            alert("이메일을 입력해주세요");
+	            alert(koLanguage ? "이메일을 입력해주세요" : "Please enter your email");
 	        } else if($("#inputPassword").val()==""){
-	            alert("비밀번호를 입력해주세요");
+	            alert(koLanguage ? "비밀번호를 입력해주세요" : "Please enter your password");
 	        } else {
 	            var data = {
 	                email: $("#inputEmail").val(),
@@ -91,15 +92,15 @@ $(document).ready(function(){
 	                    if (response == "로그인에 성공하였습니다") {
 	                        location.href = "/api/home";
 	                    } else if(response == "비밀번호를 확인해 주세요") {
-	                        alert(response);
+	                        alert(koLanguage ? "비밀번호를 확인해 주세요" : "Please check your password");
 	                        $("#inputPassword").focus();
 	                    } else if(response == "회원이 존재하지 않습니다"){
-	                        alert(response);
+	                        alert(koLanguage ? "회원이 존재하지 않습니다" : "This user does not exist.");
 	                        $("#inputEmail").focus();
 	                    } else if(response == "관리자로 로그인 하였습니다"){
 	                        location.href = "/api/admin/allposts";
 	                    } else {
-	                        alert("알 수 없는 오류");
+	                        alert(koLanguage ? "알 수 없는 오류" : "Unknown error");
 	                    }
 	                },
 	                error: function(request, e){
@@ -109,50 +110,6 @@ $(document).ready(function(){
 	        }
 	    }
 	});
-
-	/* 수정2 엔터키로 로그인 */
-	/*  $("#loginBtn").on('click', function(){
-		 
-		 if($("#inputEmail").val()==""){
-			 alert("이메일을 입력해주세요");
-		 }else if($("#inputPassword").val()==""){
-			 alert("비밀번호를 입력해주세요");
-		 }else{
-			 
-		 	var data = {
-					email: $("#inputEmail").val(),
-		            pw: $("#inputPassword").val()
-		            };
-		 
-	        $.ajax({
-	            url: "/api/login",
-	            data: JSON.stringify(data),
-	            contentType : 'application/json; charset=utf-8',
-	            type: "post",
-	            success: function(response) {
-	               		
-	                    if (response == "로그인에 성공하였습니다") {// 로그인이 성공
-	                    	location.href = "/api/home";
-	                    } else if(response == "비밀번호를 확인해 주세요") {// 로그인이 실패(비밀번호 잘못입력)
-	                    	alert(response);
-	                    	$("#inputPassword").focus();
-	                    }else if(response == "회원이 존재하지 않습니다"){
-	                    	alert(response);
-	                    	$("#inputEmail").focus();
-	                    }else if(response == "관리자로 로그인 하였습니다"){
-	                    	location.href = "/api/admin/allposts";
-	                    }else{
-	                    	alert("알 수 없는 오류");
-	                    }
-	                
-	            },
-	            error: function(request, e){
-					console.log("코드: " + request.status + "메시지: " + request.responseText + "오류: " + e);
-				}
-	        }); //ajax
-		 }
-	});//btn */
-	
 	
 	$("#joinBtn").on('click', function(){
 		location.href = "/api/join";	

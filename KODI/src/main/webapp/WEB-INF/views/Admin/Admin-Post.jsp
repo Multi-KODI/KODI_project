@@ -14,8 +14,38 @@
 	href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css"
 	rel="stylesheet">
 <script src="/js/jquery-3.7.1.min.js"></script>
-<title>administrator</title>
+<title>KODI</title>
 </head>
+
+<script>
+	$(document).ready(function(){
+		let language = <%=session.getAttribute("adminLanguage")%>;
+
+		if(language.value == "ko") {
+			$("#selectLanguage").val("ko").prop("selected", true);
+		} else {
+			$("#selectLanguage").val("en").prop("selected", true);
+			$("#adminbtn").text("Admin");
+			$("#logoutbtn").text("Logout");
+			$("#listallBtn").text("Post list");
+			$("#memberlistBtn").text("Member list");
+		}
+		
+		$("#selectLanguage").change(function() {
+			$.ajax({
+				url: "/api/admin/adminlanguage",
+				data: {"language": $("#selectLanguage").val()},
+				type: "post",
+				success: function(response){
+					location.reload();
+				},
+				error: function(request, e){
+					alert("코드: " + request.status + "메시지: " + request.responseText + "오류: " + e);
+				}
+			});
+	    });
+	});
+</script>
 
 <body>
 
@@ -29,9 +59,9 @@
 				<button class="btn" id="adminbtn">관리자</button>
 				<button class="btn" id="logoutbtn">로그아웃</button>
 				<div class="language-selection">
-					<select>
-						<option value="ko">한국어</option>
-						<option value="en">English</option>
+					<select id="selectLanguage">
+						<option id="ko" value="ko">한국어</option>
+						<option id="en" value="en">English</option>
 					</select>
 				</div>
 			</div>

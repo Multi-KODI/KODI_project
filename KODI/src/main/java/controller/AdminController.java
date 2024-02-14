@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -58,6 +59,11 @@ public class AdminController {
 	 */
 	@GetMapping("/allmembers")
 	public ModelAndView findAllMemebers(HttpSession session) {
+		
+		if(session.getAttribute("adminLanguage") == null) {
+			session.setAttribute("adminLanguage", "ko");			
+		}
+		
 		if (adminService.validateAdmin(session)) {
 			// 전체 멤버 가져오기
 			List<MemberDTO> members = memberService.findAllMembers();
@@ -137,6 +143,11 @@ public class AdminController {
 		List<MemberDTO> members = memberService.findAllMembers();
 		PostMemberDTO postMember = new PostMemberDTO(posts, members);
 		return postMember;
-
+	}
+	
+	@PostMapping("/adminlanguage")
+	@ResponseBody
+	public void adminLanguageFunc(HttpSession session, String language) {
+		session.setAttribute("adminLanguage", language);
 	}
 }

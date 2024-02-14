@@ -23,7 +23,7 @@
 
 <main>
 <div id="hBox">
-    <p><strong><span style="color: #6A7EFC;">${param.question}</span></strong>에 대한 검색결과 입니다.</p>
+    <p id="s-text"><strong><span style="color: #6A7EFC;">${param.question}</span></strong>에 대한 검색결과 입니다.</p>
     <div class="hBox2">
         <div id="hBox3" style="color: #E5E1DA">게시글</div>
         <div id="hBox4" style="color: #494953">사용자</div>
@@ -100,6 +100,37 @@ function getRandomEmoji() {
 
 
 $(document).ready(function() {
+	let language = <%=session.getAttribute("language")%>;
+	
+	if(language.value == "ko") {
+		koVersion();
+	} else {
+		enVersion();
+	}
+	
+    
+    // 게시글
+    $("#hBox3").on("click", function() {
+        var question = encodeURIComponent("${param.question}");
+        window.location.href = '/api/search?filter=%EA%B2%8C%EC%8B%9C%EA%B8%80&question=' + question;
+    });
+
+    // 사용자
+    $("#hBox4").on("click", function() {
+        var question = encodeURIComponent("${param.question}");
+        window.location.href = '/api/search?filter=%EC%82%AC%EC%9A%A9%EC%9E%90&question=' + question;
+    });
+    
+    
+    
+    
+
+});
+
+function koVersion(){
+	
+
+	
 	$("#memberList .tdDiv#nameBox").each(function() {
         var memberNameDiv = $(this);
         var memberName = memberNameDiv.text().trim();
@@ -216,20 +247,155 @@ $(document).ready(function() {
     }, function() {
         $(this).css({"background-color": "", "color": ""});
     });
+}
+
+
+
+
+function enVersion() {
+	$("#hBox3").text("Post");
+	$("#hBox4").text("User");
+	$("#s-text").html("<strong><span style='color: #6A7EFC;'>${param.question}</span></strong> : Search results ");
+	
+
+	$(".fBtn").each(function() {
+	    var friendState = $(this).text().trim();
+	    switch(friendState) {
+	        case "친구 삭제":
+	            $(this).text("unfriended");
+	            break;
+	        case "요청 취소":
+	            $(this).text("Cancel request");
+	            break;
+	        case "수락":
+	            $(this).text("Accept");
+	            break;
+	        case "친구 신청":
+	            $(this).text("Friend request");
+	            break;
+	        case "거절":
+	            $(this).text("Refuse");
+	            break;
+	        default:
+	            break;
+	    }
+	});
+
+
+
+    $("#memberList").on("click", ".fBtn", function() {
+        var memberId = $(this).data("member-idx");
+        var friendState = $(this).text().trim();
+        console.log(memberId);
+        console.log(friendState);
+        
+        if(friendState === "Friend request") {
+            // 친구신청
+            if(confirm("Would you like to send a friend request?")) {
+                $.ajax({
+                    url: '/api/search/isClickBtn',
+                    type: 'POST',
+                    data:{
+                    	clickState: "친구 신청",
+                    	friendMemberIdx: memberId
+                    },
+                    success: function(response){
+                    	alert("Friend request sent successfully");
+                    },
+                    error: function(xhr, status, error) {
+                    }
+                });
+            }
+        }
+        else if(friendState === "Cancel request") {
+        	//요청 취소
+        	if(confirm("Would you like to cancel the friend request?")) {
+        		$.ajax({
+        			url: '/api/search/isClickBtn',
+                    type: 'POST',
+                    data:{
+                    	clickState: "요청 취소",
+                    	friendMemberIdx: memberId
+                    },
+                    success: function(response){
+                    	alert("Friend request canceled successfully");
+                    },
+                    error: function(xhr, status, error) {
+                    }
+        		});
+        	}
+        }
+        else if(friendState === "Accept") {
+        	//요청 수락
+        	if(confirm("Would you like to accept the friend request?")) {
+        		$.ajax({
+        			url: '/api/search/isClickBtn',
+                    type: 'POST',
+                    data:{
+                    	clickState: "수락",
+                    	friendMemberIdx: memberId
+                    },
+                    success: function(response){
+                    	alert("Friend request accepted successfully");
+                    },
+                    error: function(xhr, status, error) {
+                    }
+        		});
+        	}
+        }
+        else if(friendState === "Refuse") {
+        	//요청 거절
+			if(confirm("Would you like to refuse the friend request?")) {
+        		$.ajax({
+        			url: '/api/search/isClickBtn',
+                    type: 'POST',
+                    data:{
+                    	clickState: "거절",
+                    	friendMemberIdx: memberId
+                    },
+                    success: function(response){
+                    	alert("Friend request declined successfully");
+                    },
+                    error: function(xhr, status, error) {
+                    }
+        		});
+        	}
+        }
+        else if(friendState === "unfriended") {
+            // 삭제
+            if(confirm("Would you like to unfriend this user?")) {
+                $.ajax({
+                	url: '/api/search/isClickBtn',
+                    type: 'POST',
+                    data:{
+                    	friendMemberIdx: memberId,
+                    	clickState: "친구 삭제"
+                    },
+                    success: function(response){
+                    	alert("Friend removed successfully");
+                    },
+                    error: function(xhr, status, error) {
+                    }
+                });
+            }
+        }
+		location.reload(true); //새로고침
+    }); //클릭
     
-    // 게시글
-    $("#hBox3").on("click", function() {
-        var question = encodeURIComponent("${param.question}");
-        window.location.href = '/api/search?filter=%EA%B2%8C%EC%8B%9C%EA%B8%80&question=' + question;
+    $(".fBtn").hover(function() {
+        var friendState = $(this).text().trim();
+        if (friendState === "Friend request" || friendState === "Accept") {
+            $(this).css({"background-color": "#6A7EFC", "color": "#ffffff"});
+        } else if (friendState === "Cancel request" || friendState === "unfriended" || friendState === "Refuse") {
+            $(this).css({"background-color": "#FF5656", "color": "#ffffff"});
+        }
+    }, function() {
+        $(this).css({"background-color": "", "color": ""});
     });
 
-    // 사용자
-    $("#hBox4").on("click", function() {
-        var question = encodeURIComponent("${param.question}");
-        window.location.href = '/api/search?filter=%EC%82%AC%EC%9A%A9%EC%9E%90&question=' + question;
-    });
-
-});
+	
+	
+}
 </script>
 
 

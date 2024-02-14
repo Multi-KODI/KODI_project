@@ -92,8 +92,8 @@
 							success: function (response) {
 								if (response == "인증코드를 발송했습니다, 이메일을 확인해 주세요") {
 									alert(koLanguage ? "인증코드를 발송했습니다, 이메일을 확인해 주세요." : "Verification code has been sent. Please check your email.");
-									$("#confirmCodeForm").html('"<input type=\"text\" id=\"inputConfirmCode\" name=\"inputConfirmCode\" placeholder=\"'+((koLanguage ? "인증코드 입력" : "Enter verification code"))+'\" required>&nbsp;"' +
-										"&nbsp;<input type=\"button\" id=\"confirmCodeBtn\" value=\"확인\">");
+									$("#confirmCodeForm").html("<input type=\"text\" id=\"inputConfirmCode\" name=\"inputConfirmCode\" placeholder=\""+(koLanguage ? "인증코드 입력" : "Enter verification code")+ "\" required>&nbsp;" +
+										"&nbsp;<input type=\"button\" id=\"confirmCodeBtn\" value=\""+(koLanguage ? "확인" : "Verify")+"\">");
 								} else {
 									alert((koLanguage ? "이미 사용중인 이메일입니다." : "This email is already in use."));
 								}

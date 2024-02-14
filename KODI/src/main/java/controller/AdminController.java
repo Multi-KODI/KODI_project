@@ -87,6 +87,11 @@ public class AdminController {
 	@GetMapping("/allposts")
 	public ModelAndView findAllPosts(HttpSession session) {
 		ModelAndView mv = new ModelAndView();
+		
+		if(session.getAttribute("adminLanguage") == null) {
+			session.setAttribute("adminLanguage", "ko");			
+		}
+		
 		// 유저가 관리자일 때
 		if (adminService.validateAdmin(session)) {
 			// 전체 게시물 가져오기

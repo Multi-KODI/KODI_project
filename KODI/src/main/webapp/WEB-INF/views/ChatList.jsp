@@ -11,7 +11,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>KODI</title>
+<title>KoDi</title>
 
 <link href="/css/ChatList.css" rel="stylesheet">
 
@@ -370,8 +370,15 @@
 								chatBtn = document.createElement("input");
 								chatBtn.setAttribute("type", "button");
 								chatBtn.setAttribute("id", "chatBtn");
-								chatBtn.setAttribute("value", "채팅");
-								chatBtn.setAttribute("style", "display: inline-block; border:none; border-radius: 5px; background-color:#EDF2F6; color:gray; width: 50px; float:right; cursor: pointer;");
+								
+								if(language.value == "en") {
+									chatBtn.setAttribute("value", "Chatting");
+									chatBtn.setAttribute("style", "display: inline-block; padding: 2px; border:none; border-radius: 5px; background-color:#EDF2F6; color:gray; width: 80px; float:right; cursor: pointer; font-family: 'NanumSquareNeo';");	
+								} else {
+									chatBtn.setAttribute("value", "채팅");
+									chatBtn.setAttribute("style", "display: inline-block; padding: 2px; border:none; border-radius: 5px; background-color:#EDF2F6; color:gray; width: 50px; float:right; cursor: pointer; font-family: 'NanumSquareNeo';");				
+								}
+								
 								chatBtn.setAttribute("onclick", `clickChatBtn(${"${response[i].friendMemberIdx}"})`);
 								
 								oneFriend.appendChild(chatBtn);

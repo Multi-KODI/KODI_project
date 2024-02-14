@@ -109,7 +109,6 @@ public class PapagoService{
 	public String translateMsg(int memberIdx, int msgMemberIdx, String text) {
 		String result = "";
 		
-		
 		try {
 			// request
 			text = URLEncoder.encode(text, "UTF-8");

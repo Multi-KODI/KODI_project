@@ -26,27 +26,27 @@
 							<button type="button" id="drawbtn">회원탈퇴</button>
 						</dlv>
 
-						<div class="form-group">
+						<div class="form-group1">
 							<label for="email" id="email">이메일</label>
 							<input type="email" class="form-control" id="email" value="${member.email}" readonly>
 						</div>
 
-						<div class="form-group">
+						<div class="form-group1">
 							<label for="newPassword" id="password1">변경 비밀번호</label>
 							<input type="password" class="form-control" id="newPassword" placeholder="변경할 비밀번호 입력">
 						</div>
 
-						<div class="form-group">
+						<div class="form-group1">
 							<label for="confirmPassword" id="password2">비밀번호 확인</label>
 							<input type="password" class="form-control" id="confirmPassword" placeholder="비밀번호 확인">
 						</div>
 
-						<div class="form-group">
+						<div class="form-group1">
 							<label for="nickname" id="nickName">닉네임</label>
 							<input type="text" class="form-control" id="nickname" value="${member.memberName}">
 						</div>
 
-						<div class="form-group">
+						<div class="form-group1">
 							<label for="country" id="nationality">국적</label>
 							<select class="form-control" id="country">
 								<c:forEach var="flag" items="${flags}">

@@ -22,7 +22,7 @@
 <main>
     <div id="wrap" class="section">
         <div class="titleBox">
-            
+            🗺️
         </div>
 
         <div class="btnBox">
@@ -69,20 +69,38 @@ function initMap(addresses, zoomLevel, postIdx) {
 	                // 주소 형태 변경
 	                let newAddress = address.replaceAll(" ", "+");
 	                
-	          		// 마커를 클릭했을 때 보여주고 싶은 문구가 있을 경우 추가
+	            	// 마커를 클릭했을 때 보여주고 싶은 문구가 있을 경우 추가
+	                let language = <%=session.getAttribute("language")%>;
+	                let infoWindow;
 	                marker.addListener('click', function() {
-	                    let infoWindow = new google.maps.InfoWindow({
-	                        content: 
-	                        `
-	                        <div style="font-family: 'NanumSquareNeo';  ">
-	                        ` + address + ` <br><br>
-	                        <a href="https://google.com/maps/search/` + newAddress + `" target="_blank">구글 지도에서 보기</a> 
-	                        &nbsp&nbsp&nbsp
-	                        <button class="deleteMark" type="button" value="` + postIdx[index] + `" onClick="delMark(this.value);">
-	                        마킹 삭제
-	                        </button> 
-	                        `
-	                    });
+	                   	if(language.value == "en") {
+		                    infoWindow = new google.maps.InfoWindow({
+	                    		content: 
+	   	                        `
+	   	                        <div style="font-family: 'NanumSquareNeo';  ">
+	   	                        Address: ` + address + ` <br><br>
+	   	                        <a href="https://google.com/maps/search/` + address + `" target="_blank">View on google map</a> 
+	   	                    	&nbsp&nbsp&nbsp
+		                        <button class="deleteMark" type="button" value="` + postIdx[index] + `" onClick="delMark(this.value);">
+		                        Delete marking
+		                        </button>
+	   	                        `
+			                });
+	                   	}
+                    	else {
+		                    infoWindow = new google.maps.InfoWindow({
+		                        content: 
+		                        `
+		                        <div style="font-family: 'NanumSquareNeo';  ">
+		                        주소: ` + address + ` <br><br>
+		                        <a href="https://google.com/maps/search/` + address + `" target="_blank">구글 지도에서 보기</a> 
+		                        &nbsp&nbsp&nbsp
+		                        <button class="deleteMark" type="button" value="` + postIdx[index] + `" onClick="delMark(this.value);">
+		                        마킹 삭제
+		                        </button>
+		                        `
+			                });
+                    	}
 	                    infoWindow.open(map, marker);
 	                });
 	                map.fitBounds(bounds);
@@ -126,15 +144,29 @@ function initMap2(addresses, zoomLevel) {
 	                let newAddress = address.replaceAll(" ", "+");
 	                
 	          		// 마커를 클릭했을 때 보여주고 싶은 문구가 있을 경우 추가
+	                let language = <%=session.getAttribute("language")%>;
+	                let infoWindow;
 	                marker.addListener('click', function() {
-	                    let infoWindow = new google.maps.InfoWindow({
-	                        content: 
-	                        `
-	                        <div id="address-text" style="font-family: 'NanumSquareNeo';","font-size: 1.2em;">
-	                        ` + address + ` <br><br></div>
-	                        <a href="https://google.com/maps/search/` + address + `" target="_blank">구글 지도에서 보기</a> 
-	                        `
-	                    });
+	                   	if(language.value == "en") {
+		                    infoWindow = new google.maps.InfoWindow({
+	                    		content: 
+	   	                        `
+	   	                        <div style="font-family: 'NanumSquareNeo';  ">
+	   	                        Address: ` + address + ` <br><br>
+	   	                        <a href="https://google.com/maps/search/` + address + `" target="_blank">View on google map</a> 
+	   	                        `
+			                });
+	                   	}
+                    	else {
+		                    infoWindow = new google.maps.InfoWindow({
+		                        content: 
+		                        `
+		                        <div style="font-family: 'NanumSquareNeo';  ">
+		                        주소: ` + address + ` <br><br>
+		                        <a href="https://google.com/maps/search/` + address + `" target="_blank">구글 지도에서 보기</a> 
+		                        `
+			                });
+                    	}
 	                    infoWindow.open(map, marker);
 	                });
 	                map.fitBounds(bounds);
@@ -148,21 +180,42 @@ function initMap2(addresses, zoomLevel) {
 
 function delMark(idx) {
 	var postIdx = idx;
-	if(confirm("해당 마커를 삭제하시겠습니까?")){
-		$.ajax({
-			url: 'map/marking/delete',
-			type: 'POST',
-			data: {
-				postIdx: postIdx
-			},
-			success: function(){
-				myMark();
-			},
-			error: function(error){
-				console.log(error);
-			}
-		});
+	let language = <%=session.getAttribute("language")%>;
+	
+	if(language.value == "en") {
+		if(confirm("Are you sure you want to delete this marker?")){
+			$.ajax({
+				url: 'map/marking/delete',
+				type: 'POST',
+				data: {
+					postIdx: postIdx
+				},
+				success: function(){
+					myMark();
+				},
+				error: function(error){
+					console.log(error);
+				}
+			});
+		} //if end
 	}
+	else {
+		if(confirm("해당 마커를 삭제하시겠습니까?")){
+			$.ajax({
+				url: 'map/marking/delete',
+				type: 'POST',
+				data: {
+					postIdx: postIdx
+				},
+				success: function(){
+					myMark();
+				},
+				error: function(error){
+					console.log(error);
+				}
+			});
+		} //if end
+	} //if-else end
 }
 
 function myMark() {
@@ -191,8 +244,6 @@ $(document).ready(function() {
 	if(language.value == "en") {
 		$("#myMark").text("My Marking");
 		$("#friendMark").text("Friend Marking");
-		$(".mapBtn").attr("style", "width:110px;")
-		
 	}
 	
 	if (${isSession} == false) {

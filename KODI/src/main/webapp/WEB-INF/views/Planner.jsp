@@ -125,7 +125,7 @@ $(document).ready(function() {
 			<ul>
 	            <li>Hotelscombined</li>
 	            <li>Ya NolJa</li>
-	            <li>여기어때</li>
+	            <li>YeoGi Eottae</li>
 	            <li>Airbnb</li>
 	        </ul> `);
 		$("#ap3").html(`Transportation

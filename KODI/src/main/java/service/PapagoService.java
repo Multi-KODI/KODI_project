@@ -10,9 +10,9 @@ import java.net.URLEncoder;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import config.NaverInfo;
 import dao.LiveChatDAO;
 
 @Service("papagoservice")
@@ -21,6 +21,12 @@ public class PapagoService{
 	@Autowired
 	@Qualifier("livechatdao")
 	LiveChatDAO dao;
+	
+	@Value("${papago.client.id}")
+	private String clientId;
+	
+	@Value("${papago.client.secret}")
+	private String clientSecret;
 	
 	/**
 	 * 메시지 보낸 사람과 현재 사용자의 국적 비교
@@ -103,8 +109,6 @@ public class PapagoService{
 	public String translateMsg(int memberIdx, int msgMemberIdx, String text) {
 		String result = "";
 		
-		String clientId = NaverInfo.papago_clientId;
-		String clientSecret = NaverInfo.papago_clientSecret;
 		
 		try {
 			// request

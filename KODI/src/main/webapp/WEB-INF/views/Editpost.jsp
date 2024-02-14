@@ -117,9 +117,7 @@ if (${isSession}==false){
 </body>
 <%@ include file="/WEB-INF/views/Footer.jsp" %>
 <script>
-	
 let language = <%=session.getAttribute("language")%>; 
-
 
 if(language.value == "en") {
 
@@ -254,7 +252,8 @@ function enVersion(){
 		    deleteImageBtn.onclick = function () {
 		    	let imgsrc = this.parentNode.firstChild.src.split("/");  
 			    imagename = imgsrc[imgsrc.length-1];
-		        deleteImageFunction(this.id, imagename, postIdx);
+			    imagename = decodeURI(imagename);
+		        deleteImageFunction(this.id, imagename, postIdx, language);
 		    };
 
 		    // 이미지, 버튼 담는 부모 div 생성
@@ -268,27 +267,47 @@ function enVersion(){
 		}
 		
 		
-	function deleteImageFunction(index, imageName, postIdx) {
+	function deleteImageFunction(index, imageName, postIdx, language) {
 	    var containerToDelete = document.getElementById(index);
-	   console.log(containerToDelete.parentNode.tagName +":"+index);
-	    containerToDelete.parentNode.remove();
+	   	console.log(containerToDelete.parentNode.tagName +":"+index);
 	   
-
 	    console.log("Delete image with imageName: " + imageName);
 	    console.log("Delete image with postIdx: " + postIdx);
-	    
-	    $.ajax({
-	        url: "/api/post/image/isdelete",
-	        type: 'post',
-	        data: {
-	            imageSrc: imageName,
-	            postIdx: postIdx
-	        },
-	        success:function(){},
-	        error: function (error) {
-	            console.log(error);
-	        }
-	    });
+	    /*검증*/console.log(language.value);
+	  	if(language.value == "en") {
+	  		if(confirm("Are you sure you want to delete the image?\n(Image deletion cannot be undone even if you click the cancel button.)")) {
+			    containerToDelete.parentNode.remove();
+			    $.ajax({
+			        url: "/api/post/image/isdelete",
+			        type: 'post',
+			        data: {
+			            imageSrc: imageName,
+			            postIdx: postIdx
+			        },
+			        success:function(){},
+			        error: function (error) {
+			            console.log(error);
+			        }
+			    });
+		    }//if end
+	  	}
+	  	else {
+		    if(confirm("사진을 삭제하시겠습니까?\n(사진 삭제는 취소 버튼을 눌러도 되돌릴 수 없습니다.)")) {
+			    containerToDelete.parentNode.remove();
+			    $.ajax({
+			        url: "/api/post/image/isdelete",
+			        type: 'post',
+			        data: {
+			            imageSrc: imageName,
+			            postIdx: postIdx
+			        },
+			        success:function(){},
+			        error: function (error) {
+			            console.log(error);
+			        }
+			    });
+		    }//if end
+	  	}//if-else end
 	}
 
 
@@ -490,5 +509,6 @@ function addTag() {
 function cancelMove(){
 	location.href="/api/post/"+"${readPostOne.postInfo.postIdx}";
 }
+
 </script>
 </html>

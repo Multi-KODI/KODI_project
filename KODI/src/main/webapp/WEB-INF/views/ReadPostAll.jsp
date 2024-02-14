@@ -69,37 +69,81 @@
 </c:forEach>
 </div>
 <script>
-/* if(${isSession} == false) {
-    alert("로그인하세요");
-    location.href = "/";
- } */
-var category = "${category}";
-if(category == "맛집"){
-	$("#food").css("background-color", "#EDF2F6");
-}else if(category == "카페"){
-	$("#cafe").css("background-color", "#EDF2F6");
-}else if(category == "놀거리"){
-	$("#play").css("background-color", "#EDF2F6");
-}else if(category == "숙소"){
-	$("#hotel").css("background-color", "#EDF2F6");
+ 
+let language = <%=session.getAttribute("language")%>; 
+
+
+if(language.value == "ko") {
+	koVersion();
+} else {
+	enVersion();
 }
 
-$("#food").on("click", function(){
-	location.href = "/api/posts/food";
-});
+function koVersion() {
+	var category = "${category}";
+	if(category == "맛집"){
+		$("#food").css("background-color", "#EDF2F6");
+	}else if(category == "카페"){
+		$("#cafe").css("background-color", "#EDF2F6");
+	}else if(category == "놀거리"){
+		$("#play").css("background-color", "#EDF2F6");
+	}else if(category == "숙소"){
+		$("#hotel").css("background-color", "#EDF2F6");
+	}
 
-$("#cafe").on("click", function(){
-	location.href = "/api/posts/cafe";
-});
+	$("#food").on("click", function(){
+		location.href = "/api/posts/food";
+	});
+	
+	$("#cafe").on("click", function(){
+		location.href = "/api/posts/cafe";
+	});
+	
+	$("#play").on("click", function(){
+		location.href = "/api/posts/play";
+	});
+	
+	$("#hotel").on("click", function(){
+		location.href = "/api/posts/hotel";
+	});
+};
 
-$("#play").on("click", function(){
-	location.href = "/api/posts/play";
-});
 
-$("#hotel").on("click", function(){
-	location.href = "/api/posts/hotel";
-});
+function enVersion() {
+	$('#food').html('restaurant');
+	$('#cafe').html('cafe');
+	$('#play').html('play');
+	$('#hotel').html('hotel');
+	
+	var category = "${category}";
+	if(category == "맛집"){
+		$("#food").css("background-color", "#EDF2F6");
+	}else if(category == "카페"){
+		$("#cafe").css("background-color", "#EDF2F6");
+	}else if(category == "놀거리"){
+		$("#play").css("background-color", "#EDF2F6");
+	}else if(category == "숙소"){
+		$("#hotel").css("background-color", "#EDF2F6");
+	}
 
+	$("#food").on("click", function(){
+		location.href = "/api/posts/food";
+	});
+	
+	$("#cafe").on("click", function(){
+		location.href = "/api/posts/cafe";
+	});
+	
+	$("#play").on("click", function(){
+		location.href = "/api/posts/play";
+	});
+	
+	$("#hotel").on("click", function(){
+		location.href = "/api/posts/hotel";
+	});
+
+	
+};
 </script>
 </main>
 </body>

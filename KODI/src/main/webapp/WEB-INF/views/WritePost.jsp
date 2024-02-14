@@ -126,6 +126,9 @@ $(document).ready(function() {
 		$("#imageAddBtn").html(`<img id="addImageIcon" src="/image/icon/fileupload.png">&nbsp;Image Attached</button>`);
 		$("#finishBtn").val("Completed");
 		$("#cancelBtn").val("Cancel");
+		document.getElementById('inputStoreName').placeholder = 'place name, address';
+		$('#searchAddressBtn').html('Search');
+		$('#closeModalBtn').html('Close');
 	}
 });
 //...

@@ -104,7 +104,7 @@
 						//친구요청 취소
 						$("#friendList2").on('click', '#f-cancelBtn', function (e) {
 							e.preventDefault();
-							if (confirm(koLanguage ? "친구요청을 취소하시겠습니까?" : "Would you like to cancel friend request?")) {
+							if (confirm(koLanguage ? "친구요청을 취소하시겠습니까?" : "Would you like to cancel this friend request?")) {
 								$.ajax({
 									url: '/api/following/delete/' + $(e.target).attr('data-member-idx'),
 									dataType: 'json',

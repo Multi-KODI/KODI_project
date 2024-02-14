@@ -13,9 +13,36 @@
                 <script src="/js/jquery-3.7.1.min.js"></script>
                 <title>administrator</title>
             </head>
+            <script>
+                $(document).ready(function () {
+                    let language = <%=session.getAttribute("adminLanguage") %>;
+                    if (language.value == "ko") {
+                        $("#selectLanguage").val("ko").prop("selected", true);
+                    } else {
+                        $("#selectLanguage").val("en").prop("selected", true);
+                        $("#adminbtn").text("Admin");
+                        $("#logoutbtn").text("Logout");
+                        $("#listallBtn").text("Post list");
+                        $("#memberlistBtn").text("Member list");
+                    }
+
+                    $("#selectLanguage").change(function () {
+                        $.ajax({
+                            url: "/api/admin/adminlanguage",
+                            data: { "language": $("#selectLanguage").val() },
+                            type: "post",
+                            success: function (response) {
+                                location.reload();
+                            },
+                            error: function (request, e) {
+                                alert("코드: " + request.status + "메시지: " + request.responseText + "오류: " + e);
+                            }
+                        });
+                    });
+                });
+            </script>
 
             <body>
-
                 <header>
                     <div class="header-container">
                         <div class="menu">
@@ -26,9 +53,9 @@
                             <button class="btn" id="adminbtn">관리자</button>
                             <button class="btn" id="logoutbtn">로그아웃</button>
                             <div class="language-selection">
-                                <select>
-                                    <option value="ko">한국어</option>
-                                    <option value="en">English</option>
+                                <select id="selectLanguage">
+                                    <option id="ko" value="ko">한국어</option>
+                                    <option id="en" value="en">English</option>
                                 </select>
                             </div>
                         </div>
@@ -50,10 +77,10 @@
                         <div class="title">
 
                             <div id="title">
-                                <span style="margin-left: 10px;">전체 회원</span>
+                                <span style="margin-left: 10px;" id="memberTitle">전체 회원</span>
                                 <form action="/api/adminsearch">
                                     <select id="searchselect" name="filter">
-                                        <option value="사용자">사용자</option>
+                                        <option value="사용자" id="memberValue">사용자</option>
                                     </select> <input id="searchinput" name="question">
                                     <button type="submit" style="border: none; background: none; cursor: pointer;">
                                         <img src="/image/icon/search.png"
@@ -68,13 +95,13 @@
                                 <thead>
                                     <tr>
                                         <th>
-                                            <div class="tdDiv">이메일</div>
+                                            <div class="tdDiv" id="email">이메일</div>
                                         </th>
                                         <th>
-                                            <div class="tdDiv">닉네임</div>
+                                            <div class="tdDiv" id="nickName">닉네임</div>
                                         </th>
                                         <th>
-                                            <div class="tdDiv">국적</div>
+                                            <div class="tdDiv" id="nationality">국적</div>
                                         </th>
                                     </tr>
                                 </thead>
@@ -86,7 +113,7 @@
                                                 <div class="tdDiv">
                                                     <c:forEach var="user" items="${members}">
                                                         <c:if test="${member.memberIdx eq user.memberIdx}">
-                                                                        ${user.email}</c:if>
+                                                            ${user.email}</c:if>
                                                     </c:forEach>
                                                 </div>
                                             </td>
@@ -116,34 +143,74 @@
                                 <img src="/image/icon/topicon.png">
                             </button>
 
-
-  <!--<div id="pagination">
-	<div id="pagination">
-	    <c:if test="${currentPage > 1}">
-	        <button class="pageBtn" onclick="loadPage(${currentPage - 1})">이전</button>
-	    </c:if>
-	
-	    <c:forEach var="pageNum" begin="1" end="${totalPages}">
-	        <button class="pageBtn ${pageNum == currentPage ? 'selected' : ''}" onclick="loadPage(${pageNum})">${pageNum}</button>
-	    </c:forEach>
-	
-	    <c:if test="${currentPage < totalPages}">
-	        <button class="pageBtn" onclick="loadPage(${currentPage + 1})">다음</button>
-    </c:if>
-	</div>
-</div> -->
-
                         </div>
 
 
                     </div>
                 </div>
 
+                <script>
+                    $(document).ready(function () {
+                        let language = "<%= session.getAttribute("adminLanguage") %>";
+                        let koLanguage = language === "ko";
+                        $("#memberTitle").html(koLanguage ? "전체회원" : "All Users");
+                        $("#memberValue").html(koLanguage ? "사용자" : "User");
+                        $("#email").html(koLanguage ? "이메일" : "Email");
+                        $("#nickName").html(koLanguage ? "닉네임" : "Nickname");
+                        $("#nationality").html(koLanguage ? "국적" : "Nationality");
+                        $(".withdrawBtn").html(koLanguage ? "탈퇴" : "Withdraw");
+                        //전체 회원
+                        $("#memberList").on('click', '.withdrawBtn', function (e) {
+                            e.preventDefault();
+                            if (confirm(koLanguage ? "이 회원을 탈퇴시키겠습니까?" : "Would you like to withdraw this user?")) {
+                                $.ajax({
+                                    url: '/api/admin/deletemember/' + $(e.target).attr('data-member-idx'),
+                                    dataType: 'json',
+                                    type: "get",
+                                    success: function (response) {
 
+                                        $('#memberList').html(''); // Clear the content inside <TBODY>
+                                        let result = "";
+                                        for (let i = 0; i < response.memberDTO.length; i++) {
+                                            for (let j = 0; j < response.flagDTO.length; j++) {
+                                                if (response.memberDTO[i].flagIdx === response.flagDTO[j].flagIdx) {
+                                                    result +=
+                                                        '<tr>' +
+                                                        '<td>' +
+                                                        '<div class="tdDiv">' +
+                                                        response.memberDTO[i].email +
+                                                        '</div>' +
+                                                        '</td>' +
+                                                        '<td>' +
+                                                        '   <div class="tdDiv">' +
+                                                        response.memberDTO[i].memberName +
+                                                        '</div>' +
+                                                        '</td>' +
+                                                        '<td>' +
+                                                        '   <div class="tdDiv" style="display: flex; align-items: center;">' + '<img style="width: 16px; height: 16px; margin-right: 3px;" src="' + response.flagDTO[j].src + '"></img>' +
+                                                        response.flagDTO[j].country +
+                                                        '</div>' +
+                                                        '</td>' +
+
+                                                        '<td>' +
+                                                        '<a class="withdrawBtn" data-member-idx="' + response.memberDTO[i].memberIdx + '" href="/api/admin/deletemember/' + response.memberDTO[i].memberIdx + '">' + (koLanguage ? "탈퇴" : "Withdraw") + '</a>' +
+                                                        '</td>' +
+
+                                                        '</tr>';
+                                                }
+                                            }
+                                        }
+                                        $('#memberList').html(result);
+                                    }
+                                });
+                            }
+                        });
+                    });
+                </script>
                 <script src="/js/AdminScript.js"></script>
 
 
 
             </body>
-<%@ include file="/WEB-INF/views/Footer.jsp" %>
+
             </html>

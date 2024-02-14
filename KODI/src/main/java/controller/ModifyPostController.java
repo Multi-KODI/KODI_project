@@ -3,10 +3,12 @@ package controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -55,6 +57,10 @@ public class ModifyPostController {
 		return mv;
 	}
 	
+	//파일 경로
+	@Value("${my.file.dir}")
+	private String myDir;
+	
 	//작성완료 클릭
 	@PostMapping("/post/isupdate")
 	public String isUpdate(WritePostDTO writePostDTO, 
@@ -70,20 +76,36 @@ public class ModifyPostController {
 		//받아온 파일들 저장
 		MultipartFile file[] = writePostDTO.getImagePost();
 		//이미지 파일들 로컬에 저장
-		String fileDir = "C:/FullStack/파이널 프로젝트/git/KODI_project/KODI/src/main/resources/static/image/db/";
+		String fileDir = myDir + "/KODI_project/KODI/src/main/resources/static/image/db/";
 		String imagePath = "";
 		
-//		File dirFile = new File(fileDir);
-//		File[] fileList = dirFile.listFiles();
-//		System.out.println(fileList.toString());
+		//이미지 저장하는 파일 경로에 있는 이미지 이름들 읽어오기
+		File dir = new File(fileDir);
+		String[] filenamestemp = dir.list();
+		//배열을 리스트로 변환
+		List<String> filenames = Arrays.asList(filenamestemp);
+		int temp = 0;
 		
 		//파일이 있는 경우에만 저장(사진첨부를 눌러서 파일 선택이 생성된 경우)
 		if(file != null) {
 			for(MultipartFile data : file) {
-				imagePath = fileDir + data.getOriginalFilename();
+				//파일 이름 하나 저장
+				String fileonename = data.getOriginalFilename();
+				while(true) {
+					if(filenames.contains(fileonename)) {
+						temp++;
+						//파일 이름 원상 복구
+						fileonename = data.getOriginalFilename();
+					}
+					else {
+						imagePath = fileDir + fileonename;
+						break;
+					}
+					fileonename = "(" + temp + ")" + fileonename;
+				}
 				//파일 선택에 파일이 들어가 있는 경우
 				if(!data.getOriginalFilename().equals("")) {
-					fileName.add(data.getOriginalFilename());
+					fileName.add(fileonename);
 					data.transferTo(new File(imagePath));
 				}
 			}

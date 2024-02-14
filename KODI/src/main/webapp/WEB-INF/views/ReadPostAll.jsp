@@ -6,6 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="/css/ReadPostAll.css">
@@ -60,8 +61,8 @@
        	<div class="address">
 			${post.postInfo.address}
         </div>
-        <c:forEach items="${post.postTags}" var="tag">
-			<div style=" display: inline; border: 2px solid #FF5656; background-color: #FF5656; border-radius: 10px; color: white; padding-left: 10px; padding-right: 10px; margin-left: 10px;">${tag}</div>
+        <c:forEach begin="0" end="2" items="${post.postTags}" var="tag">
+			<div id='tag'>${tag}</div>
 		</c:forEach>
 	</div>
 </div>

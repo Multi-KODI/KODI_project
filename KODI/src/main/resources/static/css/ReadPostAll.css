@@ -50,13 +50,21 @@ main {
 	display: flex;
 	justify-content: flex-end;
 }
+
+
+
+
+
+
 .listBox {
-  width: 25%; /* 각 게시글이 한 줄에 3개씩 나타나도록 조정 */
+  width: 25%;
   margin-bottom: 20px;
   box-sizing: border-box;
   transition: transform 0.3s ease-in-out;
-  background-color: #fff;
+  background-color: #e9e9e9;
 }
+
+
 
 .listBox:hover {
   transform: scale(1.05); /* 마우스를 올렸을 때 약간 확대 */
@@ -105,9 +113,83 @@ margin-top: 10px;
  	margin-bottom: 20px;
 }
 
+
+#tag{
+	
+	display: inline; 
+	border: 2px solid #FF5656; 
+	background-color: #FF5656; 
+	border-radius: 10px; 
+	color: white; 
+	padding-left: 6px; 
+	padding-right: 6px; 
+	margin-left: 6px;
+	font-size: 17px;
+}
+
 /* 태그 스타일링 */
 .listBox div[style^="display: inline;"] {
   margin-top: 10px;
   margin-right: 5px; /* 태그 사이에 간격 추가 */
 }
 /* 추가적으로 필요한 스타일링은 여기에 추가하세요 */
+
+@media screen and (max-width: 800px) {
+ .listBox {
+  width: 45%; 
+  margin-bottom: 20px;
+  box-sizing:border-box;
+  transition: transform 0.3s ease-in-out;
+  background-color: #fff;
+  }
+.contentBox {
+	height:300px;
+  border: 1px solid #ddd;
+  padding: 15px;
+  box-sizing: border-box;
+}
+
+#image img {
+  width: 160px;
+  height: 160px;
+  object-fit: cover; /* 이미지 비율 유지하며 300x300 크기로 표시 */
+ 	margin-left:5%;
+}
+
+.categoryBox{
+	display: flex;
+      justify-content: space-between;
+      width: 90%; /* 적절한 너비 조절 */
+      height:40px;
+      margin: 0 auto; /* 가운데 정렬 */
+	background-color: transparent;
+	border-radius: 10px;
+	border: 2px solid #e9e9e9;
+	margin-bottom: 20px;
+}
+#tag{
+	
+	display: inline; 
+	border: 2px solid #FF5656; 
+	background-color: #FF5656; 
+	border-radius: 10px; 
+	color: white; 
+	padding-left: 6px; 
+	padding-right: 6px; 
+	margin-left: 6px;
+	font-size: 12px;
+}
+#title {
+  margin-top: 10px;
+font-size:15px;
+}
+
+.address {
+  margin-top: 10px;
+ 	margin-bottom: 20px;
+ 	font-size:10px;
+}
+
+}
+ 
+

@@ -3,6 +3,7 @@ package controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,17 +74,36 @@ public class ModifyPostController {
 		String fileDir = "C:/FullStack/파이널 프로젝트/git/KODI_project/KODI/src/main/resources/static/image/db/";
 		String imagePath = "";
 		
-//		File dirFile = new File(fileDir);
-//		File[] fileList = dirFile.listFiles();
-//		System.out.println(fileList.toString());
+		//이미지 저장하는 파일 경로에 있는 이미지 이름들 읽어오기
+		File dir = new File(fileDir);
+		String[] filenamestemp = dir.list();
+		//배열을 리스트로 변환
+		List<String> filenames = Arrays.asList(filenamestemp);
+		int temp = 0;
 		
 		//파일이 있는 경우에만 저장(사진첨부를 눌러서 파일 선택이 생성된 경우)
 		if(file != null) {
 			for(MultipartFile data : file) {
-				imagePath = fileDir + data.getOriginalFilename();
+				//파일 이름 하나 저장
+				String fileonename = data.getOriginalFilename();
+				while(true) {
+					if(filenames.contains(fileonename)) {
+						temp++;
+						//파일 이름 원상 복구
+						fileonename = data.getOriginalFilename();
+					}
+					else {
+						imagePath = fileDir + fileonename;
+						break;
+					}
+					fileonename = "(" + temp + ")" + fileonename;
+					System.out.println("루프:"+fileonename);
+				}
 				//파일 선택에 파일이 들어가 있는 경우
 				if(!data.getOriginalFilename().equals("")) {
-					fileName.add(data.getOriginalFilename());
+					/* 검증 */System.out.println(fileonename);
+					/* 검증 */System.out.println(imagePath);
+					fileName.add(fileonename);
 					data.transferTo(new File(imagePath));
 				}
 			}

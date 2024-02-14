@@ -211,8 +211,11 @@ if (${isSession}==false){
 		    deleteImageBtn.style.backgroundColor = "transparent"; // 배경색 없애기
 		    deleteImageBtn.style.border = "none"; 
 		    // 버튼 onclick 속성 정의
+		    
 		    deleteImageBtn.onclick = function () {
-		        deleteImageFunction(this.id, imageName, postIdx);
+		    	let imgsrc = this.parentNode.firstChild.src.split("/");  
+			    imagename = imgsrc[imgsrc.length-1];
+		        deleteImageFunction(this.id, imagename, postIdx);
 		    };
 
 		    // 이미지, 버튼 담는 부모 div 생성

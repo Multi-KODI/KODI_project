@@ -1,4 +1,6 @@
 										/*플래너 구현*/
+let newlanguage = language.value;
+										
 const daysTag = document.querySelector(".days"),
   currentDate = document.querySelector(".current-date"),
   prevNextIcon = document.querySelectorAll(".icons span");
@@ -97,7 +99,7 @@ const handleDateSelection = (clickedDate) => {
       success:function(response){
          console.log(response)
          var schedulelist = response.schedulelist;
-     	 makeModal(dateRange, schedulelist);
+     	 makeModal(dateRange, schedulelist, newlanguage);
       },
       error:function(error){
          console.log(error);
@@ -116,7 +118,7 @@ const handleDateSelection = (clickedDate) => {
   
 }
 
-function makeModal(dateList, schedulelist){
+function makeModal(dateList, schedulelist, newlanguage){
    	document.querySelector('.modal').style.display ='block';
    	var container = document.querySelector('.pop-planner');
    	/*var container = document.querySelector('.pop-modal');*/
@@ -131,8 +133,8 @@ function makeModal(dateList, schedulelist){
 		}
 		
 		modalDiv.innerHTML +=
-		'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="modalBtn" id="insertBtn" onclick="saveDiv(' + dateList[i] + ' , ' + i +')">저장</button>&nbsp;'
-		+'<button class="modalBtn" id="deleteBtn" onclick="deleteDiv(' + i+','+dateList[i] + ')">삭제</button><br>'
+		'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="modalBtn" id="insertBtn" onclick="saveDiv(' + dateList[i] + ',' + i + ',' + newlanguage + ')">저장</button>&nbsp;'
+		+'<button class="modalBtn" id="deleteBtn" onclick="deleteDiv(' + i+','+dateList[i] + ',' + newlanguage+')">삭제</button><br>'
 		+'<textarea class="scheduleContent" cols="25" rows="7">'+schedulelist[i]+'</textarea><br>';
 
 		document.querySelector('.pop-planner').appendChild(modalDiv);
@@ -155,7 +157,7 @@ function deleteAllChildren(element) {
     }
 }
 
-function deleteDiv(index, date) {
+function deleteDiv(index, date, newlanguage) {
     var container = document.querySelector('.pop-planner');
     console.log(container.tagName);
     console.log(container.children.length +":" + index);
@@ -165,26 +167,46 @@ function deleteDiv(index, date) {
     inputElement.value="";
     console.log(inputElement);
     
-    $.ajax({
-	  	url:"/api/planner/schedule/isdelete",
-	  	type:'post',
-	  	data:{ 
-	     	date:date,
-	 	},
-	 	success: function(){
-			 
-		 },
-		error : function(error) {  
-        	console.log(error);
+    if(newlanguage.value == "ko") {
+	    if(confirm("해당 일정을 삭제하시겠습니까?")) {
+		    $.ajax({
+			  	url:"/api/planner/schedule/isdelete",
+			  	type:'post',
+			  	data:{ 
+			     	date:date,
+			 	},
+			 	success: function(){
+					 
+				 },
+				error : function(error) {  
+		        	console.log(error);
+				}
+		      
+		   });
 		}
-      
-   });
-   alert("삭제되었습니다");
-    
+	}
+	else {
+		if(confirm("Are you sure you want to delete this schedule?")) {
+		    $.ajax({
+			  	url:"/api/planner/schedule/isdelete",
+			  	type:'post',
+			  	data:{ 
+			     	date:date,
+			 	},
+			 	success: function(){
+					 
+				 },
+				error : function(error) {  
+		        	console.log(error);
+				}
+		      
+		   });
+		}
+	}
     
 }
 
-function saveDiv(target, index) {
+function saveDiv(target, index, newlanguage) {
     /*var container = document.querySelector('.pop-modal');*/
 	var container = document.querySelector('.pop-planner');
     
@@ -216,7 +238,12 @@ function saveDiv(target, index) {
 		}
       
    });
-   alert("저장되었습니다");
+   if(newlanguage.value == "ko") {
+	   alert("저장되었습니다");
+   }
+   else {
+	   alert("Schedule has been saved.");
+   }
 }
 
 const getDateRange = (start, end) => {

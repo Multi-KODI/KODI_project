@@ -26,7 +26,7 @@
 <main>
 
 <div id="hBox">
-    <p><strong><span style="color: #6A7EFC;">${param.question}</span></strong>에 대한 검색결과 입니다.</p>
+    <p id="s-text"><strong><span style="color: #6A7EFC;">${param.question}</span></strong>에 대한 검색결과 입니다.</p>
     <div class="hBox2">
         <div id="hBox3" style="color: #494953">게시글</div>
         <div id="hBox4" style="color: #E5E1DA">사용자</div>
@@ -90,8 +90,8 @@ function getRandomEmoji() {
 	return emojis[Math.floor(Math.random() * emojis.length)];
 }
 
-$(document).ready(
-function() {
+$(document).ready(function() {
+	let language = <%=session.getAttribute("language")%>;
 	/* $(".nameBox").each(function() {
         var memberNameDiv = $(this).find("#memberName");
         var memberName = memberNameDiv.text().trim();
@@ -107,7 +107,10 @@ function() {
 					$(this).html(updatedTags);
 				});
 		
-	 */    
+	 */
+	 
+	 
+	 
  	// 게시글
     $("#hBox3").on("click", function() {
         var question = encodeURIComponent("${param.question}");
@@ -119,9 +122,24 @@ function() {
         var question = encodeURIComponent("${param.question}");
         window.location.href = '/api/search?filter=%EC%82%AC%EC%9A%A9%EC%9E%90&question=' + question;
     });
-	
+    
+    if(language.value == "ko") {
+		koVersion();
+	} else {
+		enVersion();
+	}
 	
 });
+
+
+function enVersion() {
+	$("#hBox3").text("Post");
+	$("#hBox4").text("User");
+	$("#s-text").html("<strong><span style='color: #6A7EFC;'>${param.question}</span></strong> : Search results ");
+	
+}
+
+
 </script>
 <%@ include file="/WEB-INF/views/Footer.jsp" %>
 </body>

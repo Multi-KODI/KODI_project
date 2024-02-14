@@ -17,33 +17,161 @@
 <script>
 let sessionId = <%=session.getAttribute("memberIdx")%>;
 
+
 $(document).ready(function() {
+	let language = <%=session.getAttribute("language")%>;
 	if(${isSession} == false) {
-		alert("로그인하세요");
+		alert("Please login and use it");
 		location.href = "/";
 	} else {
-		$("#menubar1").on("click", function() {
-			window.location.href = "/api/posts/food";
-		});
+		$('#allMsgList').scrollTop($('#allMsgList')[0].scrollHeight);
+	    
+	    $("#menubar1").on("click", function() {
+	        window.location.href = "/api/posts/food";
+	    });
 
-		$("#menubar2").on("click", function() {
-			window.location.href = "/api/map";
-		});
+	    $("#menubar2").on("click", function() {
+	        window.location.href = "/api/map";
+	    });
 
-		$("#menubar3").on("click", function() {
-			window.location.href = "/api/planner";
-		});
+	    $("#menubar3").on("click", function() {
+	        window.location.href = "/api/planner";
+	    });
 
-		$("#menubar4").on("click", function() {
-			window.location.href = "/api/diningcost";
-		});
+	    $("#menubar4").on("click", function() {
+	        window.location.href = "/api/diningcost";
+	    });
 		
 		showData();
 		webSocket();
 		
-		$('#allMsgList').scrollTop($('#allMsgList')[0].scrollHeight);	
-	}
-}); //ready
+		if(language.value == "ko") {
+			koVersion();
+		} else {
+			enVersion();
+		}
+		
+}//isSession
+}); // $(document).ready
+
+
+//한국어
+function koVersion() {
+	<c:forEach var="vehicle" items="${vehicleList}">
+    $("#resultTbody").append(
+        "<tr>" +
+        "<td>" + vehicle.vehicleType + "</td>" +
+        "<td>" + vehicle.paymentType + "</td>" +
+        "<td>" + (vehicle.seoulCost == 0 ? '-' : vehicle.seoulCost) + "</td>" +
+        "<td>" + (vehicle.gwangjuCost == 0 ? '-' : vehicle.gwangjuCost) + "</td>" +
+        "<td>" + (vehicle.daeguCost == 0 ? '-' : vehicle.daeguCost) + "</td>" +
+        "<td>" + (vehicle.daejeonCost == 0 ? '-' : vehicle.daejeonCost) + "</td>" +
+        "<td>" + (vehicle.busanCost == 0 ? '-' : vehicle.busanCost) + "</td>" +
+        "<td>" + (vehicle.ulsanCost == 0 ? '-' : vehicle.ulsanCost) + "</td>" +
+        "<td>" + (vehicle.incheonCost == 0 ? '-' : vehicle.incheonCost) + "</td>" +
+        "<td>" + (vehicle.gangwonCost == 0 ? '-' : vehicle.gangwonCost) + "</td>" +
+        "<td>" + (vehicle.gyeonggiCost == 0 ? '-' : vehicle.gyeonggiCost) + "</td>" +
+        "<td>" + (vehicle.gyeongnamCost == 0 ? '-' : vehicle.gyeongnamCost) + "</td>" +
+        "<td>" + (vehicle.gyeongbukCost == 0 ? '-' : vehicle.gyeongbukCost) + "</td>" +
+        "<td>" + (vehicle.jeonnamCost == 0 ? '-' : vehicle.jeonnamCost) + "</td>" +
+        "<td>" + (vehicle.jeonbukCost == 0 ? '-' : vehicle.jeonbukCost) + "</td>" +
+        "<td>" + (vehicle.chungnamCost == 0 ? '-' : vehicle.chungnamCost) + "</td>" +
+        "<td>" + (vehicle.chungbukCost == 0 ? '-' : vehicle.chungbukCost) + "</td>" +
+        "<td>" + (vehicle.jejuCost == 0 ? '-' : vehicle.jejuCost) + "</td>" +
+        "<td>" + (vehicle.sejongCost == 0 ? '-' : vehicle.sejongCost) + "</td>" +
+        "</tr>"
+    );
+</c:forEach>
+}
+
+//영어
+function enVersion() {
+	$("#guide1 .guidetitle").text("🚌 Transportation and Moving Guide");
+
+    $("#guide1 .guidetext ul").html(
+        "<li>You can use various transportation methods such as buses, subways, trains, and taxis.</li>"+
+        "<li>Public transportation fares vary by region, so please refer to them accordingly.</li>"
+    );
+    
+    $("#guide2 .guidetitle").text("🍲 dining culture and etiquette");
+    $("#guide2 .guidetext ul").html(
+        "<li>Put the spoon and chopsticks next to the rice bowl. When you finish your meal, put them on the rice bowl.</li>" +
+        "<li>Do not lift your rice or soup bowl while eating. Soup or stew with plenty of broth can be lifted and eaten.</li>" +
+        "<li>Do not pick up food with your hands. Only food that you can eat with your hands and you need to wipe your hands with wet wipes.</li>" +
+        "<li>Keep your mouth closed and don't make noise when chewing food. Don't talk while chewing food.</li>" +
+        "<li>Do not cradle your chin at the table. Make sure to sit in the right position at the table.</li>" +
+        "<li>Do not look at your cell phone, TV, etc. while eating. Instead, engage in conversation with the people you are dining with.</li>" +
+        "<li>Start eating after the adults have picked up their utensils, and adjust your eating pace accordingly.</li>"
+    );
+
+    $("#guide3 .guidetitle").text("🚨 Safety and emergency response");
+    $("#guide3 .guidetext ul").html(
+        "<li>The police emergency number is 112.</li>" +
+        "<li>The safety reporting center number is 119.</li>" +
+        "<li>Foreign traveler insurance can be purchased before traveling for peace of mind during the trip. <a href='https://seoul.sta.or.kr/m/plan/137789/foreign/2'>For more details, click here.</a></li>" +
+        "<li>Wear a seatbelt while driving. Never drink and drive.</li>" +
+        "<li>Warm-up exercises before water activities are essential. Swimming or water activities after drinking alcohol or overeating are prohibited.</li>" +
+        "<li>Valuables and cash should be securely stored in a body-hugging pouch or a bag that can be worn across the chest.</li>"
+    );
+    
+    $("#chatTitletext").text("Chat Room");
+    $("#sendMsgInput").attr("placeholder", "Enter your message");
+    $("#sendMsgBtn").text("Send");
+
+
+    $("#transportation").text("Transportation");
+    $("#payment").text("Payment");
+        $("#seoul").text("Seoul");
+        $("#gwangju").text("Gwangju");
+        $("#daegu").text("Daegu");
+        $("#daejeon").text("Daejeon");
+        $("#busan").text("Busan");
+        $("#ulsan").text("Ulsan");
+        $("#incheon").text("Incheon");
+        $("#gangwon").text("Gangwon");
+        $("#gyeonggi").text("Gyeonggi");
+        $("#gyeongnam").text("Gyeongnam");
+        $("#gyeongbuk").text("Gyeongbuk");
+        $("#jeonnam").text("Jeonnam");
+        $("#jeonbuk").text("Jeonbuk");
+        $("#chungnam").text("Chungnam");
+        $("#chungbuk").text("Chungbuk");
+        $("#jeju").text("Jeju");
+        $("#sejong").text("Sejong");
+
+        <c:forEach var="vehicle" items="${vehicleList}">
+        $("#resultTbody").append(
+            "<tr>" +
+            "<td>" + vehicle.vehicleType + "</td>" +
+            "<td>" + vehicle.paymentType + "</td>" +
+            "<td>" + (vehicle.seoulCost == 0 ? '-' : vehicle.seoulCost) + "</td>" +
+            "<td>" + (vehicle.gwangjuCost == 0 ? '-' : vehicle.gwangjuCost) + "</td>" +
+            "<td>" + (vehicle.daeguCost == 0 ? '-' : vehicle.daeguCost) + "</td>" +
+            "<td>" + (vehicle.daejeonCost == 0 ? '-' : vehicle.daejeonCost) + "</td>" +
+            "<td>" + (vehicle.busanCost == 0 ? '-' : vehicle.busanCost) + "</td>" +
+            "<td>" + (vehicle.ulsanCost == 0 ? '-' : vehicle.ulsanCost) + "</td>" +
+            "<td>" + (vehicle.incheonCost == 0 ? '-' : vehicle.incheonCost) + "</td>" +
+            "<td>" + (vehicle.gangwonCost == 0 ? '-' : vehicle.gangwonCost) + "</td>" +
+            "<td>" + (vehicle.gyeonggiCost == 0 ? '-' : vehicle.gyeonggiCost) + "</td>" +
+            "<td>" + (vehicle.gyeongnamCost == 0 ? '-' : vehicle.gyeongnamCost) + "</td>" +
+            "<td>" + (vehicle.gyeongbukCost == 0 ? '-' : vehicle.gyeongbukCost) + "</td>" +
+            "<td>" + (vehicle.jeonnamCost == 0 ? '-' : vehicle.jeonnamCost) + "</td>" +
+            "<td>" + (vehicle.jeonbukCost == 0 ? '-' : vehicle.jeonbukCost) + "</td>" +
+            "<td>" + (vehicle.chungnamCost == 0 ? '-' : vehicle.chungnamCost) + "</td>" +
+            "<td>" + (vehicle.chungbukCost == 0 ? '-' : vehicle.chungbukCost) + "</td>" +
+            "<td>" + (vehicle.jejuCost == 0 ? '-' : vehicle.jejuCost) + "</td>" +
+            "<td>" + (vehicle.sejongCost == 0 ? '-' : vehicle.sejongCost) + "</td>" +
+            "</tr>");
+    </c:forEach>
+    
+    
+    
+
+    
+}
+
+
+
 
 function showData() {
 	let allMsgList = document.getElementById("allMsgList");
@@ -363,31 +491,32 @@ function webSocket(){
 			</div>
 
 			<div id="chargebox">
-				<table>
+				<table id="resultTable">
 					<thead>
 						<tr>
-							<th>교통수단</th>
-							<th>결제수단</th>
-							<th>서울</th>
-							<th>광주</th>
-							<th>대구</th>
-							<th>대전</th>
-							<th>부산</th>
-							<th>울산</th>
-							<th>인천</th>
-							<th>강원</th>
-							<th>경기</th>
-							<th>경남</th>
-							<th>경북</th>
-							<th>전남</th>
-							<th>전북</th>
-							<th>충남</th>
-							<th>충북</th>
-							<th>제주</th>
-							<th>세종</th>
+							<th id="transportation">교통수단</th>
+							<th id="payment">결제수단</th>
+							<th id="seoul">서울</th>
+							<th id="gwangju">광주</th>
+							<th id="daegu">대구</th>
+							<th id="daejeon">대전</th>
+							<th id="busan">부산</th>
+							<th id="ulsan">울산</th>
+							<th id="incheon">인천</th>
+							<th id="gangwon">강원</th>
+							<th id="gyeonggi">경기</th>
+							<th id="gyeongnam">경남</th>
+							<th id="gyeongbuk">경북</th>
+							<th id="jeonnam">전남</th>
+							<th id="jeonbuk">전북</th>
+							<th id="chungnam">충남</th>
+							<th id="chungbuk">충북</th>
+							<th id="jeju">제주</th>
+							<th id="sejong">세종</th>
+
 						</tr>
 					</thead>
-					<tbody>
+					<tbody id="resultTbody">
 						<c:forEach var="vehicle" items="${vehicleList}">
 						<tr>
 							<td>${vehicle.vehicleType}</td>
@@ -452,7 +581,7 @@ function webSocket(){
 	</div>
 
 	<div id="chatTitle">
-		<img id="chatIcon" src="/image/icon/live-chat.png" align="center">실시간 채팅방
+		<img id="chatIcon" src="/image/icon/live-chat.png" align="center"><text id=chatTitletext>실시간 채팅방</text>
 	</div>
 	<div id="allMsgList"></div>
 

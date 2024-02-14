@@ -11,7 +11,7 @@
 	href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css"
 	rel="stylesheet">
 <script src="/js/jquery-3.7.1.min.js"></script>
-<title>KODI</title>
+<title>KoDi</title>
 </head>
 <body>
 	<script>
@@ -93,7 +93,7 @@ function enVersion() {
         "<li>Public transportation fares vary by region, so please refer to them accordingly.</li>"
     );
     
-    $("#guide2 .guidetitle").text("🍲 dining culture and etiquette");
+    $("#guide2 .guidetitle").text("🍲 Dining culture and etiquette");
     $("#guide2 .guidetext ul").html(
         "<li>Put the spoon and chopsticks next to the rice bowl. When you finish your meal, put them on the rice bowl.</li>" +
         "<li>Do not lift your rice or soup bowl while eating. Soup or stew with plenty of broth can be lifted and eaten.</li>" +

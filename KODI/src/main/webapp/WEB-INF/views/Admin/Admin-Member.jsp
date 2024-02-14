@@ -11,7 +11,7 @@
 				<link rel="stylesheet" href="/css/AdminHeader.css">
 				<link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css" rel="stylesheet">
 				<script src="/js/jquery-3.7.1.min.js"></script>
-				<title>KODI</title>
+				<title>KoDi</title>
 			</head>
 
 			<script>
@@ -160,6 +160,11 @@
 						$("#nickName").html(koLanguage ? "닉네임" : "Nickname");
 						$("#nationality").html(koLanguage ? "국적" : "Nationality");
 						$(".withdrawBtn").html(koLanguage ? "탈퇴" : "Withdraw");
+						
+						if(language == "en") {
+							$(".withdrawBtn").attr("style", "width: 80px;")							
+						}
+						
 						//전체 회원
 						$("#memberList").on('click', '.withdrawBtn', function (e) {
 							e.preventDefault();

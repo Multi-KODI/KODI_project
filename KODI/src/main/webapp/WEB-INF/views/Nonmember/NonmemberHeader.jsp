@@ -77,13 +77,19 @@
 
 <script>
 $(document).ready(function () {
+	let language = <%= session.getAttribute("nonLanguage")%>;
+
 	function updateMenuContentPosition() { //메뉴위치
 	    var menuOffset = $(".menu").offset(); 
 	    $(".menu-content").css({'left': menuOffset.left }); 
 	}
 	
 	$("#menubtn").on("click", function () { //메뉴열기
-		alert('로그인 후 이용하실 수 있습니다.');
+		if(language.value == "ko") {
+	    	alert('로그인 후 이용하실 수 있습니다');
+		} else {
+	    	alert('It is available after login');
+		}
 		//updateMenuContentPosition();
 	   // $(".menu-content").slideToggle(); 
 	});
@@ -106,8 +112,12 @@ $(document).ready(function () {
     
     
     $("#chat").on("click", function () {
-    	alert('로그인 후 이용하실 수 있습니다.');
-      });
+    	if(language.value == "ko") {
+	    	alert('로그인 후 이용하실 수 있습니다');
+		} else {
+	    	alert('It is available after login');
+		}
+    });
     
     let topBtn = document.getElementById("topBtn");
 

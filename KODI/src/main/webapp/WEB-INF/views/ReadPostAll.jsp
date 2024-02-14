@@ -8,7 +8,7 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>KODI</title>
 <link rel="stylesheet" href="/css/ReadPostAll.css">
 <script src="/js/jquery-3.7.1.min.js"></script>
 </head>
@@ -110,10 +110,10 @@ function koVersion() {
 
 
 function enVersion() {
-	$('#food').html('restaurant');
-	$('#cafe').html('cafe');
-	$('#play').html('play');
-	$('#hotel').html('hotel');
+	$('#food').html('Restaurant');
+	$('#cafe').html('Cafe');
+	$('#play').html('Play');
+	$('#hotel').html('Hotel');
 	
 	var category = "${category}";
 	if(category == "맛집"){

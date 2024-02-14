@@ -29,7 +29,7 @@
 			if(language.value == "en") {
 				$("#updatePostBtn").text("Edit post");
 				$("#deletePostBtn").text("Delete post");
-				$("#grade").html("Grade ");
+				$("#grade").html("Rating ");
 				$("#addrDiv").text("Address");
 				
 				let addrDiv = document.getElementById("addrDiv");

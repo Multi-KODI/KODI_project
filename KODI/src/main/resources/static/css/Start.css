@@ -117,7 +117,7 @@ main, .page3 {
    padding-bottom: 20px; 
 }
 
-.textbox, .imgbox {
+.textbox, .imgbox1,.imgbox2,.imgbox3 {
    flex-basis: 50%;
    padding: 20px;
    flex-direction: column; 
@@ -203,7 +203,7 @@ select{
 
 }
 #title1,#title2,#title3,#title4,#title5,#title6 {
-   font-size: 20px;
+   font-size: 18px;
 }
 
 #content1,#content2,#content3,#content4,#content5 {

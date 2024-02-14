@@ -133,13 +133,17 @@ select{
    width: 80%;
 }
 
-#title {
+#title1,#title2,#title3,#title4,#title5,#title6 {
    font-size: 40px;
    font-weight: bold;
 }
 
-#content {
+#content1,#content2,#content3,#content4,#content5 {
    font-size: 28px;
+}
+
+#content6{
+	font-size: 18px;
 }
 
 .page2-box {

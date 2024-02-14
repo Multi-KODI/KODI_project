@@ -20,7 +20,7 @@
 			$("#selectLanguage").val("ko").prop("selected", true);
 		} else {
 			$("#selectLanguage").val("en").prop("selected", true);
-			$("#registerbtn").text("Register");
+			$("#registerbtn").text("Join");
 			$("#loginbtn").text("Login");
 		}
 		

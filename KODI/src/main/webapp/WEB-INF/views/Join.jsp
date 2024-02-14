@@ -10,7 +10,7 @@
 		<link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css" rel="stylesheet">
 		<link rel="stylesheet" href="/css/Join.css">
 		<script src="/js/jquery-3.7.1.min.js"></script>
-		<title>KODI</title>
+		<title>KoDi</title>
 
 		<script>
 			$(document).ready(function () {

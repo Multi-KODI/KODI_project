@@ -174,7 +174,7 @@
 									console.log(response)
 									if (response == "회원등록이 완료되었습니다") {
 										alert((koLanguage ? "회원등록이 완료되었습니다" : "Registered successfully"));
-										// location.href = "/api/login";
+										location.href = "/api/login";
 									} else if (response == "사용 중인 닉네임입니다") {
 										alert((koLanguage ? "사용 중인 닉네임입니다" : "This nickname is already in use."));
 									} else if (response == "이미 회원가입이 완료된 유저입니다") {
@@ -442,7 +442,7 @@
 					</select><br><br>
 
 					<div id="garoBtns">
-						<input type="submit" id="joinBtn" class="btn" value="회원가입">
+						<input type="button" id="joinBtn" class="btn" value="회원가입">
 						&nbsp;&nbsp;|&nbsp;&nbsp;
 						<input type="button" id="loginBtn" class="btn" value="로그인">
 					</div>

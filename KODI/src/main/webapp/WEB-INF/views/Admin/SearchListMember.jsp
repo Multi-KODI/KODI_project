@@ -205,6 +205,13 @@
                                 });
                             }
                         });
+                        $("#logoutbtn").on("click", function () {
+							if (confirm(koLanguage ? "로그아웃 하시겠습니까?" : "Do you want to log out?")) {
+								$.post("/api/logout", function (response) {
+									window.location.href = "/";
+								});
+							}
+						});
                     });
                 </script>
                 <script src="/js/AdminScript.js"></script>

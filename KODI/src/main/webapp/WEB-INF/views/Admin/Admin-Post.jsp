@@ -201,12 +201,12 @@
 
 
 														'<td>' +
-														'<a class="viewBtn" data-post-idx="' + response.postDTO[i].postIdx + '" href="/api/post/' + response.postDTO[i].postIdx + '">'+(koLanguage ? "보기" : "View")+'</a>' +
+														'<a class="viewBtn" data-post-idx="' + response.postDTO[i].postIdx + '" href="/api/post/' + response.postDTO[i].postIdx + '">' + (koLanguage ? "보기" : "View") + '</a>' +
 														'</td>' +
 
 
 														'<td>' +
-														'<a class="deleteBtn" data-post-idx="' + response.postDTO[i].postIdx + '" href="/api/admin/deletepost/' + response.postDTO[i].postIdx + '">'+(koLanguage ? "삭제" : "Delete")+'</a>' +
+														'<a class="deleteBtn" data-post-idx="' + response.postDTO[i].postIdx + '" href="/api/admin/deletepost/' + response.postDTO[i].postIdx + '">' + (koLanguage ? "삭제" : "Delete") + '</a>' +
 														'</td>' +
 														'</tr>';
 												}
@@ -217,6 +217,13 @@
 								});//ajax
 							}
 						});//on-click
+						$("#logoutbtn").on("click", function () {
+							if (confirm(koLanguage ? "로그아웃 하시겠습니까?" : "Do you want to log out?")) {
+								$.post("/api/logout", function (response) {
+									window.location.href = "/";
+								});
+							}
+						});
 					});
 				</script>
 				<script src="/js/AdminScript.js"></script>
@@ -224,4 +231,5 @@
 
 
 			</body>
+
 			</html>

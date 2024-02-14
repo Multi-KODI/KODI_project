@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!-- 헤더 -->
+<%@ include file="/WEB-INF/views/Header.jsp"%>
+<%@ include file="/WEB-INF/views/SearchHeader.jsp"%>
 
 <!DOCTYPE html>
 <html>
@@ -18,9 +21,10 @@
 
 <script>
 	let sessionId = <%=session.getAttribute("memberIdx")%>;
-
+	let language;
+	
 	$(document).ready(function(){
-		let language = <%=session.getAttribute("language")%>;
+		language = <%=session.getAttribute("language")%>;
 
 		if(${isSession} == false) {
 			alert("Please login");
@@ -322,7 +326,11 @@
 				$("#sendMsgBtn").attr("disabled", false);
 			} else {
 				if(sendMsgInput.value.length > 100) {
-					alert("100자 이하로 작성해주세요");
+					if(language.value == "ko") {
+						alert("100자 이하로 작성해주세요");
+					} else {
+						alert("Please write in 100 characters or less");
+					}
 				} else {
 					let sendData = [sendMsgInput.value, sessionId, ${chatIdx}];
 					websocket.send(sendData);
@@ -351,10 +359,6 @@
 </script>
 
 <body>
-	<!-- 헤더 -->
-	<%@ include file="/WEB-INF/views/Header.jsp"%>
-	<%@ include file="/WEB-INF/views/SearchHeader.jsp"%>
-
 	<button id="exitChat" type="button">
 		<img id="exitIcon" src="/image/icon/exit-chat.png" align="center">
 		<p id="exitMsg">뒤로 가기</p>

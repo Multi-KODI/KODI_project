@@ -141,6 +141,7 @@ function enVersion(){
 	document.getElementById('selectedAddressShow').placeholder = 'Address';
 	$("#addressBtn").val("Look Up");
 	$("#imageAddBtn").html(`<img id="addImageIcon" src="/image/icon/fileupload.png">&nbsp;Image Attached</button>`);
+	$("#imageAddBtn").attr("style", "width:165px");
 	document.getElementById('finishBtn').value = 'Completed';
 	document.getElementById('cancelBtn').value = 'Cancel';
 	document.getElementById('inputStoreName').placeholder = 'place name, address';

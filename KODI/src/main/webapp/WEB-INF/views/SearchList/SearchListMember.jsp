@@ -36,10 +36,10 @@
 	<thead>
 		<tr>
 			<th>
-				<div class="tdDiv">닉네임</div>
+				<div id="nickname" class="tdDiv">닉네임</div>
 			</th>
 			<th>
-				<div class="tdDiv">국적</div>
+				<div id="country" class="tdDiv">국적</div>
 			</th>
 			<th>
 				<div class="tdDiv"></div>
@@ -255,9 +255,10 @@ function koVersion(){
 function enVersion() {
 	$("#hBox3").text("Post");
 	$("#hBox4").text("User");
+	$("#nickname").text("Nickname");
+	$("#country").text("Nationality");
 	$("#s-text").html("<strong><span style='color: #6A7EFC;'>${param.question}</span></strong> : Search results ");
 	
-
 	$(".fBtn").each(function() {
 	    var friendState = $(this).text().trim();
 	    switch(friendState) {

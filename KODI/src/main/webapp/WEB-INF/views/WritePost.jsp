@@ -32,7 +32,7 @@ if (${isSession}==false){
 <body>
 <main>
 	<div class="post">
-			<form action="/api/post/issave" method="post" enctype="multipart/form-data">
+			<form id="temp" action="/api/post/issave" method="post" enctype="multipart/form-data">
 				<select name="category" id="categoryPost" required>
 				    <option id="cate0" value="" selected disabled>카테고리</option>
 				    <option id="cate1" value="맛집">맛집</option>
@@ -124,6 +124,7 @@ $(document).ready(function() {
 		$("#selectedAddressShow").attr("placeholder", "Address");
 		$("#addressBtn").val("Look Up");
 		$("#imageAddBtn").html(`<img id="addImageIcon" src="/image/icon/fileupload.png">&nbsp;Image Attached</button>`);
+		$("#imageAddBtn").attr("style", "width:165px");
 		$("#finishBtn").val("Completed");
 		$("#cancelBtn").val("Cancel");
 		document.getElementById('inputStoreName').placeholder = 'place name, address';

@@ -1,5 +1,11 @@
 @charset "UTF-8";
 
+body {
+	font-family: 'NanumSquareNeo';
+	margin: 0;
+	padding: 0;
+}
+
 @media screen and (max-width:549px) {
 	#exitChat {
 		margin-right: 10%;

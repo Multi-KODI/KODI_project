@@ -101,6 +101,41 @@
 						$("#FollowingBtn").html(koLanguage ? "내가 추가한 친구" : "Followings");
 						$("#FollowerBtn").html(koLanguage ? "나를 추가한 친구" : "Followers");
 						$(".f-cancelBtn").html(koLanguage ? "요청 취소" : "Cancel");
+						//친구요청 취소
+						$("#friendList2").on('click', '#f-cancelBtn', function (e) {
+							e.preventDefault();
+							if (confirm(koLanguage ? "친구요청을 취소하시겠습니까?" : "Would you like to cancel friend request?")) {
+								$.ajax({
+									url: '/api/following/delete/' + $(e.target).attr('data-member-idx'),
+									dataType: 'json',
+									type: "get",
+									success: function (response) {
+										$('#friendList2').html('');
+										let result = "";
+										for (let i = 0; i < response.length; i++) {
+											result +=
+												'<tr>' +
+												'<td>' +
+												'   <div class="tdDiv">' +
+												response[i].memberName +
+												'</div>' +
+												'</td>' +
+												'<td>' +
+												'   <div class="tdDiv">' +
+												response[i].country +
+												'</div>' +
+												'</td>' +
+												'<td>' +
+												'<button class="f-Btn" id="f-cancelBtn" data-member-idx="' + response[i].memberIdx + '" href="/api/following/delete/' + response[i].memberIdx + '">'+(koLanguage ? "요청 취소" : "Cancel")+'</a>' +
+												'</td>' +
+
+												'</tr>';
+										}
+										$('#friendList2').html(result);
+									}
+								});
+							}
+						});
 					});//ready
 				</script>
 				<script src="/js/FriendScript.js"></script>

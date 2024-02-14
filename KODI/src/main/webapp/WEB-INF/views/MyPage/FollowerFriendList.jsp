@@ -98,10 +98,82 @@
                         $("#nationality").html(koLanguage ? "국적" : "Nationality");
                         $("#closebtn").html(koLanguage ? "닫기" : "close");
                         $("#PairBtn").html(koLanguage ? "서로친구" : "Friends");
-						$("#FollowingBtn").html(koLanguage ? "내가 추가한 친구" : "Followings");
-						$("#FollowerBtn").html(koLanguage ? "나를 추가한 친구" : "Followers");
-						$(".f-acceptBtn").html(koLanguage ? "수락" : "Accept");
-						$(".f-removeBtn").html(koLanguage ? "삭제" : "Delete");
+                        $("#FollowingBtn").html(koLanguage ? "내가 추가한 친구" : "Followings");
+                        $("#FollowerBtn").html(koLanguage ? "나를 추가한 친구" : "Followers");
+                        $(".f-acceptBtn").html(koLanguage ? "수락" : "Accept");
+                        $(".f-removeBtn").html(koLanguage ? "삭제" : "Delete");
+
+                        // 나를 추가한 유저 삭제
+                        $("#friendList3").on('click', '#f-removeBtn', function (e) {
+                            if (confirm(koLanguage ? "해당 친구요청을 삭제하시겠습니까?" : "Would you like to delete this friend request?")) {
+                                $.ajax({
+                                    url: '/api/follower/delete/' + $(e.target).attr('data-member-idx'),
+                                    dataType: 'json',
+                                    type: "get",
+                                    success: function (response) {
+                                        $('#friendList3').html('');
+                                        let result = "";
+                                        for (let i = 0; i < response.length; i++) {
+                                            result +=
+                                                '<tr>' +
+                                                '<td>' +
+                                                '   <div class="tdDiv">' +
+                                                response[i].memberName +
+                                                '</div>' +
+                                                '</td>' +
+                                                '<td>' +
+                                                '   <div class="tdDiv">' +
+                                                response[i].country +
+                                                '</div>' +
+                                                '</td>' +
+                                                '<td>' +
+                                                '<button class="f-Btn" id="f-acceptBtn" data-member-idx="' + response[i].memberIdx + '" href="/api/follower/accept/' + response[i].memberIdx + '">'+(koLanguage ? "수락" : "Accept")+'</a>' +
+                                                '<button class="f-Btn" id="f-removeBtn" data-member-idx="' + response[i].memberIdx + '" href="/api/follower/delete/' + response[i].memberIdx + '">'+(koLanguage ? "삭제" : "Delete")+'</a>' +
+                                                '</td>' +
+                                                '</tr>';
+                                        }
+                                        $('#friendList3').html(result); // 여기를 변경
+                                    }
+                                });
+                            }
+                        });
+
+
+
+                        // 나를 추가한 유저 수락
+                        $("#friendList3").on('click', '#f-acceptBtn', function (e) {
+                            if (confirm(koLanguage ? "친구요청을 수락하시겠습니까?+" : "Would you like to accept this friend request?")) {
+                                $.ajax({
+                                    url: '/api/follower/accept/' + $(e.target).attr('data-member-idx'),
+                                    dataType: 'json',
+                                    type: "get",
+                                    success: function (response) {
+                                        $('#friendList3').html('');
+                                        let result = "";
+                                        for (let i = 0; i < response.length; i++) {
+                                            result +=
+                                                '<tr>' +
+                                                '<td>' +
+                                                '   <div class="tdDiv">' +
+                                                response[i].memberName +
+                                                '</div>' +
+                                                '</td>' +
+                                                '<td>' +
+                                                '   <div class="tdDiv">' +
+                                                response[i].country +
+                                                '</div>' +
+                                                '</td>' +
+                                                '<td>' +
+                                                '<button class="f-Btn" id="f-acceptBtn" data-member-idx="' + response[i].memberIdx + '" href="/api/follower/accept/' + response[i].memberIdx + '">'+(koLanguage ? "수락" : "Accept")+'</a>' +
+                                                '<button class="f-Btn" id="f-removeBtn" data-member-idx="' + response[i].memberIdx + '" href="/api/follower/delete/' + response[i].memberIdx + '">'+(koLanguage ? "삭제" : "Delete")+'</a>' +
+                                                '</td>' +
+                                                '</tr>';
+                                        }
+                                        $('#friendList3').html(result); // 여기를 변경
+                                    }
+                                });
+                            }
+                        });
                     });//ready
                 </script>
                 <script src="/js/FriendScript.js"></script>

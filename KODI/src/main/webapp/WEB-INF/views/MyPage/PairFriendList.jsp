@@ -41,18 +41,18 @@
                                     <table>
                                         <thead>
                                             <tr>
-												<th>
-													<div class="tdDiv" id="nickName">닉네임</div>
-												</th>
-												<th>
-													<div class="tdDiv" id="nationality">국적</div>
-												</th>
+                                                <th>
+                                                    <div class="tdDiv" id="nickName">닉네임</div>
+                                                </th>
+                                                <th>
+                                                    <div class="tdDiv" id="nationality">국적</div>
+                                                </th>
 
-												<th>
-													<div class="tdDiv"></div>
-												</th>
+                                                <th>
+                                                    <div class="tdDiv"></div>
+                                                </th>
 
-											</tr>
+                                            </tr>
                                         </thead>
 
                                         <tbody id="friendList1">
@@ -99,10 +99,45 @@
                         $("#nationality").html(koLanguage ? "국적" : "Nationality");
                         $("#closebtn").html(koLanguage ? "닫기" : "close");
                         $("#PairBtn").html(koLanguage ? "서로친구" : "Friends");
-						$("#FollowingBtn").html(koLanguage ? "내가 추가한 친구" : "Followings");
-						$("#FollowerBtn").html(koLanguage ? "나를 추가한 친구" : "Followers");
-						$(".f-drawBtn").html(koLanguage ? "친구삭제" : "Delete");
+                        $("#FollowingBtn").html(koLanguage ? "내가 추가한 친구" : "Followings");
+                        $("#FollowerBtn").html(koLanguage ? "나를 추가한 친구" : "Followers");
+                        $(".f-drawBtn").html(koLanguage ? "친구삭제" : "Delete");
+
+                        $("#friendList1").on('click', '#f-drawBtn', function (e) {
+                            e.preventDefault();
+                            if (confirm(koLanguage ? "해당 친구를 삭제하시겠습니까?" : "Would you like to delete this friend?")) {
+                                $.ajax({
+                                    url: '/api/pair/delete/' + $(e.target).attr('data-member-idx'),
+                                    dataType: 'json',
+                                    type: "get",
+                                    success: function (response) {
+                                        $('#friendList1').html('');
+                                        let result = "";
+                                        for (let i = 0; i < response.length; i++) {
+                                            result +=
+                                                '<tr>' +
+                                                '<td>' +
+                                                '<div class="tdDiv">' +
+                                                response[i].memberName +
+                                                '</div>' +
+                                                '</td>' +
+                                                '<td>' +
+                                                '<div class="tdDiv">' +
+                                                response[i].country +
+                                                '</div>' +
+                                                '</td>' +
+                                                '<td>' +
+                                                '<button class="f-Btn" id="f-drawBtn" data-member-idx="' + response[i].memberIdx + '" href="/api/pair/delete/' + response[i].memberIdx + '">' + (koLanguage ? "친구삭제" : "Delete") + '</a>' +
+                                                '</td>' +
+                                                '</tr>';
+                                        }
+                                        $('#friendList1').html(result);
+                                    }
+                                });
+                            }
+                        });
                     });//ready
+                    //서로친구 삭제
                 </script>
                 <script src="/js/FriendScript.js"></script>
 

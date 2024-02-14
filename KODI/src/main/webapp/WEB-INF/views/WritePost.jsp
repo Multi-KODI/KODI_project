@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>writepost</title>
+<title>KoDi</title>
 <link rel="stylesheet" href="/css/WritePost.css">
 <link
 	href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css"
@@ -112,14 +112,14 @@ $(document).ready(function() {
 	
 	if(language.value == "en") {
 		$("#cate0").text("Category");
-		$("#cate1").text("Food");
+		$("#cate1").text("Restaurant");
 		$("#cate2").text("Cafe");
 		$("#cate3").text("Hotel");
 		$("#cate4").text("Play");
-		$("#point0").text("Point");
+		$("#point0").text("Rating");
 		$("#writePostTitle").attr("placeholder", "Title");
 		$("#writePostContent").attr("placeholder", "Content");
-		$("#tagInput").attr("placeholder", "#Hashtag#Input");
+		$("#tagInput").attr("placeholder", "#Hash#Tag");
 		$("#tagAddBtn").text("To Add");
 		$("#selectedAddressShow").attr("placeholder", "Address");
 		$("#addressBtn").val("Look Up");
@@ -394,12 +394,6 @@ function addTag() {
     // 입력창 초기화
     inputElement.value = '';
 }
-	
-function cancelMove(){
-	location.href="/api/post/"+"${readPostOne.postInfo.postIdx}";
-}
-	
-	
      
 </script>
 </html>

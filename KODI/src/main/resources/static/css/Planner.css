@@ -27,7 +27,7 @@ main {
   display: flex;
   align-items: stretch; /* 또는 다른 수직 정렬 값으로 설정 */
   padding: 25px 30px 10px;
-  justify-content: space-between;
+  justify-content: space-around;
   height: 100%; /* 또는 다른 높이 값으로 설정 */
 }
  
@@ -35,7 +35,7 @@ main {
  .left-side{
   	width:600px;
 	height: 100%;
-	margin-right: 10px;
+	/* margin-right: 10px; */
 	
 }
 .left-side header{
@@ -126,10 +126,12 @@ header .current-date{
 
 
 .right-side{
-	width:500px;
+	/* width:500px; */
 	height: 100%;
 	margin-top:20px;
-	margin-left:100px;
+	min-width: 225px;
+	padding-right: 75px;
+	/* margin-left:100px; */
 	
 }
 /* 체크리스트 모달창 */

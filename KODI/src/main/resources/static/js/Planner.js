@@ -132,10 +132,18 @@ function makeModal(dateList, schedulelist, newlanguage){
 			schedulelist[i]='';
 		}
 		
-		modalDiv.innerHTML +=
-		'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="modalBtn" id="insertBtn" onclick="saveDiv(' + dateList[i] + ',' + i + ',' + newlanguage + ')">저장</button>&nbsp;'
-		+'<button class="modalBtn" id="deleteBtn" onclick="deleteDiv(' + i+','+dateList[i] + ',' + newlanguage+')">삭제</button><br>'
-		+'<textarea class="scheduleContent" cols="25" rows="7">'+schedulelist[i]+'</textarea><br>';
+		if(newlanguage == "en") {
+			modalDiv.innerHTML +=
+			'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="modalBtn" id="insertBtn" onclick="saveDiv(' + dateList[i] + ',' + i + ',' + newlanguage + ')">Save</button>&nbsp;'
+			+'<button class="modalBtn" id="deleteBtn" onclick="deleteDiv(' + i+','+dateList[i] + ',' + newlanguage+')">Del</button><br>'
+			+'<textarea class="scheduleContent" cols="25" rows="7">'+schedulelist[i]+'</textarea><br>';
+		}
+		else {
+			modalDiv.innerHTML +=
+			'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="modalBtn" id="insertBtn" onclick="saveDiv(' + dateList[i] + ',' + i + ',' + newlanguage + ')">저장</button>&nbsp;'
+			+'<button class="modalBtn" id="deleteBtn" onclick="deleteDiv(' + i+','+dateList[i] + ',' + newlanguage+')">삭제</button><br>'
+			+'<textarea class="scheduleContent" cols="25" rows="7">'+schedulelist[i]+'</textarea><br>';
+		}
 
 		document.querySelector('.pop-planner').appendChild(modalDiv);
    } 

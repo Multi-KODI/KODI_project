@@ -18,9 +18,10 @@
 
 <script>
 	let sessionId = <%=session.getAttribute("memberIdx")%>;
-
+	let language;
+	
 	$(document).ready(function(){
-		let language = <%=session.getAttribute("language")%>;
+		language = <%=session.getAttribute("language")%>;
 
 		if(${isSession} == false) {
 			alert("Please login");
@@ -322,7 +323,11 @@
 				$("#sendMsgBtn").attr("disabled", false);
 			} else {
 				if(sendMsgInput.value.length > 100) {
-					alert("100자 이하로 작성해주세요");
+					if(language.value == "ko") {
+						alert("100자 이하로 작성해주세요");
+					} else {
+						alert("Please write in 100 characters or less");
+					}
 				} else {
 					let sendData = [sendMsgInput.value, sessionId, ${chatIdx}];
 					websocket.send(sendData);

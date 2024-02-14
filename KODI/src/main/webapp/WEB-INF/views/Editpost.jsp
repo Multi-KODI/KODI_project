@@ -35,18 +35,18 @@ if (${isSession}==false){
 			<form action="/api/post/isupdate" id="wirtePostForm" method="post" enctype="multipart/form-data">
 			<input type="number" name="postIdx" value="${readPostOne.postInfo.postIdx}" style="display:none">
 				<select name="category" id="categoryPost" required>
-				    <option value="" selected disabled>카테고리</option>
+				    <option id='categoryOpt' value="" selected disabled>카테고리</option>
 				    <!-- 수정1 시작(value값 수정) PGH-->
-				    <option value="맛집">맛집</option>
-				    <option value="카페">카페</option>
-				    <option value="숙소">숙소</option>
-				    <option value="놀거리">놀거리</option>
+				    <option id='foodOpt' value="맛집">맛집</option>
+				    <option id='cafeOpt' value="카페">카페</option>
+				    <option id='hotelOpt' value="숙소">숙소</option>
+				    <option id='playOpt' value="놀거리">놀거리</option>
 				    <!-- 수정1 종료 PGH-->
 				    
 				</select>
 				&nbsp;&nbsp;
 				<select name="grade" id="point" required>
-				    <option value="" selected disabled>평점</option>
+				    <option id='pointOpt' value="" selected disabled>평점</option>
 				    <!-- 수정2 시작(value값 수정) PGH-->
 				    <option value="1.0">1</option>
 				    <option value="1.5">1.5</option>
@@ -117,7 +117,46 @@ if (${isSession}==false){
 </body>
 <%@ include file="/WEB-INF/views/Footer.jsp" %>
 <script>
+	
+let language = <%=session.getAttribute("language")%>; 
 
+
+if(language.value == "en") {
+
+	enVersion();
+}
+
+	
+function enVersion(){
+	$('#categoryOpt').html('category');
+	$('#foodOpt').html('restaurant');
+	$('#cafeOpt').html('cafe');
+	$('#hotelOpt').html('hotel');
+	$('#playOpt').html('play');
+	$('#pointOpt').html('grade');
+	document.getElementById('writePostTitle').placeholder = 'title';
+	document.getElementById('writePostContent').placeholder = 'content';
+	document.getElementById('tagInput').placeholder = '#hash#tag';
+	document.getElementById('writePostTitle').placeholder = 'title';
+	document.getElementById('writePostTitle').placeholder = 'title';
+	$('#tagAddBtn').html('Add');
+	document.getElementById('selectedAddressShow').placeholder = 'store address';
+	$("#addressBtn").val("Look Up");
+	$("#imageAddBtn").html(`<img id="addImageIcon" src="/image/icon/fileupload.png">&nbsp;Image Attached</button>`);
+	document.getElementById('finishBtn').value = 'Completed';
+	document.getElementById('cancelBtn').value = 'Cancel';
+	document.getElementById('inputStoreName').placeholder = 'place name, address';
+	$('#searchAddressBtn').html('Search');
+	$('#closeModalBtn').html('Close');
+	
+	/* document.getElementById('');
+	document.getElementById('');
+	document.getElementById('');
+	document.getElementById('');
+	document.getElementById('');
+	document.getElementById(''); */
+};
+	
 	showPostData();
 	
 	//추가------------------------------------------------------------------------ PGH
@@ -391,7 +430,13 @@ var i = 0;
 	    var fileName = fileInput.files[0].name;
 	    
 	    if (fileName.length > 100) {
-	        alert("파일 이름이 너무 깁니다. 100자 이하로 입력해주세요.");
+	    	if(language.value == "en") {
+            	alert("The file name is too long. Please enter 100 characters or less.");
+            }
+            else {
+	            alert("파일 이름이 너무 깁니다. 100자 이하로 입력해주세요.");
+            }
+	       
 	        // 파일 선택 취소
 	        fileInput.value = '';
 	    }

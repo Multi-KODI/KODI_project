@@ -128,7 +128,17 @@ select{
    font-family: 'NanumSquareNeo';
 }
 
-.imgbox>img {
+.imgbox1>img {
+   height: 80%;
+   width: 80%;
+}
+
+.imgbox2>img {
+   height: 80%;
+   width: 80%;
+}
+
+.imgbox3>img {
    height: 80%;
    width: 80%;
 }
@@ -192,11 +202,11 @@ select{
    padding: 10px;
 
 }
-#title {
+#title1,#title2,#title3,#title4,#title5,#title6 {
    font-size: 20px;
 }
 
-#content {
+#content1,#content2,#content3,#content4,#content5 {
    font-size: 15px;
 }
 

@@ -31,7 +31,7 @@
 					$("#inputPassword").attr("placeholder", "Password");
 					$("#nickname").text("Nickname");
 					$("#inputNickname").attr("placeholder", "Nickname");
-					$("#country").text("Country");
+					$("#country").text("Nationality");
 					$("#loginBtn").val("Login");
 					$("#joinBtn").val("Join");
 					$("#confirmBtn").val("Confirm");

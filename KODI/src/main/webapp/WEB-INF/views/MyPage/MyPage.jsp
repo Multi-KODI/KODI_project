@@ -9,12 +9,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="/css/MyPage.css">
-<link rel="stylesheet" href="/css/FriendList.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/MyPage.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/FriendList.css">
 <link
 	href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css"
 	rel="stylesheet">
-<script src="/js/jquery-3.7.1.min.js"></script>
+<script src="<%=request.getContextPath()%>/js/jquery-3.7.1.min.js"></script>
 <title>KoDi</title>
 </head>
 
@@ -57,7 +57,7 @@
 							<c:if test="${not hasImage}">
 								<div class="image-container">
 									<div class="second-title">${post.title}</div>
-									<img class="random-image" src="/image/ex.jpg">
+									<img class="random-image" src="<%=request.getContextPath()%>/image/ex.jpg">
 								</div>
 							</c:if>
 						</c:forEach>

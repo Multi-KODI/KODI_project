@@ -9,8 +9,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta charset="UTF-8">
 <title>KODI</title>
-<link rel="stylesheet" href="/css/ReadPostAll.css">
-<script src="/js/jquery-3.7.1.min.js"></script>
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/ReadPostAll.css">
+<script src="<%=request.getContextPath()%>/js/jquery-3.7.1.min.js"></script>
 </head>
 
 <body>
@@ -29,12 +29,12 @@
 			<c:choose>
                 <c:when test="${not empty post.postImage}">
                     <a href="/api/post/${post.postInfo.postIdx}" class="post-link">
-                        <img src="/image/db/${post.postImage}">
+                        <img src="<%=request.getContextPath()%>/image/db/${post.postImage}">
                     </a>
                 </c:when>
                 <c:otherwise>
                     <a href="/api/post/${post.postInfo.postIdx}" class="post-link">
-                        <img src="/image/db/noImage.png">
+                        <img src="<%=request.getContextPath()%>/image/db/noImage.png">
                     </a>
                 </c:otherwise>
             </c:choose>
@@ -45,7 +45,7 @@
       	</div>
       	<div id="rightSide">
 				<img id="flagImage" src="${post.flag}">
-	   			<img id="likeCount" src="/image/icon/love.png">
+	   			<img id="likeCount" src="<%=request.getContextPath()%>/image/icon/love.png">
 	            <label id="likeCountNum">${post.likeCnt}</label>
 	     
       	</div>

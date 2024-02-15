@@ -6,7 +6,7 @@
 
             <head>
                 <meta charset="UTF-8">
-                <script src="/js/jquery-3.7.1.min.js"></script>
+                <script src="<%=request.getContextPath()%>/js/jquery-3.7.1.min.js"></script>
 
                 <title></title>
 
@@ -21,7 +21,7 @@
 
                             <div class="logoBtn">
                                 <dlv id="friendheader">
-                                    <img id="logo-icon" src="/image/icon/logo.png">
+                                    <img id="logo-icon" src="<%=request.getContextPath()%>/image/icon/logo.png">
                                     <h2 id="listTitle">친구목록</h2>
                                 </dlv>
 
@@ -176,7 +176,7 @@
                         });
                     });//ready
                 </script>
-                <script src="/js/FriendScript.js"></script>
+                <script src="<%=request.getContextPath()%>/js/FriendScript.js"></script>
             </body>
 
             </html>

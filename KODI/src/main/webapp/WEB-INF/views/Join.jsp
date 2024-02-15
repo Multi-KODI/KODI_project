@@ -8,8 +8,8 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css" rel="stylesheet">
-		<link rel="stylesheet" href="/css/Join.css">
-		<script src="/js/jquery-3.7.1.min.js"></script>
+		<link rel="stylesheet" href="<%=request.getContextPath()%>/css/Join.css">
+		<script src="<%=request.getContextPath()%>/js/jquery-3.7.1.min.js"></script>
 		<title>KoDi</title>
 
 		<script>
@@ -214,11 +214,11 @@
 						<option id="ko" value="ko">한국어</option>
 						<option id="en" value="en">English</option>
 					</select>
-					<a href="/api/nonhome" id="logo"><img id="logoImage" src="/image/icon/logo.png"></a>
+					<a href="/api/nonhome" id="logo"><img id="logoImage" src="<%=request.getContextPath()%>/image/icon/logo.png"></a>
 				</div>
 			</header>
 			<div id="inner">
-				<img src="/image/icon/friends.png">
+				<img src="<%=request.getContextPath()%>/image/icon/friends.png">
 				<!-- onsubmit="return false;" -->
 				<form id="joinForm">
 					<h3 id="email">이메일</h3>

@@ -9,11 +9,11 @@
 <head>
 <meta charset="UTF-8">
 <title>KoDi</title>
-<link rel="stylesheet" href="/css/WritePost.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/WritePost.css">
 <link
 	href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css"
 	rel="stylesheet">
-<script src="/js/jquery-3.7.1.min.js"></script>
+<script src="<%=request.getContextPath()%>/js/jquery-3.7.1.min.js"></script>
 
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=APIKEY&libraries=LIBRARY"></script>
@@ -75,7 +75,7 @@ if (${isSession}==false){
 					
 					<br><br>
 					
-					<button type="button" id="imageAddBtn" class="btn" onclick="addImage()"><img id="addImageIcon" src="/image/icon/fileupload.png">&nbsp;사진추가</button>
+					<button type="button" id="imageAddBtn" class="btn" onclick="addImage()"><img id="addImageIcon" src="<%=request.getContextPath()%>/image/icon/fileupload.png">&nbsp;사진추가</button>
 					
 					<span class="photoBoxs" id= "photoBoxs">	
 						<input type="file" id="photoBox" name="files" accept="image/*" >
@@ -123,7 +123,7 @@ $(document).ready(function() {
 		$("#tagAddBtn").text("To Add");
 		$("#selectedAddressShow").attr("placeholder", "Address");
 		$("#addressBtn").val("Look Up");
-		$("#imageAddBtn").html(`<img id="addImageIcon" src="/image/icon/fileupload.png">&nbsp;Image Attached</button>`);
+		$("#imageAddBtn").html(`<img id="addImageIcon" src="<%=request.getContextPath()%>/image/icon/fileupload.png">&nbsp;Image Attached</button>`);
 		$("#imageAddBtn").attr("style", "width:165px");
 		$("#finishBtn").val("Completed");
 		$("#cancelBtn").val("Cancel");
@@ -300,7 +300,7 @@ function addImage() {
             
             // 새로운 이미지 아이콘 생성
             var newIcon = document.createElement("img");
-            newIcon.src = "/image/icon/x.png";  // 이미지 소스 경로에 실제 이미지 파일 경로를 지정
+            newIcon.src = "<%=request.getContextPath()%>/image/icon/x.png";  // 이미지 소스 경로에 실제 이미지 파일 경로를 지정
             newIcon.alt = "Delete";
             newIcon.style.cursor = "pointer";
 

@@ -277,7 +277,7 @@ function webSocket(){
 	websocket = null;
 
 	if(websocket == null){
-		websocket = new WebSocket("ws://" + <%=request.getServerName()%> + ":" + <%=request.getServerPort()%> + "/home");
+		websocket = new WebSocket("ws://" + "<%=request.getServerName()%>" + ":" + "<%=request.getServerPort()%>" + "/home");
 		
 		websocket.onopen = function(){console.log("웹소켓 연결성공");};
 		websocket.onclose = function(){console.log("웹소켓 해제성공");};

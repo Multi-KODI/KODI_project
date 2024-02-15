@@ -162,7 +162,7 @@
 		let websocket = null;
 		
 		if(websocket == null){
-			websocket = new WebSocket("ws://" + <%=request.getServerName()%> + ":" + <%=request.getServerPort()%> + "/chatroom");
+			websocket = new WebSocket("ws://" + "<%=request.getServerName()%>" + ":" + "<%=request.getServerPort()%>" + "/chatroom");
 			
 			websocket.onopen = function() {
 				console.log("웹소켓 연결성공");

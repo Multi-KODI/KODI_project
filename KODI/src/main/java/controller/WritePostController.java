@@ -62,8 +62,8 @@ public class WritePostController {
 		//받아온 파일들 저장
 		MultipartFile file[] = writePostDTO.getImagePost();
 		//이미지 파일들 로컬에 저장
-		//String fileDir = "/usr/mydir/KODI_project/KODI/target/main/resources/static/image/db/";
-		String fileDir = "/usr/mydir/KODI_project/KODI/target/classes/static/image/db/";
+		String fileDir = "/usr/mydir/KODI_project/KODI/target/main/resources/static/image/db/";
+		//String fileDir = "/usr/mydir/KODI_project/KODI/target/classes/static/image/db/";
 		System.out.println("파일경로:" + fileDir);
 		String imagePath = "";
 				

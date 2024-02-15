@@ -150,7 +150,7 @@ $(document).ready(function() {
 function loadCheckList(){
 	$.ajax({
         type: "get",
-        url: "/api/plannerstart",
+        url: "<%=request.getContextPath()%>/api/plannerstart",
         success: function(response) {
 	
         	makeCheckList(response[0], response[1]);
@@ -177,7 +177,7 @@ function makeCheckList(checkList, idxList) {
 
         var oneLiDelete = document.createElement('img');
         oneLiDelete.className = "'"+idxList[i]+"'";
-        oneLiDelete.src = '/image/icon/x.png';
+        oneLiDelete.src = '<%=request.getContextPath()%>/image/icon/x.png';
         oneLiDelete.width = 10;
         oneLiDelete.height = 10;
         oneLiDelete.style.cursor = "pointer";
@@ -208,7 +208,7 @@ function deleteLi(idx) {
         }
     }
     $.ajax({
-        url: "/api/planner/checklist/isdelete",
+        url: "<%=request.getContextPath()%>/api/planner/checklist/isdelete",
         data: {
             listIdx: idx
         },
@@ -234,7 +234,7 @@ function closeCheckListModal(){
 function addLi(){
 	var content = $("#inputCheckList").val();
 	$.ajax({
-		url:"/api/planner/checklist/issave",
+		url:"<%=request.getContextPath()%>/api/planner/checklist/issave",
 		data: {
 			content:content
 			},
@@ -243,7 +243,7 @@ function addLi(){
 		error: function(){}
 	});
 	
-	location.href="/api/planner";
+	location.href="<%=request.getContextPath()%>/api/planner";
 	
 }
 

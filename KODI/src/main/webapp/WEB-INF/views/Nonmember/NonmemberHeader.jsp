@@ -26,7 +26,7 @@
 		
 		$("#selectLanguage").change(function() {
 			$.ajax({
-				url: "/api/header/nonlanguage",
+				url: "<%=request.getContextPath()%>/api/header/nonlanguage",
 				data: {"language": $("#selectLanguage").val()},
 				type: "post",
 				success: function(response){
@@ -102,12 +102,12 @@ $(document).ready(function () {
 	});
 	
 	$("#joinbtn").on("click", function (event) {
-		window.location.href = "/api/join";
+		window.location.href = "<%=request.getContextPath()%>/api/join";
 	});
 
     
     $("#loginbtn").on("click", function () {
-    	window.location.href = "/api/login";
+    	window.location.href = "<%=request.getContextPath()%>/api/login";
       });
     
     

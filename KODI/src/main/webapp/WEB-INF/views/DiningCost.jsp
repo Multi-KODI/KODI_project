@@ -81,7 +81,7 @@
 					</c:forEach>
 				} else {
 					$.ajax({
-				        url: "/api/diningcost",
+				        url: "<%=request.getContextPath()%>/api/diningcost",
 				        data: {
 				            "item": $("#foodSelect").val()
 				        },
@@ -183,7 +183,7 @@
 					</c:forEach>
 				} else {
 					$.ajax({
-				        url: "/api/diningcost",
+				        url: "<%=request.getContextPath()%>/api/diningcost",
 				        data: {
 				            "item": $("#foodSelect").val()
 				        },

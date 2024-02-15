@@ -29,9 +29,9 @@
 
                                 <div class="form-group">
                                     <button id="PairBtn" style="background-color: #999999;color:#ffffff;"
-                                        data-api="/api/pair">서로친구</button>
-                                    <button id="FollowingBtn" data-api="/api/following">내가 추가한 친구</button>
-                                    <button id="FollowerBtn" data-api="/api/follower">나를 추가한 친구</button>
+                                        data-api="<%=request.getContextPath()%>/api/pair">서로친구</button>
+                                    <button id="FollowingBtn" data-api="<%=request.getContextPath()%>/api/following">내가 추가한 친구</button>
+                                    <button id="FollowerBtn" data-api="<%=request.getContextPath()%>/api/follower">나를 추가한 친구</button>
                                 </div>
 
                             </div>
@@ -107,7 +107,7 @@
                             e.preventDefault();
                             if (confirm(koLanguage ? "해당 친구를 삭제하시겠습니까?" : "Would you like to delete this friend?")) {
                                 $.ajax({
-                                    url: '/api/pair/delete/' + $(e.target).attr('data-member-idx'),
+                                    url: '<%=request.getContextPath()%>/api/pair/delete/' + $(e.target).attr('data-member-idx'),
                                     dataType: 'json',
                                     type: "get",
                                     success: function (response) {
@@ -127,7 +127,7 @@
                                                 '</div>' +
                                                 '</td>' +
                                                 '<td>' +
-                                                '<button class="f-Btn" id="f-drawBtn" data-member-idx="' + response[i].memberIdx + '" href="/api/pair/delete/' + response[i].memberIdx + '">' + (koLanguage ? "친구삭제" : "Delete") + '</a>' +
+                                                '<button class="f-Btn" id="f-drawBtn" data-member-idx="' + response[i].memberIdx + '" href="<%=request.getContextPath()%>/api/pair/delete/' + response[i].memberIdx + '">' + (koLanguage ? "친구삭제" : "Delete") + '</a>' +
                                                 '</td>' +
                                                 '</tr>';
                                         }
@@ -136,11 +136,59 @@
                                 });
                             }
                         });
+                        
+                      	//닫기버튼
+                    	$("#closebtn").on("click", function () {
+                    		$(".modal_background2").fadeOut();
+                    	});
+
+                    	// 서로 친구 목록 요청
+                    	$("#PairBtn").on("click", function () {
+                    		$.ajax({
+                    			url: '<%=request.getContextPath()%>/api/pair',
+                    			type: 'GET',
+                    			dataType: 'html',
+                    			success: function (response) {
+                    				$('.modal_box2').html(response);
+                    			},
+                    			error: function (error) {
+                    				console.log("Error:", error);
+                    			}
+                    		});
+                    	});
+
+                    	// 내가 추가한 친구 목록 요청
+                    	$("#FollowingBtn").on("click", function () {
+                    		$.ajax({
+                    			url: '<%=request.getContextPath()%>/api/following',
+                    			type: 'GET',
+                    			dataType: 'html',
+                    			success: function (response) {
+                    				$('.modal_box2').html(response);
+                    			},
+                    			error: function (error) {
+                    				console.log("Error:", error);
+                    			}
+                    		});
+                    	});
+
+                    	// 나를 추가한 친구 목록 요청
+                    	$("#FollowerBtn").on("click", function () {
+                    		$.ajax({
+                    			url: '<%=request.getContextPath()%>/api/follower',
+                    			type: 'GET',
+                    			dataType: 'html',
+                    			success: function (response) {
+                    				$('.modal_box2').html(response);
+                    			},
+                    			error: function (error) {
+                    				console.log("Error:", error);
+                    			}
+                    		});
+                    	});
                     });//ready
                     //서로친구 삭제
                 </script>
-                <script src="<%=request.getContextPath()%>/js/FriendScript.js"></script>
-
 
             </body>
 

@@ -29,19 +29,19 @@ $(document).ready(function() {
 		$('#allMsgList').scrollTop($('#allMsgList')[0].scrollHeight);
 	    
 	    $("#menubar1").on("click", function() {
-	        window.location.href = "/api/posts/food";
+	        window.location.href = "<%=request.getContextPath()%>/api/posts/food";
 	    });
 
 	    $("#menubar2").on("click", function() {
-	        window.location.href = "/api/map";
+	        window.location.href = "<%=request.getContextPath()%>/api/map";
 	    });
 
 	    $("#menubar3").on("click", function() {
-	        window.location.href = "/api/planner";
+	        window.location.href = "<%=request.getContextPath()%>/api/planner";
 	    });
 
 	    $("#menubar4").on("click", function() {
-	        window.location.href = "/api/diningcost";
+	        window.location.href = "<%=request.getContextPath()%>/api/diningcost";
 	    });
 		
 		showData();
@@ -308,13 +308,13 @@ function webSocket(){
 			let regdate;
 			
 			$.ajax({
-				url: "/api/chatroom/showmembername",
+				url: "<%=request.getContextPath()%>/api/chatroom/showmembername",
 				data: {"memberIdx": sendInfo[1]},
 				type: "post",
 				dataType: "text",
 				success: function(membername){
 					$.ajax({
-						url: "/api/chatroom/translatemsg",
+						url: "<%=request.getContextPath()%>/api/chatroom/translatemsg",
 						data: {"sendMemberIdx": sendInfo[1] ,"msg": sendInfo[0]},
 						type: "post",
 						dataType: "text",
@@ -442,7 +442,7 @@ function webSocket(){
 				websocket.send(sendData);
 				
 				$.ajax({
-					url: "/api/home/savemsg",
+					url: "<%=request.getContextPath()%>/api/home/savemsg",
 					data: {"memberIdx": sessionId, "content": sendMsgInput.value},
 					type: "post",
 					success: function(response){

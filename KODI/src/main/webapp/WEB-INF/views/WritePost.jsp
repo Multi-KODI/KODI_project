@@ -132,7 +132,6 @@ $(document).ready(function() {
 		$('#closeModalBtn').html('Close');
 	}
 });
-//...
 	function cancelMove(){
 		location.href="/api/mypage";
 	}
@@ -162,7 +161,6 @@ $(document).ready(function() {
 	            event.preventDefault();
 	            // 폼 제출을 중지
 	        }else if(gradeInput.trim() === "") {
-	            // 주소가 비어 있다면 알림창을 띄움
 	            if(language.value == "en") {
 	            	alert("Please choose a point");
 	            }
@@ -172,7 +170,6 @@ $(document).ready(function() {
 	            event.preventDefault();
 	            // 폼 제출을 중지
 	        }else if(titleInput.trim() === "") {
-	            // 주소가 비어 있다면 알림창을 띄움
 	            if(language.value == "en") {
 	            	alert("Please enter the title");
 	            }
@@ -182,7 +179,6 @@ $(document).ready(function() {
 	            event.preventDefault();
 	            // 폼 제출을 중지
 	        }else if(contentInput.trim() === "") {
-	            // 주소가 비어 있다면 알림창을 띄움
 	            if(language.value == "en") {
 	            	alert("Please enter the content");
 	            }
@@ -192,7 +188,6 @@ $(document).ready(function() {
 	            event.preventDefault();
 	            // 폼 제출을 중지
 	        }else if(addressInput.trim() === "") {
-	            // 주소가 비어 있다면 알림창을 띄움
 	            if(language.value == "en") {
 	            	alert("Please enter the address");
 	            }
@@ -203,13 +198,12 @@ $(document).ready(function() {
 	            // 폼 제출을 중지
 	        }
 	           
-	        // 주소가 비어 있지 않다면 폼이 계속 제출됨
 	    });
 	
 
 	});
 
-									/* 주소검색 api */
+/* 주소검색 api */
 document.getElementById("inputStoreName").addEventListener("keypress", function(event) {
        // 엔터키를 눌렀을 때
        if (event.key === "Enter") {
@@ -241,13 +235,13 @@ function searchAddress(){
 	        for(var i=0; i < places.documents.length; i++){
 	        	var label = document.createElement('label');
 	        	
-	            // 라벨의 id를 설정합니다.
+	            // 라벨의 id를 설정
 	            label.id = 'label' + i;
 	            label.className = 'label';
 	            
 	            
 	            
-	            // 라벨의 내용을 설정합니다.
+	            // 라벨의 내용을 설정
 	            label.innerHTML = places.documents[i].address_name+'   '+'( '+places.documents[i].place_name+' )';
 	        	
 	            // 라벨 누를 때 이벤트 추가
@@ -259,13 +253,14 @@ function searchAddress(){
 	               		$('.label').remove();
 	                    closeModal();
 	                };
-	            }(places.documents[i]); // 클로저를 이용하여 현재 반복된 항목의 정보를 전달합니다.
+	            }(places.documents[i]); // 클로저를 이용하여 현재 반복된 항목의 정보를 전달
 	            
 	            parentElement.appendChild(document.createElement('br'));
 	            parentElement.appendChild(label);
 	            parentElement.appendChild(document.createElement('br'));
 
-	            // 줄 바꿈을 추가하여 가독성을 높입니다.
+
+
 	        }
 	    }
 	});
@@ -275,7 +270,6 @@ function searchAddress(){
 									
 function openModal(){
 	$("#modal").show();
-	/*  모달창 스크롤 수정*/
 	document.getElementById("modal").scrollTop = 0;
 	
 }
@@ -285,7 +279,7 @@ function closeModal(){
 	
 }
 
-							/* 파일첨부 */
+/* 파일첨부 */
 							
 var i = 0;
 function addImage() {
@@ -294,7 +288,7 @@ function addImage() {
             var newInput = document.createElement("input");
             var idx=i;
             newInput.type = "file";
-            newInput.name = "imagePost";	//변경 PGH
+            newInput.name = "imagePost";
             newInput.id = "files"+idx;
             newInput.accept = "image/*";
             newInput.addEventListener("change", function() {
@@ -306,7 +300,7 @@ function addImage() {
             
             // 새로운 이미지 아이콘 생성
             var newIcon = document.createElement("img");
-            newIcon.src = "/image/icon/x.png";  // 이미지 소스 경로에 실제 이미지 파일 경로를 지정해야 합니다.
+            newIcon.src = "/image/icon/x.png";  // 이미지 소스 경로에 실제 이미지 파일 경로를 지정
             newIcon.alt = "Delete";
             newIcon.style.cursor = "pointer";
 
@@ -331,7 +325,6 @@ function addImage() {
                 container.removeChild(newBr);
             };
 
-            // 줄 바꿈 태그 생성
 
             // input과 이미지, br 태그를 컨테이너에 추가
      

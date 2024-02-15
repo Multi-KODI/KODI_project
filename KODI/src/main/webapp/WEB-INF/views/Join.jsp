@@ -77,7 +77,7 @@
 				let confirmFlag = false;
 				$("#inputPassword").on('input', function (event) {
 					var password = document.getElementById('inputPassword');
-					if (password.value.length > 20 || password.value.length < 8) { // 예를 들어 최대 100자로 제한
+					if (password.value.length > 20 || password.value.length < 8) { 
 						passwordError.textContent = (koLanguage ? "비밀번호는 8자리 이상 20자리 이내로 입력해주세요" : "Password should be in 8-20 characters."); 
 					}else{
 						passwordError.textContent ="";
@@ -85,7 +85,7 @@
 				});
 				$("#inputNickname").on('input', function (event) {
 					var nickname = document.getElementById('inputNickname');
-					if (nickname.value.length > 20) { // 예를 들어 최대 100자로 제한
+					if (nickname.value.length > 20) { 
 						nicknameError.textContent = (koLanguage ? "닉네임은 20자리 이내로 입력해주세요" : "Nickname should be in 20 characters."); 
 					}else{
 						nicknameError.textContent ="";
@@ -93,7 +93,7 @@
 				});
 
 				$("#confirmBtn").on('click', function () {
-					/* 수정 시작2 */
+					
 					if ($("#inputEmail").val() === "") {
 						alert(koLanguage ? "이메일을 입력해주세요" : "Please type your email.");
 
@@ -155,11 +155,11 @@
 						var password = document.getElementById('inputPassword');
 						var nickname = document.getElementById('inputNickname');
 						console.log(password.value + ":" + nickname.value + ":" + confirmFlag);
-						if (password.value.length > 20 || password.value.length < 8) { // 예를 들어 최대 100자로 제한
+						if (password.value.length > 20 || password.value.length < 8) { 
 							alert((koLanguage ? "비밀번호는 8자리 이상 20자리 이내로 입력해주세요" : "Password should be in 8-20 characters."));
 							event.preventDefault(); // 제출을 막음
 							console.log(password.value);
-						} else if (nickname.value.length > 20) { // 예를 들어 최대 100자로 제한
+						} else if (nickname.value.length > 20) { 
 							alert((koLanguage ? "닉네임은 20자리 이내로 입력해주세요" : "Nickname should be in 20 characters."));
 							event.preventDefault(); // 제출을 막음
 							console.log(nickname.value);

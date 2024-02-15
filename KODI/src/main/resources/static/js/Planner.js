@@ -1,4 +1,4 @@
-										/*플래너 구현*/
+/*플래너 구현*/
 let newlanguage = language.value;
 										
 const daysTag = document.querySelector(".days"),
@@ -21,45 +21,36 @@ const renderCalendar = () => {
     lastDateofLastMonth = new Date(currYear, currMonth, 0).getDate();
   	let liTag = "";
 
-  for (let i = firstDayofMonth; i > 0; i--) {
-    liTag += `<li class="inactive">${lastDateofLastMonth - i + 1}</li>`;
-  }
+  	for (let i = firstDayofMonth; i > 0; i--) {
+    	liTag += `<li class="inactive">${lastDateofLastMonth - i + 1}</li>`;
+  	}
 
-  for (let i = 1; i <= lastDateofMonth; i++) {
-    let isToday = i === date.getDate() && currMonth === new Date().getMonth() &&
-      currYear === new Date().getFullYear() ? "active" : "";
-    liTag += `<li class="${isToday}" data-date="${currYear}-${currMonth + 1}-${i}">${i}</li>`;
-  }
+  	for (let i = 1; i <= lastDateofMonth; i++) {
+    	let isToday = i === date.getDate() && currMonth === new Date().getMonth() &&
+      	currYear === new Date().getFullYear() ? "active" : "";
+    	liTag += `<li class="${isToday}" data-date="${currYear}-${currMonth + 1}-${i}">${i}</li>`;
+	}
 
-  for (let i = lastDayofMonth; i < 6; i++) {
-    liTag += `<li class="inactive">${i - lastDayofMonth + 1}</li>`;
-  }
-  currentDate.innerText = `${currYear} ${months[currMonth]}`;
-  daysTag.innerHTML = liTag;
+  	for (let i = lastDayofMonth; i < 6; i++) {
+    	liTag += `<li class="inactive">${i - lastDayofMonth + 1}</li>`;
+  	}
+  	currentDate.innerText = `${currYear} ${months[currMonth]}`;
+  	daysTag.innerHTML = liTag;
   
   
-  /*수정 선택된 날짜에 배경색*/
-  document.querySelectorAll('.days li').forEach(day => {
-  day.addEventListener('click', () => {
-    const clickedDate = day.getAttribute('data-date');
-    handleDateSelection(clickedDate);
-
-    // 클릭된 날짜에 대한 스타일 처리
-    document.querySelectorAll('.days li').forEach(dayElement => {
-      dayElement.classList.remove('selected');
-    });
-
-    day.classList.add('selected');
-  });
-});
-
-  /*// 각 날짜에 클릭 이벤트 리스너 추가
-  document.querySelectorAll('.days li').forEach(day => {
-    day.addEventListener('click', () => {
-      const clickedDate = day.getAttribute('data-date');
-      handleDateSelection(clickedDate);
-    });
-  });*/
+  	document.querySelectorAll('.days li').forEach(day => {
+	  	day.addEventListener('click', () => {
+		    const clickedDate = day.getAttribute('data-date');
+		    handleDateSelection(clickedDate);
+		
+		    // 클릭된 날짜에 대한 스타일 처리
+		    document.querySelectorAll('.days li').forEach(dayElement => {
+		      dayElement.classList.remove('selected');
+		    });
+		
+		    day.classList.add('selected');
+	  	});
+	});
 }
 
 const modal = document.querySelector(".modal");
@@ -121,7 +112,6 @@ const handleDateSelection = (clickedDate) => {
 function makeModal(dateList, schedulelist, newlanguage){
    	document.querySelector('.modal').style.display ='block';
    	var container = document.querySelector('.pop-planner');
-   	/*var container = document.querySelector('.pop-modal');*/
 	removeOneScheduleElements(container);
 	for (var i = 0; i < dateList.length; i++) {
 		var modalDiv = document.createElement('div');
@@ -211,22 +201,13 @@ function deleteDiv(index, date, newlanguage) {
 		   });
 		}
 	}
-    
 }
 
 function saveDiv(target, index, newlanguage) {
-    /*var container = document.querySelector('.pop-modal');*/
 	var container = document.querySelector('.pop-planner');
     
- var inputElement = container.children[index].querySelector('textarea');
- 
+ 	var inputElement = container.children[index].querySelector('textarea');
 
- /*   // 지정된 div 내의 input 요소 가져오기
-   var inputElement = container.children[index].querySelector('input');
-    alert(container.children[index].querySelector('input').value);
-    alert(inputElement.value);*/
-    
-    
     // input 요소의 값을 빈 문자열로 설정
     var date = target;
     console.log(inputElement);
@@ -262,7 +243,6 @@ const getDateRange = (start, end) => {
     dateRange.push(new Date(currentDate).toISOString().split('T')[0]);
     currentDate.setDate(currentDate.getDate() + 1);
   }
-
   return dateRange;
 }
 
@@ -293,21 +273,21 @@ function closePlannerModal(){
 }
 
 
-											/*체크리스트 구현*/
+/*체크리스트 구현*/
 loadCheckList();
 
 function loadCheckList(){
 	$.ajax({
-                type: "get",
-                url: "/api/plannerstart",
-                success: function(response) {
-			
-                	makeCheckList(response[0], response[1]);
-                },
-                error: function(status, error) {
-                    console.error("AJAX request failed:", status, error);
-                }
-            });
+        type: "get",
+        url: "/api/plannerstart",
+        success: function(response) {
+	
+        	makeCheckList(response[0], response[1]);
+        },
+        error: function(status, error) {
+            console.error("AJAX request failed:", status, error);
+        }
+    });
 }
 function makeCheckList(checkList, idxList) {
     var checkListContainer = document.querySelector('.checkList');
@@ -356,8 +336,6 @@ function deleteLi(idx) {
             currentContainer.remove();
         }
     }
-
-    // 나머지 코드는 그대로 둡니다.
     $.ajax({
         url: "/api/planner/checklist/isdelete",
         data: {

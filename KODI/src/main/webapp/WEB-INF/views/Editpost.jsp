@@ -21,6 +21,7 @@
 <!-- services와 clusterer, drawing 라이브러리 불러오기 -->
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=APIKEY&libraries=services,clusterer,drawing"></script>
 <script>
+/* 로그인 세션 값 확인 */
 if (${isSession}==false){
 	alert("로그인하세요");
 	location.href = "/";
@@ -31,23 +32,18 @@ if (${isSession}==false){
 <body>
 <main>
 	<div class="post">
-		<!-- 수정0 action속성 추가, name 속성 추가 및 변경 PGH -->
 			<form action="/api/post/isupdate" id="wirtePostForm" method="post" enctype="multipart/form-data">
 			<input type="number" name="postIdx" value="${readPostOne.postInfo.postIdx}" style="display:none">
 				<select name="category" id="categoryPost" required>
 				    <option id='categoryOpt' value="" selected disabled>카테고리</option>
-				    <!-- 수정1 시작(value값 수정) PGH-->
 				    <option id='foodOpt' value="맛집">맛집</option>
 				    <option id='cafeOpt' value="카페">카페</option>
 				    <option id='hotelOpt' value="숙소">숙소</option>
 				    <option id='playOpt' value="놀거리">놀거리</option>
-				    <!-- 수정1 종료 PGH-->
-				    
 				</select>
 				&nbsp;&nbsp;
 				<select name="grade" id="point" required>
 				    <option id='pointOpt' value="" selected disabled>평점</option>
-				    <!-- 수정2 시작(value값 수정) PGH-->
 				    <option value="1.0">1</option>
 				    <option value="1.5">1.5</option>
 				    <option value="2.0">2</option>
@@ -57,49 +53,34 @@ if (${isSession}==false){
 				    <option value="4.0">4</option>
 				    <option value="4.5">4.5</option>
 				    <option value="5.0">5</option>
-				    <!-- 수정2 종료 PGH-->
 				</select>
 				<br><br>
 				<div>
-					<!-- 수정3 시작(value 속성 추가) PGH -->
 					<input type="text" id="writePostTitle" name="title" placeholder="제목" value="" required><br><br>
 					<hr><br>
 					<textarea id="writePostContent" name="content" rows="4" placeholder="내용" value="" required></textarea>
-					<!-- 수정3 종료 PGH-->
-				
 					<br><br>
-					<!-- 수정4 시작(value 속성 추가) PGH -->
 				    <input type="text" id="tagInput" placeholder="#해시태그#입력" value="" onkeypress="handleKeyPress(event)">&nbsp;
-					<!-- 수정4 종료 PGH -->
 				    <button type="button" id="tagAddBtn" onclick="addTag()">추가</button>
-				
 				    <div id="tagList"></div>
 					<br>
 					
-					
-					
-					<!-- 주소검색창 display: none;인 입력창 추가 -->	
 					<input type="text" id="selectedAddressShow" value="" placeholder="가게주소" readonly >
 					<input type="text" id="selectedAddressReal" name="address" value="" placeholder="가게주소" required>
 					&nbsp;<input type="button" id="addressBtn" onclick="openModal()" value="주소검색">
 					<br><br>
-			<!-- 수정0 종료 PGH -->
 					
 			
 					
 					<button type="button" id="imageAddBtn" class="btn" onclick="addImage()"><img id="addImageIcon" src="/image/icon/fileupload.png">&nbsp;사진추가</button><br>
-					
 					<span class="photoBoxs" id= "photoBoxs">	
-						<!-- <input type="file" id="photoBox" name="files" accept="image/*" > -->
 					</span>
-					
 					<br><br>
 					<div id="garo_btns">
 			    		<input type="submit" id="finishBtn" class="btn" value="작성완료">
 			    		&nbsp;&nbsp;&nbsp;&nbsp;
 			    		<input type="button" id="cancelBtn" class="btn" onclick = "cancelMove()" value="취소">
 					</div>
-
 				</div>
 			</form>
 			<div id="modal">
@@ -124,7 +105,6 @@ if(language.value == "en") {
 	enVersion();
 }
 
-	
 function enVersion(){
 	$('#categoryOpt').html('Category');
 	$('#foodOpt').html('Restaurant');
@@ -148,24 +128,16 @@ function enVersion(){
 	$('#searchAddressBtn').html('Search');
 	$('#closeModalBtn').html('Close');
 	
-	/* document.getElementById('');
-	document.getElementById('');
-	document.getElementById('');
-	document.getElementById('');
-	document.getElementById('');
-	document.getElementById(''); */
 };
 	
 	showPostData();
 	
-	//추가------------------------------------------------------------------------ PGH
 	function showPostData(){
 		$("#categoryPost").val("${readPostOne.postInfo.category}").attr("selected", "selected");
 		$("#point").val("${readPostOne.postInfo.grade}").attr("selected", "selected");
 		$("#writePostTitle").attr("value", "${readPostOne.postInfo.title}");
 		$("#writePostContent").val("${readPostOne.postInfo.content}");
 		
-		/* 은선 수정 id */
 		$("#selectedAddressShow").val("${readPostOne.postInfo.address}");
 		$("#selectedAddressReal").val("${readPostOne.postInfo.address}");
 		var tagListElement = document.getElementById('tagList');
@@ -173,14 +145,10 @@ function enVersion(){
 		tagValue = tagValue.substring(1);
 	    tagValue = tagValue.substring(0, tagValue.length-1);
 		if(tagValue!==""){
-	      /* 검증 */console.log(tagValue);
-	      /* 검증 */console.log(tagValue.split(", "));
 	      var tagValues = tagValue.split(", ");
 
 			for (var i = 0; i < tagValues.length; i++) {
 			    var tagValue = tagValues[i];
-		//변경------------------------------------------------------------------------ PGH
-			    // 새로운 태그를 생성
 			    var inputHidden = document.createElement('input');
 			    inputHidden.name = "postTags";
 			    inputHidden.value = tagValue;
@@ -202,24 +170,17 @@ function enVersion(){
 			    tagListElement.appendChild(tagElement);
 			    tagListElement.appendChild(inputHidden); // 숨겨진 input 요소도 함께 추가
 			}
-	//변경 종료-----------------------------------------------------------------------	   
 		}
 	}
-	//추가------------------------------------------------------------------------ PGH
 		var container = document.getElementById("photoBoxs");
 		var oldcontainer = document.createElement("div");
         oldcontainer.className="oldcontainer";
 	
 		var postIdx = "${readPostOne.postInfo.postIdx}";
-/* 		var imageName="${readPostOne.postImages}"; */
 		var imageSrc = "${readPostOne.postImages}";
 		imageSrc = imageSrc.substring(1);
 		imageSrc = imageSrc.substring(0, imageSrc.length-1);
-		/* 검증 */console.log(imageSrc);
-		
 		var imageSrcs = imageSrc.split(", ");
-		/* 검증 */console.log(imageSrcs);
-		
 		var imageSrcsLength = imageSrcs.length;
 		if(imageSrcs == ""){
 			imageSrcsLength = 0;
@@ -242,14 +203,13 @@ function enVersion(){
 
 		    // 삭제 버튼 생성
 		   var deleteImageBtn = document.createElement("button");
-		     // Save the index for later use
 		    deleteImageBtn.type = "button";
 		    deleteImageBtn.id = "deleteBtn_" + btnIndex;
 		    deleteImageBtn.innerHTML = '<img id="deleteImageIcon" src="/image/icon/x.png">';
 		    deleteImageBtn.style.backgroundColor = "transparent"; // 배경색 없애기
 		    deleteImageBtn.style.border = "none"; 
-		    // 버튼 onclick 속성 정의
 		    
+		    // 버튼 onclick 속성 정의
 		    deleteImageBtn.onclick = function () {
 		    	let imgsrc = this.parentNode.firstChild.src.split("/");  
 			    imagename = imgsrc[imgsrc.length-1];
@@ -262,6 +222,7 @@ function enVersion(){
 		    imageContainer.className="imageContainer";
 		    imageContainer.appendChild(inputImage);
 		    imageContainer.appendChild(deleteImageBtn);
+		    
 		    //이미지, 버튼 한 쌍 담은 div를 부모 div에 추가
 		    oldcontainer.appendChild(imageContainer);
 		    container.appendChild(oldcontainer);
@@ -274,7 +235,6 @@ function enVersion(){
 	   
 	    console.log("Delete image with imageName: " + imageName);
 	    console.log("Delete image with postIdx: " + postIdx);
-	    /*검증*/console.log(language.value);
 	  	if(language.value == "en") {
 	  		if(confirm("Are you sure you want to delete the image?\n(Image deletion cannot be undone even if you click the cancel button.)")) {
 			    containerToDelete.parentNode.remove();
@@ -290,7 +250,7 @@ function enVersion(){
 			            console.log(error);
 			        }
 			    });
-		    }//if end
+		    }//if
 	  	}
 	  	else {
 		    if(confirm("사진을 삭제하시겠습니까?\n(사진 삭제는 취소 버튼을 눌러도 되돌릴 수 없습니다.)")) {
@@ -307,13 +267,11 @@ function enVersion(){
 			            console.log(error);
 			        }
 			    });
-		    }//if end
-	  	}//if-else end
+		    }//if
+	  	}//if-else
 	}
 
-
-	/* 주소검색 api */
-
+/* 주소검색 api */
 document.getElementById("inputStoreName").addEventListener("keypress", function(event) {
        // 엔터키를 눌렀을 때
        if (event.key === "Enter") {
@@ -345,12 +303,12 @@ function searchAddress(){
 			for(var i=0; i < places.documents.length; i++){
 				var label = document.createElement('label');
 			
-				// 라벨의 id를 설정합니다.
+				// 라벨의 id를 설정
 				label.id = 'label' + i;
 				label.className = 'label';
 				
 				
-				// 라벨의 내용을 설정합니다.
+				// 라벨의 내용을 설정
 				label.innerHTML = places.documents[i].address_name+'   '+'( '+places.documents[i].place_name+' )';
 				
 				// 라벨 누를 때 이벤트 추가
@@ -359,8 +317,6 @@ function searchAddress(){
 				 	$('#selectedAddressShow').val(place.address_name+" "+place.place_name);
                  	$('#selectedAddressReal').val(place.address_name+" "+place.place_name);
                  	$('#inputStoreName').val('');
-               		
-               		//$('.labels').hide();
                		$('.labels').remove();
                  	
                  	closeModal();
@@ -371,10 +327,9 @@ function searchAddress(){
 			parentElement.appendChild(label);
 			parentElement.appendChild(document.createElement('br'));
 			
-			// 줄 바꿈을 추가하여 가독성을 높입니다.
-			}//for 종료
-		}//success 종료
-	});//ajax 종료
+			}//for
+		}//success
+	});//ajax
 } 
 	
 function openModal(){
@@ -386,81 +341,75 @@ function closeModal(){
 }
 
 	
-	
-	//---------------------------------------------------------------------------
-	
 var i = 0;
- function addImage() {
-            var container = document.getElementById("photoBoxs");
-            var newcontainer = document.createElement("div");
-            newcontainer.className="newcontainer";
-            
-            // 새로운 파일 첨부 input 태그 생성
-            var newInput = document.createElement("input");
-            var idx=i;
-            newInput.type = "file";
-            newInput.name = "imagePost";//변경 PGH
-            newInput.id = "files"+idx;
-            newInput.accept = "image/*";
-			newInput.addEventListener("change", function(){
-                checkFileNameLength(idx);
-            });
-			
-			i+=1;
-			
-            // 새로운 이미지 아이콘 생성
-            var newIcon = document.createElement("img");
-            newIcon.src = "/image/icon/x.png";  // 이미지 소스 경로에 실제 이미지 파일 경로를 지정해야 합니다.
-            newIcon.alt = "Delete";
-            newIcon.style.cursor = "pointer";
-
-            // 이미지와 버튼을 감싸는 컨테이너 생성
-            var containerDiv = document.createElement("div");
-            containerDiv.id="image-container";
-            containerDiv.style.marginBottom = '10px';
-            containerDiv.classList.add("image-container");
-            
-            var newBr = document.createElement("br");
-            
-            // 이미지와 버튼을 컨테이너에 추가
-            
-            containerDiv.appendChild(newInput);
-            containerDiv.appendChild(newIcon);
-
-            // 클릭한 이미지를 포함한 부모 요소를 삭제
-            newIcon.onclick = function () {
-                newcontainer.removeChild(containerDiv);
-                newcontainer.removeChild(newBr);
-            };
-
-            // 줄 바꿈 태그 생성
-
-            // input과 이미지, br 태그를 컨테이너에 추가
-            
-            newcontainer.appendChild(containerDiv);
-            newcontainer.appendChild(newBr);
-            container.appendChild(newcontainer);
-        
-        }
+function addImage() {
+	var container = document.getElementById("photoBoxs");
+    var newcontainer = document.createElement("div");
+    newcontainer.className="newcontainer";
+           
+    // 새로운 파일 첨부 input 태그 생성
+	var newInput = document.createElement("input");
+	var idx=i;
+	newInput.type = "file";
+	newInput.name = "imagePost";
+	newInput.id = "files"+idx;
+	newInput.accept = "image/*";
+	newInput.addEventListener("change", function(){
+      	checkFileNameLength(idx);
+   	});
+		
+	i+=1;
+		
+	// 새로운 이미지 아이콘 생성
+	var newIcon = document.createElement("img");
+	newIcon.src = "/image/icon/x.png";  // 이미지 소스 경로에 실제 이미지 파일 경로를 지정
+	newIcon.alt = "Delete";
+	newIcon.style.cursor = "pointer";
+	
+	// 이미지와 버튼을 감싸는 컨테이너 생성
+	var containerDiv = document.createElement("div");
+	containerDiv.id="image-container";
+	containerDiv.style.marginBottom = '10px';
+	containerDiv.classList.add("image-container");
+	
+	var newBr = document.createElement("br");
+	
+	// 이미지와 버튼을 컨테이너에 추가
+	
+	containerDiv.appendChild(newInput);
+	containerDiv.appendChild(newIcon);
+	
+	// 클릭한 이미지를 포함한 부모 요소를 삭제
+	newIcon.onclick = function () {
+	    newcontainer.removeChild(containerDiv);
+	    newcontainer.removeChild(newBr);
+	};
+	
+	
+	newcontainer.appendChild(containerDiv);
+	newcontainer.appendChild(newBr);
+	container.appendChild(newcontainer);
+       
+}
  
- function checkFileNameLength(idx) {
-	    var fileInput = document.getElementById('files'+idx);
-	    console.log(fileInput);
-	    console.log(fileInput.files[0].name);
-	    var fileName = fileInput.files[0].name;
-	    
-	    if (fileName.length > 100) {
-	    	if(language.value == "en") {
-            	alert("The file name is too long. Please enter 100 characters or less.");
-            }
-            else {
-	            alert("파일 이름이 너무 깁니다. 100자 이하로 입력해주세요.");
-            }
-	       
-	        // 파일 선택 취소
-	        fileInput.value = '';
-	    }
+function checkFileNameLength(idx) {
+    var fileInput = document.getElementById('files'+idx);
+    console.log(fileInput);
+    console.log(fileInput.files[0].name);
+    var fileName = fileInput.files[0].name;
+    
+    if (fileName.length > 100) {
+    	if(language.value == "en") {
+         	alert("The file name is too long. Please enter 100 characters or less.");
+        }else {
+           	alert("파일 이름이 너무 깁니다. 100자 이하로 입력해주세요.");
+        }
+       
+        // 파일 선택 취소
+        fileInput.value = '';
 	}
+}
+ 
 /* 태그 구현 */
 	
 function handleKeyPress(event) {
@@ -479,34 +428,33 @@ function addTag() {
     for (var i = 0; i < tagValues.length; i++) {
         var tagValue = tagValues[i];
 
-	//변경------------------------------------------------------------------------ PGH
-     	// 새로운 태그를 생성
-	    var inputHidden = document.createElement('input');
-	    inputHidden.name = "postTags";
-	    inputHidden.value = tagValue;
-	    inputHidden.hidden = true;
-	
-	    var tagElement = document.createElement('div');
-	    tagElement.className = 'tag';
-	    tagElement.textContent = tagValue;
-	
-	    // 태그를 클릭하면 지워지도록 이벤트 핸들러 추가
-	    tagElement.onclick = function (tagDiv, tagInput) {
-	        return function () {
-	            tagListElement.removeChild(tagDiv);
-	            tagInput.parentNode.removeChild(tagInput); // 숨겨진 input 요소도 함께 제거
-	        };
+   	// 새로운 태그를 생성
+    var inputHidden = document.createElement('input');
+    inputHidden.name = "postTags";
+    inputHidden.value = tagValue;
+    inputHidden.hidden = true;
+
+    var tagElement = document.createElement('div');
+    tagElement.className = 'tag';
+    tagElement.textContent = tagValue;
+
+    // 태그를 클릭하면 지워지도록 이벤트 핸들러 추가
+    tagElement.onclick = function (tagDiv, tagInput) {
+       	return function () {
+           	tagListElement.removeChild(tagDiv);
+           	tagInput.parentNode.removeChild(tagInput); // 숨겨진 input 요소도 함께 제거
+       	};
 	    }(tagElement, inputHidden);
-	
-	    // 태그를 목록에 추가
+		
+		    // 태그를 목록에 추가
 	    tagListElement.appendChild(tagElement);
 	    tagListElement.appendChild(inputHidden); // 숨겨진 input 요소도 함께 추가
-	//변경 종료-----------------------------------------------------------------------	
 	}
 
     // 입력창 초기화
     inputElement.value = '';
 }
+
 function cancelMove(){
 	location.href="/api/post/"+"${readPostOne.postInfo.postIdx}";
 }

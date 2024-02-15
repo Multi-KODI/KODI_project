@@ -77,12 +77,16 @@ public class ModifyPostController {
 		//받아온 파일들 저장
 		MultipartFile file[] = writePostDTO.getImagePost();
 		//이미지 파일들 로컬에 저장
-		//String fileDir = "/usr/mydir/KODI_project/KODI/src/main/resources/static/image/db/";
-		String fileDir = "C:/Users/alfud/git/KODI_project/KODI/src/main/resources/static/image/db/";
+		String fileDir = "./image/db/";
 		String imagePath = "";
 		
 		//이미지 저장하는 파일 경로에 있는 이미지 이름들 읽어오기
 		File dir = new File(fileDir);
+		
+		if(!dir.exists()) {
+			dir.mkdirs();
+		}
+		
 		String[] filenamestemp = dir.list();
 		//배열을 리스트로 변환
 		List<String> filenames = Arrays.asList(filenamestemp);

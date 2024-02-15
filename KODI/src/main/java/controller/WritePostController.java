@@ -64,8 +64,8 @@ public class WritePostController {
 		MultipartFile file[] = writePostDTO.getImagePost();
 		//이미지 파일들 로컬에 저장
 		//String fileDir = "/usr/mydir/KODI_project/KODI/src/main/resources/static/image/db/";
-		String fileDir = request.getServletContext().getRealPath("/");
-		System.out.println("파일경로:" + fileDir + "/image/db/");
+		String fileDir = "C:/Users/alfud/git/KODI_project/KODI/src/main/resources/static/image/db/";
+		System.out.println("파일경로:" + fileDir);
 		String imagePath = "";
 		
 		//이미지 저장하는 파일 경로에 있는 이미지 이름들 읽어오기

@@ -72,7 +72,7 @@
 	    });
 		
 		$("#loginbtn").on("click", function() {
-			window.location.href = "/api/login";
+			window.location.href = "<%=request.getContextPath()%>/api/login";
 		});
 	
 		$("#joinbtn").on("click",function() {
@@ -80,9 +80,9 @@
 			var domain = $(".join-input select[name='emailLocation']").val(); 
 	
 			if (email&& email.indexOf('@') !== -1) {
-				window.location.href = "/api/join?email="+ email;
+				window.location.href = "<%=request.getContextPath()%>/api/join?email="+ email;
 			} else {
-				window.location.href = "/api/join?email="+ email;
+				window.location.href = "<%=request.getContextPath()%>/api/join?email="+ email;
 			}
 		});
 	
@@ -91,14 +91,14 @@
 			var domain = $(".page3 .join-input select[name='emailLocation']").val(); 
 	
 			if (email&& email.indexOf('@') !== -1) {
-				window.location.href = "/api/join?email="+ email;
+				window.location.href = "<%=request.getContextPath()%>/api/join?email="+ email;
 			} else {
-				window.location.href = "/api/join?email="+ email;
+				window.location.href = "<%=request.getContextPath()%>/api/join?email="+ email;
 			}
 		});
 	
 		$(".nonjoinbtn").on("click", function() {
-			window.location.href = "/api/nonhome";
+			window.location.href = "<%=request.getContextPath()%>/api/nonhome";
 		});
 	});
 
@@ -132,7 +132,7 @@
 			<button class="joinbtn" id="joinbtn">회원가입</button>
 			<button class="nonjoinbtn" id="nonjoinbtn">비회원</button>
 		</div>
-		<div class="image-container">
+		<div class="image-container" style="background-image: url('<%=request.getContextPath()%>/image/main1.jpg')">
 			환영합니다!<br> <br> KoDi(Korea-Director)는 여러분이 한국 여행을<br>
 			더욱 편리하게 즐길 수 있도록<br> 경험을 공유하고 소통하는 플랫폼입니다.<br>
 		</div>

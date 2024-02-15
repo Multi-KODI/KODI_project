@@ -62,7 +62,6 @@ main, .page3 {
    max-height: 1080px;
    display: block;
    margin-top: 30px;
-   background-image: url('/image/main1.jpg');
    background-size: cover;
 }
 

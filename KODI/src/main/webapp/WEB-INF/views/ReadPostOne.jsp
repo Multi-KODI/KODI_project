@@ -427,7 +427,7 @@
 							}
 
 							var referrer = document.referrer;
-							if(referrer == "http://" + <%= request.getServerName()%> + ":" + <%=request.getServerPort()%> + "/" + <%=request.getContextPath()%> + "api/mypage"){
+							if(referrer == "<%=request.getContextPath()%> + "api/mypage"){
 								location.href = "<%=request.getContextPath()%>/api/mypage";
 							}
 							else {

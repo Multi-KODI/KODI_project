@@ -162,8 +162,7 @@
 		let websocket = null;
 		
 		if(websocket == null){
-			websocket = new WebSocket("ws://localhost:7777/chatroom");
-			//websocket = new WebSocket("ws://192.168.0.13:7777/chatroom"); // 추후 ncp 배포 공인 IP로 변경
+			websocket = new WebSocket("ws://" + <%=request.getServerName()%> + ":" + <%=request.getServerPort()%> + "/chatroom");
 			
 			websocket.onopen = function() {
 				console.log("웹소켓 연결성공");

@@ -79,8 +79,16 @@ const handleDateSelection = (clickedDate) => {
     endDate.setDate(endDate.getDate()+1);
     const dateRange = getDateRange(startDate, endDate);
     
+    let contextUrl;
+    
+    if(contextPath == "null") {
+		contextUrl = "/api/planner/schedule";
+	} else {
+		contextUrl = contextPath + "/api/planner/schedule";
+	}
+    
     $.ajax({
-      url:"/api/planner/schedule",
+      url: contextUrl,
       type:"post",
       data:{
          day1:dateRange[0],
@@ -165,10 +173,18 @@ function deleteDiv(index, date, newlanguage) {
     inputElement.value="";
     console.log(inputElement);
     
+    let contextUrl;
+    
+    if(contextPath == "null") {
+		contextUrl = "/api/planner/schedule/isdelete";
+	} else {
+		contextUrl = contextPath + "/api/planner/schedule/isdelete";
+	}
+    
     if(newlanguage.value == "ko") {
 	    if(confirm("해당 일정을 삭제하시겠습니까?")) {
 		    $.ajax({
-			  	url:"/api/planner/schedule/isdelete",
+			  	url: contextUrl,
 			  	type:'post',
 			  	data:{ 
 			     	date:date,
@@ -186,7 +202,7 @@ function deleteDiv(index, date, newlanguage) {
 	else {
 		if(confirm("Are you sure you want to delete this schedule?")) {
 		    $.ajax({
-			  	url:"/api/planner/schedule/isdelete",
+			  	url: contextUrl,
 			  	type:'post',
 			  	data:{ 
 			     	date:date,
@@ -212,8 +228,17 @@ function saveDiv(target, index, newlanguage) {
     var date = target;
     console.log(inputElement);
   	var content=inputElement.value;
+  	
+  	let contextUrl;
+    
+    if(contextPath == "null") {
+		contextUrl = "/api/planner/schedule/issave";
+	} else {
+		contextUrl = contextPath + "/api/planner/schedule/issave";
+	}
+  	
     $.ajax({
-	  	url:"/api/planner/schedule/issave",
+	  	url: contextUrl,
 	  	type:'post',
 	  	data:{ 
 	     	date:date,

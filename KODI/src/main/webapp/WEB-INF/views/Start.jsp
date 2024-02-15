@@ -52,9 +52,9 @@
             $(".page3 .nonjoinbtn").text("Nonmember");
             $(".page3 .nonjoinbtn").attr("style", "width:120px;")
             
-            $(".imgbox1 img").attr("src", "/image/page11.png");
-            $(".imgbox2 img").attr("src", "/image/page22.png");
-            $(".imgbox3 img").attr("src", "/image/page33.png");
+            $(".imgbox1 img").attr("src", "<%=request.getContextPath()%>/image/page11.png");
+            $(".imgbox2 img").attr("src", "<%=request.getContextPath()%>/image/page22.png");
+            $(".imgbox3 img").attr("src", "<%=request.getContextPath()%>/image/page33.png");
 		}
 		
 		$("#selectLanguage").change(function() {
@@ -124,7 +124,7 @@
 
 	<main>
 		<div class="logo-container">
-			<img src="/image/icon/logo.png" alt="KoDi">
+			<img src="<%=request.getContextPath()%>/image/icon/logo.png" alt="KoDi">
 		</div>
 		<!-- 회원가입 -->
 		<div class="join-input">
@@ -148,13 +148,13 @@
 			</p>
 		</div>
 		<div class="imgbox1">
-			<img src="/image/page1.png">
+			<img src="<%=request.getContextPath()%>/image/page1.png">
 		</div>
 	</div>
 
 	<div class="page1-box">
 		<div class="imgbox2">
-			<img src="/image/page2.png">
+			<img src="<%=request.getContextPath()%>/image/page2.png">
 		</div>
 		<div class="textbox">
 			<p id="title2">📱 커뮤니티로 소통하기</p>
@@ -173,7 +173,7 @@
 			</p>
 		</div>
 		<div class="imgbox3">
-			<img src="/image/page3.png">
+			<img src="<%=request.getContextPath()%>/image/page3.png">
 		</div>
 	</div>
 

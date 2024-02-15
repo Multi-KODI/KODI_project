@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -50,6 +51,7 @@ public class WritePostController {
 	
 	//게시물 작성 페이지
 	@PostMapping("/post/issave")
+	@ResponseBody
 	public String isWrite(WritePostDTO writePostDTO, HttpSession session) 
 			throws IllegalStateException, IOException {
 		//세션 받아서 int 타입으로 변환

@@ -63,7 +63,7 @@
 		$("#postContent").html("${readPostOne.postInfo.content}" + "<br><br>");
 
 		<c:forEach items="${readPostOne.postImages}" var="image">
-			 $("#postImage").append("<img id='postImg' src='/usr/mydir/KODI_project/KODI/src/main/resources/static/image/db/" + "${image}" + "'display= inline-block width=40% height=40% object-fit=contain align=center>&nbsp;");		
+			 $("#postImage").append("<img id='postImg' src=<%=request.getContextPath()%>'/image/db/" + "${image}" + "'display= inline-block width=40% height=40% object-fit=contain align=center>&nbsp;");		
 		</c:forEach>
 		
 		$("#addrInfo").append("${readPostOne.postInfo.address}");

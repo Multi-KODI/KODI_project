@@ -64,7 +64,6 @@ public class ModifyPostController {
 	
 	//작성완료 클릭
 	@PostMapping("/post/isupdate")
-	@ResponseBody
 	public String isUpdate(WritePostDTO writePostDTO, 
 			HttpSession session,
 			HttpServletRequest request) 
@@ -78,7 +77,7 @@ public class ModifyPostController {
 		//받아온 파일들 저장
 		MultipartFile file[] = writePostDTO.getImagePost();
 		//이미지 파일들 로컬에 저장
-		String fileDir = myDir + "/KODI_project/KODI/src/main/resources/static/image/db/";
+		String fileDir = "/usr/mydir/KODI_project/KODI/src/main/resources/static/image/db/";
 		String imagePath = "";
 		
 		//이미지 저장하는 파일 경로에 있는 이미지 이름들 읽어오기
@@ -122,7 +121,6 @@ public class ModifyPostController {
 	
 	//현재 DB에 있는 이미지 삭제
 	@PostMapping("/post/image/isdelete")
-	@ResponseBody
 	public void isDeleteImage(
 			@RequestParam("imageSrc") String imageSrc,
 			@RequestParam("postIdx") int postIdx) {

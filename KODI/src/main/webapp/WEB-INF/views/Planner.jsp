@@ -139,7 +139,115 @@ $(document).ready(function() {
 		$("#inputCheckListBtn").text("Input");
 		$("#closeCheckkList").text("Close");
 	}
+	
+	loadCheckList();
+	
 });
+
+/*체크리스트 구현*/
+
+
+function loadCheckList(){
+	$.ajax({
+        type: "get",
+        url: "/api/plannerstart",
+        success: function(response) {
+	
+        	makeCheckList(response[0], response[1]);
+        },
+        error: function(status, error) {
+            console.error("AJAX request failed:", status, error);
+        }
+    });
+}
+function makeCheckList(checkList, idxList) {
+    var checkListContainer = document.querySelector('.checkList');
+    checkListContainer.innerHTML = "";
+
+    for (var i = 0; i < idxList.length; i++) {
+        var listItemContainer = document.createElement('div'); // 각 쌍을 감싸는 div
+        listItemContainer.style.display = "block"; // 인라인 블록으로 배치
+
+        var oneLi = document.createElement('li');
+        oneLi.className = "'"+idxList[i]+"'";
+        oneLi.innerHTML = checkList[i];
+        oneLi.style.display = "inline-block"; // 인라인 블록으로 배치
+        oneLi.style.marginRight = "100px"; // 필요에 따라 마진 조절
+        listItemContainer.appendChild(oneLi);
+
+        var oneLiDelete = document.createElement('img');
+        oneLiDelete.className = "'"+idxList[i]+"'";
+        oneLiDelete.src = '/image/icon/x.png';
+        oneLiDelete.width = 10;
+        oneLiDelete.height = 10;
+        oneLiDelete.style.cursor = "pointer";
+        oneLiDelete.style.verticalAlign = "middle"; // 이미지를 수직 가운데 정렬
+        listItemContainer.appendChild(oneLiDelete);
+	
+
+        checkListContainer.appendChild(listItemContainer);
+
+       
+        oneLiDelete.setAttribute('onclick', 'deleteLi(' + idxList[i] + ')');
+    }
+}
+
+function deleteLi(idx) {
+    var targetClassName = "'" + idx + "'";
+    var container = document.querySelector('.checkList');
+    var listItemContainers = container.getElementsByTagName('div');
+
+    for (var i = listItemContainers.length - 1; i >= 0; i--) {
+        var currentContainer = listItemContainers[i];
+        var currentLi = currentContainer.getElementsByTagName('li')[0];
+        var currentImg = currentContainer.getElementsByTagName('img')[0];
+
+        // 특정 클래스를 가진 <li> 요소인지 확인
+        if (currentLi.className === targetClassName) {
+            currentContainer.remove();
+        }
+    }
+    $.ajax({
+        url: "/api/planner/checklist/isdelete",
+        data: {
+            listIdx: idx
+        },
+        type: "post",
+        success: function () {},
+        error: function (e) {
+            console.log(e);
+        },
+    });
+}
+
+
+
+
+function makeCheckListModal(){
+	$("#modal").show();
+}
+
+function closeCheckListModal(){
+	$("#modal").hide();
+}
+
+function addLi(){
+	var content = $("#inputCheckList").val();
+	$.ajax({
+		url:"/api/planner/checklist/issave",
+		data: {
+			content:content
+			},
+		type:'post',
+		success: function(){},
+		error: function(){}
+	});
+	
+	location.href="/api/planner";
+	
+}
+
+
 </script>
 </body>
 </html>

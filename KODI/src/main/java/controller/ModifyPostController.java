@@ -82,6 +82,11 @@ public class ModifyPostController {
 		
 		//이미지 저장하는 파일 경로에 있는 이미지 이름들 읽어오기
 		File dir = new File(fileDir);
+		
+		if(!dir.exists()) {
+			dir.mkdirs();
+		}
+		
 		String[] filenamestemp = dir.list();
 		//배열을 리스트로 변환
 		List<String> filenames = Arrays.asList(filenamestemp);

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -63,6 +64,7 @@ public class ModifyPostController {
 	
 	//작성완료 클릭
 	@PostMapping("/post/isupdate")
+	@ResponseBody
 	public String isUpdate(WritePostDTO writePostDTO, 
 			HttpSession session,
 			HttpServletRequest request) 
@@ -120,6 +122,7 @@ public class ModifyPostController {
 	
 	//현재 DB에 있는 이미지 삭제
 	@PostMapping("/post/image/isdelete")
+	@ResponseBody
 	public void isDeleteImage(
 			@RequestParam("imageSrc") String imageSrc,
 			@RequestParam("postIdx") int postIdx) {

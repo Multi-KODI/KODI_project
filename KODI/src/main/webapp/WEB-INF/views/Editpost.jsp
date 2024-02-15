@@ -32,7 +32,7 @@ if (${isSession}==false){
 <body>
 <main>
 	<div class="post">
-			<form action="<%=request.getContextPath()%>/api/post/isupdate" id="wirtePostForm" method="post" enctype="multipart/form-data">
+			<form action="/api/post/isupdate" id="wirtePostForm" method="post" enctype="multipart/form-data">
 			<input type="number" name="postIdx" value="${readPostOne.postInfo.postIdx}" style="display:none">
 				<select name="category" id="categoryPost" required>
 				    <option id='categoryOpt' value="" selected disabled>카테고리</option>

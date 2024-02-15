@@ -19,7 +19,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import dto.WritePostDTO;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import service.WritePostService;
 
@@ -52,7 +51,7 @@ public class WritePostController {
 	
 	//게시물 작성 페이지
 	@PostMapping("/post/issave")
-	public String isWrite(WritePostDTO writePostDTO, HttpSession session, HttpServletRequest request) 
+	public String isWrite(WritePostDTO writePostDTO, HttpSession session) 
 			throws IllegalStateException, IOException {
 		//세션 받아서 int 타입으로 변환
 		String sessionIdx = (String)session.getAttribute("memberIdx");
@@ -63,13 +62,17 @@ public class WritePostController {
 		//받아온 파일들 저장
 		MultipartFile file[] = writePostDTO.getImagePost();
 		//이미지 파일들 로컬에 저장
-		//String fileDir = "/usr/mydir/KODI_project/KODI/src/main/resources/static/image/db/";
-		String fileDir = "C:/Users/alfud/git/KODI_project/KODI/src/main/resources/static/image/db/";
+		String fileDir = "./image/db/";
 		System.out.println("파일경로:" + fileDir);
 		String imagePath = "";
-		
+				
 		//이미지 저장하는 파일 경로에 있는 이미지 이름들 읽어오기
 		File dir = new File(fileDir);
+		
+		if(!dir.exists()) {
+			dir.mkdirs();
+		}
+		
 		String[] filenamestemp = dir.list();
 		//배열을 리스트로 변환
 		List<String> filenames = Arrays.asList(filenamestemp);

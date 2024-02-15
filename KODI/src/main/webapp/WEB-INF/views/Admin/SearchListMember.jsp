@@ -28,7 +28,7 @@
 
                     $("#selectLanguage").change(function () {
                         $.ajax({
-                            url: "/api/admin/adminlanguage",
+                            url: "<%=request.getContextPath()%>/api/admin/adminlanguage",
                             data: { "language": $("#selectLanguage").val() },
                             type: "post",
                             success: function (response) {
@@ -63,8 +63,8 @@
                 </header>
 
                 <div class="menu-content">
-                    <a href="/api/admin/allposts" id="listallBtn">전체글</a>
-                    <a href="/api/admin/allmembers" id="memberlistBtn">회원목록</a>
+                    <a href="<%=request.getContextPath()%>/api/admin/allposts" id="listallBtn">전체글</a>
+                    <a href="<%=request.getContextPath()%>/api/admin/allmembers" id="memberlistBtn">회원목록</a>
                 </div>
 
                 <div class="main">
@@ -78,7 +78,7 @@
 
                             <div id="title">
                                 <span style="margin-left: 10px;" id="memberTitle">전체 회원</span>
-                                <form action="/api/adminsearch">
+                                <form action="<%=request.getContextPath()%>/api/adminsearch">
                                     <select id="searchselect" name="filter">
                                         <option value="사용자" id="memberValue">사용자</option>
                                     </select> <input id="searchinput" name="question">
@@ -164,7 +164,7 @@
                             e.preventDefault();
                             if (confirm(koLanguage ? "이 회원을 탈퇴시키겠습니까?" : "Would you like to withdraw this user?")) {
                                 $.ajax({
-                                    url: '/api/admin/deletemember/' + $(e.target).attr('data-member-idx'),
+                                    url: '<%=request.getContextPath()%>/api/admin/deletemember/' + $(e.target).attr('data-member-idx'),
                                     dataType: 'json',
                                     type: "get",
                                     success: function (response) {
@@ -193,7 +193,7 @@
                                                         '</td>' +
 
                                                         '<td>' +
-                                                        '<a class="withdrawBtn" data-member-idx="' + response.memberDTO[i].memberIdx + '" href="/api/admin/deletemember/' + response.memberDTO[i].memberIdx + '">' + (koLanguage ? "탈퇴" : "Withdraw") + '</a>' +
+                                                        '<a class="withdrawBtn" data-member-idx="' + response.memberDTO[i].memberIdx + '" href="<%=request.getContextPath()%>/api/admin/deletemember/' + response.memberDTO[i].memberIdx + '">' + (koLanguage ? "탈퇴" : "Withdraw") + '</a>' +
                                                         '</td>' +
 
                                                         '</tr>';
@@ -207,7 +207,7 @@
                         });
                         $("#logoutbtn").on("click", function () {
 							if (confirm(koLanguage ? "로그아웃 하시겠습니까?" : "Do you want to log out?")) {
-								$.post("/api/logout", function (response) {
+								$.post("<%=request.getContextPath()%>/api/logout", function (response) {
 									window.location.href = "/";
 								});
 							}

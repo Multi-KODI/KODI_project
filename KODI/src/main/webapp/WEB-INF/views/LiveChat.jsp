@@ -43,7 +43,7 @@
 	function verifyMember(){
 		// 해당 채팅방에 들어올 수 있는 사용자 권한 제한
 		$.ajax({
-			url: "/api/chatroom/verifymember",
+			url: "<%=request.getContextPath()%>/api/chatroom/verifymember",
 			data: {"memberIdx": sessionId, "chatIdx": ${chatIdx}},
 			type: "post",
 			success: function(response){
@@ -52,7 +52,7 @@
 					webSocket();
 			} else {
 					alert("해당 채팅방에 입장할 수 없습니다.");
-					location.href = "/api/chatlist/" + sessionId;
+					location.href = "<%=request.getContextPath()%>/api/chatlist/" + sessionId;
 				}
 			},
 			error: function(request, e){
@@ -196,13 +196,13 @@
 				let regdate;
 												
 				$.ajax({
-					url: "/api/chatroom/showmembername",
+					url: "<%=request.getContextPath()%>/api/chatroom/showmembername",
 					data: {"memberIdx": sendInfo[1]},
 					type: "post",
 					dataType: "text",
 					success: function(membername){
 						$.ajax({
-							url: "/api/chatroom/translatemsg",
+							url: "<%=request.getContextPath()%>/api/chatroom/translatemsg",
 							data: {"sendMemberIdx": sendInfo[1] ,"msg": sendInfo[0]},
 							type: "post",
 							dataType: "text",
@@ -315,7 +315,7 @@
 		$("#exitChat").on("click", function(){
 			websocket.send(${chatIdx});
 			websocket.close();
-			location.href = "/api/chatlist/" + sessionId;
+			location.href = "<%=request.getContextPath()%>/api/chatlist/" + sessionId;
 		});
 		
 		function sendMsg() {
@@ -338,7 +338,7 @@
 					var data = {memberIdx: sessionId, chatIdx: ${chatIdx}, content: sendMsgInput.value};
 
 					$.ajax({
-						url: "/api/chatroom/savemsg",
+						url: "<%=request.getContextPath()%>/api/chatroom/savemsg",
 						data: JSON.stringify(data),
 						type: "post",
 						contentType: "application/json",

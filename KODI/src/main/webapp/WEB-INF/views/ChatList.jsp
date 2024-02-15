@@ -34,7 +34,7 @@
 				} else {
 					alert("해당 페이지에 접근할 수 없습니다");
 				}
-				location.href = "/api/home";
+				location.href = "<%=request.getContextPath()%>/api/home";
 			} else {		
 				if(language.value == "en") {
 					$("#title").text("Search friend");
@@ -152,7 +152,7 @@
 					var data = {memberIdx: sessionId, friendName: searchInput.value};
 					
 					$.ajax({
-						url: "/api/chatlist/search",
+						url: "<%=request.getContextPath()%>/api/chatlist/search",
 						data: JSON.stringify(data),
 						type: "post",
 						contentType: "application/json",
@@ -227,7 +227,7 @@
 			var data = {memberIdx: sessionId, friendMemberIdx: `${'${friendMemberIdx}'}`}
 			// 채팅방 여부 조회
 			$.ajax({
-				url: "/api/chatlist/clickchat",
+				url: "<%=request.getContextPath()%>/api/chatlist/clickchat",
 				data: JSON.stringify(data),
 				type: "post",
 				contentType: "application/json",
@@ -236,13 +236,13 @@
 					if(response1 == true){ // 이미 채팅방 존재
 						// 채팅방 번호 조회
 						$.ajax({
-							url: "/api/chatlist/chatidx",
+							url: "<%=request.getContextPath()%>/api/chatlist/chatidx",
 							data: JSON.stringify(data),
 							type: "post",
 							contentType: "application/json",
 							dataType: "json",
 							success: function(response2){
-								location.href="/api/chatroom/" + response2;
+								location.href="<%=request.getContextPath()%>/api/chatroom/" + response2;
 							},
 							error: function(request, e){
 								alert("코드: " + request.status + "메시지: " + request.responseText + "오류: " + e);
@@ -251,13 +251,13 @@
 					} else { // 채팅방 존재 X
 						// 새로운 채팅방 생성 및 채팅방 번호 조회
 						$.ajax({
-							url: "/api/chatlist/createchatroom",
+							url: "<%=request.getContextPath()%>/api/chatlist/createchatroom",
 							data: JSON.stringify(data),
 							type: "post",
 							contentType: "application/json",
 							dataType: "json",
 							success: function(response3){
-								location.href="/api/chatroom/" + response3;
+								location.href="<%=request.getContextPath()%>/api/chatroom/" + response3;
 							},
 							error: function(request, e){
 								alert("코드: " + request.status + "메시지: " + request.responseText + "오류: " + e);
@@ -280,7 +280,7 @@
 	
 	function clickChatInfo(chatIdx){
 		if(sessionId == ${chatListInfo.memberIdx}){
-			location.href="/api/chatroom/" + `${'${chatIdx}'}`;
+			location.href="<%=request.getContextPath()%>/api/chatroom/" + `${'${chatIdx}'}`;
 		} else {
 			if(language.value == "en") {
 				alert("You cannot enter the chat room");
@@ -303,7 +303,7 @@
 			if(isDelete){
 				$(`#${'${chatIdx}'}`).remove();
 				$.ajax({
-					url: "/api/chatlist/deletechat",
+					url: "<%=request.getContextPath()%>/api/chatlist/deletechat",
 					data: {"chatIdx": `${'${chatIdx}'}`},
 					type: "post",
 					dataType: "json",
@@ -333,7 +333,7 @@
 					var data = {memberIdx: sessionId, friendName: searchInput.value};
 					
 					$.ajax({
-						url: "/api/chatlist/search",
+						url: "<%=request.getContextPath()%>/api/chatlist/search",
 						data: JSON.stringify(data),
 						type: "post",
 						contentType: "application/json",

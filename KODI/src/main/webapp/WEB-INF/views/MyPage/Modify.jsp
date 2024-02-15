@@ -88,7 +88,7 @@
 						$("#drawbtn").on("click", function () {
 							if (confirm(koLanguage ? "회원 탈퇴하시겠습니까?" : "Would you like to cancel your membership?")) {
 								$.ajax({
-									url: '/api/withdrawMember',
+									url: '<%=request.getContextPath()%>/api/withdrawMember',
 									type: 'POST',
 									success: function (response) {
 										alert(koLanguage ? "회원 탈퇴가 완료되었습니다." : "Your membership has been successfully cancelled.");
@@ -123,7 +123,7 @@
 
 							// 데이터요청
 							$.ajax({
-								url: '/api/updateMemberInfo',
+								url: '<%=request.getContextPath()%>/api/updateMemberInfo',
 								type: 'POST',
 								contentType: 'application/json',
 								data: JSON.stringify(memberDTO),

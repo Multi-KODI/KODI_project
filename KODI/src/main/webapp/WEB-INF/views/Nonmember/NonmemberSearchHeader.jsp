@@ -18,7 +18,7 @@
 	<div class="headerbox">
 
 		<div class="logo-box">
-			<a href="/api/nonhome"><img id="logoicon"
+			<a href="<%=request.getContextPath()%>/api/nonhome"><img id="logoicon"
 				src="<%=request.getContextPath()%>/image/icon/logo.png"></a>
 		</div>
 
@@ -66,7 +66,7 @@
 		
 		$("#selectLanguage").change(function() {
 			$.ajax({
-				url: "/api/header/nonlanguage",
+				url: "<%=request.getContextPath()%>/api/header/nonlanguage",
 				data: {"language": $("#selectLanguage").val()},
 				type: "post",
 				success: function(response){

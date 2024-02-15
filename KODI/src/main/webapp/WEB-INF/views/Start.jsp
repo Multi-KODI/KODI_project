@@ -59,7 +59,7 @@
 		
 		$("#selectLanguage").change(function() {
 			$.ajax({
-				url: "/api/header/startlanguage",
+				url: "<%=request.getContextPath()%>/api/header/startlanguage",
 				data: {"language": $("#selectLanguage").val()},
 				type: "post",
 				success: function(response){

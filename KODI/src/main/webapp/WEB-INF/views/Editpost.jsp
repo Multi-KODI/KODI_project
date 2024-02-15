@@ -32,7 +32,7 @@ if (${isSession}==false){
 <body>
 <main>
 	<div class="post">
-			<form action="/api/post/isupdate" id="wirtePostForm" method="post" enctype="multipart/form-data">
+			<form action="<%=request.getContextPath()%>/api/post/isupdate" id="wirtePostForm" method="post" enctype="multipart/form-data">
 			<input type="number" name="postIdx" value="${readPostOne.postInfo.postIdx}" style="display:none">
 				<select name="category" id="categoryPost" required>
 				    <option id='categoryOpt' value="" selected disabled>카테고리</option>
@@ -239,7 +239,7 @@ function enVersion(){
 	  		if(confirm("Are you sure you want to delete the image?\n(Image deletion cannot be undone even if you click the cancel button.)")) {
 			    containerToDelete.parentNode.remove();
 			    $.ajax({
-			        url: "/api/post/image/isdelete",
+			        url: "<%=request.getContextPath()%>/api/post/image/isdelete",
 			        type: 'post',
 			        data: {
 			            imageSrc: imageName,
@@ -256,7 +256,7 @@ function enVersion(){
 		    if(confirm("사진을 삭제하시겠습니까?\n(사진 삭제는 취소 버튼을 눌러도 되돌릴 수 없습니다.)")) {
 			    containerToDelete.parentNode.remove();
 			    $.ajax({
-			        url: "/api/post/image/isdelete",
+			        url: "<%=request.getContextPath()%>/api/post/image/isdelete",
 			        type: 'post',
 			        data: {
 			            imageSrc: imageName,
@@ -456,7 +456,7 @@ function addTag() {
 }
 
 function cancelMove(){
-	location.href="/api/post/"+"${readPostOne.postInfo.postIdx}";
+	location.href="<%=request.getContextPath()%>/api/post/"+"${readPostOne.postInfo.postIdx}";
 }
 
 </script>

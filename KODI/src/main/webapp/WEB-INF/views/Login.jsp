@@ -31,7 +31,7 @@ $(document).ready(function(){
 	
 	$("#languageSelect").change(function() {
 		$.ajax({
-			url: "/api/header/loginlanguage",
+			url: "<%=request.getContextPath()%>/api/header/loginlanguage",
 			data: {"language": $("#languageSelect").val()},
 			type: "post",
 			success: function(response){
@@ -84,13 +84,13 @@ $(document).ready(function(){
 	            };
 
 	            $.ajax({
-	                url: "/api/login",
+	                url: "<%=request.getContextPath()%>/api/login",
 	                data: JSON.stringify(data),
 	                contentType : 'application/json; charset=utf-8',
 	                type: "post",
 	                success: function(response) {
 	                    if (response == "로그인에 성공하였습니다") {
-	                        location.href = "/api/home";
+	                        location.href = "<%=request.getContextPath()%>/api/home";
 	                    } else if(response == "비밀번호를 확인해 주세요") {
 	                        alert(koLanguage ? "비밀번호를 확인해 주세요" : "Please check your password");
 	                        $("#inputPassword").focus();
@@ -98,7 +98,7 @@ $(document).ready(function(){
 	                        alert(koLanguage ? "회원이 존재하지 않습니다" : "This user does not exist.");
 	                        $("#inputEmail").focus();
 	                    } else if(response == "관리자로 로그인 하였습니다"){
-	                        location.href = "/api/admin/allposts";
+	                        location.href = "<%=request.getContextPath()%>/api/admin/allposts";
 	                    } else {
 	                        alert(koLanguage ? "알 수 없는 오류" : "Unknown error");
 	                    }
@@ -112,7 +112,7 @@ $(document).ready(function(){
 	});
 	
 	$("#joinBtn").on('click', function(){
-		location.href = "/api/join";	
+		location.href = "<%=request.getContextPath()%>/api/join";	
 	});	//btn
 	
 	

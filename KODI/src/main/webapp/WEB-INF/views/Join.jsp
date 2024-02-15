@@ -38,7 +38,7 @@
 
 				$("#languageSelect").change(function () {
 					$.ajax({
-						url: "/api/header/joinlanguage",
+						url: "<%=request.getContextPath()%>/api/header/joinlanguage",
 						data: { "language": $("#languageSelect").val() },
 						type: "post",
 						success: function (response) {
@@ -99,7 +99,7 @@
 
 					} else {
 						$.ajax({
-							url: "/api/email",
+							url: "<%=request.getContextPath()%>/api/email",
 							data: {
 								'email': $("#inputEmail").val() + "@" + $("#emailLocation").val()
 							},
@@ -122,7 +122,7 @@
 
 				$("#confirmCodeForm").on('click', "#confirmCodeBtn", function () {
 					$.ajax({
-						url: "/api/verify",
+						url: "<%=request.getContextPath()%>/api/verify",
 						data: { "inputOtp": $("#inputConfirmCode").val() },
 						type: "post",
 						success: function (response) {
@@ -166,7 +166,7 @@
 						} else {
 							console.log(nickname.value + ":" + password.value);
 							$.ajax({
-								url: "/api/join",
+								url: "<%=request.getContextPath()%>/api/join",
 								data: JSON.stringify(dto),
 								type: "post",
 								contentType: "application/json",
@@ -174,7 +174,7 @@
 									console.log(response)
 									if (response == "회원등록이 완료되었습니다") {
 										alert((koLanguage ? "회원등록이 완료되었습니다" : "Registered successfully"));
-										location.href = "/api/login";
+										location.href = "<%=request.getContextPath()%>/api/login";
 									} else if (response == "사용 중인 닉네임입니다") {
 										alert((koLanguage ? "사용 중인 닉네임입니다" : "This nickname is already in use."));
 									} else if (response == "이미 회원가입이 완료된 유저입니다") {
@@ -214,7 +214,7 @@
 						<option id="ko" value="ko">한국어</option>
 						<option id="en" value="en">English</option>
 					</select>
-					<a href="/api/nonhome" id="logo"><img id="logoImage" src="<%=request.getContextPath()%>/image/icon/logo.png"></a>
+					<a href="<%=request.getContextPath()%>/api/nonhome" id="logo"><img id="logoImage" src="<%=request.getContextPath()%>/image/icon/logo.png"></a>
 				</div>
 			</header>
 			<div id="inner">

@@ -30,7 +30,7 @@
 
 					$("#selectLanguage").change(function () {
 						$.ajax({
-							url: "/api/admin/adminlanguage",
+							url: "<%=request.getContextPath()%>/api/admin/adminlanguage",
 							data: { "language": $("#selectLanguage").val() },
 							type: "post",
 							success: function (response) {
@@ -66,8 +66,8 @@
 				</header>
 
 				<div class="menu-content">
-					<a href="/api/admin/allposts" id="listallBtn">전체글</a>
-					<a href="/api/admin/allmembers" id="memberlistBtn">회원목록</a>
+					<a href="<%=request.getContextPath()%>/api/admin/allposts" id="listallBtn">전체글</a>
+					<a href="<%=request.getContextPath()%>/api/admin/allmembers" id="memberlistBtn">회원목록</a>
 				</div>
 
 				<div class="main">
@@ -81,7 +81,7 @@
 
 							<div id="title">
 								<span style="margin-left: 10px;" id="postTitle">전체글</span>
-								<form action="/api/adminsearch">
+								<form action="<%=request.getContextPath()%>/api/adminsearch">
 									<select id="searchselect" name="filter">
 										<option value="게시글" id="postValue">게시글</option>
 									</select> <input id="searchinput" name="question">
@@ -130,10 +130,10 @@
 											</td>
 
 											<td>
-												<a class="viewBtn" data-post-idx="${post.postIdx}" href="/api/post/${post.postIdx}">보기</a>
+												<a class="viewBtn" data-post-idx="${post.postIdx}" href="<%=request.getContextPath()%>/api/post/${post.postIdx}">보기</a>
 
 												<a class="deleteBtn" data-post-idx="${post.postIdx}"
-													href="/api/admin/deletepost/${post.postIdx}">삭제</a>
+													href="<%=request.getContextPath()%>/api/admin/deletepost/${post.postIdx}">삭제</a>
 											</td>
 										</tr>
 
@@ -169,7 +169,7 @@
 
 							if (confirm(koLanguage ? "이 게시글을 삭제하시겠습니까?" : "Would you like to delete this post?")) {
 								$.ajax({
-									url: '/api/admin/deletepost/' + $(e.target).attr('data-post-idx'),
+									url: '<%=request.getContextPath()%>/api/admin/deletepost/' + $(e.target).attr('data-post-idx'),
 									dataType: 'json',
 									type: "get",
 									success: function (response) {// <- List<PostDTO>
@@ -201,12 +201,12 @@
 
 
 														'<td>' +
-														'<a class="viewBtn" data-post-idx="' + response.postDTO[i].postIdx + '" href="/api/post/' + response.postDTO[i].postIdx + '">' + (koLanguage ? "보기" : "View") + '</a>' +
+														'<a class="viewBtn" data-post-idx="' + response.postDTO[i].postIdx + '" href="<%=request.getContextPath()%>/api/post/' + response.postDTO[i].postIdx + '">' + (koLanguage ? "보기" : "View") + '</a>' +
 														'</td>' +
 
 
 														'<td>' +
-														'<a class="deleteBtn" data-post-idx="' + response.postDTO[i].postIdx + '" href="/api/admin/deletepost/' + response.postDTO[i].postIdx + '">' + (koLanguage ? "삭제" : "Delete") + '</a>' +
+														'<a class="deleteBtn" data-post-idx="' + response.postDTO[i].postIdx + '" href="<%=request.getContextPath()%>/api/admin/deletepost/' + response.postDTO[i].postIdx + '">' + (koLanguage ? "삭제" : "Delete") + '</a>' +
 														'</td>' +
 														'</tr>';
 												}
@@ -219,7 +219,7 @@
 						});//on-click
 						$("#logoutbtn").on("click", function () {
 							if (confirm(koLanguage ? "로그아웃 하시겠습니까?" : "Do you want to log out?")) {
-								$.post("/api/logout", function (response) {
+								$.post("<%=request.getContextPath()%>/api/logout", function (response) {
 									window.location.href = "/";
 								});
 							}

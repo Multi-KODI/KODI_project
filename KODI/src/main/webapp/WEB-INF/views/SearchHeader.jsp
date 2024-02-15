@@ -18,10 +18,10 @@
 	<div class="headerbox">
 
 		<div class="logo-box">
-			<a href="/api/home"><img id="logoicon" src="<%=request.getContextPath()%>/image/icon/logo.png" ></a>
+			<a href="<%=request.getContextPath()%>/api/home"><img id="logoicon" src="<%=request.getContextPath()%>/image/icon/logo.png" ></a>
 		</div>
 
-<form action="/api/search" method="get" class="input-box">
+<form action="<%=request.getContextPath()%>/api/search" method="get" class="input-box">
     <div class="input-box">
         <div id="search-box">
             <select id="searchfilter" name="filter">

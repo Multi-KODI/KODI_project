@@ -79,7 +79,7 @@
 		$("#likeBtnText").html("${readPostOne.likeCnt}");
 		
 		$.ajax({
-			url: "/api/post/like/isclick",
+			url: "<%=request.getContextPath()%>/api/post/like/isclick",
 			type: "post",
 			data: JSON.stringify(data),
 			contentType: "application/json",
@@ -99,7 +99,7 @@
 		
 		$("#like").on("click", function(){			
 			$.ajax({
-				url: "/api/post/like",
+				url: "<%=request.getContextPath()%>/api/post/like",
 				type: "post",
 				data: JSON.stringify(data),
 				contentType: "application/json",
@@ -108,7 +108,7 @@
 					$("#likeBtnText").html(res);
 					
 					$.ajax({
-						url: "/api/post/like/isclick",
+						url: "<%=request.getContextPath()%>/api/post/like/isclick",
 						type: "post",
 						data: JSON.stringify(data),
 						contentType: "application/json",
@@ -139,7 +139,7 @@
 			
 			// 이미 마킹한 게시물인지 확인
 			$.ajax({
-				url: "/api/post/ismarking",
+				url: "<%=request.getContextPath()%>/api/post/ismarking",
 				type: "post",
 				data: JSON.stringify(data),
 				contentType: "application/json",
@@ -158,7 +158,7 @@
 												
 						if(isDeleteMarking){
 							$.ajax({
-								url: "/api/post/deletemarking",
+								url: "<%=request.getContextPath()%>/api/post/deletemarking",
 								type: "post",
 								data: JSON.stringify(data),
 								contentType: "application/json",
@@ -189,7 +189,7 @@
 						
 						if(isMarking){
 							$.ajax({
-								url: "/api/post/insertmarking",
+								url: "<%=request.getContextPath()%>/api/post/insertmarking",
 								type: "post",
 								data: JSON.stringify(data),
 								contentType: "application/json",
@@ -313,7 +313,7 @@
 			
 			if (inputComment.value != "") {            
 				$.ajax({
-					url: "/api/post/comment",
+					url: "<%=request.getContextPath()%>/api/post/comment",
 					data: JSON.stringify(data),
 					type: "post",
 					contentType: "application/json",
@@ -356,7 +356,7 @@
 			if (isDelete){
 				$(`#${'${commentIdx}'}`).remove();
 				$.ajax({
-					url: "/api/post/comment/delete",
+					url: "<%=request.getContextPath()%>/api/post/comment/delete",
 					data: {"commentIdx": `${'${commentIdx}'}`},
 					type: "post",
 					dataType: "json",
@@ -388,7 +388,7 @@
 				}
 				
 				if (isUpdate) {
-					location.href = "/api/post/modify/" + ${readPostOne.postInfo.postIdx};
+					location.href = "<%=request.getContextPath()%>/api/post/modify/" + ${readPostOne.postInfo.postIdx};
 				};
 			} else {
 				if(language.value == "en") {
@@ -414,7 +414,7 @@
 				
 				if (isDelete) {
 					$.ajax({
-						url: "/api/post/delete",
+						url: "<%=request.getContextPath()%>/api/post/delete",
 						data: JSON.stringify(data),
 						type: "post",
 						dataType: "json",
@@ -427,11 +427,11 @@
 							}
 
 							var referrer = document.referrer;
-							if(referrer == "http://localhost:7777/api/mypage"){
-								location.href = "/api/mypage";
+							if(referrer == "http://" + <%= request.getServerName()%> + ":" + <%=request.getServerPort()%> + "/" + <%=request.getContextPath()%> + "api/mypage"){
+								location.href = "<%=request.getContextPath()%>/api/mypage";
 							}
 							else {
-								location.href = "/api/posts/food";
+								location.href = "<%=request.getContextPath()%>/api/posts/food";
 							}
 						},
 						error: function(request, e){

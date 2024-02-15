@@ -29,7 +29,7 @@
 
 				$("#selectLanguage").change(function () {
 					$.ajax({
-						url: "/api/header/language",
+						url: "<%=request.getContextPath()%>/api/header/language",
 						data: { "language": $("#selectLanguage").val() },
 						type: "post",
 						success: function (response) {
@@ -56,7 +56,7 @@
     			<img class="icon" id="notifyIcon" src="/image/icon/notify.png"> 
 			</a> -->
 
-						<a href="/api/chatlist/<%=session.getAttribute("memberIdx")%>">
+						<a href="<%=request.getContextPath()%>/api/chatlist/<%=session.getAttribute("memberIdx")%>">
 							<img class="icon" id="chatIcon" src="<%=request.getContextPath()%>/image/icon/chat.png">
 						</a>
 
@@ -73,8 +73,8 @@
 			</header>
 
 			<div class="menu-content">
-				<a href="/api/posts/food" id="allPost">모든 게시글</a> <a href="/api/map" id="map">지도 서비스</a> <a href="/api/planner"
-					id="planner">여행 플래너</a> <a href="/api/diningcost" id="diningCost">지역별 외식비</a>
+				<a href="<%=request.getContextPath()%>/api/posts/food" id="allPost">모든 게시글</a> <a href="<%=request.getContextPath()%>/api/map" id="map">지도 서비스</a> <a href="<%=request.getContextPath()%>/api/planner"
+					id="planner">여행 플래너</a> <a href="<%=request.getContextPath()%>/api/diningcost" id="diningCost">지역별 외식비</a>
 			</div>
 
 
@@ -107,12 +107,12 @@
 						});
 
 						$("#mypagenbtn").on("click", function (event) {
-							window.location.href = "/api/mypage";
+							window.location.href = "<%=request.getContextPath()%>/api/mypage";
 						});
 
 						$("#logoutbtn").on("click", function () {
 							if (confirm(koLanguage ? "로그아웃 하시겠습니까?" : "Do you want to log out?")) {
-								$.post("/api/logout", function (response) {
+								$.post("<%=request.getContextPath()%>/api/logout", function (response) {
 									window.location.href = "/";
 								});
 							}

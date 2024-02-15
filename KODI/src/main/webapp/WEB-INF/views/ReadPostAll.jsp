@@ -28,12 +28,12 @@
 		<div id="image">
 			<c:choose>
                 <c:when test="${not empty post.postImage}">
-                    <a href="/api/post/${post.postInfo.postIdx}" class="post-link">
+                    <a href="<%=request.getContextPath()%>/api/post/${post.postInfo.postIdx}" class="post-link">
                         <img src="<%=request.getContextPath()%>/image/db/${post.postImage}">
                     </a>
                 </c:when>
                 <c:otherwise>
-                    <a href="/api/post/${post.postInfo.postIdx}" class="post-link">
+                    <a href="<%=request.getContextPath()%>/api/post/${post.postInfo.postIdx}" class="post-link">
                         <img src="<%=request.getContextPath()%>/image/db/noImage.png">
                     </a>
                 </c:otherwise>
@@ -41,7 +41,7 @@
      	</div>
      	<div class="firstLine">
      	<div id="title">
-		 	<label class="post-link" data-title="${post.postInfo.title}" data-content="${post.postInfo.content}" onclick="window.location.href = '/api/post/${post.postInfo.postIdx}';">${post.postInfo.title}</label>
+		 	<label class="post-link" data-title="${post.postInfo.title}" data-content="${post.postInfo.content}" onclick="window.location.href = '<%=request.getContextPath()%>/api/post/${post.postInfo.postIdx}';">${post.postInfo.title}</label>
       	</div>
       	<div id="rightSide">
 				<img id="flagImage" src="${post.flag}">
@@ -84,19 +84,19 @@ function koVersion() {
 	}
 
 	$("#food").on("click", function(){
-		location.href = "/api/posts/food";
+		location.href = "<%=request.getContextPath()%>/api/posts/food";
 	});
 	
 	$("#cafe").on("click", function(){
-		location.href = "/api/posts/cafe";
+		location.href = "<%=request.getContextPath()%>/api/posts/cafe";
 	});
 	
 	$("#play").on("click", function(){
-		location.href = "/api/posts/play";
+		location.href = "<%=request.getContextPath()%>/api/posts/play";
 	});
 	
 	$("#hotel").on("click", function(){
-		location.href = "/api/posts/hotel";
+		location.href = "<%=request.getContextPath()%>/api/posts/hotel";
 	});
 };
 
@@ -119,19 +119,19 @@ function enVersion() {
 	}
 
 	$("#food").on("click", function(){
-		location.href = "/api/posts/food";
+		location.href = "<%=request.getContextPath()%>/api/posts/food";
 	});
 	
 	$("#cafe").on("click", function(){
-		location.href = "/api/posts/cafe";
+		location.href = "<%=request.getContextPath()%>/api/posts/cafe";
 	});
 	
 	$("#play").on("click", function(){
-		location.href = "/api/posts/play";
+		location.href = "<%=request.getContextPath()%>/api/posts/play";
 	});
 	
 	$("#hotel").on("click", function(){
-		location.href = "/api/posts/hotel";
+		location.href = "<%=request.getContextPath()%>/api/posts/hotel";
 	});
 
 	

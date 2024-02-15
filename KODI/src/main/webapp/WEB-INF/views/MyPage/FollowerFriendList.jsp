@@ -107,7 +107,7 @@
                         $("#friendList3").on('click', '#f-removeBtn', function (e) {
                             if (confirm(koLanguage ? "해당 친구요청을 삭제하시겠습니까?" : "Would you like to delete this friend request?")) {
                                 $.ajax({
-                                    url: '/api/follower/delete/' + $(e.target).attr('data-member-idx'),
+                                    url: '<%=request.getContextPath()%>/api/follower/delete/' + $(e.target).attr('data-member-idx'),
                                     dataType: 'json',
                                     type: "get",
                                     success: function (response) {
@@ -127,8 +127,8 @@
                                                 '</div>' +
                                                 '</td>' +
                                                 '<td>' +
-                                                '<button class="f-Btn" id="f-acceptBtn" data-member-idx="' + response[i].memberIdx + '" href="/api/follower/accept/' + response[i].memberIdx + '">'+(koLanguage ? "수락" : "Accept")+'</a>' +
-                                                '<button class="f-Btn" id="f-removeBtn" data-member-idx="' + response[i].memberIdx + '" href="/api/follower/delete/' + response[i].memberIdx + '">'+(koLanguage ? "삭제" : "Delete")+'</a>' +
+                                                '<button class="f-Btn" id="f-acceptBtn" data-member-idx="' + response[i].memberIdx + '" href="<%=request.getContextPath()%>/api/follower/accept/' + response[i].memberIdx + '">'+(koLanguage ? "수락" : "Accept")+'</a>' +
+                                                '<button class="f-Btn" id="f-removeBtn" data-member-idx="' + response[i].memberIdx + '" href="<%=request.getContextPath()%>/api/follower/delete/' + response[i].memberIdx + '">'+(koLanguage ? "삭제" : "Delete")+'</a>' +
                                                 '</td>' +
                                                 '</tr>';
                                         }
@@ -144,7 +144,7 @@
                         $("#friendList3").on('click', '#f-acceptBtn', function (e) {
                             if (confirm(koLanguage ? "친구요청을 수락하시겠습니까?+" : "Would you like to accept this friend request?")) {
                                 $.ajax({
-                                    url: '/api/follower/accept/' + $(e.target).attr('data-member-idx'),
+                                    url: '<%=request.getContextPath()%>/api/follower/accept/' + $(e.target).attr('data-member-idx'),
                                     dataType: 'json',
                                     type: "get",
                                     success: function (response) {
@@ -164,8 +164,8 @@
                                                 '</div>' +
                                                 '</td>' +
                                                 '<td>' +
-                                                '<button class="f-Btn" id="f-acceptBtn" data-member-idx="' + response[i].memberIdx + '" href="/api/follower/accept/' + response[i].memberIdx + '">'+(koLanguage ? "수락" : "Accept")+'</a>' +
-                                                '<button class="f-Btn" id="f-removeBtn" data-member-idx="' + response[i].memberIdx + '" href="/api/follower/delete/' + response[i].memberIdx + '">'+(koLanguage ? "삭제" : "Delete")+'</a>' +
+                                                '<button class="f-Btn" id="f-acceptBtn" data-member-idx="' + response[i].memberIdx + '" href="<%=request.getContextPath()%>/api/follower/accept/' + response[i].memberIdx + '">'+(koLanguage ? "수락" : "Accept")+'</a>' +
+                                                '<button class="f-Btn" id="f-removeBtn" data-member-idx="' + response[i].memberIdx + '" href="<%=request.getContextPath()%>/api/follower/delete/' + response[i].memberIdx + '">'+(koLanguage ? "삭제" : "Delete")+'</a>' +
                                                 '</td>' +
                                                 '</tr>';
                                         }
@@ -174,9 +174,58 @@
                                 });
                             }
                         });
+                        
+                      	//닫기버튼
+	                	$("#closebtn").on("click", function () {
+	                		$(".modal_background2").fadeOut();
+	                	});
+	
+	                	// 서로 친구 목록 요청
+	                	$("#PairBtn").on("click", function () {
+	                		$.ajax({
+	                			url: '<%=request.getContextPath()%>/api/pair',
+	                			type: 'GET',
+	                			dataType: 'html',
+	                			success: function (response) {
+	                				$('.modal_box2').html(response);
+	                			},
+	                			error: function (error) {
+	                				console.log("Error:", error);
+	                			}
+	                		});
+	                	});
+	
+	                	// 내가 추가한 친구 목록 요청
+	                	$("#FollowingBtn").on("click", function () {
+	                		$.ajax({
+	                			url: '<%=request.getContextPath()%>/api/following',
+	                			type: 'GET',
+	                			dataType: 'html',
+	                			success: function (response) {
+	                				$('.modal_box2').html(response);
+	                			},
+	                			error: function (error) {
+	                				console.log("Error:", error);
+	                			}
+	                		});
+	                	});
+	
+	                	// 나를 추가한 친구 목록 요청
+	                	$("#FollowerBtn").on("click", function () {
+	                		$.ajax({
+	                			url: '<%=request.getContextPath()%>/api/follower',
+	                			type: 'GET',
+	                			dataType: 'html',
+	                			success: function (response) {
+	                				$('.modal_box2').html(response);
+	                			},
+	                			error: function (error) {
+	                				console.log("Error:", error);
+	                			}
+	                		});
+	                	});
                     });//ready
                 </script>
-                <script src="<%=request.getContextPath()%>/js/FriendScript.js"></script>
             </body>
 
             </html>

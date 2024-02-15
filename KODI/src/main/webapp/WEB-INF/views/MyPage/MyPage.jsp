@@ -84,7 +84,7 @@ $(document).ready(function () {
      $("#modifybtn").text(koLanguage ? "정보수정" : "Modify");
      if (${ isSession } == false) {
      alert("Please Login");
-     location.href = "/api/login";
+     location.href = "<%=request.getContextPath()%>/api/login";
 	 } 
 else {
 /*    var randomImages = ["/image/db/ex.jpg", "/image/db/ex2.jpg", "/image/db/ex3.jpg"];
@@ -104,12 +104,12 @@ else {
 
    //글작성 버튼>글작성페이지
    $("#writebtn").on("click", function () {
-       window.location.href = ("/api/post/write");
+       window.location.href = ("<%=request.getContextPath()%>/api/post/write");
    });
 
    //친구목록 - 추후 수정
    $("#friendbtn").on("click", function () {
-       $(".modal_box2").load("/api/pair", function () {
+       $(".modal_box2").load("<%=request.getContextPath()%>/api/pair", function () {
            $(".modal_background2").fadeIn();
 
        });
@@ -125,7 +125,7 @@ else {
        }
 
        $.ajax({
-           url: '/api/verifyPw',
+           url: '<%=request.getContextPath()%>/api/verifyPw',
            type: 'POST',
            contentType: 'application/json',
            data: JSON.stringify({
@@ -133,7 +133,7 @@ else {
            }),
            success: function (response) {
                if (response === "회원정보 확인 완료") {
-                   $(".modal_box").load("/api/update", function () {
+                   $(".modal_box").load("<%=request.getContextPath()%>/api/update", function () {
                        $(".modal_background1").fadeIn();
                    });
                } else {
@@ -158,7 +158,7 @@ else {
               if (postIdx === undefined) {
                   return;
               }
-              window.location.href = "/api/post/" + postIdx;
+              window.location.href = "<%=request.getContextPath()%>/api/post/" + postIdx;
           });
       }
 });//ready

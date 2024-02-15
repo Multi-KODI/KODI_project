@@ -112,13 +112,13 @@ $(document).ready(function() {
     // 게시글
     $("#hBox3").on("click", function() {
         var question = encodeURIComponent("${param.question}");
-        window.location.href = '/api/search?filter=%EA%B2%8C%EC%8B%9C%EA%B8%80&question=' + question;
+        window.location.href = '<%=request.getContextPath()%>/api/search?filter=%EA%B2%8C%EC%8B%9C%EA%B8%80&question=' + question; 
     });
 
     // 사용자
     $("#hBox4").on("click", function() {
         var question = encodeURIComponent("${param.question}");
-        window.location.href = '/api/search?filter=%EC%82%AC%EC%9A%A9%EC%9E%90&question=' + question;
+        window.location.href = '<%=request.getContextPath()%>/api/search?filter=%EC%82%AC%EC%9A%A9%EC%9E%90&question=' + question; 
     });
     
     

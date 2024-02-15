@@ -277,8 +277,7 @@ function webSocket(){
 	websocket = null;
 
 	if(websocket == null){
-		websocket = new WebSocket("ws://localhost:7777/home");
-		//websocket = new WebSocket("ws://192.168.0.13:7777/home"); // 추후 ncp 배포 공인 IP로 변경
+		websocket = new WebSocket("ws://" + <%=request.getServerName()%> + ":" + <%=request.getServerPort()%> + "/home");
 		
 		websocket.onopen = function(){console.log("웹소켓 연결성공");};
 		websocket.onclose = function(){console.log("웹소켓 해제성공");};

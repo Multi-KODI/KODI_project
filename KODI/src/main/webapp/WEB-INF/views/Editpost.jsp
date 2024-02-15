@@ -9,11 +9,11 @@
 <head>
 <meta charset="UTF-8">
 <title>editpost</title>
-<link rel="stylesheet" href="/css/WritePost.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/WritePost.css">
 <link
 	href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css"
 	rel="stylesheet">
-<script src="/js/jquery-3.7.1.min.js"></script>
+<script src="<%=request.getContextPath()%>/js/jquery-3.7.1.min.js"></script>
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=APIKEY&libraries=LIBRARY"></script>
 <!-- services 라이브러리 불러오기 -->
@@ -72,7 +72,7 @@ if (${isSession}==false){
 					
 			
 					
-					<button type="button" id="imageAddBtn" class="btn" onclick="addImage()"><img id="addImageIcon" src="/image/icon/fileupload.png">&nbsp;사진추가</button><br>
+					<button type="button" id="imageAddBtn" class="btn" onclick="addImage()"><img id="addImageIcon" src="<%=request.getContextPath()%>/image/icon/fileupload.png">&nbsp;사진추가</button><br>
 					<span class="photoBoxs" id= "photoBoxs">	
 					</span>
 					<br><br>
@@ -120,7 +120,7 @@ function enVersion(){
 	$('#tagAddBtn').html('To Add');
 	document.getElementById('selectedAddressShow').placeholder = 'Address';
 	$("#addressBtn").val("Look Up");
-	$("#imageAddBtn").html(`<img id="addImageIcon" src="/image/icon/fileupload.png">&nbsp;Image Attached</button>`);
+	$("#imageAddBtn").html(`<img id="addImageIcon" src="<%=request.getContextPath()%>/image/icon/fileupload.png">&nbsp;Image Attached</button>`);
 	$("#imageAddBtn").attr("style", "width:165px");
 	document.getElementById('finishBtn').value = 'Completed';
 	document.getElementById('cancelBtn').value = 'Cancel';
@@ -205,7 +205,7 @@ function enVersion(){
 		   var deleteImageBtn = document.createElement("button");
 		    deleteImageBtn.type = "button";
 		    deleteImageBtn.id = "deleteBtn_" + btnIndex;
-		    deleteImageBtn.innerHTML = '<img id="deleteImageIcon" src="/image/icon/x.png">';
+		    deleteImageBtn.innerHTML = '<img id="deleteImageIcon" src="<%=request.getContextPath()%>/image/icon/x.png">';
 		    deleteImageBtn.style.backgroundColor = "transparent"; // 배경색 없애기
 		    deleteImageBtn.style.border = "none"; 
 		    
@@ -362,7 +362,7 @@ function addImage() {
 		
 	// 새로운 이미지 아이콘 생성
 	var newIcon = document.createElement("img");
-	newIcon.src = "/image/icon/x.png";  // 이미지 소스 경로에 실제 이미지 파일 경로를 지정
+	newIcon.src = "<%=request.getContextPath()%>/image/icon/x.png";  // 이미지 소스 경로에 실제 이미지 파일 경로를 지정
 	newIcon.alt = "Delete";
 	newIcon.style.cursor = "pointer";
 	

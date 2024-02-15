@@ -8,8 +8,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css" rel="stylesheet">
 
-<link rel="stylesheet" href="/css/Login.css">
-<script src="/js/jquery-3.7.1.min.js"></script>
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/Login.css">
+<script src="<%=request.getContextPath()%>/js/jquery-3.7.1.min.js"></script>
 <title>KoDi</title>
 <script>
 $(document).ready(function(){
@@ -128,12 +128,12 @@ $(document).ready(function(){
 					<option id="ko" value="ko">한국어</option>
 					<option id="en" value="en">English</option>
 				</select>
-				<a href="nonhome" id = "logo"><img id="logoImage" src="/image/icon/logo.png" ></a>
+				<a href="nonhome" id = "logo"><img id="logoImage" src="<%=request.getContextPath()%>/image/icon/logo.png" ></a>
 			
 	</div>
 </header>
 	<div id="inner">
-	<img src="/image/icon/friends.png">
+	<img src="<%=request.getContextPath()%>/image/icon/friends.png">
 		<form id="loginForm" method="post">
 			<h3 id="email">이메일</h3>
 		    <input type="text" id="inputEmail" name="inputEmail" placeholder="이메일" required><br><br>

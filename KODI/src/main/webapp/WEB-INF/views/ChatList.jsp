@@ -13,9 +13,9 @@
 
 <title>KoDi</title>
 
-<link href="/css/ChatList.css" rel="stylesheet">
+<link href="<%=request.getContextPath()%>/css/ChatList.css" rel="stylesheet">
 
-<script src="/js/jquery-3.7.1.min.js"></script>
+<script src="<%=request.getContextPath()%>/js/jquery-3.7.1.min.js"></script>
 
 </head>
 
@@ -409,14 +409,14 @@
 	<main>
 		<div id="allElement">
 			<div id="searchFriendDiv">
-				<img id="friendIcon" src="/image/icon/friends.png" align="center">
+				<img id="friendIcon" src="<%=request.getContextPath()%>/image/icon/friends.png" align="center">
 				<p id="title">친구 검색</p>
 
 				<div id="searchInputDiv">
 					<input id="searchInput" type="search" placeholder="친구 검색"
 						onkeypress="enterKey(event)">
 					<button id="searchBtn" type="button">
-						<img id="searchIcon" src="/image/icon/search.png" align="center">
+						<img id="searchIcon" src="<%=request.getContextPath()%>/image/icon/search.png" align="center">
 					</button>
 				</div>
 
@@ -424,7 +424,7 @@
 			</div>
 
 			<div id="chatListDiv">
-				<img id="chatListIcon" src="/image/icon/live-chat.png"
+				<img id="chatListIcon" src="<%=request.getContextPath()%>/image/icon/live-chat.png"
 					align="center">
 				<p class="chatTitle" id="title">채팅방</p>
 

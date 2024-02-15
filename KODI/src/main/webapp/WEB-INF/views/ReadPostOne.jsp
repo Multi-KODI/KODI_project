@@ -10,9 +10,9 @@
 
 <title>KoDi</title>
 
-<link href="/css/ReadPostOne.css" rel="stylesheet">
+<link href="<%=request.getContextPath()%>/css/ReadPostOne.css" rel="stylesheet">
 
-<script src="/js/jquery-3.7.1.min.js"></script>
+<script src="<%=request.getContextPath()%>/js/jquery-3.7.1.min.js"></script>
 </head>
 
 <script>
@@ -63,7 +63,7 @@
 		$("#postContent").html("${readPostOne.postInfo.content}" + "<br><br>");
 
 		<c:forEach items="${readPostOne.postImages}" var="image">
-			 $("#postImage").append("<img id='postImg' src='/image/db/" + "${image}" + "'display= inline-block width=40% height=40% object-fit=contain align=center>&nbsp;");		
+			 $("#postImage").append("<img id='postImg' src=<%=request.getContextPath()%>'/image/db/" + "${image}" + "'display= inline-block width=40% height=40% object-fit=contain align=center>&nbsp;");		
 		</c:forEach>
 		
 		$("#addrInfo").append("${readPostOne.postInfo.address}");
@@ -87,9 +87,9 @@
 			success: function(isClick){
 				let likeIcon = document.getElementById("likeIcon");
 				if(isClick > 0){
-					likeIcon.setAttribute("src", "/image/icon/full-love.png");
+					likeIcon.setAttribute("src", "<%=request.getContextPath()%>/image/icon/full-love.png");
 				} else {
-					likeIcon.setAttribute("src", "/image/icon/love.png");					
+					likeIcon.setAttribute("src", "<%=request.getContextPath()%>/image/icon/love.png");					
 				}
 			},
 			error: function(res, e){
@@ -116,9 +116,9 @@
 						success: function(isClick){
 							let likeIcon = document.getElementById("likeIcon");
 							if(isClick > 0){
-								likeIcon.setAttribute("src", "/image/icon/full-love.png");
+								likeIcon.setAttribute("src", "<%=request.getContextPath()%>/image/icon/full-love.png");
 							} else {
-								likeIcon.setAttribute("src", "/image/icon/love.png");					
+								likeIcon.setAttribute("src", "<%=request.getContextPath()%>/image/icon/love.png");					
 							}
 						},
 						error: function(res, e){
@@ -289,7 +289,7 @@
 				
 				<c:forEach items="${commentMemberInfo}" var="memberInfo">  					
 					if("${memberInfo.memberIdx}" == "${one.memberIdx}"){
-						commentMemberName.innerHTML = "<img src=\"/image/icon/user.png\" width=16px height=16px align= \"center\">&nbsp;&nbsp;" + "${memberInfo.memberName}&nbsp;&nbsp;|&nbsp;&nbsp;";
+						commentMemberName.innerHTML = "<img src=\"<%=request.getContextPath()%>/image/icon/user.png\" width=16px height=16px align= \"center\">&nbsp;&nbsp;" + "${memberInfo.memberName}&nbsp;&nbsp;|&nbsp;&nbsp;";
 					}
 				</c:forEach>
 				
@@ -461,7 +461,7 @@
 				<!-- 게시물 정보 -->
 				<div class="moreHoriz">
 					<button class="moreHorizBtn" style="cursor: pointer">
-						<img class="moreHorizImg" src="/image/icon/more_horiz.svg"
+						<img class="moreHorizImg" src="<%=request.getContextPath()%>/image/icon/more_horiz.svg"
 							width="24" height="24"></img>
 					</button>
 					<div class="option">
@@ -501,16 +501,16 @@
 				<!-- 좋아요, 마킹, 공유 -->
 				<div id="btns">
 					<button id="like" type="button">
-						<span> <img id="likeIcon" src="/image/icon/love.png"
+						<span> <img id="likeIcon" src="<%=request.getContextPath()%>/image/icon/love.png"
 							align="center">
 							<p id="likeBtnText" style="display: inline;">0</p>
 						</span>
 					</button>
 					<button id="marker" type="button">
-						<img src="/image/icon/marker.png" align="center">
+						<img src="<%=request.getContextPath()%>/image/icon/marker.png" align="center">
 					</button>
 					<button id="share" type="button">
-						<img src="/image/icon/export.png" align="center">
+						<img src="<%=request.getContextPath()%>/image/icon/export.png" align="center">
 					</button>
 				</div>
 			</div>

@@ -5,9 +5,9 @@
 
 		<head>
 			<meta charset="UTF-8">
-			<link rel="stylesheet" href="/css/Header.css">
+			<link rel="stylesheet" href="<%=request.getContextPath()%>/css/Header.css">
 			<link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css" rel="stylesheet">
-			<script src="/js/jquery-3.7.1.min.js"></script>
+			<script src="<%=request.getContextPath()%>/js/jquery-3.7.1.min.js"></script>
 			<title>KoDi</title>
 		</head>
 
@@ -47,7 +47,7 @@
 			<header>
 				<div class="header-container">
 					<div class="menu">
-						<img src="/image/icon/menu.png" class="icon" id="menubtn">
+						<img src="<%=request.getContextPath()%>/image/icon/menu.png" class="icon" id="menubtn">
 					</div>
 
 					<div class="end-btn">
@@ -57,7 +57,7 @@
 			</a> -->
 
 						<a href="/api/chatlist/<%=session.getAttribute("memberIdx")%>">
-							<img class="icon" id="chatIcon" src="/image/icon/chat.png">
+							<img class="icon" id="chatIcon" src="<%=request.getContextPath()%>/image/icon/chat.png">
 						</a>
 
 						<button class="btn" id="mypagenbtn">마이페이지</button>
@@ -79,7 +79,7 @@
 
 
 			<button id="topBtn">
-				<img src="/image/icon/topicon.png">
+				<img src="<%=request.getContextPath()%>/image/icon/topicon.png">
 			</button>
 
 			<script>

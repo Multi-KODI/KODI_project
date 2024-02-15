@@ -6,11 +6,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="/css/Nonmember/NonmemberHome.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/Nonmember/NonmemberHome.css">
 <link
 	href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css"
 	rel="stylesheet">
-<script src="/js/jquery-3.7.1.min.js"></script>
+<script src="<%=request.getContextPath()%>/js/jquery-3.7.1.min.js"></script>
 <title>KoDi</title>
 </head>
 <body>
@@ -21,19 +21,19 @@
 
 <div class="menubox">
 	<div class="menubar" id="menubar1">
-	<img class="menuicon" id="pageicon" src="/image/icon/blank-page.png">
+	<img class="menuicon" id="pageicon" src="<%=request.getContextPath()%>/image/icon/blank-page.png">
 	</div>
 	
 	<div class="menubar" id="menubar2">
-	<img class="menuicon" id="mapicon" src="/image/icon/map.png">
+	<img class="menuicon" id="mapicon" src="<%=request.getContextPath()%>/image/icon/map.png">
 	</div>
 	
 	<div class="menubar" id="menubar3">
-	<img class="menuicon" id="palnicon" src="/image/icon/planer.png">
+	<img class="menuicon" id="palnicon" src="<%=request.getContextPath()%>/image/icon/planer.png">
 	</div>
 	
 	<div class="menubar" id="menubar4">
-	<img class="menuicon" id="moneyicon" src="/image/icon/money.png">
+	<img class="menuicon" id="moneyicon" src="<%=request.getContextPath()%>/image/icon/money.png">
 	</div>
 </div>
 

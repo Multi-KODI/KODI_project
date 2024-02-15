@@ -5,11 +5,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="/css/Nonmember/NonmemberSearchHeader.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/Nonmember/NonmemberSearchHeader.css">
 <link
 	href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css"
 	rel="stylesheet">
-<script src="/js/jquery-3.7.1.min.js"></script>
+<script src="<%=request.getContextPath()%>/js/jquery-3.7.1.min.js"></script>
 <title></title>
 </head>
 <body>
@@ -19,7 +19,7 @@
 
 		<div class="logo-box">
 			<a href="/api/nonhome"><img id="logoicon"
-				src="/image/icon/logo.png"></a>
+				src="<%=request.getContextPath()%>/image/icon/logo.png"></a>
 		</div>
 
 		<form action="" method="get" class="input-box">
@@ -31,7 +31,7 @@
 					</select> <input id="searchinput" name="question" placeholder="검색어 입력">
 
 					<button id="searchbtn" type="submit">
-						<img id="searchicon" src="/image/icon/search.png">
+						<img id="searchicon" src="<%=request.getContextPath()%>/image/icon/search.png">
 					</button>
 				</div>
 			</div>

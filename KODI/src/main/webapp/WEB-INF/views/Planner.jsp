@@ -7,16 +7,16 @@
 <html lang="en" dir="ltr">
 <head>
 <title>Planner</title>
-<link rel="stylesheet" href="/css/Planner.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/Planner.css">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link
 href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css"
 rel="stylesheet">
-<script src="/js/jquery-3.7.1.min.js"></script>
+<script src="<%=request.getContextPath()%>/js/jquery-3.7.1.min.js"></script>
 <script type="text/javascript" th:inline="javascript">
 let language = <%=session.getAttribute("language")%>;
 </script>
-<script src="/js/Planner.js" defer></script> 
+<script src="<%=request.getContextPath()%>/js/Planner.js" defer></script> 
 <script>
 if (${isSession}==false){
    	alert("로그인하세요");
@@ -33,8 +33,8 @@ if (${isSession}==false){
 	    <header>
 	       	<p class="current-date"></p>
 	       	<div class="icons">
-	         	<span id="prev" class="material-symbols-rounded"><img class="arrow" src="/image/icon/arrowleft.png"></span>
-	         	<span id="next" class="material-symbols-rounded"><img class="arrow" src="/image/icon/arrowright.png"></span>
+	         	<span id="prev" class="material-symbols-rounded"><img class="arrow" src="<%=request.getContextPath()%>/image/icon/arrowleft.png"></span>
+	         	<span id="next" class="material-symbols-rounded"><img class="arrow" src="<%=request.getContextPath()%>/image/icon/arrowright.png"></span>
 	       	</div>
 	    </header>
 	    <div class="calendar">
@@ -51,7 +51,7 @@ if (${isSession}==false){
 	    </div>
 	   	<div class="modal">
 	   		<div class="pop-modal">
-				<button type="button" class="Btn" id="closePlannerModal" onclick="closePlannerModal()"><img id="closePlannerModalIcon" src="/image/icon/x.png"></button><br>
+				<button type="button" class="Btn" id="closePlannerModal" onclick="closePlannerModal()"><img id="closePlannerModalIcon" src="<%=request.getContextPath()%>/image/icon/x.png"></button><br>
 			<div class="pop-planner">
 			</div>
 	   		</div>
@@ -60,7 +60,7 @@ if (${isSession}==false){
 	</div>
 	<div class="right-side">
 		<div id="checklist">
-		<img id="check-image"src='/image/icon/check.png'>
+		<img id="check-image"src='<%=request.getContextPath()%>/image/icon/check.png'>
 		<label class='left-side-title' id="left-side1">체크리스트</label>
 		<button class="checkListInsertBtn" onclick="makeCheckListModal()">추가</button>
 		<ul class="checkList"></ul>
@@ -76,7 +76,7 @@ if (${isSession}==false){
 		</div>
 		
 		<div id="app">
-		<img id="app-image"src='/image/icon/app.png'>
+		<img id="app-image"src='<%=request.getContextPath()%>/image/icon/app.png'>
 		<label class='left-side-title' id="left-side2">유용한 어플</label>
 		<ul>
 		    <li id="ap1">배달

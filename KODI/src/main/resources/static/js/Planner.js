@@ -306,7 +306,7 @@ function makeCheckList(checkList, idxList) {
 
         var oneLiDelete = document.createElement('img');
         oneLiDelete.className = "'"+idxList[i]+"'";
-        oneLiDelete.src = '/image/icon/x.png';
+        oneLiDelete.src = + '<%=request.getContextPath()%>/image/icon/x.png';
         oneLiDelete.width = 10;
         oneLiDelete.height = 10;
         oneLiDelete.style.cursor = "pointer";

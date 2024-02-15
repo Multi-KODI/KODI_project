@@ -7,10 +7,10 @@
 			<head>
 				<meta charset="UTF-8">
 				<meta name="viewport" content="width=device-width, initial-scale=1.0">
-				<link rel="stylesheet" href="/css/Admin.css">
-				<link rel="stylesheet" href="/css/AdminHeader.css">
+				<link rel="stylesheet" href="<%=request.getContextPath()%>/css/Admin.css">
+				<link rel="stylesheet" href="<%=request.getContextPath()%>/css/AdminHeader.css">
 				<link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css" rel="stylesheet">
-				<script src="/js/jquery-3.7.1.min.js"></script>
+				<script src="<%=request.getContextPath()%>/js/jquery-3.7.1.min.js"></script>
 				<title>KoDi</title>
 			</head>
 
@@ -49,7 +49,7 @@
 				<header>
 					<div class="header-container">
 						<div class="menu">
-							<img src="/image/icon/menu.png" class="icon" id="menubtn">
+							<img src="<%=request.getContextPath()%>/image/icon/menu.png" class="icon" id="menubtn">
 						</div>
 
 						<div class="end-btn">
@@ -73,7 +73,7 @@
 				<div class="main">
 
 					<div class="logo-container">
-						<img src="/image/icon/logo.png" id="KoDi">
+						<img src="<%=request.getContextPath()%>/image/icon/logo.png" id="KoDi">
 					</div>
 
 					<div class="board-box">
@@ -86,7 +86,7 @@
 										<option value="게시글" id="postValue">게시글</option>
 									</select> <input id="searchinput" name="question">
 									<button type="submit" style="border: none; background: none; cursor: pointer;">
-										<img src="/image/icon/search.png" style="margin-right: 10px; height: 20px; width: 20px;">
+										<img src="<%=request.getContextPath()%>/image/icon/search.png" style="margin-right: 10px; height: 20px; width: 20px;">
 									</button>
 								</form>
 							</div>
@@ -143,7 +143,7 @@
 
 
 							<button id="topBtn">
-								<img src="/image/icon/topicon.png">
+								<img src="<%=request.getContextPath()%>/image/icon/topicon.png">
 							</button>
 
 						</div>
@@ -226,7 +226,7 @@
 						});
 					});
 				</script>
-				<script src="/js/AdminScript.js"></script>
+				<script src="<%=request.getContextPath()%>/js/AdminScript.js"></script>
 
 
 

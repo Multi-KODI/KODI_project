@@ -7,8 +7,8 @@
 
 			<head>
 				<meta charset="UTF-8">
-				<link rel="stylesheet" href="/css/Modify.css">
-				<script src="/js/jquery-3.7.1.min.js"></script>
+				<link rel="stylesheet" href="<%=request.getContextPath()%>/css/Modify.css">
+				<script src="<%=request.getContextPath()%>/js/jquery-3.7.1.min.js"></script>
 
 				<title></title>
 
@@ -22,7 +22,7 @@
 
 					<form id="modifyForm">
 						<dlv id="modifyheader">
-							<img id="logo-icon" src="/image/icon/logo.png">
+							<img id="logo-icon" src="<%=request.getContextPath()%>/image/icon/logo.png">
 							<button type="button" id="drawbtn">회원탈퇴</button>
 						</dlv>
 

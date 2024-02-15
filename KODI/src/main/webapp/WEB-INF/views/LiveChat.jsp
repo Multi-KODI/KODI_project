@@ -13,9 +13,9 @@
 
 <title>KoDi</title>
 
-<link href="/css/LiveChat.css" rel="stylesheet">
+<link href="<%=request.getContextPath()%>/css/LiveChat.css" rel="stylesheet">
 
-<script src="/js/jquery-3.7.1.min.js"></script>
+<script src="<%=request.getContextPath()%>/js/jquery-3.7.1.min.js"></script>
 
 </head>
 
@@ -360,7 +360,7 @@
 
 <body>
 	<button id="exitChat" type="button">
-		<img id="exitIcon" src="/image/icon/exit-chat.png" align="center">
+		<img id="exitIcon" src="<%=request.getContextPath()%>/image/icon/exit-chat.png" align="center">
 		<p id="exitMsg">뒤로 가기</p>
 	</button>
 

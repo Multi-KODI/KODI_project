@@ -36,19 +36,11 @@
                     <a href="/api/post/${post.postInfo.postIdx}" class="post-link">
                         <img src="/image/db/noImage.png">
                     </a>
-                    
                 </c:otherwise>
             </c:choose>
-			<%-- <a href="/api/post/${post.postInfo.postIdx}" class="post-link">
-      			<img src="/image/db/${post.postImage}">
-			</a> --%>
      	</div>
      	<div class="firstLine">
      	<div id="title">
-     	<!-- 제목 a태그 대신 label로 수정 -->
-	 		<%-- <a href="/api/post/${post.postInfo.postIdx}" class="post-link" data-title="${post.postInfo.title}" data-content="${post.postInfo.content}">
-		    	${post.postInfo.title}
-		 	</a> --%>
 		 	<label class="post-link" data-title="${post.postInfo.title}" data-content="${post.postInfo.content}" onclick="window.location.href = '/api/post/${post.postInfo.postIdx}';">${post.postInfo.title}</label>
       	</div>
       	<div id="rightSide">

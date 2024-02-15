@@ -45,7 +45,7 @@ $(document).ready(function(){
 	
 	document.getElementById('loginForm').addEventListener('submit', function(event) {
 	  	var email = document.getElementById('inputEmail');
-	  	if (email.value.length==0) { // 예를 들어 최대 100자로 제한
+	  	if (email.value.length==0) { 
 	    	alert(koLanguage ? "아이디를 입력해주세요" : "Please enter your id.");
 	    	event.preventDefault(); // 제출을 막음
 	  	}
@@ -73,7 +73,6 @@ $(document).ready(function(){
 	    });
 
 	    function login() {
-	    	/* 수정1 입력란 비었을 경우 */
 	        if($("#inputEmail").val()==""){
 	            alert(koLanguage ? "이메일을 입력해주세요" : "Please enter your email");
 	        } else if($("#inputPassword").val()==""){

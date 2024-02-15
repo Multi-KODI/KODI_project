@@ -40,7 +40,7 @@ footer {
 <body>
 	<footer style="height: 25px; width: 100%;">
 		<div class="footerBox">
-			<img src="/image/icon/logo.png" alt="KoDi"
+			<img src="<%=request.getContextPath()%>/image/icon/logo.png" alt="KoDi"
 				style="height: 100%; width: auto;"> 
 				<span>© 2024 KoDi_project</span>
 		</div>

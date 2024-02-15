@@ -14,7 +14,14 @@ href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css"
 rel="stylesheet">
 <script src="<%=request.getContextPath()%>/js/jquery-3.7.1.min.js"></script>
 <script type="text/javascript" th:inline="javascript">
-let language = <%=session.getAttribute("language")%>;
+	let language = <%=session.getAttribute("language")%>;
+	let contextPath;
+	
+	if(<%=request.getContextPath().length() == 0%>) {
+		contextPath = "null";
+	} else {
+		contextPath = "<%=request.getContextPath()%>";
+	}	
 </script>
 <script src="<%=request.getContextPath()%>/js/Planner.js" defer></script> 
 <script>

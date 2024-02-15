@@ -77,7 +77,7 @@ public class ModifyPostController {
 		//받아온 파일들 저장
 		MultipartFile file[] = writePostDTO.getImagePost();
 		//이미지 파일들 로컬에 저장
-		String fileDir = "/usr/mydir/image/db/";
+		String fileDir = "/usr/mydir/KODI_project/KODI/src/main/resources/static/image/db";
 		String imagePath = "";
 		
 		//이미지 저장하는 파일 경로에 있는 이미지 이름들 읽어오기

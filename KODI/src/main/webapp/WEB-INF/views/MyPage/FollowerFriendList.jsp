@@ -142,7 +142,7 @@
 
                         // 나를 추가한 유저 수락
                         $("#friendList3").on('click', '#f-acceptBtn', function (e) {
-                            if (confirm(koLanguage ? "친구요청을 수락하시겠습니까?+" : "Would you like to accept this friend request?")) {
+                            if (confirm(koLanguage ? "친구요청을 수락하시겠습니까?" : "Would you like to accept this friend request?")) {
                                 $.ajax({
                                     url: '<%=request.getContextPath()%>/api/follower/accept/' + $(e.target).attr('data-member-idx'),
                                     dataType: 'json',

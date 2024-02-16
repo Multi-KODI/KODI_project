@@ -92,7 +92,7 @@
 									type: 'POST',
 									success: function (response) {
 										alert(koLanguage ? "회원 탈퇴가 완료되었습니다." : "Your membership has been successfully cancelled.");
-										window.location.href = "/";
+										window.location.href = "/api/home";
 									},
 									error: function (error) {
 										alert(koLanguage ? "회원 탈퇴에 실패하였습니다." : "Membership withdrawal failed.");

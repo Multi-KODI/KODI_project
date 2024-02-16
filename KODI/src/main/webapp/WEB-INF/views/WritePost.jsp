@@ -106,6 +106,7 @@ if (${isSession}==false){
 		</div>
 </main>
 </body>
+<%@ include file="/WEB-INF/views/Footer.jsp"%>
 <script>
 $(document).ready(function() {
 	let language = <%=session.getAttribute("language")%>;

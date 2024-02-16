@@ -8,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class ResourceConfig implements WebMvcConfigurer {
 
 	private String connectPath = "/local/image/**";
-	private String resourcePath = "file:///FullStack/\\ud30c\\uc774\\ub110\\u0020\\ud504\\ub85c\\uc81d\\ud2b8/image";
+	private String resourcePath = "file:///usr/mydir/KODI_project/KODI/src/main/resources/static/image/db/";
 
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {

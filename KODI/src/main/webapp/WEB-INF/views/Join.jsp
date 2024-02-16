@@ -97,7 +97,7 @@
 					if ($("#inputEmail").val() === "") {
 						alert(koLanguage ? "이메일을 입력해주세요" : "Please type your email.");
 
-					} else {
+					}else {
 						$.ajax({
 							url: "<%=request.getContextPath()%>/api/email",
 							data: {
@@ -155,7 +155,17 @@
 						var password = document.getElementById('inputPassword');
 						var nickname = document.getElementById('inputNickname');
 						console.log(password.value + ":" + nickname.value + ":" + confirmFlag);
-						if (password.value.length > 20 || password.value.length < 8) { 
+						
+						if($("#inputPassword").val() === ""){
+							alert(koLanguage ? "비밀번호를 입력해주세요" : "Please type your email.");
+							event.preventDefault(); // 제출을 막음
+						}else if($("#inputNickname").val() === ""){
+							alert(koLanguage ? "닉네임을 입력해주세요" : "Please type your nickname.");
+							event.preventDefault(); // 제출을 막음
+						}else if($("#nation").val() === ""){
+							alert(koLanguage ? "국적을 선택해주세요" : "Please select your nationality.");
+							event.preventDefault(); // 제출을 막음
+						}else if (password.value.length > 20 || password.value.length < 8) { 
 							alert((koLanguage ? "비밀번호는 8자리 이상 20자리 이내로 입력해주세요" : "Password should be in 8-20 characters."));
 							event.preventDefault(); // 제출을 막음
 							console.log(password.value);
